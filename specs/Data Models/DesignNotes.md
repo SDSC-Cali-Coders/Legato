@@ -34,3 +34,31 @@ Newer `minor versions` will be pushed from the top of each `Major version` secti
     - `Artist 0.1` 
     - `Artist 0.0` 
     - `Event 0.0`
+
+## Data Models Version 0
+
+Initial set of data models based off the info we decided on during Brainstorming/Stories.
+
+The 3 main document types decided upon during then were Users (for maintining user-related info), Artists, and Events (using the BandsInTown API to update with relevant info for our app)
+
+### User 0.0
+- `profileData: TBD`
+- `linkedSocials: TBD`
+- `friends: [User IDs]`
+- `interestedEvents: [Event IDs]`
+- `goingEvents: [Event IDs]`
+- `subscribedArtists: [Artist IDs]`
+- `isPrivateAccount: Boolean`
+- `outGoingFriendRequests: [User IDs]`
+- `inComingfriendRequests: [User IDs]`
+
+### Artist 0.0
+- `name: String`
+- `upcomingEvents: [Event IDs]`
+- `subscribedUsers: [User IDs]`
+
+### Event 0.0
+- `associatedArtists: [Artist IDs]`
+- `locationDetails: TBD`
+- `interestedUsers: [User IDs]`
+- `goingUsers: [User IDs]`
