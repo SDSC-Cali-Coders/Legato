@@ -35,6 +35,8 @@ Newer `minor versions` will be pushed from the top of each `Major version` secti
     - `Artist 0.0` 
     - `Event 0.0`
 
+---
+
 ## Data Models Version 0
 
 Initial set of data models based off the info we decided on during Brainstorming/Stories.
