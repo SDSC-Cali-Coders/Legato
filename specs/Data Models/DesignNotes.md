@@ -44,6 +44,7 @@ Initial set of data models based off the info we decided on during Brainstorming
 The 3 main document types decided upon during then were Users (for maintining user-related info), Artists, and Events (using the BandsInTown API to update with relevant info for our app)
 
 ### User 0.0
+- `version: 0.0`
 - `profileData: TBD`
 - `linkedSocials: TBD`
 - `friends: [User IDs]`
@@ -55,11 +56,13 @@ The 3 main document types decided upon during then were Users (for maintining us
 - `inComingfriendRequests: [User IDs]`
 
 ### Artist 0.0
+- `version: 0.0`
 - `name: String`
 - `upcomingEvents: [Event IDs]`
 - `subscribedUsers: [User IDs]`
 
 ### Event 0.0
+- `version: 0.0`
 - `associatedArtists: [Artist IDs]`
 - `locationDetails: TBD`
 - `interestedUsers: [User IDs]`
