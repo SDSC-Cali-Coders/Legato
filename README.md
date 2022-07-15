@@ -23,3 +23,23 @@ Checkout the remote branch (git checkout [REMOTE BRANCH NAME])
 FINALLY: If you are done with your feature (including testing if applicable), then you can submit a merge request from your feature branch to main. First push 
 > git push -u origin [BRANCH NAME]
 And then submit a merge request on Gitlab
+
+## File Hierarchy 
+`\`
+- root level of project
+- hosts repository centric files (e.g. gitignore, README)
+
+`frontend`
+- houses frontend related files
+- primarily consists of HTML/CSS 
+- root level of React portion of app 
+
+`backend`
+- houses backend related files
+- primarily consists of JS
+- root level of Express/Node portion of app
+
+`specs`
+- houses design choice related files
+- `Data Models` : details the structure of data that will be used within our app (referenced by backend)
+- `Sketches` : defines layout envisioned for app (referenced by frontend)
