@@ -14,6 +14,15 @@ export default function Login() {
             </section>
 
             <section id="blurb" className='p-4 bg-neutral-light'>
+                <div className="Oswald_regular lead">
+                    <p>See your listening history stats, connect to people with similar tastes, view upcoming concerts, and more.</p>
+                    <p>Log in with your Spotify account to get started.</p>
+                </div>
+                <div className="d-flex justify-content-center">
+                    <button type="button" className="btn btn-success btn-lg btn-block">
+                        <i className="bi bi-spotify"></i> Sign in with Spotify
+                    </button>
+                </div>
             </section>
 
             {/* ToDo:
