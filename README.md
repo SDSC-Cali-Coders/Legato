@@ -19,6 +19,11 @@ before sprint reviews, as it will be the code used for tech demos during
 presentation. For this reason, all code pushed to main is stable and (mostly)
 bug free.
 
+#### <u> Hotfix </u>
+The Hotfix/maintenance branch is used to quickly make changes to the main branch.
+The branch is forked directly off of main, and once a hotfix is complete, a pull
+request should be made to merge this branch directly with main.
+
 #### <u> Develop </u>
 The develop branch is intended to be an integration branch for completed
 features. Once a feature is completed, its associated branch will be merged with
