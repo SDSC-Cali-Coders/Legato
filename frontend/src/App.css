@@ -36,3 +36,52 @@
     transform: rotate(360deg);
   }
 }
+
+/* Sofia curvy font */
+.Sofia_cursive {
+  font-family: 'Sofia', cursive;
+  display: block;
+  padding: .0rem 1rem;
+  color: white;
+  text-decoration: none;
+  margin: 0;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out
+}
+
+/* Oswald regular font */
+.Oswald_regular {
+  font-family: 'Oswald', sans-serif;
+  font-weight: bolder;
+}
+
+/* Oswald light font */
+.Oswald_light {
+  font-family: 'Oswald', sans-serif;
+  font-weight: normal;
+}
+
+/* Neutral background colors */
+.bg-neutral-light {
+  --bs-bg-opacity: 1;
+  background-color: #F2F1EF;
+}
+
+.bg-neutral-body {
+  --bs-bg-opacity: 1;
+  background-color: #697184;
+}
+
+.bg-neutral-dark {
+  --bs-bg-opacity: 1;
+  background-color: #413F3D;
+}
+
+.bg-neutral-secondary {
+  --bs-bg-opacity: 1;
+  background-color: #D8CFD0;
+}
+
+.bg-neutral-primary {
+  --bs-bg-opacity: 1;
+  background-color: #B1A6A4;
+}
