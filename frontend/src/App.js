@@ -1,9 +1,9 @@
 import './App.css';
-import Template from './components/Template';
+import Login from './components/Login';
 
 function App() {
   return (
-    <Template/>
+    <Login/>
   );
 }
 
