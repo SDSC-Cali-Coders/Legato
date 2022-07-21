@@ -48,6 +48,17 @@
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out
 }
 
+.Sofia_cursive:focus,
+.Sofia_cursive:hover {
+  color: white
+}
+
+
+/* Oswald bold font */
+.Oswald_bold {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+}
 /* Oswald regular font */
 .Oswald_regular {
   font-family: 'Oswald', sans-serif;
@@ -85,3 +96,6 @@
   --bs-bg-opacity: 1;
   background-color: #B1A6A4;
 }
+
+/* Add spotify green + red colors! */
+/* Add .text-neutral colors as well */
