@@ -6,9 +6,14 @@ File hierarchy is organized like so:
 
 ```
 \: root hosts files for repo & node package management 
-| public: hosts manifest.json, index.html, and all assets
+| public: antiquated, mainly for hosting the index.html
 | src: 
 |\
-| | components: 
+| | assets:     images and vector grpahics files used in our app
+| | components: reusable React components 
+| | pages:      React components for specific pages kept here
 |
+| App.js:   Top level of the React DOM
+| App.css:  App-specific class selectors are styled here (custom font, colorscheme, etc.)
+| index.js: Interacts with the
 ```
