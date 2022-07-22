@@ -125,3 +125,12 @@
 .bi-lg {
   font-size: 2em;
 }
+
+/* Style for button group on listening history TopCard */
+.button-group:hover{
+  color: white;
+  transition: 0.9s;
+}
+
+
+
