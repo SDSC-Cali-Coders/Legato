@@ -1,7 +1,7 @@
 import React from 'react';
 import Buttons from '../Buttons';
 
-const Topten = {
+const TopTen = {
     Artists: (props) => {
         return (
             <li className="list-group-item d-flex align-items-center bg-neutral-primary">
@@ -52,4 +52,4 @@ const Topten = {
     }
 }
 
-export default Topten;
+export default TopTen;
