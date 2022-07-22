@@ -40,8 +40,15 @@ const TopThree = {
     },
     Genres: (props) => {
         return (
-            <>
-            </>
+            <div className="card text-center bg-light m-3 rounded-4 m-3">
+                <RankBadge rank={props.rank}/>
+                <img src={props.icon} alt="TopGenre icon" className='card-img-top px-5 pt-5'/>
+                <div className="card-body px-5">
+                    <h1 className="card-title">
+                        {props.genre}
+                    </h1>
+                </div>
+            </div>
         );
     }
 }
