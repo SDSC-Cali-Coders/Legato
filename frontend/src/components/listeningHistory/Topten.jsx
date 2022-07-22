@@ -1,4 +1,5 @@
 import React from 'react';
+import Buttons from '../Buttons';
 
 const Topten = {
     Artists: (props) => {
@@ -8,13 +9,15 @@ const Topten = {
                     <img src={props.img} width='40' height='40' className="rounded-circle mx-3 d-block" alt="..." />
                     <div className="fw-bold Oswald_regular">{props.name}</div>
                 </div>
-                {props.isSubscribed
-                    ? <button className="btn btn-danger me-1"> Subscribed -</button>
-                    : <button className="btn btn-success me-1"> Subscribe +</button>
-                }
-                <button className="btn btn-success">
-                    <i className="bi bi-caret-right"></i >
-                </button>
+                <div className="d-flex justify-content-between align-items-center">
+                    {props.isSubscribed
+                        ? <Buttons.Unsubscribe></Buttons.Unsubscribe>
+                        : <Buttons.Subscribe></Buttons.Subscribe>
+                    }
+                    <div className='d-flex align-items-center' style={{ zoom: "0.7" }}>
+                        <Buttons.Play></Buttons.Play>
+                    </div>
+                </div>
             </li>
         );
     },
@@ -28,9 +31,9 @@ const Topten = {
                     <div className="fw_bold Osward_light mx-5">{props.artist}</div>
                 </div>
                 <button className="btn me-1"> Play Preview</button>
-                <button className="btn">
-                    <i className="bi bi-caret-right"></i >
-                </button>
+                <div className='d-flex align-items-center' style={{ zoom: "0.7" }}>
+                    <Buttons.Play></Buttons.Play>
+                </div>
             </li>
         );
     },
@@ -38,9 +41,11 @@ const Topten = {
     Genres: (props) => {
         return (
             <li className="list-group-item d-flex align-items-center bg-neutral-primary">
-                <div className="d-flex flex-row flex-grow-1 align-item-start align-items-center">
-                    <img src={props.img} width='40' height='40' className="rounded-circle mx-3 d-block" alt="..." />
-                    <div className="fw-bold Oswald_regular">{props.genres}</div>
+                <div className={`container-fluid bg-neutral-dark rounded ms-2 w-${props.percentage}`}>
+                    <div className="d-flex flex-row flex-grow-1 align-item-start align-items-center" >
+                        <img src={props.img} width='40' height='40' className="rounded-circle mx-3 d-block" alt="..." />
+                        <div className="fw-bold text-light Oswald_regular">{props.genres}</div>
+                    </div>
                 </div>
             </li>
         );

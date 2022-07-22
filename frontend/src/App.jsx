@@ -24,8 +24,9 @@ function App() {
         <div className="row">
           Top Genres
           <ol className="list-group list-group-numbered Oswald_regular">
-            <Topten.Genres img={"https://freesvg.org/img/RenOliver_Guitar.png"} genres="Rock" />
-            <Topten.Genres img={"https://freesvg.org/img/RenOliver_Guitar.png"} genres="Hip Hop" />
+            <Topten.Genres img={"https://freesvg.org/img/RenOliver_Guitar.png"} genres="Rock" percentage="75"/>
+            <Topten.Genres img={"https://freesvg.org/img/RenOliver_Guitar.png"} genres="Hip Hop" percentage="50"/>
+            <Topten.Genres img={"https://freesvg.org/img/RenOliver_Guitar.png"} genres="Indie/Alternative" percentage="25"/>
           </ol>
         </div>
       </div>
