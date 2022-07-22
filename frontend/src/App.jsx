@@ -10,7 +10,7 @@ function App() {
         <div className="row">
           <div className="col">
             {/* <img src={artistImg} alt="" /> */}
-            <TopThree.Artists img={artistImg} name="The Police" isSubscribed={false}/>
+            <TopThree.Artists img={artistImg} name="The Police" isSubscribed={false} rank={1}/>
           </div>
           <div className="col"></div>
           <div className="col"></div>
