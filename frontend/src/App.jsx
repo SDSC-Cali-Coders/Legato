@@ -1,34 +1,33 @@
 import './App.css';
 import Login from './pages/Login';
-import TopThree from './components/listeningHistory/TopThree';
-import artistImg from './assets/ThePolice.jpg';
-import albumImg from './assets/SimpleMindsAlbum.jpg';
-import genreIcon from './assets/genre-country.svg';
+import Navbar from './components/Navbar';
+import Topten from './components/listeningHistory/Topten';
 
 function App() {
   return (
     <>
       <div className="container">
         <div className="row">
-          <div className="col">
-            <TopThree.Artists img={artistImg} name="The Police" isSubscribed={false} rank={1}/>
-          </div>
-          <div className="col"></div>
-          <div className="col"></div>
+          Top Artists
+          <ol className="list-group list-group-numbered Oswald_regular">
+            <Topten.Artists img={"https://m.media-amazon.com/images/I/71dH+0zG+2L._SL1285_.jpg"} name="The Police" isSubscribed={true} />
+            <Topten.Artists img={"https://m.media-amazon.com/images/I/41D1G3VGYQL.jpg"} name="Alex Fox" isSubscribed={false} />
+          </ol>
         </div>
         <div className="row">
-          <div className="col">
-            <TopThree.Tracks img={albumImg} rank={1}/>
-          </div>
-          <div className="col"></div>
-          <div className="col"></div>
+          Top Tracks
+          <ol className="list-group list-group-numbered Oswald_regular">
+            <Topten.Tracks img={"https://images-na.ssl-images-amazon.com/images/I/51HmFnni6zS._SX331_BO1,204,203,200_.jpg"} name="Don't You (Forget About Me)" artist="Simple Minds" />
+            <Topten.Tracks img={"https://static.timesofisrael.com/www/uploads/2018/09/bangles-e1538166917618.png"} name="Walk Like An Egyptian" artist="The Bangles" />
+          </ol>
         </div>
         <div className="row">
-          <div className="col">
-            <TopThree.Genres icon={genreIcon} genre={'Country'} rank={1}/>
-          </div>
-          <div className="col"></div>
-          <div className="col"></div>
+          Top Genres
+          <ol className="list-group list-group-numbered Oswald_regular">
+            <Topten.Genres img={"https://freesvg.org/img/RenOliver_Guitar.png"} genres="Rock" percentage="75"/>
+            <Topten.Genres img={"https://freesvg.org/img/RenOliver_Guitar.png"} genres="Hip Hop" percentage="50"/>
+            <Topten.Genres img={"https://freesvg.org/img/RenOliver_Guitar.png"} genres="Indie/Alternative" percentage="25"/>
+          </ol>
         </div>
       </div>
     </>
