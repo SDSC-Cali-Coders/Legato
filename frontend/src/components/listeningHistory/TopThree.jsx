@@ -12,7 +12,7 @@ const RankBadge = (props) => {
 const TopThree = {
     Artists: (props) => {
         return (
-            <div className="card text-center bg-dark text-light m-3 position-relative">
+            <div className="card text-center bg-dark text-light m-3 rounded-4">
                 <RankBadge rank={props.rank}/>
                 <img src={props.img} alt="TopArtist img" className='card-img-top px-5 pt-5' />
                 <div className="card-body px-5">
@@ -32,8 +32,10 @@ const TopThree = {
     },
     Tracks: (props) => {
         return (
-            <>
-            </>
+            <div className="card rounded-4 m-3">
+                <RankBadge rank={props.rank}/>
+                <img src={props.img} alt="TopTracks img" className='card-img-top rounded-4' />
+            </div>
         );
     },
     Genres: (props) => {
