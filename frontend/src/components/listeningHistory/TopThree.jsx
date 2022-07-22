@@ -2,19 +2,22 @@ import React from 'react';
 
 const TopThree = {
     Artists: (props) => {
-        return 
-        <>
-        </>
+        return (
+            <>
+            </>
+        );
     },
     Tracks: (props) => {
-        return 
-        <>
-        </>
+        return (
+            <>
+            </>
+        );
     },
     Genres: (props) => {
-        return 
-        <>
-        </>
+        return (
+            <>
+            </>
+        );
     }
 }
 
