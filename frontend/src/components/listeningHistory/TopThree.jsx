@@ -14,6 +14,7 @@ const TopThree = {
         return (
             <div className="card text-center bg-dark text-light m-3 rounded-4">
                 <RankBadge rank={props.rank}/>
+
                 <img src={props.img} alt="TopArtist img" className='card-img-top px-5 pt-5' />
                 <div className="card-body px-5">
                     <h3 className="card-title">
@@ -32,16 +33,18 @@ const TopThree = {
     },
     Tracks: (props) => {
         return (
-            <div className="card rounded-4 m-3">
+            <div className="card m-3 rounded-4">
                 <RankBadge rank={props.rank}/>
-                <img src={props.img} alt="TopTracks img" className='card-img-top rounded-4' />
+
+                <img src={props.img} alt="TopTracks img" className='card-img-top rounded-4 img-fluid' />
             </div>
         );
     },
     Genres: (props) => {
         return (
-            <div className="card text-center bg-light m-3 rounded-4 m-3">
+            <div className="card text-center bg-light m-3 rounded-4">
                 <RankBadge rank={props.rank}/>
+
                 <img src={props.icon} alt="TopGenre icon" className='card-img-top px-5 pt-5'/>
                 <div className="card-body px-5">
                     <h1 className="card-title">
