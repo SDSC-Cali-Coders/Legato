@@ -2,6 +2,8 @@ import './App.css';
 import Login from './pages/Login';
 import TopThree from './components/listeningHistory/TopThree';
 import artistImg from './assets/ThePolice.jpg';
+import albumImg from './assets/SimpleMindsAlbum.jpg';
+import genreIcon from './assets/genre-country.svg';
 
 function App() {
   return (
@@ -9,7 +11,6 @@ function App() {
       <div className="container">
         <div className="row">
           <div className="col">
-            {/* <img src={artistImg} alt="" /> */}
             <TopThree.Artists img={artistImg} name="The Police" isSubscribed={false} rank={1}/>
           </div>
           <div className="col"></div>
@@ -17,16 +18,14 @@ function App() {
         </div>
         <div className="row">
           <div className="col">
-            TopThree Tracks component here
-            <TopThree.Tracks/>
+            <TopThree.Tracks img={albumImg} rank={1}/>
           </div>
           <div className="col"></div>
           <div className="col"></div>
         </div>
         <div className="row">
           <div className="col">
-            TopThree Genres component here
-            <TopThree.Genres/>
+            <TopThree.Genres icon={genreIcon} genre={'Country'} rank={1}/>
           </div>
           <div className="col"></div>
           <div className="col"></div>
