@@ -3,14 +3,14 @@ import React from 'react';
 const Buttons = {
     Subscribe: () => {
         return (
-        <button className="btn btn-success px-4 py-0" type="button" >
+        <button className="btn btn-success px-4 py-0 d-flex align-items-center" type="button" >
             Subscribe
             <i className="bi bi-plus-lg ps-4"></i>
         </button>);
     },
     Unsubscribe: () => {
         return (
-        <button className="btn btn-danger px-4 py-0" type="button">
+        <button className="btn btn-danger px-4 py-0 d-flex align-items-center" type="button">
             Subscribed
             <i className="bi bi-dash-lg ps-3"></i>
         </button>
