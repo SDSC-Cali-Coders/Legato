@@ -22,7 +22,7 @@ const TopThree = {
                     </h3>
                     <div className="d-flex justify-content-between align-items-center">
                         {props.isSubscribed
-                            ? <Buttons.Unsubscribe className='my-4' />
+                            ? <Buttons.Unsubscribe/>
                             : <Buttons.Subscribe />
                         }
                         <Buttons.Play />
@@ -36,7 +36,7 @@ const TopThree = {
             <div className="card m-3 rounded-4">
                 <RankBadge rank={props.rank}/>
 
-                <img src={props.img} alt="TopTracks img" className='card-img-top rounded-4 img-fluid' />
+                <img src={props.img} alt="TopTracks img" className='card-img-top rounded-4'/>
             </div>
         );
     },
