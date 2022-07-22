@@ -99,3 +99,29 @@
 
 /* Add spotify green + red colors! */
 /* Add .text-neutral colors as well */
+
+/* Additional button styling */
+.btn-align {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-colored {
+  width: 10rem;
+}
+.btn-follow {
+  width: 15rem;
+}
+
+/* Special styling for btn-play (uniquely shaped) */
+.btn-play:hover {
+  opacity: 0.5;
+}
+.btn-play:active {
+  opacity: 1;
+}
+
+/* Icon resizing via "em" */
+.bi-lg {
+  font-size: 2em;
+}
