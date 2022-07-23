@@ -1,6 +1,28 @@
 import React from "react";
+import TopThree from "./TopThree";
+import TopTen from "./TopTen";
 
 export default function TopCard(props) {
+  let TopThreeCards = [<></>, <></>, <></>];
+
+  switch (props.selection) {
+    case 'Artists': 
+      props.topThreeList.forEach((item, index) => {
+        TopThreeCards[index] = <TopThree.Artists rank={item.rank} img={item.img} name={item.name} isSubscribed={item.isSubscribed}/>;
+      });
+      break;
+    case 'Tracks': 
+      props.topThreeList.forEach((item, index) => {
+        TopThreeCards[index] = <TopThree.Tracks rank={item.rank} img={item.img}/>;
+      });
+      break;
+    case 'Genres':
+      props.topThreeList.forEach((item, index) => {
+        TopThreeCards[index] = <TopThree.Genres rank={item.rank} icon={item.icon} genre={item.genre}/>;
+      });
+      break;
+  }
+
   return (
     <>
       <div className="square p-5 m-5 bg-neutral-primary border border-dark">
@@ -59,7 +81,6 @@ export default function TopCard(props) {
                   </label>
                 </div>
               </div>
-
               <h1>Top {props.selection}</h1>
             </span>
           </section>
@@ -69,33 +90,9 @@ export default function TopCard(props) {
             <div className="container-fluid">
               <div className="row">
                 <div className="col-4">
-                  <div className="card">
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                  </div>
-                  <br />
-                  <div className="card">
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                  </div>
-                  <br />
-                  <div className="card">
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                  </div>
-                  <br />
+                  {TopThreeCards[0]}
+                  {TopThreeCards[1]}
+                  {TopThreeCards[2]}
                 </div>
 
                 <div className="col-8">
