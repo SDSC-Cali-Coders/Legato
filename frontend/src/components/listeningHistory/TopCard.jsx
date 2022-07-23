@@ -3,7 +3,7 @@ import TopThree from "./TopThree";
 import TopTen from "./TopTen";
 
 export default function TopCard(props) {
-  let TopThreeCards = [<></>, <></>, <></>];
+  let TopThreeCards = new Array(3);
 
   switch (props.selection) {
     case 'Artists': 
@@ -89,13 +89,13 @@ export default function TopCard(props) {
           <section>
             <div className="container-fluid">
               <div className="row">
-                <div className="col-4">
+                <div className="col-3">
                   {TopThreeCards[0]}
                   {TopThreeCards[1]}
                   {TopThreeCards[2]}
                 </div>
 
-                <div className="col-8">
+                <div className="col-9">
                   <div className="card">
                     <br />
                     <br />
