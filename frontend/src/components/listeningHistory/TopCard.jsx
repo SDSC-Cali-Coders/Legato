@@ -4,24 +4,43 @@ import TopTen from "./TopTen";
 
 export default function TopCard(props) {
   let TopThreeCards = new Array(3);
+  let TopTenList = new Array(10);
 
+  // Handle TopThree & TopTen logic here (based off selection)
+  // Run a foreach through the topThreeList topTenList property to fill in with pertinent info
   switch (props.selection) {
     case 'Artists': 
       props.topThreeList.forEach((item, index) => {
         TopThreeCards[index] = <TopThree.Artists rank={item.rank} img={item.img} name={item.name} isSubscribed={item.isSubscribed}/>;
       });
+
+      props.topTenList.forEach((item, index) => {
+        TopTenList[index] = <TopTen.Artists img={item.img} name={item.name} isSubscribed={item.isSubscribed}/>;
+      });
+
       break;
     case 'Tracks': 
       props.topThreeList.forEach((item, index) => {
         TopThreeCards[index] = <TopThree.Tracks rank={item.rank} img={item.img}/>;
       });
+
+      props.topTenList.forEach((item, index) => {
+        TopTenList[index] = <TopTen.Tracks img={item.img} name={item.name} artist={item.artist}/>;
+      });
+
       break;
     case 'Genres':
       props.topThreeList.forEach((item, index) => {
         TopThreeCards[index] = <TopThree.Genres rank={item.rank} icon={item.icon} genre={item.genre}/>;
       });
+
+      props.topTenList.forEach((item, index) => {
+        TopTenList[index] = <TopTen.Genres icon={item.icon} genre={item.genre}/>;
+      });
+
       break;
   }
+
 
   return (
     <>
@@ -97,26 +116,18 @@ export default function TopCard(props) {
 
                 <div className="col-9">
                   <div className="card">
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
+                    <ol className="list-group list-group-numbered Oswald_regular">
+                      {TopTenList[0]}
+                      {TopTenList[1]}
+                      {TopTenList[2]}
+                      {TopTenList[3]}
+                      {TopTenList[4]}
+                      {TopTenList[5]}
+                      {TopTenList[6]}
+                      {TopTenList[7]}
+                      {TopTenList[8]}
+                      {TopTenList[9]}
+                    </ol>
                   </div>
                 </div>
               </div>
