@@ -4,7 +4,7 @@ import artistImg from '../assets/ThePolice.jpg';
 import albumImg from '../assets/SimpleMindsAlbum.jpg';
 import genreIcon from '../assets/genre-country.svg';
 
-const ListeningHistory = () => {
+const ListeningHistory = (props) => {
     return (
         <>
         <TopCard selection="Artists" topThreeList={[

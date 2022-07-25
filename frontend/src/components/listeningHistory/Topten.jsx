@@ -43,8 +43,8 @@ const TopTen = {
             <li className="list-group-item d-flex align-items-center bg-neutral-primary">
                 <div className={`container-fluid bg-neutral-dark rounded ms-2 w-${props.percentage}`}>
                     <div className="d-flex flex-row flex-grow-1 align-item-start align-items-center" >
-                        <img src={props.img} width='40' height='40' className="rounded-circle mx-3 d-block" alt="..." />
-                        <div className="fw-bold text-light Oswald_regular">{props.genres}</div>
+                        <img src={props.icon} width='40' height='40' className="rounded-circle mx-3 d-block" alt="..." />
+                        <div className="fw-bold text-light Oswald_regular">{props.genre}</div>
                     </div>
                 </div>
             </li>
