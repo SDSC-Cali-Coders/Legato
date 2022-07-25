@@ -1,6 +1,6 @@
 import React from "react";
 import TopThree from "./TopThree";
-import TopTen from "./TopTen";
+import TopTen from "./Topten";
 
 export default function TopCard(props) {
   let TopThreeCards = new Array(3);
@@ -35,7 +35,7 @@ export default function TopCard(props) {
       });
 
       props.topTenList.forEach((item, index) => {
-        TopTenList[index] = <TopTen.Genres icon={item.icon} genre={item.genre}/>;
+        TopTenList[index] = <TopTen.Genres icon={item.icon} genre={item.genre} percentage={"75"}/>;
       });
 
       break;
