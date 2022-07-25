@@ -24,7 +24,10 @@ export default function Login() {
                     <p>Log in with your Spotify account to get started.</p>
                 </div>
                 <div className="d-flex justify-content-center">
-                    <button type="button" className="btn btn-success btn-lg btn-block">
+                    <button type="button" className="btn btn-success btn-lg btn-block" onClick={(e) => {
+                        e.preventDefault();
+                        window.location.href="http://localhost:27017/login";
+                    }}>
                         <i className="bi bi-spotify"></i> Sign in with Spotify
                     </button>
                 </div>
