@@ -1,7 +1,7 @@
 import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 
-const Dropdown_Menu = {
+const DropdownMenu = {
   Radius: () => {
     return (
       <Dropdown className="bg-neutral-body rounded text-white Oswald_regular">
@@ -25,7 +25,7 @@ const Dropdown_Menu = {
       </Dropdown>
     );
   },
-  Concert_Sort_By: () => {
+  ConcertSortBy: () => {
     return (
       <Dropdown className="bg-neutral-body rounded text-white Oswald_regular">
         <Dropdown.Toggle
@@ -45,7 +45,7 @@ const Dropdown_Menu = {
       </Dropdown>
     );
   },
-  Find_Friends_Sort_By: () => {
+  FindFriendsSortBy: () => {
     return (
       <Dropdown className="bg-neutral-body rounded text-white Oswald_regular">
         <Dropdown.Toggle
@@ -67,4 +67,4 @@ const Dropdown_Menu = {
   },
 };
 
-export default Dropdown_Menu;
+export default DropdownMenu;
