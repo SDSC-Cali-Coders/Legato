@@ -75,9 +75,4 @@ const NotificationCard = {
 };
 
 
-NotificationCard.propTypes = {
-
-};
-
-
 export default NotificationCard;
