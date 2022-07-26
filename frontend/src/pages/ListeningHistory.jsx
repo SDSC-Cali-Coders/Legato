@@ -3,7 +3,6 @@ import TopCard from '../components/listeningHistory/TopCard';
 
 const ListeningHistory = (props) => {
     let TopCards = new Array(3);
-
     TopCards[1] = <TopCard selection='Tracks'
         topThreeList={props.Tracks.topThreeList}
         topTenList={props.Tracks.topTenList} />
