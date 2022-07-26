@@ -16,9 +16,9 @@ const Buttons = {
         </button>
         );
     },
-    Play: () => {
+    Play: (props) => {
         return (
-        <button className='btn-play border-0 bg-transparent text-success fs-1' type='button' >
+        <button className={`btn-play border-0 bg-transparent ${props.isGreen ? 'text-success' : 'text-dark'} fs-1`} type='button' >
             <i className="bi bi-caret-right-fill"></i>
         </button>
         );

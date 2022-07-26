@@ -1,10 +1,16 @@
 import './App.css';
-import UserCard from './components/UserCard';
 import Navbar from './components/Navbar';
-import ListeningHistory from './pages/ListeningHistory';
+
+// import ConcertResults from "./components/ConcertResults";
+// import ListeningHistory from './pages/ListeningHistory';
+// import Login from "./pages/Login";
+// import DropdownMenu from "./components/DropdownMenu";
+// import Searchbar from "./components/Searchbar";
+
+import UserCard from './components/UserCard';
 import defProfileIcon from './assets/pfpIcon.svg';
 
-function App(props) {
+function App() {
   return (
     <>
       {props.isLoggedIn && <Navbar/>}
@@ -33,7 +39,24 @@ function App(props) {
             <UserCard img={defProfileIcon} name="Jane Doe" mutualNumber="5" type="Friends"></UserCard>
           </div>
         </div>
+      {/* </div>
+      <div className="d-flex m-5 justify-content-between align-items-center">
+        <ConcertResults.ConcertResultsCard />{" "} */}
+      {/* </div>
+      <div className="m-5 justify-content-between align-items-center">
+        <Searchbar.ConcertSearchbar />
+        <br />
+        <Searchbar.ArtistSearchbar />
+        <br />
+        <Searchbar.FindFriendsSearchbar />
+        <br /> */}
+        {/* <DropdownMenu.Radius />
+        <br/>
+        <DropdownMenu.ConcertSortBy />
+        <br/>
+        <DropdownMenu.FindFriendsSortBy /> */}
       </div>
+
     </>
   );
 }
