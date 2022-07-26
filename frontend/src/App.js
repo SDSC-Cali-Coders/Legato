@@ -6,11 +6,11 @@ function App() {
   return (
     <>
       <div className=" m-5 justify-content-between align-items-center">
-        <Searchbar.Concert_Searchbar />
+        <Searchbar.ConcertSearchbar />
         <br />
-        <Searchbar.Artist_Searchbar />
+        <Searchbar.ArtistSearchbar />
         <br />
-        <Searchbar.Find_Friends_Searchbar />
+        <Searchbar.FindFriendsSearchbar />
         <br />
       </div>
     </>

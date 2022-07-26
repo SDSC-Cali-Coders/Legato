@@ -1,7 +1,7 @@
 import React from "react";
 
 const Searchbar = {
-  Concert_Searchbar: () => {
+  ConcertSearchbar: () => {
     return (
         <div className="input-group mb-3">
           <div className="input-group-prepend">
@@ -23,7 +23,7 @@ const Searchbar = {
     );
   },
 
-  Artist_Searchbar: () => {
+  ArtistSearchbar: () => {
     return (
         <div className="input-group mb-3">
         <div className="input-group-prepend">
@@ -45,7 +45,7 @@ const Searchbar = {
     );
   },
 
-  Find_Friends_Searchbar: () => {
+  FindFriendsSearchbar: () => {
     return (
         <div className="input-group mb-3">
         <div className="input-group-prepend">
