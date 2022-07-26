@@ -1,5 +1,6 @@
 import './App.css';
 import Navbar from './components/Navbar';
+import artistImg from './assets/ThePolice.jpg';
 
 // import ListeningHistory from './pages/ListeningHistory';
 // function App(props) {
@@ -16,7 +17,7 @@ function App(props) {
   return (
     <>
       {props.isLoggedIn && <Navbar/>}
-      <SearchView/>
+      <SearchView img={artistImg} name="The Police" genre="Rock" isSubscribed={true}/>
     </>
   );
 }
