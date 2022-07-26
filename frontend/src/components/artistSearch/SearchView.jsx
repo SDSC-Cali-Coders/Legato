@@ -52,7 +52,7 @@ const SearchView = (props) => {
                     </div>
                 </div>
                 <div className="row bg-primary">
-                    <ol className="list-group list-group-numbered gx-3">
+                    <ol className="list-group gx-3">
                         <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
                         <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
                         <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
