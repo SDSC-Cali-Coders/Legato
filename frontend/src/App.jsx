@@ -1,12 +1,12 @@
-import './App.css';
-import Navbar from './components/Navbar';
-import ListeningHistory from './pages/ListeningHistory';
+import "./App.css";
+import ConcertResults from "./components/ConcertResults";
 
 function App(props) {
   return (
     <>
-      {props.isLoggedIn && <Navbar/>}
-      <ListeningHistory/>
+      <div className="d-flex m-5 justify-content-between align-items-center">
+        <ConcertResults.ConcertResultsCard />{" "}
+      </div>
     </>
   );
 }
