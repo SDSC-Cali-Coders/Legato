@@ -7,7 +7,7 @@ import Buttons from '../Buttons';
 // [img]..[Artist Name]....[Genre: genre]..........[subscribe + play btn group]
 const ArtistResult = (props) => {
     return (
-        <li className="list-group-item d-flex align-item-center bg-neutral-primary">
+        <li className="list-group-item d-flex align-item-center bg-primary border-end-0 border-start-0">
             <div className="col-1 mx-3">
                 <img className='img-fluid' src={props.img} alt="ArtistResult img"/>
             </div>
@@ -38,16 +38,30 @@ const SearchView = (props) => {
 
                 <ol> of <ArtistResult/> components
             */}
-            <div className="container align-items-center">
-                <ol className="list-group list-group-numbered Oswald_regular">
-                    <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-                    <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-                    <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-                    <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-                    <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-                    <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-                    <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-                </ol>
+            <div className="container align-items-center Oswald_regular p-2">
+                <div className="row mb-3">
+                    <span className="placeholder placeholder-lg col-12"/>
+                </div>
+
+                <div className="row text-center justify-content-end">
+                    <div className="btn col-2 bg-light align-self-end fw-bold mx-2">
+                        Subscribed Artists
+                    </div>
+                    <div className="btn col-2 bg-primary align-self-end fw-bold">
+                        New Artists
+                    </div>
+                </div>
+                <div className="row bg-primary">
+                    <ol className="list-group list-group-numbered gx-3">
+                        <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
+                        <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
+                        <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
+                        <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
+                        <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
+                        <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
+                        <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
+                    </ol>
+                </div>
             </div>
         </>
     );
