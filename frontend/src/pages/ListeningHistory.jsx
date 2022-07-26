@@ -1,7 +1,7 @@
 import React from 'react';
 import TopCard from '../components/listeningHistory/TopCard';
-import artistImg from '../assets/ThePolice.jpg';
-// import albumImg from '../assets/SimpleMindsAlbum.jpg';
+//import artistImg from '../assets/ThePolice.jpg';
+import albumImg from '../assets/SimpleMindsAlbum.jpg';
 import genreIcon from '../assets/genre-country.svg';
 
 const ListeningHistory = (props) => {
@@ -10,6 +10,10 @@ const ListeningHistory = (props) => {
     TopCards[1] = <TopCard selection= 'Tracks'
     topThreeList={props.Tracks.topThreeList} 
     topTenList={props.Tracks.topTenList}/>
+    let selection = 'Artists';
+    TopCards[0] = <TopCard selection={selection} 
+    topThreeList={props.Artists.topThreeList} 
+    topTenList={props.Artists.topTenList}/>
 
     // Can be 'turned on' once all branches are finished
     // ['Artists', 'Tracks', 'Genres'].forEach((selection, index) => {
@@ -18,9 +22,9 @@ const ListeningHistory = (props) => {
 
     return (
         <>
-        {/* Use filler data until props.Artists data is available */}
-        {/* {TopCards[0]} */}
-        <TopCard selection="Artists" topThreeList={[
+        {/* Use props.Artists data instead of filler data */}
+        {TopCards[0]} 
+        {/* <TopCard selection="Artists" topThreeList={[
             {rank: 1, img: artistImg, name: 'The Police', isSubscribed: false }, 
             {rank: 2, img: artistImg, name: 'The Police', isSubscribed: false }, 
             {rank: 3, img: artistImg, name: 'The Police', isSubscribed: false } 
