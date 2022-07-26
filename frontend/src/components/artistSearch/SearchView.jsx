@@ -11,10 +11,10 @@ const ArtistResult = (props) => {
             <div className="col-1 mx-3">
                 <img className='img-fluid' src={props.img} alt="ArtistResult img"/>
             </div>
-            <div className="col align-self-center fs-3"> 
+            <div className="col align-self-center fs-3 text-nowrap text-truncate p-3"> 
                 {props.name}
             </div>
-            <div className="col align-self-center fs-4"> 
+            <div className="col align-self-center fs-4 text-nowrap text-truncate p-3"> 
                 Genre: {props.genre}
             </div>
             <div className="col-2 align-self-center d-flex justify-content-between align-items-center">
