@@ -138,6 +138,26 @@
   transition: 0.9s;
 }
 
+/* Additional styling for ConcertResults */
+.container {
+  text-align: left;
+  padding: none;
+  margin: none;
+  background-color: #B1A6A4;
+}
+
+.concertResultsBtn:hover, .concertResultsBtn:active, .concertResultsBtn:focus {
+  background-color: #B1A6A4 !important;
+  transition: 0.2s;
+  border: #B1A6A4;
+}
+
+.triangleBtnSection{
+  background-color: #B1A6A4 !important;
+  transition: 0.2s;
+  border: none;
+  
+}
 /* Additional styling for dropdown menus */
 .dropdown-menu > li > a:hover {
   background-color: #697184;
