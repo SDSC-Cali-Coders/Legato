@@ -5,11 +5,14 @@ import DropdownMenu from "./components/DropdownMenu";
 function App() {
   return (
     <>
-      <div className="d-flex m-5 justify-content-between align-items-center">
+      <div className="m-5 justify-content-between align-items-center">
         <DropdownMenu.Radius />
+        <br/>
         <DropdownMenu.ConcertSortBy />
+        <br/>
         <DropdownMenu.FindFriendsSortBy />
       </div>
+
     </>
   );
 }

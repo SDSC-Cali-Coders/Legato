@@ -55,10 +55,16 @@
 }
 
 /* Oswald bold font */
+.Oswald_less_bold {
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+}
+
 .Oswald_bold {
   font-family: "Oswald", sans-serif;
   font-weight: 700;
 }
+
 /* Oswald regular font */
 .Oswald_regular {
   font-family: "Oswald", sans-serif;
@@ -100,13 +106,6 @@
 /* Add spotify green + red colors! */
 /* Add .text-neutral colors as well */
 
-/* Dropdown menu hover over option coloring */
-.dropdown .dropdown-menu .dropdown-item:active,
-.dropdown .dropdown-menu .dropdown-item:hover {
-  background-color: #697184 !important;
-  transition: 0.2s;
-
-}
 /* Additional button styling */
 .btn-align {
   display: flex;
@@ -139,5 +138,11 @@
   transition: 0.9s;
 }
 
+/* Additional styling for dropdown menus */
+.dropdown-menu > li > a:hover {
+  background-color: #697184;
+}
 
-
+.dropdown > button:hover {
+  background-color: #697184;
+}
