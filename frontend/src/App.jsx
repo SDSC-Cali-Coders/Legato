@@ -168,7 +168,6 @@ function App(props) {
     }
   }
   
-
   if (recGenres != null) {
     genresObject = {
       selection: "Genres",
