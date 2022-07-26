@@ -8,19 +8,21 @@ import Buttons from '../Buttons';
 const ArtistResult = (props) => {
     return (
         <li className="list-group-item d-flex align-item-center bg-neutral-primary">
-            <div className="col-1">
+            <div className="col-1 mx-3">
                 <img className='img-fluid' src={props.img} alt="ArtistResult img"/>
             </div>
-            <div className="d-flex align-item-start align-item-center justify-content-between w-100">
-                <div className="align-self-center fw-bold Oswald_regular bg-light bf">{props.name}</div>
-                <div className="align-self-center fw-bold Oswald_regular bg-warning">{`Genre: ${props.genre}`}</div>
-                <div className="d-flex justify-content-between align-items-center">
-                    {props.isSubscribed
-                        ? <Buttons.Unsubscribe />
-                        : <Buttons.Subscribe/>
-                    }
-                    <Buttons.Play/>
-                </div>
+            <div className="col align-self-center fs-3"> 
+                {props.name}
+            </div>
+            <div className="col align-self-center fs-4"> 
+                Genre: {props.genre}
+            </div>
+            <div className="col-2 align-self-center d-flex justify-content-between align-items-center">
+                {props.isSubscribed
+                    ? <Buttons.Unsubscribe />
+                    : <Buttons.Subscribe/>
+                }
+                <Buttons.Play/>
             </div>
         </li>
     );
@@ -29,15 +31,6 @@ const ArtistResult = (props) => {
 const SearchView = (props) => {
     return (
         <>
-            <ol className="list-group list-group-numbered Oswald_regular">
-                <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-                <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-                <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-                <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-                <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-                <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-                <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-            </ol>
         {/* Basic Layout
                 <SearchBar.Long/> [placeholder for now]
 
@@ -45,6 +38,17 @@ const SearchView = (props) => {
 
                 <ol> of <ArtistResult/> components
             */}
+            <div className="container align-items-center">
+                <ol className="list-group list-group-numbered Oswald_regular">
+                    <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
+                    <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
+                    <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
+                    <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
+                    <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
+                    <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
+                    <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
+                </ol>
+            </div>
         </>
     );
 }
