@@ -7,8 +7,13 @@ import genreIcon from '../assets/genre-country.svg';
 const ListeningHistory = (props) => {
     let TopCards = new Array(3);
 
+    TopCards[1] = <TopCard selection= 'Tracks'
+    topThreeList={props.Tracks.topThreeList} 
+    topTenList={props.Tracks.topTenList}/>
     let selection = 'Artists';
-    TopCards[0] = <TopCard selection={selection} topThreeList={props.Artists.topThreeList} topTenList={props.Artists.topTenList}/>
+    TopCards[0] = <TopCard selection={selection} 
+    topThreeList={props.Artists.topThreeList} 
+    topTenList={props.Artists.topTenList}/>
 
     // Can be 'turned on' once all branches are finished
     // ['Artists', 'Tracks', 'Genres'].forEach((selection, index) => {
@@ -34,11 +39,11 @@ const ListeningHistory = (props) => {
             {img: artistImg, name: 'The Police', isSubscribed: false },
             {img: artistImg, name: 'The Police', isSubscribed: false },
             {img: artistImg, name: 'The Police', isSubscribed: false }
-        ]}/> */}
+        ]}/>
 
-        {/* Use filler data until props.Tracks data is available */}
-        {/* TopCards[1] */}
-        <TopCard selection="Tracks" topThreeList={[
+        {/* Use the props.Tracks data instead of filler data*/}
+        {TopCards[1]}
+        {/* <TopCard selection="Tracks" topThreeList={[
             {rank: 1, img: albumImg},
             {rank: 2, img: albumImg},
             {rank: 3, img: albumImg}
@@ -53,7 +58,7 @@ const ListeningHistory = (props) => {
             {img: albumImg, name: 'Man in a Suitcase', artist: 'The Police'},
             {img: albumImg, name: 'Man in a Suitcase', artist: 'The Police'},
             {img: albumImg, name: 'Man in a Suitcase', artist: 'The Police'}
-        ]}/>
+        ]}/> */}
 
         {/* Use filler data until props.Genres data is available */}
         {/* {TopCards[2]} */}
