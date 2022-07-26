@@ -24,7 +24,7 @@ const ConcertResults = {
             </button>
             <button className="triangleBtnSection bg-neutral-primary">
               <div className="triangleBtn">
-                <Buttons.DarkPlay />
+                <Buttons.Play isGreen={false}/>
               </div>
             </button>
           </div>

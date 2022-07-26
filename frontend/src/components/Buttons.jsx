@@ -16,22 +16,13 @@ const Buttons = {
         </button>
         );
     },
-    GreenPlay: () => {
+    Play: (props) => {
         return (
-        <button className='btn-play border-0 bg-transparent text-success fs-1' type='button' >
+        <button className={`btn-play border-0 bg-transparent ${props.isGreen ? 'text-success' : 'text-dark'} fs-1`} type='button' >
             <i className="bi bi-caret-right-fill"></i>
         </button>
         );
     },
-
-    DarkPlay: () => {
-        return (
-        <button className='btn-play border-0 bg-transparent text-dark fs-1' type='button' >
-            <i className="bi bi-caret-right-fill"></i>
-        </button>
-        );
-    },
-    
     SeeMore: () => {
         return (
         <button className="btn btn-align btn-secondary btn-sm px-3 py-0 border-dark rounded-pill" type='button'>
