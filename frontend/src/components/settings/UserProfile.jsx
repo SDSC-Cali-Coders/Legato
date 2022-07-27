@@ -57,7 +57,17 @@ const UserProfile = (props) => {
             </div>
 
             {/* Row: My Top Artists title */}
+            <div className="row bg-warning my-3">
+                My Top Artists
+            </div>
+
             {/* Row: Dynamic amnt of ArtistCards [see more] button */}
+            <div className="row bg-warning">
+                <div className="col-3">
+                    <ArtistCard artistImg={props.topArtistsList[0].artistImg} artistName={props.topArtistsList[0].artistName}/>
+                </div>
+            </div>
+
             {/* Row: [Top songs col] [Top genres col] */}
             {/* Top songs col: title row; 5SongCard; [see more] button*/}
             {/* Top genres col: title row; 5GenreCards; [see more] button*/}
