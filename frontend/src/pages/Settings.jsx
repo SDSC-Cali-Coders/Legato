@@ -1,4 +1,5 @@
 import React from 'react';
+import UserProfile from '../components/settings/UserProfile';
 
 const ProfilePic = (props) => {
     let extraClassNames = 'border bg-dark p-10';
@@ -33,8 +34,7 @@ const Settings = (props) => {
                 <div className="col-1"> </div>
                 <div className="col-10 d-flex flex-column justify-content-between bg-warning position-relative vh-100 fs-1"> 
                     <ProfilePic img={props.img}/>
-                    UserProfileComponent <br/>
-                    Placeholder 
+                    <UserProfile/>
                     <div className="row pb-5"> 
                         <div className="col-5"></div>
                         <div className="col-2">
