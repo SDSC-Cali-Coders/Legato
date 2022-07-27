@@ -112,6 +112,9 @@
 .btn-follow {
   width: 15rem;
 }
+.btn-follow-short {
+  width: 5rem;
+}
 
 /* Special styling for btn-play (uniquely shaped) */
 .btn-play:hover {
