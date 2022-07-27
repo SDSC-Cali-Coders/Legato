@@ -15,7 +15,7 @@ const MainView = (props) => {
 
                     Hint text for user
                 */}
-                <div className="col text-center mb-45">
+                <div className="col text-center">
                     <Searchbar.ArtistSearchbar/>
 
                     <p className="h3 fw-bold pt-4"> 
