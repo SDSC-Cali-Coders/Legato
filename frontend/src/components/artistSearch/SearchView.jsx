@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Buttons from '../Buttons';
+import Searchbar from '../Searchbar';
 
 // Define an <ArtistResult/> component here
 // <div> - figure out how to align stuff :)
@@ -32,7 +32,7 @@ const SearchView = (props) => {
     return (
         <>
         {/* Basic Layout
-                <SearchBar.Long/> [placeholder for now]
+                <SearchBar.Long/>
 
                 <div> aligned right w/ 2 selectable boxes [Subscribed/New]
 
@@ -40,7 +40,10 @@ const SearchView = (props) => {
             */}
             <div className="container align-items-center Oswald_regular p-2">
                 <div className="row mb-3">
-                    <span className="placeholder placeholder-lg col-12"/>
+                    <div className="col align-items-center">
+                        <Searchbar.ArtistSearchbar/>
+                    </div>
+                    {/* <span className="placeholder placeholder-lg col-12"/> */}
                 </div>
 
                 <div className="row text-center justify-content-end">
@@ -54,7 +57,7 @@ const SearchView = (props) => {
                 <div className="row bg-primary">
                     <ol className="list-group gx-3">
                         <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-                        <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
+                        <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={false}/>
                         <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
                         <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
                         <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
