@@ -139,12 +139,12 @@
 }
 
 /* Additional styling for ConcertResults */
-.container {
+/* .container {
   text-align: left;
   padding: none;
   margin: none;
   background-color: #B1A6A4;
-}
+} */
 
 .concertResultsBtn:hover, .concertResultsBtn:active, .concertResultsBtn:focus {
   background-color: #B1A6A4 !important;
