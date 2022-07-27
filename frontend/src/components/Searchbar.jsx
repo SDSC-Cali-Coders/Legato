@@ -3,7 +3,7 @@ import React from "react";
 const Searchbar = {
   ConcertSearchbar: () => {
     return (
-        <div className="input-group mb-3">
+        <div className="input-group d-flex">
           <div className="input-group-prepend">
             <button
               className="btn bg-neutral-secondary btn-outline-bg-neutral-secondary"
@@ -12,7 +12,7 @@ const Searchbar = {
               <i className="bi bi-search text-dark"></i>
             </button>
           </div>
-          <div className="searchinput w-75">
+          <div className="searchinput flex-fill">
             <input
               type="text"
               className="form-control bg-neutral-secondary text-dark "
@@ -25,7 +25,7 @@ const Searchbar = {
 
   ArtistSearchbar: () => {
     return (
-        <div className="input-group mb-3">
+        <div className="input-group d-flex">
         <div className="input-group-prepend">
           <button
             className="btn bg-neutral-secondary btn-outline-bg-neutral-secondary"
@@ -34,7 +34,7 @@ const Searchbar = {
             <i className="bi bi-search text-dark"></i>
           </button>
         </div>
-        <div className="searchinput w-75">
+        <div className="searchinput flex-fill">
           <input
             type="text"
             className="form-control bg-neutral-secondary text-dark "
@@ -47,7 +47,7 @@ const Searchbar = {
 
   FindFriendsSearchbar: () => {
     return (
-        <div className="input-group mb-3">
+        <div className="input-group d-flex">
         <div className="input-group-prepend">
           <button
             className="btn bg-neutral-secondary btn-outline-bg-neutral-secondary"
@@ -56,7 +56,7 @@ const Searchbar = {
             <i className="bi bi-search text-dark"></i>
           </button>
         </div>
-        <div className="searchinput w-75">
+        <div className="searchinput flex-fill">
           <input
             type="text"
             className="form-control bg-neutral-secondary text-dark "
