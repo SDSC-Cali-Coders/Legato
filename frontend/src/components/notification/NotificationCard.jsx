@@ -14,16 +14,14 @@ const NotificationCard = {
                     <div className="col-sm-1 d-flex align-items-center">
                         <img src={props.img} className="border rounded-circle mx-3" width="50" height="50"></img>
                     </div>
-                    <div className="col-sm-8">
+                    <div className="col-sm-10">
                         <div className="card-body">
                             <h5 className="card-title"><b>{props.name}</b> wants to follow you</h5>
                             <p className="card-text">{props.message}</p>
                         </div>
                     </div>
-                    <div className="col-sm-1 align-items-center">
+                    <div className="col-sm d-flex justify-content-evenly">
                         <button type="button" className="btn btn-success rounded-circle">✓</button>
-                    </div>
-                    <div className="col-sm-1 align-items-center">
                         <button type="button" className="btn btn-danger rounded-circle">✕</button>
                     </div>
                 </div>
