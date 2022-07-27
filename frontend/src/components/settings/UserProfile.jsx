@@ -1,6 +1,17 @@
 import React from 'react';
 import Buttons from '../Buttons';
 
+const ArtistCard = (props) => {
+    return (
+        <div className="card bg-light border border-dark rounded-3 p-2">
+            <img src={props.artistImg} alt="" className="rounded-circle card-img-top" />
+            <div className="card-title fs-4">
+                {props.artistName}
+            </div>
+        </div>
+    );
+}
+
 const UserProfile = (props) => {
     return (
         <div className="container mt-4 d-grid gap-3">
