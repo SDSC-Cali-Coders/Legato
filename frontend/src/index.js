@@ -4,17 +4,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './scss/custom.scss';
 import App from './App';
-import MainView from './components/settings/MainView';
+import EditView from './components/settings/EditView';
 import Navbar from './components/Navbar';
-
-import pfpImg from './assets/ThePolice.jpg';
+import pfp from './assets/ThePolice.jpg';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/* <App/> */}
     <Navbar/>
-    <MainView img={pfpImg}/>
-    <MainView/>
+    <EditView img={pfp}/>
   </React.StrictMode>
 );
