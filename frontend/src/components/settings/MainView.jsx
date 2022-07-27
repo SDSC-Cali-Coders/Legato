@@ -31,10 +31,21 @@ const MainView = (props) => {
             </div>
             <div className="row text-center">
                 <div className="col-1"> </div>
-                <div className="col-10 bg-warning position-relative vh-100 fs-1"> 
+                <div className="col-10 d-flex flex-column justify-content-between bg-warning position-relative vh-100 fs-1"> 
                     <ProfilePic img={props.img}/>
                     UserProfileComponent <br/>
                     Placeholder 
+                    <div className="row pb-5"> 
+                        <div className="col-5"></div>
+                        <div className="col-2">
+                            <div className="row">
+                                <button className="btn btn-secondary">
+                                    Log Out
+                                </button>
+                            </div>
+                        </div>
+                        <div className="col-5"></div>
+                    </div>
                 </div>
                 <div className="col-1">
                 </div>
