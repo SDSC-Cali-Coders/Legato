@@ -10,7 +10,7 @@ const ProfilePic = (props) => {
     }
 
     return (
-        <div className={`badge position-absolute top-0 start-10 translate-middle rounded-circle ${extraClassNames}`}>
+        <div className={`badge invisible position-absolute top-0 start-10 translate-middle rounded-circle ${extraClassNames}`}>
             <span>
                 {placeHolder}
             </span>
@@ -32,7 +32,7 @@ const Settings = (props) => {
             </div>
             <div className="row text-center">
                 <div className="col-1"> </div>
-                <div className="col-10 d-flex flex-column justify-content-between bg-warning position-relative vh-100 fs-1"> 
+                <div className="col-10 d-flex flex-column justify-content-between bg-secondary border border-dark position-relative vh-100 fs-1"> 
                     <ProfilePic img={props.img}/>
                     <UserProfile/>
                     <div className="row pb-5"> 
