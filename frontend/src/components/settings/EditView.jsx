@@ -10,14 +10,14 @@ const Button = (props) => {
 
 const EditView = (props) => {
     return (
-        <div className="container d-flex flex-column min-vh-100 gap-4 py-5">
-            <div className="row bg-light">
-                <div className="col-11 bg-warning"></div>
-                <div className="col-1 bg-danger">
+        <div className="container d-flex flex-column min-vh-100 gap-4 p-5">
+            <div className="row mx-5 bg-light">
+                <div className="col-10 bg-warning"></div>
+                <div className="col-2 text-center bg-danger">
                     <Button text="Save"/>
                 </div>
             </div>
-            <div className="row flex-grow-1 bg-warning">
+            <div className="row flex-grow-1 mx-5 bg-warning">
                 <div className="col">
                     <div className="container bg-secondary Oswald_regular w-50">
                         {/* Row: Img | Name */}
