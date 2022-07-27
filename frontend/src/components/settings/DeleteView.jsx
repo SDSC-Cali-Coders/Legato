@@ -11,20 +11,20 @@ const Button = (props) => {
 const DeleteView = () => {
     return (
         <div className="container text-center Oswald_regular d-grid gap-4">
-            <div className="row fs-1 fw-bold bg-warning">
+            <div className="row fs-1 fw-bold">
                 <div className="col">
                     Bye!
                 </div>
             </div>
-            <div className="row fs-3 bg-warning">
+            <div className="row fs-3">
                 <div className="col">
                     Your account information has been deleted and <br/>
                     unlinked from Spotify
                 </div>
             </div>
-            <div className="row bg-warning">
+            <div className="row">
                 <div className="col-4"></div>
-                <div className="col-4 bg-light">
+                <div className="col-4">
                     <div className="row">
                         <Button text='Take Me to the Login Page'/>
                     </div>
