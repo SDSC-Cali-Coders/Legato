@@ -12,6 +12,8 @@ root.render(
   <React.StrictMode>
     {/* <App/> */}
     <Navbar/>
-    <DeleteView/>
+    <div className='container mt-5 pt-5'>
+      <DeleteView/>
+    </div>
   </React.StrictMode>
 );
