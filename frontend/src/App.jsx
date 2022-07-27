@@ -10,7 +10,7 @@ import Navbar from './components/Navbar';
 import UserCard from './components/UserCard';
 import defProfileIcon from './assets/pfpIcon.svg';
 
-function App() {
+function App(props) {
   return (
     <>
       {props.isLoggedIn && <Navbar/>}
