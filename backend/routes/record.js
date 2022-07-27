@@ -22,6 +22,15 @@ recordRoutes.route("/user/add").put(function (req, response) {
     topArtists: req.body.topArtists,
     topSongs: req.body.topSongs,
     recGenres: req.body.recGenres,
+    linkedSocials: [],
+    followers: [],
+    following: [],
+    interestedEvents: [],
+    goingEvents: [],
+    subscribedArtists: [],
+    isPrivateAccount: false,
+    outGoingFriendRequests: [],
+    inComingfriendRequests: [],
   };
   let myquery = { "_id": myobj._id };
   db_connect.collection("user").findOne(myquery, function (err, res) {
