@@ -45,12 +45,12 @@ const UserProfile = (props) => {
                 </div>
                 <div className="col hstack ms-4 bg-light">
                     <div className='text-center bg-light fs-3'>
-                        {props.followersCount} 238
+                        {props.followersCount}
                         <p className="fs-5">Followers</p>
                     </div>
                     <div className="vr my-4 mx-3"></div>
                     <div className='text-center bg-light fs-3'>
-                        {props.followingCount} 101
+                        {props.followingCount}
                         <p className="fs-5">Following</p>
                     </div>
                 </div>
