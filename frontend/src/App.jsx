@@ -91,6 +91,55 @@ function App(props) {
     }
   }, [profile, topArtists, topSongs, recGenres]);
 
+   /* CODE FOR US TO USE LATER TO CONNECT TO DB 
+   useEffect(() => {
+    async function fetchUser() {
+      // when used on settings page, we wouldnt hardcode the profile.id
+      //const id = params.id.toString();
+
+      axios.get(`http://localhost:27017/user/${profile.id}`)
+        .then(function (response) {
+          // can access specific parts of data by doing ".{DATA}"
+          console.log(response.data)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+        .then(function () {
+          console.log("always executed")
+        })
+    }
+    if (!effectTriggeredRef.current && profile) {
+      fetchUser();
+      effectTriggeredRef.current = true;
+    }
+  }, [profile]);
+
+  useEffect(() => {
+    async function fetchNotifications() {
+      // when used on notifications page, we wouldnt hardcode the profile.id
+      //const id = params.id.toString();
+
+      axios.get(`http://localhost:27017/notification/${profile.id}`)
+        .then(function (response) {
+          // can access specific parts of data by doing "[{# notification}.{DATA}"
+          console.log(response.data)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+        .then(function () {
+          console.log("always executed")
+        })
+    }
+    if (!effectTriggeredRef.current && profile) {
+      fetchNotifications();
+      effectTriggeredRef.current = true;
+    }
+  }, [profile]);
+
+  */
+ 
   if (topSongs) {
     tracksObject =
     {
