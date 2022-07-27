@@ -4,17 +4,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './scss/custom.scss';
 import App from './App';
-import MainView from './components/settings/MainView';
 import Navbar from './components/Navbar';
 
 import pfpImg from './assets/ThePolice.jpg';
+import Settings from './pages/Settings';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/* <App/> */}
     <Navbar/>
-    <MainView img={pfpImg}/>
-    <MainView/>
+    <Settings img={pfpImg}/>
   </React.StrictMode>
 );

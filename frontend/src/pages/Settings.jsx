@@ -17,7 +17,7 @@ const ProfilePic = (props) => {
     );
 };
 
-const MainView = (props) => {
+const Settings = (props) => {
     return (
         // Layout overview:
         // Main centerd column holding the UserProfile component [placeholder div]
@@ -54,4 +54,4 @@ const MainView = (props) => {
     );
 }
 
-export default MainView;
+export default Settings;
