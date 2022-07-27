@@ -1,5 +1,22 @@
 import React from 'react';
 
+const ProfilePic = (props) => {
+    let extraClassNames = 'border bg-dark p-10';
+    let placeHolder = (<></>);
+    if (typeof props.img != 'undefined') {
+        extraClassNames = 'p-4 w-25';
+        placeHolder = <img className='img-fluid rounded-circle' src={props.img} alt="" />
+    }
+
+    return (
+        <div className={`badge position-absolute top-0 start-10 translate-middle rounded-circle ${extraClassNames}`}>
+            <span>
+                {placeHolder}
+            </span>
+        </div>
+    );
+};
+
 const MainView = (props) => {
     return (
         // Layout Will be a container w/
@@ -10,10 +27,7 @@ const MainView = (props) => {
             <div className="row text-center">
                 <div className="col-1"> </div>
                 <div className="col-10 bg-warning position-relative vh-100 fs-1"> 
-                    <span className="badge position-absolute top-0 start-10 translate-middle p-10 rounded-circle bg-dark border">
-                        <span className="visually-hidden">New alerts</span>
-                        {/* <img className='fs-5 img-fluid' src={props.img} alt="pfp image here" /> */}
-                    </span>
+                    <ProfilePic img={props.img}/>
                     UserProfileComponent <br/>
                     Placeholder 
                 </div>
