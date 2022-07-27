@@ -12,6 +12,16 @@ root.render(
   <React.StrictMode>
     {/* <App/> */}
     <Navbar/>
-    <ConfirmView/>
+    <div className='container'>
+      <div className='row'>
+        <div className='col-3'>
+        </div>
+        <div className='col-6'>
+          <ConfirmView/>
+        </div>
+        <div className='col-3'>
+        </div>
+      </div>
+    </div>
   </React.StrictMode>
 );
