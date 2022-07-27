@@ -1,12 +1,12 @@
-import './App.css';
-import Navbar from './components/Navbar';
-import ListeningHistory from './pages/ListeningHistory';
+import "./App.css";
+import ConcertSearchCardResults from "./components/concerts/ConcertSearchCardResults";
 
-function App(props) {
+function App() {
   return (
     <>
-      {props.isLoggedIn && <Navbar/>}
-      <ListeningHistory/>
+      <div className="m-2">
+        <ConcertSearchCardResults.card />
+      </div>
     </>
   );
 }
