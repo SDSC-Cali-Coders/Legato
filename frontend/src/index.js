@@ -7,11 +7,14 @@ import App from './App';
 import MainView from './components/settings/MainView';
 import Navbar from './components/Navbar';
 
+import pfpImg from './assets/ThePolice.jpg';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/* <App/> */}
     <Navbar/>
+    <MainView img={pfpImg}/>
     <MainView/>
   </React.StrictMode>
 );
