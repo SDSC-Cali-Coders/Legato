@@ -34,7 +34,28 @@ const Settings = (props) => {
                 <div className="col-1"> </div>
                 <div className="col-10 d-flex flex-column justify-content-between bg-secondary border border-dark position-relative vh-100 fs-1"> 
                     <ProfilePic img={props.img}/>
-                    <UserProfile/>
+                    <UserProfile 
+                        userName= 'John Doe'
+                        followerCount={238} 
+                        followingCount={101} 
+                        socialLinks={
+                            {facebook:  'https://facebook.com/JohnDoe',
+                             twitter:   'https://twitter.com/JohnDoe',
+                             instagram: 'https://instagram.com/JohnDoe',
+                             pinterest: 'https://pinterest.com/JohnDoe'
+                            }}
+                        topArtistsList={[
+                            {artistImg:props.img, artistName: 'The Police'},
+                            {artistImg:props.img, artistName: 'The Police'},
+                            {artistImg:props.img, artistName: 'The Police'},
+                            {artistImg:props.img, artistName: 'The Police'},
+                            {artistImg:props.img, artistName: 'The Police'},
+                            {artistImg:props.img, artistName: 'The Police'},
+                            {artistImg:props.img, artistName: 'The Police'},
+                            {artistImg:props.img, artistName: 'The Police'},
+                            {artistImg:props.img, artistName: 'The Police'},
+                            {artistImg:props.img, artistName: 'The Police'}
+                        ]}/>
                     <div className="row pb-5"> 
                         <div className="col-5"></div>
                         <div className="col-2">
