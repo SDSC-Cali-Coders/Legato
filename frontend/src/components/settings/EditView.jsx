@@ -2,7 +2,7 @@ import React from 'react';
 
 const Button = (props) => {
     return (
-        <button className="btn btn-secondary px-4" type='button'>
+        <button className={`btn btn-secondary px-4 fs-${props.fs}`} type='button'>
             {props.text}
         </button>
     );
@@ -19,13 +19,13 @@ const EditView = (props) => {
             </div>
             <div className="row flex-grow-1 bg-warning">
                 <div className="col">
-                    <div className="container bg-secondary w-50">
+                    <div className="container bg-secondary Oswald_regular w-50">
                         {/* Row: Img | Name */}
                         <div className="row">
                             <div className="col-3 bg-dark text-light">
                                 <img src={props.img} alt="pfp Image missing" className="img-fluid rounded-circle" />
                             </div>
-                            <div className="col bg-light d-flex align-items-end">
+                            <div className="col bg-light d-flex fs-3 align-items-end">
                                 John Doe
                                 {props.name}
                             </div>
@@ -33,7 +33,7 @@ const EditView = (props) => {
 
                         {/* Row: Linked Accounts
                         +4 rows for each SM acc */}
-                        <div className="row bg-light mt-5"> Linked accounts </div>
+                        <div className="row bg-light fs-3 mt-5"> Linked accounts </div>
                         <div className="row my-2 bg-primary">
                             <div className="input-group align-items-center">
                                 <i className="bi bi-facebook fs-3"></i>
@@ -94,13 +94,13 @@ const EditView = (props) => {
 
                         {/* Row: Delete Acc button */}
                         <div className="row bg-light my-5">
-                            <div className="col-3"></div>
-                            <div className="col-6 bg-warning">
+                            <div className="col-2"></div>
+                            <div className="col-8 bg-warning">
                                 <div className="row">
-                                    <Button className='w-auto' text="Delete Account"/>
+                                    <Button text="Delete Account" fs={4}/>
                                 </div>
                             </div>
-                            <div className="col-3"></div>
+                            <div className="col-2"></div>
                         </div>
                     </div>
                 </div>
