@@ -14,7 +14,7 @@ const dbo = require("../db/conn");
 const ObjectId = require("mongodb").ObjectId;
 
 // This section will help us add users to the db
-recordRoutes.route("/user/add").put(function (req, response) {
+recordRoutes.route("/user/:id").put(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
     _id: req.body.id,
@@ -22,7 +22,7 @@ recordRoutes.route("/user/add").put(function (req, response) {
     topArtists: req.body.topArtists,
     topSongs: req.body.topSongs,
     recGenres: req.body.recGenres,
-    linkedSocials: [],
+    linkedSocials: {facebook: {}, instagram: {}, twitter: {}, pinterest: {}},
     followers: [],
     following: [],
     interestedEvents: [],
@@ -47,7 +47,7 @@ recordRoutes.route("/user/add").put(function (req, response) {
   });
 });
 
-// This section will help us get users their info fo rthe settings page
+// This section will help us get users their info for the settings page
 recordRoutes.route("/user/:id").get(function (req, response) {
   let db_connect = dbo.getDb();
   let myquery = { "userID": req.params.id };

@@ -40,6 +40,8 @@ function App(props) {
   }, []);
 
   useEffect(() => {
+    setToken(accessToken);
+
     const fetchData = async () => {
       const { data } = await getTopArtists("short_term");
       setTopArtists(data);
@@ -48,6 +50,8 @@ function App(props) {
   }, []);
 
   useEffect(() => {
+    setToken(accessToken);
+
     const fetchData = async () => {
       const { data } = await getTopSongs("short_term");
       setTopSongs(data);
@@ -56,6 +60,8 @@ function App(props) {
   }, []);
 
   useEffect(() => {
+    setToken(accessToken);
+
     const fetchData = async () => {
       const { data } = await getRecGenres();
       setRecGenres(data);
@@ -77,7 +83,7 @@ function App(props) {
         ),
         recGenres: recGenres.genres.slice(0, 5),
       };
-      catchErrors(axios.put('http://localhost:27017/user/add', newUser));
+      catchErrors(axios.put(`http://localhost:27017/user/${profile.id}`, newUser));
     }
     if (!effectTriggeredRef.current && profile && topSongs && topArtists && recGenres ) {
       addUserDB();
