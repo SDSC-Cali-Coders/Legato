@@ -1,4 +1,5 @@
 import React from 'react';
+import Searchbar from '../Searchbar';
 
 const MainView = (props) => {
     // Recipe for centering a div on a page:
@@ -10,14 +11,17 @@ const MainView = (props) => {
             <div className="row flex-grow-1 align-items-center">
                 {/* Layout of MainView will be:
                 
-                    Searchbar.long [placeholder for now]
+                    Searchbar.long
 
                     Hint text for user
                 */}
                 <div className="col text-center mb-45">
-                    <span className="placeholder placeholder-lg w-100 mb-2"> Searchbar here </span>
-                    <p className="h3 fw-bold"> Search your subscribed Artists </p>
-                    <p className="h3 fw-bold"> and Explore new ones!</p>
+                    <Searchbar.ArtistSearchbar/>
+
+                    <p className="h3 fw-bold pt-4"> 
+                        Search your subscribed Artists <br/>
+                        and Explore new ones!
+                    </p>
                 </div>
             </div>
         </div>
