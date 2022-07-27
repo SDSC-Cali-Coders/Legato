@@ -15,8 +15,8 @@ function App(props) {
     <>
       {props.isLoggedIn && <Navbar/>}
 
-      <div className="container pt-5">
-        <div className="row">
+      <div className="container py-5">
+        <div className="row justify-content-between">
           <div className="col-3">
             <UserCard img={defProfileIcon} name="Jane Doe" mutualNumber="5" type="Concerts"></UserCard>
           </div>
@@ -28,7 +28,7 @@ function App(props) {
           </div>
         </div>
 
-        <div className="row">
+        <div className="row justify-content-between">
           <div className="col-3">
             <UserCard img={defProfileIcon} name="Jane Doe" mutualNumber="5" type="Friends"></UserCard>
           </div>
