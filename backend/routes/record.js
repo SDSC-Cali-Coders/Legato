@@ -37,4 +37,53 @@ recordRoutes.route("/user/add").put(function (req, response) {
     }
   });
 });
+
+// This section will help us get users their info fo rthe settings page
+recordRoutes.route("/user/:id").get(function (req, response) {
+  let db_connect = dbo.getDb();
+  let myquery = { "userID": req.params.id };
+  db_connect.collection("user")
+    .findOne(myquery, function (err, res) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+       res.json(result);
+     });
+});
+
+// This section will help us get notifications
+recordRoutes.route("/notification/:id").get(function (req, response) {
+  let db_connect = dbo.getDb();
+  //TODO fix id issues later
+  let myquery = { "userID": req.params.id };
+  db_connect.collection("notification")
+    .findOne(myquery, function (err, res) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+       res.json(result);
+     });
+});
+
+// This section will help us get concerts near a user
+recordRoutes.route("/concerts/nearby/:id").get(function (req, response) {
+  let db_connect = dbo.getDb();
+  //TODO fix id issues later
+  let myquery = { "_id": req.params.id };
+  db_connect.collection("user")
+    .findOne(myquery, function (err, res) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+       res.json(result);
+       //get zipcode from user and then find concerts near that zipcode
+       db_connect.collection("event")
+     });
+
+  
+});
+
 module.exports = recordRoutes;
