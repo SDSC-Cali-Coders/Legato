@@ -93,6 +93,15 @@ const EditView = (props) => {
                         </div>
 
                         {/* Row: Delete Acc button */}
+                        <div className="row bg-light my-5">
+                            <div className="col-3"></div>
+                            <div className="col-6 bg-warning">
+                                <div className="row">
+                                    <Button className='w-auto' text="Delete Account"/>
+                                </div>
+                            </div>
+                            <div className="col-3"></div>
+                        </div>
                     </div>
                 </div>
             </div>
