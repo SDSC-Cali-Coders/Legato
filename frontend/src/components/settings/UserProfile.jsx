@@ -26,13 +26,20 @@ const UserProfile = (props) => {
             <div className="row bg-warning">
                 <div className="col-4 bg-primary offset-2">
                     <div className="vstack">
-                        John Doe
                         {props.username}
                         <div className="hstack justify-content-between">
+                            <a className='text-dark' href={props.socialLinks.facebook}>
                             <i className="bi bi-facebook"/>
+                            </a>
+                            <a className='text-dark' href={props.socialLinks.twitter}>
                             <i className="bi bi-twitter"/>
+                            </a>
+                            <a className='text-dark' href={props.socialLinks.instagram}>
                             <i className="bi bi-instagram"/>
+                            </a>
+                            <a className='text-dark' href={props.socialLinks.pinterest}>
                             <i className="bi bi-pinterest"/>
+                            </a>
                         </div>
                     </div>
                 </div>
