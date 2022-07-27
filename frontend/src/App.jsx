@@ -1,22 +1,11 @@
 import "./App.css";
-import BookmarkInterestedBtn from "../src/components/concerts/BookmarkInterestedBtn";
+import ConcertSearchCardResults from "./components/concerts/ConcertSearchCardResults";
 
-function App(props) {
+function App() {
   return (
     <>
       <div className="m-2">
-
-        <BookmarkInterestedBtn.YourBookmarks isPressed={true} />
-        <br/>
-        <BookmarkInterestedBtn.YourBookmarks isPressed={false} />
-
-        <br/>
-        <br/>
-
-        <BookmarkInterestedBtn.Going isPressed={true} />
-        <br/>
-        <BookmarkInterestedBtn.Going isPressed={false} />
-
+        <ConcertSearchCardResults.card />
       </div>
     </>
   );

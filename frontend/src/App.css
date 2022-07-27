@@ -132,3 +132,12 @@
   transition: 0.9s;
 }
 
+/* Additional styling for concert search card artist name */
+.artistName{
+  text-shadow:2px 2px rgb(116, 110, 110);
+}
+
+.concertcardbtn{
+  float: right;
+}
+
