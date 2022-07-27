@@ -19,11 +19,16 @@ const ProfilePic = (props) => {
 
 const MainView = (props) => {
     return (
-        // Layout Will be a container w/
-        // empty column for centering main/central column
+        // Layout overview:
         // Main centerd column holding the UserProfile component [placeholder div]
         // column holding the settings icon up top
-        <div className="container pt-15">
+        <div className="container pt-10">
+            <div className="row text-center">
+                <div className="col-11"></div>
+                <div className="col-1">
+                    <i className="bi bi-gear-fill text-primary fs-1"></i>
+                </div>
+            </div>
             <div className="row text-center">
                 <div className="col-1"> </div>
                 <div className="col-10 bg-warning position-relative vh-100 fs-1"> 
@@ -32,7 +37,6 @@ const MainView = (props) => {
                     Placeholder 
                 </div>
                 <div className="col-1">
-                    <i className="bi bi-gear-fill text-primary fs-1"></i>
                 </div>
             </div>
         </div>
