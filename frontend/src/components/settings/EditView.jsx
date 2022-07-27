@@ -10,22 +10,22 @@ const Button = (props) => {
 
 const EditView = (props) => {
     return (
-        <div className="container d-flex flex-column min-vh-100 gap-4 p-5">
-            <div className="row mx-5 bg-light">
-                <div className="col-10 bg-warning"></div>
-                <div className="col-2 text-center bg-danger">
+        <div className="container d-flex flex-column gap-4 p-5">
+            <div className="row mx-5">
+                <div className="col-10"></div>
+                <div className="col-2 text-center">
                     <Button text="Save"/>
                 </div>
             </div>
-            <div className="row flex-grow-1 mx-5 bg-warning">
-                <div className="col">
-                    <div className="container bg-secondary Oswald_regular w-50">
+            <div className="row flex-grow-1 mx-5">
+                <div className="col bg-secondary border-dark border pt-3">
+                    <div className="container Oswald_regular w-50">
                         {/* Row: Img | Name */}
                         <div className="row">
-                            <div className="col-3 bg-dark text-light">
+                            <div className="col-3">
                                 <img src={props.img} alt="pfp Image missing" className="img-fluid rounded-circle" />
                             </div>
-                            <div className="col bg-light d-flex fs-3 align-items-end">
+                            <div className="col d-flex fs-3 align-items-end">
                                 John Doe
                                 {props.name}
                             </div>
@@ -33,41 +33,41 @@ const EditView = (props) => {
 
                         {/* Row: Linked Accounts
                         +4 rows for each SM acc */}
-                        <div className="row bg-light fs-3 mt-5"> Linked accounts </div>
-                        <div className="row my-2 bg-primary">
+                        <div className="row fs-3 mt-5"> Linked accounts </div>
+                        <div className="row my-2">
                             <div className="input-group align-items-center">
                                 <i className="bi bi-facebook fs-3"></i>
-                                <input type="text" className="form-control mx-4 bg-light" placeholder='https://facebook.com/JohnDoe'/>
-                                <i className="bi bi-x"></i>
+                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://facebook.com/JohnDoe'/>
+                                <i className="bi bi-x fs-3"></i>
                             </div>
                         </div>
-                        <div className="row my-2 bg-primary">
+                        <div className="row my-2">
                             <div className="input-group align-items-center">
                                 <i className="bi bi-twitter fs-3"></i>
-                                <input type="text" className="form-control mx-4 bg-light" placeholder='https://twitter.com/JohnDoe'/>
-                                <i className="bi bi-x"></i>
+                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://twitter.com/JohnDoe'/>
+                                <i className="bi bi-x fs-3"></i>
                             </div>
                         </div>
-                        <div className="row my-2 bg-primary">
+                        <div className="row my-2">
                             <div className="input-group align-items-center">
                                 <i className="bi bi-instagram fs-3"></i>
-                                <input type="text" className="form-control mx-4 bg-light" placeholder='https://instagram.com/JohnDoe'/>
-                                <i className="bi bi-x"></i>
+                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://instagram.com/JohnDoe'/>
+                                <i className="bi bi-x fs-3"></i>
                             </div>
                         </div>
-                        <div className="row my-2 bg-primary">
+                        <div className="row my-2">
                             <div className="input-group align-items-center">
                                 <i className="bi bi-pinterest fs-3"></i>
-                                <input type="text" className="form-control mx-4 bg-light" placeholder='https://pinterest.com/JohnDoe'/>
-                                <i className="bi bi-x"></i>
+                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://pinterest.com/JohnDoe'/>
+                                <i className="bi bi-x fs-3"></i>
                             </div>
                         </div>
 
                         {/* Row: Profile Visibility
                         +2 rows for each option */}
-                        <div className="row bg-light fs-3 mt-5">Profile Visibility</div>
-                        <div className="d-flex flex-row align-items-center mt-2 bg-danger">
-                            <i className="bi bi-eye-fill fs-4 bg-warning"></i>
+                        <div className="row fs-3 mt-5">Profile Visibility</div>
+                        <div className="d-flex flex-row align-items-center mt-2">
+                            <i className="bi bi-eye-fill fs-4"></i>
                             <div className="flex-grow-1 ps-3">
                                 <div className='fs-4'>Public</div>
                                 Everyone can see your profile information <br/>
@@ -79,8 +79,8 @@ const EditView = (props) => {
                                 </label>
                             </div>
                         </div>
-                        <div className="d-flex flex-row align-items-center mt-2 bg-danger">
-                            <i className="bi bi-eye-slash-fill fs-4 bg-warning"></i>
+                        <div className="d-flex flex-row align-items-center mt-2">
+                            <i className="bi bi-eye-slash-fill fs-4"></i>
                             <div className="flex-grow-1 ps-3">
                                 <div className='fs-4'>Private</div>
                                 No one can see your profile information
@@ -93,9 +93,9 @@ const EditView = (props) => {
                         </div>
 
                         {/* Row: Delete Acc button */}
-                        <div className="row bg-light my-5">
+                        <div className="row my-5">
                             <div className="col-2"></div>
-                            <div className="col-8 bg-warning">
+                            <div className="col-8">
                                 <div className="row">
                                     <Button text="Delete Account" fs={4}/>
                                 </div>
