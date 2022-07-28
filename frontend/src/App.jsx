@@ -1,6 +1,5 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
-import ConcertPlaceholder from "./components/concerts/ConcertPlaceholder";
 import MainConcert from "./components/concerts/MainConcert";
 import ConcertsBookmarked from "./components/concerts/ConcertsBookmarked";
 import ConcertsGoing from "./components/concerts/ConcertsGoing";
@@ -14,17 +13,18 @@ function App() {
     <>
       <Navbar />
 
-      {/* <MainConcert /> */}
+      <MainConcert />
       {/* <ConcertsBookmarked /> */}
       {/* <ConcertsGoing /> */}
       {/* <BookmarksEmpty/> */}
-      <ConcertsEmpty/>
+      {/* <ConcertsEmpty/> */}
 
       {/* <div className="m-2">
         <ConcertPlaceholder />
       </div> */}
+      
       <div className="m-2">
-        <ConcertSearchCardResults.card />
+        {/* <ConcertSearchCardResults.card /> */}
       </div>
     </>
   );
