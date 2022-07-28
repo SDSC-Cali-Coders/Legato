@@ -39,8 +39,8 @@ const UserProfile = (props) => {
     return (
         <div className="container mt-4 px-4 d-grid gap-3 Oswald_regular">
             {/* Row: Invite button */}
-            <div className="row bg-warning">
-                <div className="col-3 offset-9 bg-danger">
+            <div className="row">
+                <div className="col-3 offset-9">
                     <div className="row">
                         <Buttons.Invite/>
                     </div>
@@ -48,8 +48,8 @@ const UserProfile = (props) => {
             </div>
 
             {/* Row: [Username & Socials] [followers | following cnt] */}
-            <div className="row bg-warning">
-                <div className="col-4 bg-primary offset-2">
+            <div className="row">
+                <div className="col-4 offset-2">
                     <div className="vstack">
                         {props.userName}
                         <div className="hstack justify-content-between">
@@ -68,13 +68,13 @@ const UserProfile = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="col hstack ms-4 bg-light">
-                    <div className='text-center bg-light fs-3'>
+                <div className="col hstack ms-4">
+                    <div className='text-center fs-3'>
                         {props.followersCount}
                         <p className="fs-5">Followers</p>
                     </div>
                     <div className="vr my-3 mx-3"></div>
-                    <div className='text-center bg-light fs-3'>
+                    <div className='text-center fs-3'>
                         {props.followingCount}
                         <p className="fs-5">Following</p>
                     </div>
@@ -82,12 +82,12 @@ const UserProfile = (props) => {
             </div>
 
             {/* Row: My Top Artists title */}
-            <div className="row bg-warning fw-bold my-3">
+            <div className="row fw-bold my-3">
                 My Top Artists
             </div>
 
             {/* Row: Dynamic amnt of ArtistCards [see more] button */}
-            <div className="row bg-warning">
+            <div className="row">
                 <div className="col-10 card-group">
                     <ArtistCard artistImg={props.topArtistsList[0].artistImg} artistName={props.topArtistsList[0].artistName}/>
                     <ArtistCard artistImg={props.topArtistsList[0].artistImg} artistName={props.topArtistsList[0].artistName}/>
@@ -95,8 +95,8 @@ const UserProfile = (props) => {
                     <ArtistCard artistImg={props.topArtistsList[0].artistImg} artistName={props.topArtistsList[0].artistName}/>
                     <ArtistCard artistImg={props.topArtistsList[0].artistImg} artistName={props.topArtistsList[0].artistName}/>
                 </div>
-                <div className="col d-flex align-items-end bg-light">
-                    <div className="row flex-fill bg-danger">
+                <div className="col d-flex align-items-end">
+                    <div className="row flex-fill">
                         <Buttons.SeeMore/>
                     </div>
                 </div>
@@ -106,7 +106,7 @@ const UserProfile = (props) => {
             <div className="row text-start">
 
                 {/* Top songs col: title row; 5SongCard; [see more] button*/}
-                <div className="col-7 bg-warning d-grid px-4 gap-3">
+                <div className="col-7  d-grid px-4 gap-3">
                     <p className="fw-bold">My Top Songs</p>
                     <SongCard songTitle={props.topSongsList[0].songTitle} artistName={props.topSongsList[0].artistName}/>
                     <SongCard songTitle={props.topSongsList[1].songTitle} artistName={props.topSongsList[1].artistName}/>
@@ -121,7 +121,7 @@ const UserProfile = (props) => {
                 </div>
 
                 {/* Top genres col: title row; 5GenreCards; [see more] button*/}
-                <div className="col-5 bg-danger d-grid px-4 gap-3">
+                <div className="col-5  d-grid px-4 gap-3">
                     <p className="fw-bold">My Top Genres</p>
                     <GenreCard genre={props.topGenreList[0].genre} />
                     <GenreCard genre={props.topGenreList[0].genre} />
