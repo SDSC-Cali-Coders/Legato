@@ -1,5 +1,6 @@
 import React from 'react';
 import UserProfile from '../components/settings/UserProfile';
+import { logout } from '../api/spotify';
 
 const ProfilePic = (props) => {
     let extraClassNames = 'border bg-dark p-10';
@@ -85,7 +86,7 @@ const Settings = (props) => {
                         <div className="col-5"></div>
                         <div className="col-2">
                             <div className="row">
-                                <button className="btn btn-secondary">
+                                <button className="btn btn-secondary" onClick={logout}>
                                     Log Out
                                 </button>
                             </div>
