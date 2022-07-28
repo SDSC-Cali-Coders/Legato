@@ -4,7 +4,7 @@ import TopTen from "./TopTen";
 
 export default function TopCard(props) {
   let TopThreeCards = new Array(3);
-  let TopTenList = new Array(10);
+  let TopTenCards = new Array(10);
 
   // Handle TopThree & TopTen logic here (based off selection)
   // Run a foreach through the topThreeList topTenList property to fill in with pertinent info
@@ -15,7 +15,7 @@ export default function TopCard(props) {
       });
 
       props.topTenList.forEach((item, index) => {
-        TopTenList[index] = <TopTen.Artists img={item.img} name={item.name} isSubscribed={item.isSubscribed}/>;
+        TopTenCards[index] = <TopTen.Artists img={item.img} name={item.name} isSubscribed={item.isSubscribed}/>;
       });
 
       break;
@@ -25,7 +25,7 @@ export default function TopCard(props) {
       });
 
       props.topTenList.forEach((item, index) => {
-        TopTenList[index] = <TopTen.Tracks img={item.img} name={item.name} artist={item.artist}/>;
+        TopTenCards[index] = <TopTen.Tracks img={item.img} name={item.name} artist={item.artist}/>;
       });
 
       break;
@@ -35,7 +35,7 @@ export default function TopCard(props) {
       });
 
       props.topTenList.forEach((item, index) => {
-        TopTenList[index] = <TopTen.Genres icon={item.icon} genre={item.genre}/>;
+        TopTenCards[index] = <TopTen.Genres icon={item.icon} genre={item.genre}/>;
       });
 
       break;
