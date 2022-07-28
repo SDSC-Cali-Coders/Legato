@@ -50,7 +50,7 @@ const UserProfile = (props) => {
                         {props.followersCount}
                         <p className="fs-5">Followers</p>
                     </div>
-                    <div className="vr my-4 mx-3"></div>
+                    <div className="vr my-3 mx-3"></div>
                     <div className='text-center bg-light fs-3'>
                         {props.followingCount}
                         <p className="fs-5">Following</p>
@@ -59,7 +59,7 @@ const UserProfile = (props) => {
             </div>
 
             {/* Row: My Top Artists title */}
-            <div className="row bg-warning my-3">
+            <div className="row bg-warning fw-bold my-3">
                 My Top Artists
             </div>
 
