@@ -19,9 +19,9 @@ const UserProfile = (props) => {
             <div className="row bg-warning">
                 <div className="col-3 offset-9 bg-danger">
                     <div className="row">
-                    <Buttons.Invite/>
+                        <Buttons.Invite/>
+                    </div>
                 </div>
-            </div>
             </div>
 
             {/* Row: [Username & Socials] [followers | following cnt] */}
@@ -31,16 +31,16 @@ const UserProfile = (props) => {
                         {props.userName}
                         <div className="hstack justify-content-between">
                             <a className='text-dark' href={props.socialLinks.facebook}>
-                            <i className="bi bi-facebook"/>
+                                <i className="bi bi-facebook"/>
                             </a>
                             <a className='text-dark' href={props.socialLinks.twitter}>
-                            <i className="bi bi-twitter"/>
+                                <i className="bi bi-twitter"/>
                             </a>
                             <a className='text-dark' href={props.socialLinks.instagram}>
-                            <i className="bi bi-instagram"/>
+                                <i className="bi bi-instagram"/>
                             </a>
                             <a className='text-dark' href={props.socialLinks.pinterest}>
-                            <i className="bi bi-pinterest"/>
+                                <i className="bi bi-pinterest"/>
                             </a>
                         </div>
                     </div>
