@@ -10,7 +10,7 @@ const ProfilePic = (props) => {
     }
 
     return (
-        <div className={`badge invisible position-absolute top-0 start-10 translate-middle rounded-circle ${extraClassNames}`}>
+        <div className={`badge position-absolute top-0 start-10 translate-middle rounded-circle ${extraClassNames}`}>
             <span>
                 {placeHolder}
             </span>
@@ -36,7 +36,7 @@ const Settings = (props) => {
                     <ProfilePic img={props.img}/>
                     <UserProfile 
                         userName= 'John Doe'
-                        followerCount={238} 
+                        followersCount={238} 
                         followingCount={101} 
                         socialLinks={
                             {facebook:  'https://facebook.com/JohnDoe',
