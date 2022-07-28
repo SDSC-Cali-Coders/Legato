@@ -53,7 +53,7 @@ const TopThree = {
     },
     Tracks: (props) => {
         return (
-            <div className="card m-3 rounded-4">
+            <div className="card m-3 bg-transparent border-0 rounded-4">
                 <RankBadge rank={props.rank}/>
 
                 <img src={props.img} alt="TopTracks img" className='card-img-top rounded-4'/>

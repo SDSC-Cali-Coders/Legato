@@ -13,7 +13,7 @@ const TopTen = {
                 <div className="col fw-bold fs-4">
                     {props.name}
                 </div>
-                <div className="col d-flex justify-content-end align-items-center">
+                <div className="col d-flex justify-content-end">
                     {props.isSubscribed
                         ? <Buttons.Unsubscribe/>
                         : <Buttons.Subscribe/>
@@ -28,15 +28,21 @@ const TopTen = {
 
     Tracks: (props) => {
         return (
-            <li className="list-group-item d-flex align-items-center bg-neutral-primary">
-                <div className="d-flex flex-row flex-grow-1 align-item-start align-items-center">
-                    <img src={props.img} width='40' height='40' className="rounded-circle mx-3 d-block" alt="..." />
-                    <div className="Oswald_light mx-1">{props.name}</div>
-                    <div className="fw_bold Osward_light mx-5">{props.artist}</div>
+            <li className="list-group-item hstack bg-neutral-primary">
+                <div className="col-2 px-4 d-flex">
+                    <div className="ratio ratio-1x1">
+                        <img className="img-fluid rounded-circle" src={props.img} alt="..." />
+                    </div>
                 </div>
-                <button className="btn me-1"> Play Preview</button>
-                <div className='d-flex align-items-center' style={{ zoom: "0.7" }}>
-                    <Buttons.Play></Buttons.Play>
+                <div className="col fs-4">
+                    {props.name}
+                </div>
+                <div className="col fw-bold fs-4">
+                    {props.artist}
+                </div>
+                <div className="col d-flex justify-content-end">
+                    Play Preview
+                    <Buttons.Play/>
                 </div>
             </li>
         );
