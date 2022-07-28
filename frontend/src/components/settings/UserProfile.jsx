@@ -28,7 +28,7 @@ const SongCard = (props) => {
 
 const UserProfile = (props) => {
     return (
-        <div className="container mt-4 d-grid gap-3 Oswald_regular">
+        <div className="container mt-4 px-4 d-grid gap-3 Oswald_regular">
             {/* Row: Invite button */}
             <div className="row bg-warning">
                 <div className="col-3 offset-9 bg-danger">
@@ -97,7 +97,7 @@ const UserProfile = (props) => {
             <div className="row text-start">
 
                 {/* Top songs col: title row; 5SongCard; [see more] button*/}
-                <div className="col-7 bg-warning d-grid gap-3">
+                <div className="col-7 bg-warning d-grid pe-4 gap-3">
                     <p className="fw-bold">My Top Songs</p>
                     <SongCard songTitle={props.topSongsList[0].songTitle} artistName={props.topSongsList[0].artistName}/>
                     <SongCard songTitle={props.topSongsList[1].songTitle} artistName={props.topSongsList[1].artistName}/>
@@ -107,7 +107,7 @@ const UserProfile = (props) => {
                 </div>
 
                 {/* Top genres col: title row; 5GenreCards; [see more] button*/}
-                <div className="col-5 bg-danger d-grid grap-3">
+                <div className="col-5 bg-danger d-grid ps-4 grap-3">
                     <p className="fw-bold">My Top Genres</p>
                 </div>
             </div>
