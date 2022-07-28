@@ -9,7 +9,7 @@ export default function BookmarksEmpty() {
     <>
       <Searchbar.ConcertSearchbar />
       <div class="btn-group m-2" role="group" aria-label="First group">
-        <BookmarkInterestedBtn.YourBookmarks isPressed={false} />
+        <BookmarkInterestedBtn.YourBookmarks isPressed={true} />
       </div>
       <div class="btn-group m-2" role="group" aria-label="Second group">
         <BookmarkInterestedBtn.Going isPressed={false} />
