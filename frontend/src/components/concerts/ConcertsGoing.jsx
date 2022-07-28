@@ -44,29 +44,29 @@ export default function ConcertsGoing() {
                 <div class="container-fluid">
                   <div class="row">
                     <div class="col">
-                      <ConcertSearchCardResults.card />
+                      <ConcertSearchCardResults.Card />
                     </div>
                     <div class="col">
-                      <ConcertSearchCardResults.card />
+                      <ConcertSearchCardResults.Card />
                     </div>
                     <div class="col">
-                      <ConcertSearchCardResults.card />
+                      <ConcertSearchCardResults.Card />
                     </div>
                     <div class="col">
-                      <ConcertSearchCardResults.card />
+                      <ConcertSearchCardResults.Card />
                     </div>
                     <div class="col">
-                      <ConcertSearchCardResults.card />
+                      <ConcertSearchCardResults.Card />
                     </div>
                     <div class="w-100"></div>
                     <div class="col">
-                      <ConcertSearchCardResults.card />
+                      <ConcertSearchCardResults.Card />
                     </div>
                     <div class="col">
-                      <ConcertSearchCardResults.card />
+                      <ConcertSearchCardResults.Card />
                     </div>
                     <div class="col">
-                      <ConcertSearchCardResults.card />
+                      <ConcertSearchCardResults.Card />
                     </div>
                     <div class="col">
    

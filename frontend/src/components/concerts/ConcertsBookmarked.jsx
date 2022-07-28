@@ -44,16 +44,16 @@ export default function ConcertsBookmarked() {
                 <div class="container-fluid">
                   <div class="row">
                     <div class="col">
-                      <ConcertSearchCardResults.card />
+                      <ConcertSearchCardResults.Card />
                     </div>
                     <div class="col">
-                      <ConcertSearchCardResults.card />
+                      <ConcertSearchCardResults.Card />
                     </div>
                     <div class="col">
-                      <ConcertSearchCardResults.card />
+                      <ConcertSearchCardResults.Card />
                     </div>
                     <div class="col">
-                      <ConcertSearchCardResults.card />
+                      <ConcertSearchCardResults.Card />
                     </div>
                     <div class="col">
                       <ConcertSearchCardResults.card />
