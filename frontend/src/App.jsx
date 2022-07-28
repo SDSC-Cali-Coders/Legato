@@ -10,6 +10,8 @@ import genreIcon from './assets/genre-country.svg';
 import { useLayoutEffect } from 'react';
 import axios from 'axios';
 import MainConcert from './components/concerts/MainConcert';
+import Settings from './pages/Settings';
+import AppRouter from './AppRouter';
 
 let tracksObject;
 let artistsObject;
@@ -19,6 +21,7 @@ console.log("access token is" + accessToken);
 console.log("logged in variable is" + loggedIn);
 
 function App(props) {
+  /*
   const [token, setToken] = useState(null);
   const [topArtists, setTopArtists] = useState(null);
   const [topSongs, setTopSongs] = useState(null);
@@ -90,7 +93,7 @@ function App(props) {
       addUserDB();
       effectTriggeredRef.current = true;
     }
-  }, [profile, topArtists, topSongs, recGenres]);
+  }, [profile, topArtists, topSongs, recGenres]); */
 
   /* CODE FOR US TO USE LATER TO CONNECT TO DB DO NOT DELETE
   useEffect(() => {
@@ -141,93 +144,14 @@ function App(props) {
 
  */
 
-  if (topSongs) {
-    let topThreeListObj = [];
-    let topTenListObj = [];
-    for (let i = 0; i < topSongs.items.length; i++) {
-      if (i < 3) {
-        topThreeListObj.push({
-          rank: i + 1,
-          img: topSongs.items[i].album.images[1].url
-        })
-      }
-      topTenListObj.push({
-        img: topSongs.items[i].album.images[1].url,
-        name: topSongs.items[i].artists[0].name,
-        artist: topSongs.items[i].name
-      })
-    }
-    tracksObject =
-    {
-      selection: 'Tracks',
-      topThreeList: topThreeListObj,
-      topTenList: topTenListObj,
-    }
-  }
-
-  if (topArtists) {
-    let topThreeListObj = [];
-    let topTenListObj = [];
-    for (let i = 0; i < topArtists.items.length; i++) {
-      if (i < 3) {
-        topThreeListObj.push({
-          rank: i + 1,
-          img: topArtists.items[i].images[1].url,
-          name: topArtists.items[i].name
-        })
-      }
-      topTenListObj.push({
-        img: topArtists.items[i].images[1].url,
-        name: topArtists.items[i].name,
-        artist: topArtists.items[i].name
-      })
-    }
-    artistsObject =
-    {
-      selection: 'Artists',
-      topThreeList: topThreeListObj,
-      topTenList: topTenListObj,
-    }
-  }
-
-
-  if (recGenres) {
-    let topThreeListObj = [];
-    let topTenListObj = [];
-    for (let i = 0; i < 10; i++) {
-      if (i < 3) {
-        topThreeListObj.push({
-          rank: i + 1,
-          icon: genreIcon,
-          genre: recGenres.genres[i]
-        })
-      }
-      topTenListObj.push({
-        icon: genreIcon,
-        genre: recGenres.genres[i],
-        percentage: (100 - i * 10)
-      })
-    }
-    genresObject = {
-      selection: "Genres",
-      topThreeList: topThreeListObj,
-      topTenList: topTenListObj,
-    }
-  }
-
   return (
     <>
       {loggedIn ? (
         <>
+
           <Navbar />
-          {topSongs && topArtists && recGenres && (
-            <ListeningHistory
-              Tracks={tracksObject}
-              Artists={artistsObject}
-              Genres={genresObject}
-            />
-          )}
-          
+          <AppRouter />
+
         </>
       ) : (
         <>

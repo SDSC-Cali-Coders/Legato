@@ -4,7 +4,6 @@ import divider from '../assets/divider.svg';
 import notification from '../assets/notification.svg';
 import profile from '../assets/profile.svg';
 import { logout } from '../api/spotify';
-
 const Navbar = () => {
     return (
         <div>
@@ -19,21 +18,23 @@ const Navbar = () => {
                         <a className="Sofia_cursive fs-4 p-0" href="#">Legato</a>
                     </div>
                     <ul className="navbar-nav ms-auto me-auto Oswald_regular">
-                            <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="#">History</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link " href="#">Artists</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Concerts</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Friends</a>
-                            </li>
+                        <li className="nav-item">
+                            <a className="nav-link active" aria-current="page" href="http://localhost:3000/">History</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link " href="#">Artists</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="http://localhost:3000/concerts">Concerts</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">Friends</a>
+                        </li>
                     </ul>
-                    <button className="btn" ><img src={notification} alt="" width="auto"/></button>
-                    <button className="btn" ><img src={profile} alt="" width="auto" onClick={logout}/></button>
+                    <button className="btn" ><img src={notification} alt="" width="auto" /></button>
+                    <a href="http://localhost:3000/settings">
+                        <button className="btn" ><img src={profile} alt="" width="auto" /></button>
+                    </a>
                 </div>
             </nav>
         </div>
