@@ -3,6 +3,7 @@ import logo from '../assets/icon.svg';
 import divider from '../assets/divider.svg';
 import notification from '../assets/notification.svg';
 import profile from '../assets/profile.svg';
+import { logout } from '../api/spotify';
 
 const Navbar = () => {
     return (
@@ -32,7 +33,7 @@ const Navbar = () => {
                             </li>
                     </ul>
                     <button className="btn" ><img src={notification} alt="" width="auto"/></button>
-                    <button className="btn" ><img src={profile} alt="" width="auto"/></button>
+                    <button className="btn" ><img src={profile} alt="" width="auto" onClick={logout}/></button>
                 </div>
             </nav>
         </div>
