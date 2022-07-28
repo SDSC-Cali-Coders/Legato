@@ -1,6 +1,5 @@
 import React from 'react';
-import Searchbar from '../components/Searchbar';
-import tom from '../assets/tom.png';
+import Searchbar from '../Searchbar';
 
 const NoConcert = (props) => {
     return (
@@ -10,7 +9,7 @@ const NoConcert = (props) => {
             </div>
             <div className="row justify-content-center m-5">
                 <div className="col-5 text-center">
-                    <img src={tom} className="img" width="400"></img>
+                    <img src={"https://pbs.twimg.com/media/FDkLGDmVUAAi0Ws.jpg"} className="img" width="400"></img>
                 </div>
             </div>
             <div className="row justify-content-center m-5">
