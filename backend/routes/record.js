@@ -79,23 +79,28 @@ recordRoutes.route("/notification/:id").get(function (req, response) {
 });
 
 
-// This section will help us get concerts near a user
-recordRoutes.route("/concerts/nearby/:id").get(function (req, response) {
+// This section will help us add concerts 
+// NOTE: needs functionality to make sure concert isnt already added
+recordRoutes.route("/concerts/add").put(function (req, response) {
   let db_connect = dbo.getDb();
-  //TODO fix id issues later
-  let myquery = { "_id": req.params.id };
-  db_connect.collection("user")
-    .findOne(myquery, function (err, res) {
+  let myobj = {
+    _id : req.body._id,
+    venueName: req.body.venueName,
+    date: req.body.date,
+    associatedArtists: req.body.associatedArtists,
+    interestedUsers: [req.body.interestedUsers],
+    goingUsers: [req.body.goingUsers],
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
+  };
+  db_connect.collection("event")
+    .insertOne(myobj, function (err, res) {
       if (err) {
         console.log(err);
         throw err;
       }
-       res.json(result);
-       //get zipcode from user and then find concerts near that zipcode
-       db_connect.collection("event")
+      response.json(res);
      });
-
-  
 });
 
 module.exports = recordRoutes;
