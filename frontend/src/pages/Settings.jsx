@@ -23,7 +23,7 @@ const Settings = (props) => {
         // Layout overview:
         // Main centerd column holding the UserProfile component [placeholder div]
         // column holding the settings icon up top
-        <div className="container pt-10">
+        <div className="container pt-5">
             <div className="row text-center">
                 <div className="col-11"></div>
                 <div className="col-1">
@@ -32,7 +32,7 @@ const Settings = (props) => {
             </div>
             <div className="row text-center">
                 <div className="col-1"> </div>
-                <div className="col-10 d-flex flex-column justify-content-between bg-secondary border border-dark position-relative vh-100 fs-1"> 
+                <div className="col-10 d-flex flex-column justify-content-between bg-secondary border border-dark position-relative my-5 fs-1"> 
                     <ProfilePic img={props.img}/>
                     <UserProfile 
                         userName= 'John Doe'
