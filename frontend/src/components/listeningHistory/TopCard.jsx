@@ -70,12 +70,12 @@ export default function TopCard(props) {
 
         {/* Row: [Top 3 col] [Top 10 col] */}
         <div className="row mt-5">
-          <div className="col d-grid gap-5 bg-warning">
+          <div className="col d-grid gap-5">
             {TopThreeCards[0]}
             {TopThreeCards[1]}
             {TopThreeCards[2]}
           </div>
-          <div className="col-9 mx-3 bg-warning">
+          <div className="col-9 mx-3">
             <ol className="list-group fs-4 list-group-numbered">
             {TopTenCards[0]}
             {TopTenCards[1]}
@@ -90,98 +90,6 @@ export default function TopCard(props) {
             </ol>
           </div>
         </div>
-
-        {/* <div className="Oswald_regular">
-          <section>
-            <span>
-              <div className="button-group">
-                <div
-                  className="btn-group float-end bg-neutral-primary"
-                  role="group"
-                  aria-label="Basic radio toggle button group"
-                >
-                  <input
-                    type="radio"
-                    className="btn-check"
-                    name="btnradio"
-                    id="btnradio1"
-                    autocomplete="off"
-                    checked
-                  />
-                  <label
-                    className="btn btn-outline-light text-dark"
-                    for="btnradio1"
-                  >
-                    <h4>4 Weeks</h4>
-                  </label>
-
-                  <input
-                    type="radio"
-                    className="btn-check"
-                    name="btnradio"
-                    id="btnradio2"
-                    autocomplete="off"
-                    checked
-                  />
-                  <label
-                    className="btn btn-outline-light text-dark"
-                    for="btnradio2"
-                  >
-                    <h4>6 Months</h4>
-                  </label>
-
-                  <input
-                    type="radio"
-                    className="btn-check"
-                    name="btnradio"
-                    id="btnradio3"
-                    autocomplete="off"
-                    checked
-                  />
-                  <label
-                    className="btn btn-outline-light text-dark"
-                    for="btnradio3"
-                  >
-                    <h4>All Time</h4>
-                  </label>
-                </div>
-              </div>
-              <h1>Top {props.selection}</h1>
-            </span>
-          </section>
-          <br />
-          <br />
-          <div className="container">
-            <div className="row">
-              <div className="col-3 pe-5 d-grid gap-5">
-                <div className="row">
-                  {TopThreeCards[0]}
-                </div>
-                <div className="row">
-                  {TopThreeCards[1]}
-                </div>
-                <div className="row">
-                  {TopThreeCards[2]}
-                </div>
-              </div>
-
-              <div className="col-9">
-                <ol className="list-group list-group-numbered Oswald_regular">
-                  {TopTenList[0]}
-                  {TopTenList[1]}
-                  {TopTenList[2]}
-                  {TopTenList[3]}
-                  {TopTenList[4]}
-                  {TopTenList[5]}
-                  {TopTenList[6]}
-                  {TopTenList[7]}
-                  {TopTenList[8]}
-                  {TopTenList[9]}
-                </ol>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
   );
 }
