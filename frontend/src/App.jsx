@@ -7,8 +7,9 @@ import ConcertsGoing from "./components/concerts/ConcertsGoing";
 import BookmarksEmpty from "./components/concerts/BookmarksEmpty";
 import ConcertsEmpty from "./components/concerts/ConcertsEmpty";
 
+import ConcertSearchCardResults from "./components/concerts/ConcertSearchCardResults";
 
-function App(props) {
+function App() {
   return (
     <>
       <Navbar />
@@ -22,6 +23,9 @@ function App(props) {
       {/* <div className="m-2">
         <ConcertPlaceholder />
       </div> */}
+      <div className="m-2">
+        <ConcertSearchCardResults.card />
+      </div>
     </>
   );
 }
