@@ -80,7 +80,8 @@ const Settings = (props) => {
                             {genre: 'Rock'},
                             {genre: 'Rock'}
                         ]}/>
-                    <div className="row pb-5"> 
+
+                    <div className="row py-5"> 
                         <div className="col-5"></div>
                         <div className="col-2">
                             <div className="row">

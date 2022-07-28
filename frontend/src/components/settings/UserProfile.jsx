@@ -135,7 +135,6 @@ const UserProfile = (props) => {
                     </div>
                 </div>
             </div>
-            {/* Row: [Log out] button */}
         </div>
     );
 }
