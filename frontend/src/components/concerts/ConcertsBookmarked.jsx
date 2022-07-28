@@ -6,7 +6,7 @@ import BookmarkInterestedBtn from "./BookmarkInterestedBtn"
 
 export default function ConcertsBookmarked() {
   return (
-    <>
+    <div className="container mt-3 min-vw-100 Oswald_regular">
       <Searchbar.ConcertSearchbar />
       <div class="btn-group m-2" role="group" aria-label="First group">
         <BookmarkInterestedBtn.YourBookmarks isPressed={true} />
@@ -15,72 +15,32 @@ export default function ConcertsBookmarked() {
         <BookmarkInterestedBtn.Going isPressed={false} />
       </div>
 
-      <div className="Oswald_bold">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-sm">
-              <div className="d-flex p-2 mt-2 bg-neutral-primary border border-dark">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-sm">
-                      <h1>Concerts you have bookmarked...</h1>
-                    </div>
-                    <div class="col-sm">
-                      <DropdownMenu.ConcertSortBy />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div className="container-fluid border border-dark bg-primary">
 
-      <div className="Oswald_bold">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-sm">
-              <div className="d-flex p-2 bg-neutral-primary border border-dark">
-                <div class="container-fluid">
-                  <div class="row">
-                    <div class="col">
-                      <ConcertSearchCardResults.Card />
-                    </div>
-                    <div class="col">
-                      <ConcertSearchCardResults.Card />
-                    </div>
-                    <div class="col">
-                      <ConcertSearchCardResults.Card />
-                    </div>
-                    <div class="col">
-                      <ConcertSearchCardResults.Card />
-                    </div>
-                    <div class="col">
-                      <ConcertSearchCardResults.card />
-                    </div>
-                    <div class="w-100"></div>
-                    <div class="col">
-                      <ConcertSearchCardResults.card />
-                    </div>
-                    <div class="col">
-                      <ConcertSearchCardResults.card />
-                    </div>
-                    <div class="col">
-                      <ConcertSearchCardResults.card />
-                    </div>
-                    <div class="col">
-   
-                    </div>
-                    <div class="col">
- 
-                    </div>
-                  </div>
-                </div>
-              </div>
+      {/* MainConcerts: <div className="col border border-dark bg-primary mx-4"> */}
+
+        {/* Row: title [radius btn] */}
+        <div className="row align-items-center"> 
+          <div className="col-10 fs-2"> Concerts you have bookmarked...</div>
+          <div className="col-2 text-end">
+              <DropdownMenu.ConcertSortBy />
             </div>
-          </div>
+        </div>
+
+        {/* Row: Grid [6xn] */}
+        <div className="row row-cols-6 g-4">
+          <div className="col"> <ConcertSearchCardResults.Card/> </div>
+          <div className="col"> <ConcertSearchCardResults.Card/> </div>
+          <div className="col"> <ConcertSearchCardResults.Card/> </div>
+          <div className="col"> <ConcertSearchCardResults.Card/> </div>
+          <div className="col"> <ConcertSearchCardResults.Card/> </div>
+          <div className="col"> <ConcertSearchCardResults.Card/> </div>
+          <div className="col"> <ConcertSearchCardResults.Card/> </div>
+          <div className="col"> <ConcertSearchCardResults.Card/> </div>
+          <div className="col"> <ConcertSearchCardResults.Card/> </div>
+          <div className="col"> <ConcertSearchCardResults.Card/> </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
