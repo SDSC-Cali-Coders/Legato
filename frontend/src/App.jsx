@@ -17,8 +17,6 @@ const loggedIn = accessToken ? true : false;
 console.log("access token is" + accessToken);
 console.log("logged in variable is" + loggedIn);
 
-
-
 function App(props) {
   const [token, setToken] = useState(null);
   const [topArtists, setTopArtists] = useState(null);
@@ -88,10 +86,6 @@ function App(props) {
       catchErrors(axios.put(`http://localhost:27017/user/${profile.id}`, newUser));
     }
     if (!effectTriggeredRef.current && profile && topSongs && topArtists && recGenres) {
-      console.log("This is the # topSongs" + topSongs.items.length);
-      console.log("This is the # topArtists" + topArtists.items.length);
-      console.log("This is the # reccGenres" + recGenres.genres.length);
-
       addUserDB();
       effectTriggeredRef.current = true;
     }
