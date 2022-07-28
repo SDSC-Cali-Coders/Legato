@@ -10,7 +10,21 @@ const ArtistCard = (props) => {
             </div>
         </div>
     );
-}
+};
+
+const SongCard = (props) => {
+    return (
+        <div className="row bg-light rounded-3 border border-dark fs-5">
+            <div className="col">
+                {props.songTitle}
+            </div>
+            <div className="col text-end">
+                {props.artistName}
+            </div>
+        </div>
+    );
+};
+
 
 const UserProfile = (props) => {
     return (
@@ -80,8 +94,23 @@ const UserProfile = (props) => {
             </div>
 
             {/* Row: [Top songs col] [Top genres col] */}
-            {/* Top songs col: title row; 5SongCard; [see more] button*/}
-            {/* Top genres col: title row; 5GenreCards; [see more] button*/}
+            <div className="row text-start">
+
+                {/* Top songs col: title row; 5SongCard; [see more] button*/}
+                <div className="col-7 bg-warning d-grid gap-3">
+                    <p className="fw-bold">My Top Songs</p>
+                    <SongCard songTitle={props.topSongsList[0].songTitle} artistName={props.topSongsList[0].artistName}/>
+                    <SongCard songTitle={props.topSongsList[1].songTitle} artistName={props.topSongsList[1].artistName}/>
+                    <SongCard songTitle={props.topSongsList[2].songTitle} artistName={props.topSongsList[2].artistName}/>
+                    <SongCard songTitle={props.topSongsList[3].songTitle} artistName={props.topSongsList[3].artistName}/>
+                    <SongCard songTitle={props.topSongsList[4].songTitle} artistName={props.topSongsList[4].artistName}/>
+                </div>
+
+                {/* Top genres col: title row; 5GenreCards; [see more] button*/}
+                <div className="col-5 bg-danger d-grid grap-3">
+                    <p className="fw-bold">My Top Genres</p>
+                </div>
+            </div>
             {/* Row: [Log out] button */}
         </div>
     );
