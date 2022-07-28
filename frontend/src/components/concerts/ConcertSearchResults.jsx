@@ -1,7 +1,7 @@
 import React from "react";
 import Buttons from "../Buttons";
 
-const ConcertSearchCardResults = {
+const ConcertSearchResults = {
   Card: () => {
     return (
       <div class="card shadow">
@@ -25,6 +25,11 @@ const ConcertSearchCardResults = {
       </div>
     );
   },
+  List: () => {
+    return (
+      <div></div>
+    );
+  }
 };
 
-export default ConcertSearchCardResults;
+export default ConcertSearchResults;

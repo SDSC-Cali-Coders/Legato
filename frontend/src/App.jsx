@@ -5,27 +5,34 @@ import ConcertsBookmarked from "./components/concerts/ConcertsBookmarked";
 import ConcertsGoing from "./components/concerts/ConcertsGoing";
 import BookmarksEmpty from "./components/concerts/BookmarksEmpty";
 import ConcertsEmpty from "./components/concerts/ConcertsEmpty";
-
-import ConcertSearchCardResults from "./components/concerts/ConcertSearchCardResults";
+import GoingEmpty from "./components/concerts/GoingEmpty";
+import ConcertSearchView from "./components/concerts/ConcertSearchView";
 
 function App() {
   return (
     <>
       <Navbar />
 
-      <MainConcert />
+      {/* <div className="m-2">
+        <ConcertPlaceholder />
+        <ConcertSearchResults.Card />
+        <ConcertSearchResults.List />
+      </div> */}
+
+      {/* <MainConcert /> */}
       {/* <ConcertsBookmarked /> */}
       {/* <ConcertsGoing /> */}
       {/* <BookmarksEmpty/> */}
-      {/* <ConcertsEmpty/> */}
+      {/* <GoingEmpty/> */}
+      <ConcertSearchView/>
 
-      {/* <div className="m-2">
-        <ConcertPlaceholder />
-      </div> */}
-      
-      <div className="m-2">
-        {/* <ConcertSearchCardResults.card /> */}
-      </div>
+
+
+      {/* <ConcertsEmpty/> */} 
+      {/* lingyu's */}
+
+
+
     </>
   );
 }

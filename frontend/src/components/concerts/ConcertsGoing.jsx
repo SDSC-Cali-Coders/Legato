@@ -1,6 +1,6 @@
 import React from "react";
 import DropdownMenu from "../DropdownMenu";
-import ConcertSearchCardResults from "./ConcertSearchCardResults";
+import ConcertSearchResults from "./ConcertSearchView";
 import Searchbar from "../Searchbar";
 import BookmarkInterestedBtn from "./BookmarkInterestedBtn"
 
@@ -29,16 +29,16 @@ export default function ConcertsGoing() {
 
         {/* Row: Grid [6xn] */}
         <div className="row row-cols-6 g-4">
-          <div className="col"> <ConcertSearchCardResults.Card/> </div>
-          <div className="col"> <ConcertSearchCardResults.Card/> </div>
-          <div className="col"> <ConcertSearchCardResults.Card/> </div>
-          <div className="col"> <ConcertSearchCardResults.Card/> </div>
-          <div className="col"> <ConcertSearchCardResults.Card/> </div>
-          <div className="col"> <ConcertSearchCardResults.Card/> </div>
-          <div className="col"> <ConcertSearchCardResults.Card/> </div>
-          <div className="col"> <ConcertSearchCardResults.Card/> </div>
-          <div className="col"> <ConcertSearchCardResults.Card/> </div>
-          <div className="col"> <ConcertSearchCardResults.Card/> </div>
+          <div className="col"> <ConcertSearchResults.Card/> </div>
+          <div className="col"> <ConcertSearchResults.Card/> </div>
+          <div className="col"> <ConcertSearchResults.Card/> </div>
+          <div className="col"> <ConcertSearchResults.Card/> </div>
+          <div className="col"> <ConcertSearchResults.Card/> </div>
+          <div className="col"> <ConcertSearchResults.Card/> </div>
+          <div className="col"> <ConcertSearchResults.Card/> </div>
+          <div className="col"> <ConcertSearchResults.Card/> </div>
+          <div className="col"> <ConcertSearchResults.Card/> </div>
+          <div className="col"> <ConcertSearchResults.Card/> </div>
         </div>
       </div>
     </div>

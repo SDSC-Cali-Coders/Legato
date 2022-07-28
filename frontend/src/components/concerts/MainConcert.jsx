@@ -1,6 +1,6 @@
 import React from "react";
 import DropdownMenu from "../DropdownMenu";
-import ConcertSearchCardResults from "./ConcertSearchCardResults";
+import ConcertSearchResults from "./ConcertSearchView";
 import Searchbar from "../Searchbar";
 import BookmarkInterestedBtn from "./BookmarkInterestedBtn"
 
@@ -30,12 +30,12 @@ export default function MainConcert() {
             </div>
           </div>
           <div className="row row-cols-3 g-4">
-            <div className="col"> <ConcertSearchCardResults.Card/> </div>
-            <div className="col"> <ConcertSearchCardResults.Card/> </div>
-            <div className="col"> <ConcertSearchCardResults.Card/> </div>
-            <div className="col"> <ConcertSearchCardResults.Card/> </div>
-            <div className="col"> <ConcertSearchCardResults.Card/> </div>
-            <div className="col"> <ConcertSearchCardResults.Card/> </div>
+            <div className="col"> <ConcertSearchResults.Card/> </div>
+            <div className="col"> <ConcertSearchResults.Card/> </div>
+            <div className="col"> <ConcertSearchResults.Card/> </div>
+            <div className="col"> <ConcertSearchResults.Card/> </div>
+            <div className="col"> <ConcertSearchResults.Card/> </div>
+            <div className="col"> <ConcertSearchResults.Card/> </div>
           </div>
         </div>
 
@@ -53,12 +53,12 @@ export default function MainConcert() {
           </div>
 
           <div className="row row-cols-3 g-4">
-            <div className="col"> <ConcertSearchCardResults.Card/> </div>
-            <div className="col"> <ConcertSearchCardResults.Card/> </div>
-            <div className="col"> <ConcertSearchCardResults.Card/> </div>
-            <div className="col"> <ConcertSearchCardResults.Card/> </div>
-            <div className="col"> <ConcertSearchCardResults.Card/> </div>
-            <div className="col"> <ConcertSearchCardResults.Card/> </div>
+            <div className="col"> <ConcertSearchResults.Card/> </div>
+            <div className="col"> <ConcertSearchResults.Card/> </div>
+            <div className="col"> <ConcertSearchResults.Card/> </div>
+            <div className="col"> <ConcertSearchResults.Card/> </div>
+            <div className="col"> <ConcertSearchResults.Card/> </div>
+            <div className="col"> <ConcertSearchResults.Card/> </div>
           </div>
         </div>
       </div>
