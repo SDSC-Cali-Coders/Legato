@@ -13,13 +13,15 @@ export default function ConcertSearch() {
         <DropdownMenu.ConcertSortBy/>
       </div>
 
-      <ul class="list-group">
-          <li class="list-group-item"><ConcertSearchResults.List /></li>
-          <li class="list-group-item"><ConcertSearchResults.List /></li>
-          <li class="list-group-item"><ConcertSearchResults.List /></li>
-          <li class="list-group-item"><ConcertSearchResults.List /></li>
-          <li class="list-group-item"><ConcertSearchResults.List /></li>
-      </ul>
+      <div className="row">
+        <ol className="list-group gx-3">
+          <ConcertSearchResults.List/>
+          <ConcertSearchResults.List/>
+          <ConcertSearchResults.List/>
+          <ConcertSearchResults.List/>
+          <ConcertSearchResults.List/>
+        </ol>
+      </div>
 
 
 
