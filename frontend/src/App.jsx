@@ -9,6 +9,7 @@ import { getArtistEvent } from './api/bandsintown';
 import genreIcon from './assets/genre-country.svg';
 import { useLayoutEffect } from 'react';
 import axios from 'axios';
+import MainConcert from './components/concerts/MainConcert';
 
 let tracksObject;
 let artistsObject;
@@ -226,6 +227,7 @@ function App(props) {
               Genres={genresObject}
             />
           )}
+          
         </>
       ) : (
         <>
