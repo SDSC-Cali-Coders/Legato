@@ -27,7 +27,22 @@ const ConcertSearchResults = {
   },
   List: () => {
     return (
-      <div></div>
+      <li className="list-group-item hstack bg-primary border fs-4">
+        {/* [Date | Time] */}
+        <div className="col p-2">
+          <div className="row"> July 5, 2022 </div>
+          <div className="row"> Tuesday 8:00 PM PST </div>
+        </div>
+
+        {/* [Artist, Genre | Venue local] */}
+        <div className="col">
+          <div className="row"> Drake, Hip-Hop </div>
+          <div className="row"> The Forum - Inglewood, CA </div>
+        </div>
+
+        {/* Make whole card clickable again */}
+        <a href="#" class="btn btn-transparent border-0 stretched-link"/>
+      </li>
     );
   }
 };
