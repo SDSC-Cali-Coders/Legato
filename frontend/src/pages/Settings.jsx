@@ -55,6 +55,18 @@ const Settings = (props) => {
                             {artistImg:props.img, artistName: 'The Police'},
                             {artistImg:props.img, artistName: 'The Police'},
                             {artistImg:props.img, artistName: 'The Police'}
+                        ]}
+                        topSongsList={[
+                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
+                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
+                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
+                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
+                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
+                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
+                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
+                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
+                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
+                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'}
                         ]}/>
                     <div className="row pb-5"> 
                         <div className="col-5"></div>
