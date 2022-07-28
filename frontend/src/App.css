@@ -55,10 +55,16 @@
 }
 
 /* Oswald bold font */
+.Oswald_less_bold {
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+}
+
 .Oswald_bold {
   font-family: "Oswald", sans-serif;
   font-weight: 700;
 }
+
 /* Oswald regular font */
 .Oswald_regular {
   font-family: "Oswald", sans-serif;
@@ -141,3 +147,17 @@
   float: right;
 }
 
+.triangleBtnSection{
+  background-color: #B1A6A4 !important;
+  transition: 0.2s;
+  border: none;
+  
+}
+/* Additional styling for dropdown menus */
+.dropdown-menu > li > a:hover {
+  background-color: #697184;
+}
+
+.dropdown > button:hover {
+  background-color: #697184;
+}
