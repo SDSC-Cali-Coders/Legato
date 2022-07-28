@@ -58,10 +58,10 @@ const Settings = (props) => {
                         ]}
                         topSongsList={[
                             {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
-                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
-                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
-                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
-                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
+                            {songTitle: 'Malaguena', artistName: 'Caterina Valente'},
+                            {songTitle: 'Wildest Dreams', artistName: 'Asia'},
+                            {songTitle: 'Nuevos Airos', artistName: 'Alex Fox'},
+                            {songTitle: 'Rio Ancho', artistName: 'Paco de Lucia'},
                             {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
                             {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
                             {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
