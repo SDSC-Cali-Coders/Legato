@@ -71,8 +71,23 @@ export default function TopCard(props) {
         {/* Row: [Top 3 col] [Top 10 col] */}
         <div className="row mt-5">
           <div className="col d-grid gap-5 bg-warning">
+            {TopThreeCards[0]}
+            {TopThreeCards[1]}
+            {TopThreeCards[2]}
           </div>
           <div className="col-9 mx-3 bg-warning">
+            <ol className="list-group fs-4 list-group-numbered">
+            {TopTenCards[0]}
+            {TopTenCards[1]}
+            {TopTenCards[2]}
+            {TopTenCards[3]}
+            {TopTenCards[4]}
+            {TopTenCards[5]}
+            {TopTenCards[6]}
+            {TopTenCards[7]}
+            {TopTenCards[8]}
+            {TopTenCards[9]}
+            </ol>
           </div>
         </div>
 
