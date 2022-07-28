@@ -141,7 +141,7 @@ export const getCurrentUserProfile = () => spotifyInstance.get('/me');
 * @returns {Promise}
 */
 export const getTopArtists = (time_range = 'short_term') => {
-    return spotifyInstance.get(`/me/top/artists?time_range=${time_range}`);
+    return spotifyInstance.get(`/me/top/artists?time_range=${time_range}&limit=10`);
 };
 
 /**
@@ -151,7 +151,7 @@ export const getTopArtists = (time_range = 'short_term') => {
 * @returns {Promise}
 */
 export const getTopSongs = (time_range) => {
-    return spotifyInstance.get(`/me/top/tracks?time_range=${time_range}`);
+    return spotifyInstance.get(`/me/top/tracks?time_range=${time_range}&limit=10`);
 };
 
 
