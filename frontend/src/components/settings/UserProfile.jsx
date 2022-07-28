@@ -14,12 +14,14 @@ const ArtistCard = (props) => {
 
 const UserProfile = (props) => {
     return (
-        <div className="container mt-4 d-grid gap-3">
+        <div className="container mt-4 d-grid gap-3 Oswald_regular">
             {/* Row: Invite button */}
             <div className="row bg-warning">
-                <div className="col d-flex justify-content-end">
+                <div className="col-3 offset-9 bg-danger">
+                    <div className="row">
                     <Buttons.Invite/>
                 </div>
+            </div>
             </div>
 
             {/* Row: [Username & Socials] [followers | following cnt] */}
