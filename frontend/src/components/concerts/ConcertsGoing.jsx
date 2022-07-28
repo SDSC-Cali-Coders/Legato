@@ -12,7 +12,7 @@ export default function ConcertsGoing() {
         <BookmarkInterestedBtn.YourBookmarks isPressed={false} />
       </div>
       <div class="btn-group m-2" role="group" aria-label="Second group">
-        <BookmarkInterestedBtn.Going isPressed={false} />
+        <BookmarkInterestedBtn.Going isPressed={true} />
       </div>
 
       <div className="Oswald_bold">
