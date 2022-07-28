@@ -16,7 +16,7 @@ const Buttons = {
         </button>
         );
     },
-    Play: () => {
+    Play: (props) => {
         return (
             <i className="bi bi-caret-right-fill btn-play" type="button"></i>
         );
