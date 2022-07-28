@@ -1,6 +1,6 @@
 import React from "react";
 import DropdownMenu from "../DropdownMenu";
-import ConcertSearchResults from "./ConcertSearchView";
+import ConcertSearchResults from "./ConcertSearchResults";
 import Searchbar from "../Searchbar";
 import BookmarkInterestedBtn from "./BookmarkInterestedBtn"
 
@@ -8,10 +8,10 @@ export default function ConcertsGoing() {
   return (
     <div className="container mt-3 min-vw-100 Oswald_regular">
       <Searchbar.ConcertSearchbar />
-      <div class="btn-group m-2" role="group" aria-label="First group">
+      <div className="btn-group m-2" role="group" aria-label="First group">
         <BookmarkInterestedBtn.YourBookmarks isPressed={true} />
       </div>
-      <div class="btn-group m-2" role="group" aria-label="Second group">
+      <div className="btn-group m-2" role="group" aria-label="Second group">
         <BookmarkInterestedBtn.Going isPressed={false} />
       </div>
 

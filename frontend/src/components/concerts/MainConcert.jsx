@@ -1,6 +1,6 @@
 import React from "react";
 import DropdownMenu from "../DropdownMenu";
-import ConcertSearchResults from "./ConcertSearchView";
+import ConcertSearchResults from "./ConcertSearchResults";
 import Searchbar from "../Searchbar";
 import BookmarkInterestedBtn from "./BookmarkInterestedBtn"
 
