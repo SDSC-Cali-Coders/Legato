@@ -14,7 +14,7 @@ const dbo = require("../db/conn");
 const ObjectId = require("mongodb").ObjectId;
 
 // This section will help us add users to the db
-recordRoutes.route("/user/add").put(function (req, response) {
+recordRoutes.route("/user/:id").put(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
     _id: req.body.id,
@@ -22,7 +22,7 @@ recordRoutes.route("/user/add").put(function (req, response) {
     topArtists: req.body.topArtists,
     topSongs: req.body.topSongs,
     recGenres: req.body.recGenres,
-    linkedSocials: [],
+    linkedSocials: {facebook: {}, instagram: {}, twitter: {}, pinterest: {}},
     followers: [],
     following: [],
     interestedEvents: [],
@@ -46,4 +46,61 @@ recordRoutes.route("/user/add").put(function (req, response) {
     }
   });
 });
+
+// This section will help us get users their info for the settings page
+recordRoutes.route("/user/:id").get(function (req, response) {
+  let db_connect = dbo.getDb();
+  let myquery = { "_id": req.params.id };
+  db_connect.collection("user")
+    .findOne(myquery, function (err, res) {
+      if (err) {
+        console.log(err);
+        return err;
+      }
+      //all data is sent in res.data
+      response.json(res);
+    });
+});
+
+// This section will help us get notifications
+recordRoutes.route("/notification/:id").get(function (req, response) {
+  let db_connect = dbo.getDb();
+  let myquery = { "userId": req.params.id };
+  db_connect.collection("notification")
+    .find(myquery)
+    .toArray(function (err, res) {
+      if (err) {
+        console.log(err);
+        return err;
+      }
+      //all data is sent in res.data
+      response.json(res);
+    });
+});
+
+
+// This section will help us add concerts 
+// NOTE: needs functionality to make sure concert isnt already added
+recordRoutes.route("/concerts/add").put(function (req, response) {
+  let db_connect = dbo.getDb();
+  let myobj = {
+    _id : req.body._id,
+    venueName: req.body.venueName,
+    date: req.body.date,
+    associatedArtists: req.body.associatedArtists,
+    interestedUsers: [req.body.interestedUsers],
+    goingUsers: [req.body.goingUsers],
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
+  };
+  db_connect.collection("event")
+    .insertOne(myobj, function (err, res) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      response.json(res);
+     });
+});
+
 module.exports = recordRoutes;
