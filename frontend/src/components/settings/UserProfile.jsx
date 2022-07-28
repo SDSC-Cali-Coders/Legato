@@ -65,8 +65,17 @@ const UserProfile = (props) => {
 
             {/* Row: Dynamic amnt of ArtistCards [see more] button */}
             <div className="row bg-warning">
-                <div className="col-3">
+                <div className="col-10 card-group">
                     <ArtistCard artistImg={props.topArtistsList[0].artistImg} artistName={props.topArtistsList[0].artistName}/>
+                    <ArtistCard artistImg={props.topArtistsList[0].artistImg} artistName={props.topArtistsList[0].artistName}/>
+                    <ArtistCard artistImg={props.topArtistsList[0].artistImg} artistName={props.topArtistsList[0].artistName}/>
+                    <ArtistCard artistImg={props.topArtistsList[0].artistImg} artistName={props.topArtistsList[0].artistName}/>
+                    <ArtistCard artistImg={props.topArtistsList[0].artistImg} artistName={props.topArtistsList[0].artistName}/>
+                </div>
+                <div className="col d-flex align-items-end bg-light">
+                    <div className="row flex-fill bg-danger">
+                        <Buttons.SeeMore/>
+                    </div>
                 </div>
             </div>
 
