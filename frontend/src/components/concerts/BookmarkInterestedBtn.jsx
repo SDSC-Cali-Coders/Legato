@@ -3,7 +3,6 @@ import React from "react";
 const BookmarkInterestedBtn = {
   YourBookmarks: (props) => {
     return (
-    //   <div className="concertToggleBtn">
         <button
           className={` concertToggleBtn btn btn-secondary px-4 py-0 d-flex ${
             props.isPressed ? "bg-neutral-primary" : " bg-neutral-body"
@@ -13,7 +12,6 @@ const BookmarkInterestedBtn = {
           Your Bookmarks
           <i className="bi bi-bookmark ps-4"></i>
         </button>
-    //   </div>
     );
   },
 
@@ -27,7 +25,7 @@ const BookmarkInterestedBtn = {
           type="button"
         >
           Going
-          <i className="bi bi-bookmark ps-4"></i>
+          <i className="bi bi-star ps-4"></i>
         </button>
       </div>
     );

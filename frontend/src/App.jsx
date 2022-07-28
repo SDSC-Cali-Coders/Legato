@@ -1,23 +1,27 @@
 import "./App.css";
-import BookmarkInterestedBtn from "../src/components/concerts/BookmarkInterestedBtn";
+import Navbar from "./components/Navbar";
+import ConcertPlaceholder from "./components/concerts/ConcertPlaceholder";
+import MainConcert from "./components/concerts/MainConcert";
+import ConcertsBookmarked from "./components/concerts/ConcertsBookmarked";
+import ConcertsGoing from "./components/concerts/ConcertsGoing";
+import BookmarksEmpty from "./components/concerts/BookmarksEmpty";
+import ConcertsEmpty from "./components/concerts/ConcertsEmpty";
+
 
 function App(props) {
   return (
     <>
-      <div className="m-2">
+      <Navbar />
 
-        <BookmarkInterestedBtn.YourBookmarks isPressed={true} />
-        <br/>
-        <BookmarkInterestedBtn.YourBookmarks isPressed={false} />
+      {/* <MainConcert /> */}
+      {/* <ConcertsBookmarked /> */}
+      {/* <ConcertsGoing /> */}
+      {/* <BookmarksEmpty/> */}
+      <ConcertsEmpty/>
 
-        <br/>
-        <br/>
-
-        <BookmarkInterestedBtn.Going isPressed={true} />
-        <br/>
-        <BookmarkInterestedBtn.Going isPressed={false} />
-
-      </div>
+      {/* <div className="m-2">
+        <ConcertPlaceholder />
+      </div> */}
     </>
   );
 }
