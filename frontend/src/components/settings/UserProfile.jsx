@@ -25,6 +25,15 @@ const SongCard = (props) => {
     );
 };
 
+const GenreCard = (props) => {
+    return (
+        <div className="row bg-light rounded-3 border border-dark fs-5">
+            <div className="col text-center">
+                {props.genre}
+            </div>
+        </div>
+    );
+};
 
 const UserProfile = (props) => {
     return (
@@ -107,8 +116,13 @@ const UserProfile = (props) => {
                 </div>
 
                 {/* Top genres col: title row; 5GenreCards; [see more] button*/}
-                <div className="col-5 bg-danger d-grid ps-4 grap-3">
+                <div className="col-5 bg-danger d-grid ps-4 gap-3">
                     <p className="fw-bold">My Top Genres</p>
+                    <GenreCard genre={props.topGenreList[0].genre} />
+                    <GenreCard genre={props.topGenreList[0].genre} />
+                    <GenreCard genre={props.topGenreList[0].genre} />
+                    <GenreCard genre={props.topGenreList[0].genre} />
+                    <GenreCard genre={props.topGenreList[0].genre} />
                 </div>
             </div>
             {/* Row: [Log out] button */}
