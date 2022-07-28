@@ -11,7 +11,9 @@ const TopTen = {
                     </div>
                 </div>
                 <div className="col fw-bold fs-4">
+                    <div className='invisible'> test</div>
                     {props.name}
+                    <div className='invisible'> test</div>
                 </div>
                 <div className="col d-flex justify-content-end">
                     {props.isSubscribed
@@ -50,11 +52,15 @@ const TopTen = {
 
     Genres: (props) => {
         return (
-            <li className="list-group-item d-flex align-items-center bg-neutral-primary">
-                <div className={`container-fluid bg-neutral-dark rounded ms-2 w-${props.percentage}`}>
-                    <div className="d-flex flex-row flex-grow-1 align-item-start align-items-center" >
-                        <img src={props.icon} width='40' height='40' className="rounded-circle mx-3 d-block" alt="..." />
-                        <div className="fw-bold text-light Oswald_regular">{props.genre}</div>
+            <li className="list-group-item hstack bg-neutral-primary">
+                <div className={`container-fluid hstack bg-neutral-secondary rounded ms-2 w-${props.percentage}`}>
+                    <div className="col-2 px-4 d-flex">
+                        <img className="img-fluid" src={props.icon} alt="..." />
+                    </div>
+                    <div className="col fs-4">
+                        <div className='invisible'> test</div>
+                        {props.genre}
+                        <div className='invisible'> test</div>
                     </div>
                 </div>
             </li>

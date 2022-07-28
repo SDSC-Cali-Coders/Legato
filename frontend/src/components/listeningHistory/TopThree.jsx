@@ -67,9 +67,9 @@ const TopThree = {
 
                 <img src={props.icon} alt="TopGenre icon" className='card-img-top px-5 pt-5'/>
                 <div className="card-body px-5">
-                    <h1 className="card-title">
+                    <h3 className="card-title fw-bold">
                         {props.genre}
-                    </h1>
+                    </h3>
                 </div>
             </div>
         );
