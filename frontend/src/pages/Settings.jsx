@@ -38,12 +38,12 @@ const Settings = (props) => {
                         userName= 'John Doe'
                         followersCount={238} 
                         followingCount={101} 
-                        socialLinks={
-                            {facebook:  'https://facebook.com/JohnDoe',
-                             twitter:   'https://twitter.com/JohnDoe',
-                             instagram: 'https://instagram.com/JohnDoe',
-                             pinterest: 'https://pinterest.com/JohnDoe'
-                            }}
+                        socialLinks={{
+                            facebook:  'https://facebook.com/JohnDoe',
+                            twitter:   'https://twitter.com/JohnDoe',
+                            instagram: 'https://instagram.com/JohnDoe',
+                            pinterest: 'https://pinterest.com/JohnDoe'
+                        }}
                         topArtistsList={[
                             {artistImg:props.img, artistName: 'The Police'},
                             {artistImg:props.img, artistName: 'The Police'},
@@ -67,6 +67,18 @@ const Settings = (props) => {
                             {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
                             {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
                             {songTitle: 'Man in a Suitcase', artistName: 'The Police'}
+                        ]}
+                        topGenreList={[
+                            {genre: 'Rock'},
+                            {genre: 'Rock'},
+                            {genre: 'Rock'},
+                            {genre: 'Rock'},
+                            {genre: 'Rock'},
+                            {genre: 'Rock'},
+                            {genre: 'Rock'},
+                            {genre: 'Rock'},
+                            {genre: 'Rock'},
+                            {genre: 'Rock'}
                         ]}/>
                     <div className="row pb-5"> 
                         <div className="col-5"></div>
