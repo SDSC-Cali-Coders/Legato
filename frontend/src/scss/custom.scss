@@ -38,6 +38,13 @@ $extended-positions: (
 // Merging into positions map now
 $position-values: map-merge($extended-positions, $position-values);
 
+$extended-fs: (
+  7: $h6-font-size * .75,
+  8: $h6-font-size * .50,
+  9: $h6-font-size * .25
+);
+
+$font-sizes: map-merge($extended-fs, $font-sizes);
 // 5. Include remainder of required parts
 @import "/node_modules/bootstrap/scss/maps";
 @import "/node_modules/bootstrap/scss/mixins";

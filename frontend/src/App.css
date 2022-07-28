@@ -106,12 +106,6 @@
   align-items: center;
   justify-content: center;
 }
-.btn-colored {
-  width: 10rem;
-}
-.btn-follow {
-  width: 15rem;
-}
 
 /* Special styling for btn-play (uniquely shaped) */
 .btn-play:hover {
@@ -120,17 +114,3 @@
 .btn-play:active {
   opacity: 1;
 }
-
-/* Icon resizing via "em" */
-.bi-lg {
-  font-size: 2em;
-}
-
-/* Style for button group on listening history TopCard */
-.button-group:hover{
-  color: white;
-  transition: 0.9s;
-}
-
-
-
