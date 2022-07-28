@@ -1,7 +1,7 @@
 import React from 'react';
 import Searchbar from '../Searchbar';
 
-const ConcertsEmpty = (props) => {
+export default function SearchEmpty(props) {
     return (
         <div>
             <div className="d-flex m-1 ">
@@ -20,5 +20,3 @@ const ConcertsEmpty = (props) => {
         </div>
     );
 }
-
-export default ConcertsEmpty;

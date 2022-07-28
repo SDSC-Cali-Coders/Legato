@@ -1,7 +1,7 @@
 import React from "react";
 import Buttons from "../Buttons";
 
-const ConcertSearchResults = {
+const SearchResults = {
   Card: () => {
     return (
       <div className="card shadow">
@@ -47,4 +47,4 @@ const ConcertSearchResults = {
   }
 };
 
-export default ConcertSearchResults;
+export default SearchResults;
