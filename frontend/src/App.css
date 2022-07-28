@@ -133,23 +133,18 @@
 }
 
 /* Style for button group on listening history TopCard */
-.button-group:hover{
+.button-group:hover {
   color: white;
   transition: 0.9s;
 }
 
-/* Additional styling for ConcertResults */
-.container {
-  text-align: left;
-  padding: none;
-  margin: none;
-  background-color: #B1A6A4;
+/* Additional styling for concert search card artist name */
+.artistName{
+  text-shadow:2px 2px rgb(116, 110, 110);
 }
 
-.concertResultsBtn:hover, .concertResultsBtn:active, .concertResultsBtn:focus {
-  background-color: #B1A6A4 !important;
-  transition: 0.2s;
-  border: #B1A6A4;
+.concertcardbtn{
+  float: right;
 }
 
 .triangleBtnSection{
