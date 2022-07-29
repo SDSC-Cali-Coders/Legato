@@ -10,13 +10,13 @@ import Navbar from './components/Navbar';
 import UserCard from './components/UserCard';
 import defProfileIcon from './assets/pfpIcon.svg';
 
-import NoUser from './components/friends/NoFriends';
+import Friends from './pages/Friends';
 
 function App(props) {
   return (
     <>
       {props.isLoggedIn && <Navbar/>}
-      <NoUser/>
+      <Friends/>
     </>
   );
 }
