@@ -7,7 +7,7 @@ import InterestButton from "../components/concerts/InterestButton"
 
 export default function Concerts() {
   return (
-    <div className="container mt-3 min-vw-100 Oswald_regular">
+    <div className="container mt-1 min-vw-100 Oswald_regular">
 
       <Searchbar.ConcertSearchbar />
       <div className="btn-group m-2" role="group" aria-label="First group">

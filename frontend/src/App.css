@@ -155,3 +155,12 @@
 .dropdown > button:hover {
   background-color: #697184;
 }
+
+/* Additional styling to remove italics in EventInformation */
+i {
+  font-style: normal;
+}
+
+.eventDescription {
+  padding-left: 20px;
+}
