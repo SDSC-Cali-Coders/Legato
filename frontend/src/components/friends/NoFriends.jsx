@@ -1,9 +1,9 @@
 import React from 'react';
-import Searchbar from './Searchbar';
-import DropdownMenu from './DropdownMenu';
+import Searchbar from '../Searchbar';
+import DropdownMenu from '../DropdownMenu';
 import Nouser from '../assets/NoUser.svg';
 
-const NoUser = (props) => {
+const NoFriends = (props) => {
     return (
         <div className="container">
             <div className="row mt-5">
@@ -27,4 +27,4 @@ const NoUser = (props) => {
     );
 }
 
-export default NoUser;
+export default NoFriends;
