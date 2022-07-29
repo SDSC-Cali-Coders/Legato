@@ -1,8 +1,8 @@
 import React from 'react';
-import Searchbar from './Searchbar';
-import DropdownMenu from './DropdownMenu';
+import Searchbar from '../components/Searchbar';
+import DropdownMenu from '../components/DropdownMenu';
 
-const FindFriends = (props) => {
+const Friends = (props) => {
     return (
         <div className="container">
             <div className="row mt-5">
@@ -32,4 +32,4 @@ const FindFriends = (props) => {
     );
 }
 
-export default FindFriends;
+export default Friends;

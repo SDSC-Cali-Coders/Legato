@@ -10,13 +10,13 @@ import Navbar from './components/Navbar';
 import UserCard from './components/UserCard';
 import defProfileIcon from './assets/pfpIcon.svg';
 
-import FindFriends from './components/FindFriends';
+import Friends from './pages/Friends';
 
 function App(props) {
   return (
     <>
       {props.isLoggedIn && <Navbar/>}
-      <FindFriends/>
+      <Friends/>
     </>
   );
 }
