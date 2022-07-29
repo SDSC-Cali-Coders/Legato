@@ -5,7 +5,7 @@ import Buttons from './Buttons';
 
 const PrivateProfile = (props) => {
     return (
-        <div className="container position-relative m-5 p-5 bg-neutral-primary rounded Oswald_regular">
+        <div className="container position-relative my-15 p-5 bg-neutral-primary rounded Oswald_regular">
             <div class="position-absolute top-0 start-0 rounded-circle translate-middle">
                 <img src={profile} className="border rounded-circle mx-3 bg-neutral-light" width="90" height="90"></img>
             </div>
