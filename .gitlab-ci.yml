@@ -12,7 +12,6 @@ superlinter:
     entrypoint: [""]
   script:
     - |
-      npm install
       /action/lib/linter.sh
   variables:
     RUN_LOCAL: "true"
