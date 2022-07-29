@@ -1,7 +1,7 @@
 import './App.css';
 import Navbar from './components/Navbar';
 import ListeningHistory from './pages/ListeningHistory';
-import PrivateProfile from './components/PrivateProfile';
+import PrivateProfile from './components/concerts/PrivateProfile';
 
 function App(props) {
   return (
