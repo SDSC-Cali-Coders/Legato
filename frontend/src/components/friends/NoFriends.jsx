@@ -1,7 +1,7 @@
 import React from 'react';
 import Searchbar from '../Searchbar';
 import DropdownMenu from '../DropdownMenu';
-import Nouser from '../assets/NoUser.svg';
+import Nouser from '../../assets/NoUser.svg';
 
 const NoFriends = (props) => {
     return (
