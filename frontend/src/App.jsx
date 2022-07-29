@@ -1,99 +1,13 @@
 import './App.css';
 import Navbar from './components/Navbar';
-import ListeningHistory from './pages/ListeningHistory';
 import Login from './pages/Login'
-import { useState, useEffect, useRef } from 'react';
-import { accessToken, getTopSongs, getCurrentUserProfile, getTopArtists, getRecGenres } from './api/spotify';
-import { catchErrors, checkConcerts } from './utils';
-import { getArtistEvent } from './api/bandsintown';
-import genreIcon from './assets/genre-country.svg';
-import { useLayoutEffect } from 'react';
-import axios from 'axios';
-import MainConcert from './components/concerts/MainConcert';
-import Settings from './pages/Settings';
+import { accessToken} from './api/spotify';
 import AppRouter from './AppRouter';
-
-let tracksObject;
-let artistsObject;
-let genresObject;
 const loggedIn = accessToken ? true : false;
 console.log("access token is" + accessToken);
 console.log("logged in variable is" + loggedIn);
 
 function App(props) {
-  /*
-  const [token, setToken] = useState(null);
-  const [topArtists, setTopArtists] = useState(null);
-  const [topSongs, setTopSongs] = useState(null);
-  const [recGenres, setRecGenres] = useState(null);
-  const [profile, setProfile] = useState(null);
-  const [artistEventInfo, setArtistEventInfo] = useState(null);
-
-  let effectTriggeredRef = useRef(false);
-
-  useEffect(() => {
-    setToken(accessToken);
-
-    const fetchData = async () => {
-      const { data } = await getCurrentUserProfile();
-      setProfile(data);
-    };
-
-    catchErrors(fetchData());
-
-  }, []);
-
-  useEffect(() => {
-    setToken(accessToken);
-
-    const fetchData = async () => {
-      const { data } = await getTopArtists("short_term");
-      setTopArtists(data);
-    };
-    catchErrors(fetchData());
-  }, []);
-
-  useEffect(() => {
-    setToken(accessToken);
-
-    const fetchData = async () => {
-      const { data } = await getTopSongs("short_term");
-      setTopSongs(data);
-    };
-    catchErrors(fetchData());
-  }, []);
-
-  useEffect(() => {
-    setToken(accessToken);
-
-    const fetchData = async () => {
-      const { data } = await getRecGenres();
-      setRecGenres(data);
-    };
-    catchErrors(fetchData());
-  }, []);
-
-  useEffect(() => {
-    async function addUserDB() {
-      // When a post request is sent to the create url, we'll add a new record to the database.
-      const newUser = {
-        id: profile.id,
-        name: profile.display_name,
-        topArtists: topArtists.items.slice(0, 5).map(
-          (object => object.name)
-        ),
-        topSongs: topSongs.items.slice(0, 5).map(
-          (object => object.name)
-        ),
-        recGenres: recGenres.genres.slice(0, 5),
-      };
-      catchErrors(axios.put(`http://localhost:27017/user/${profile.id}`, newUser));
-    }
-    if (!effectTriggeredRef.current && profile && topSongs && topArtists && recGenres) {
-      addUserDB();
-      effectTriggeredRef.current = true;
-    }
-  }, [profile, topArtists, topSongs, recGenres]); */
 
   /* CODE FOR US TO USE LATER TO CONNECT TO DB DO NOT DELETE
   useEffect(() => {
@@ -148,10 +62,8 @@ function App(props) {
     <>
       {loggedIn ? (
         <>
-
           <Navbar />
           <AppRouter />
-
         </>
       ) : (
         <>

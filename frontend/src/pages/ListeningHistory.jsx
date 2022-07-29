@@ -70,12 +70,9 @@ const ListeningHistory = (props) => {
             const newUser = {
                 id: profile.id,
                 name: profile.display_name,
-                topArtists: topArtists.items.slice(0, 5).map(
-                    (object => object.name)
-                ),
-                topSongs: topSongs.items.slice(0, 5).map(
-                    (object => object.name)
-                ),
+                img: profile.images[0].url,
+                topArtists: topArtists.items.slice(0, 5),
+                topSongs: topSongs.items.slice(0, 5),
                 recGenres: recGenres.genres.slice(0, 5),
             };
             catchErrors(axios.put(`http://localhost:27017/user/${profile.id}`, newUser));
@@ -88,7 +85,6 @@ const ListeningHistory = (props) => {
 
 
     if (topSongs) {
-        //console.log(topSongs)
         let topThreeListObj = [];
         let topTenListObj = [];
         for (let i = 0; i < topSongs.items.length; i++) {
@@ -113,7 +109,6 @@ const ListeningHistory = (props) => {
     }
 
     if (topArtists) {
-        //console.log(topArtists)
         let topThreeListObj = [];
         let topTenListObj = [];
         for (let i = 0; i < topArtists.items.length; i++) {
@@ -140,7 +135,6 @@ const ListeningHistory = (props) => {
 
 
     if (recGenres) {
-        //console.log(recGenres)
         let topThreeListObj = [];
         let topTenListObj = [];
         for (let i = 0; i < 10; i++) {
