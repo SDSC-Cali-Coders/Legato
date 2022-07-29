@@ -10,7 +10,7 @@ import Navbar from './components/Navbar';
 import UserCard from './components/UserCard';
 import defProfileIcon from './assets/pfpIcon.svg';
 
-import NoUser from './components/NoUser';
+import NoUser from './components/friends/NoFriends';
 
 function App(props) {
   return (
