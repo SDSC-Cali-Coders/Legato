@@ -40,6 +40,13 @@ $extended-positions: (
 // Merging into positions map now
 $position-values: map-merge($extended-positions, $position-values);
 
+$extended-fs: (
+  7: $h6-font-size * .75,
+  8: $h6-font-size * .50,
+  9: $h6-font-size * .25
+);
+
+$font-sizes: map-merge($extended-fs, $font-sizes);
 // Extending spacers map with drastic additional spacing
 $extended-spacers: (
   10: $spacer * 6,

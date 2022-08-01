@@ -3,29 +3,27 @@ import React from 'react';
 const Buttons = {
     Subscribe: () => {
         return (
-        <button className="btn btn-success px-4 py-0 d-flex align-items-center" type="button" >
+        <button className="btn btn-success text-scaling fs-7" type="button" >
             Subscribe
-            <i className="bi bi-plus-lg ps-4"></i>
+            <i className="bi bi-plus-lg ps-sm-2"></i>
         </button>);
     },
     Unsubscribe: () => {
         return (
-        <button className="btn btn-danger px-4 py-0 d-flex align-items-center" type="button">
+        <button className="btn btn-danger" type="button">
             Subscribed
-            <i className="bi bi-dash-lg ps-3"></i>
+            <i className="bi bi-dash-lg ps-2"></i>
         </button>
         );
     },
-    Play: () => {
+    Play: (props) => {
         return (
-        <button className='btn-play border-0 bg-transparent text-success fs-1' type='button' >
-            <i className="bi bi-caret-right-fill"></i>
-        </button>
+            <i className="bi bi-caret-right-fill btn-play" type="button"></i>
         );
     },
     SeeMore: () => {
         return (
-        <button className="btn btn-align btn-secondary btn-sm px-3 py-0 border-dark rounded-pill" type='button'>
+        <button className="btn btn-align btn-secondary btn-sm border-dark rounded-pill" type='button'>
             See More 
             <i className="bi bi-chevron-right ps-2"></i>
         </button>
@@ -33,8 +31,8 @@ const Buttons = {
     },
     Invite: () => {
         return (
-            <button className="btn btn-align btn-secondary py-0 border-dark" type="button">
-                Invite Friends <i className="bi bi-link ps-2 bi-lg"></i>
+            <button className="btn btn-align btn-secondary border-dark" type="button">
+                Invite Friends <i className="bi bi-link ps-2 bi-lg fs-4"></i>
             </button>
 		);
     },
@@ -47,28 +45,28 @@ const Buttons = {
     },
     Green: (props) => {
         return (
-            <button className="btn btn-colored btn-success py-0 px-5 border-dark">
+            <button className="btn btn-colored btn-success border-dark">
                 {props.text}
             </button>
 		);
     },
     Red: (props) => {
         return (
-            <button className="btn btn-colored btn-danger py-0 px-5 border-dark">
+            <button className="btn btn-colored btn-danger border-dark">
                 {props.text}
             </button>
 		);
     },
     Followers: () => {
         return (
-            <button className="btn btn-follow btn-secondary py-0 px-4 border-dark fw-semibold">
+            <button className="btn btn-follow btn-secondary border-dark fw-semibold">
                 Followers
             </button>
 		);
     },
     Following: () => {
         return (
-            <button className="btn btn-follow btn-light py-0 px-4 border-dark fw-semibold">
+            <button className="btn btn-follow btn-light border-dark fw-semibold">
                 Following
             </button>
 		);

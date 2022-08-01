@@ -39,42 +39,48 @@
 
 /* Sofia curvy font */
 .Sofia_cursive {
-  font-family: 'Sofia', cursive;
+  font-family: "Sofia", cursive;
   display: block;
-  padding: .0rem 1rem;
+  padding: 0rem 1rem;
   color: white;
   text-decoration: none;
   margin: 0;
-  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out;
 }
 
 .Sofia_cursive:focus,
 .Sofia_cursive:hover {
-  color: white
+  color: white;
 }
-
 
 /* Oswald bold font */
+.Oswald_less_bold {
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+}
+
 .Oswald_bold {
-  font-family: 'Oswald', sans-serif;
+  font-family: "Oswald", sans-serif;
   font-weight: 700;
 }
+
 /* Oswald regular font */
 .Oswald_regular {
-  font-family: 'Oswald', sans-serif;
+  font-family: "Oswald", sans-serif;
   font-weight: bolder;
 }
 
 /* Oswald light font */
 .Oswald_light {
-  font-family: 'Oswald', sans-serif;
+  font-family: "Oswald", sans-serif;
   font-weight: normal;
 }
 
 /* Neutral background colors */
 .bg-neutral-light {
   --bs-bg-opacity: 1;
-  background-color: #F2F1EF;
+  background-color: #f2f1ef;
 }
 
 .bg-neutral-body {
@@ -84,17 +90,17 @@
 
 .bg-neutral-dark {
   --bs-bg-opacity: 1;
-  background-color: #413F3D;
+  background-color: #413f3d;
 }
 
 .bg-neutral-secondary {
   --bs-bg-opacity: 1;
-  background-color: #D8CFD0;
+  background-color: #d8cfd0;
 }
 
 .bg-neutral-primary {
   --bs-bg-opacity: 1;
-  background-color: #B1A6A4;
+  background-color: #b1a6a4;
 }
 
 /* Add spotify green + red colors! */
@@ -105,12 +111,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.btn-colored {
-  width: 10rem;
-}
-.btn-follow {
-  width: 15rem;
 }
 
 /* Special styling for btn-play (uniquely shaped) */
@@ -127,10 +127,31 @@
 }
 
 /* Style for button group on listening history TopCard */
-.button-group:hover{
+.button-group:hover {
   color: white;
   transition: 0.9s;
 }
 
+/* Additional styling for concert search card artist name */
+.artistName{
+  text-shadow:2px 2px rgb(116, 110, 110);
+}
 
+.concertcardbtn{
+  float: right;
+}
 
+.triangleBtnSection{
+  background-color: #B1A6A4 !important;
+  transition: 0.2s;
+  border: none;
+  
+}
+/* Additional styling for dropdown menus */
+.dropdown-menu > li > a:hover {
+  background-color: #697184;
+}
+
+.dropdown > button:hover {
+  background-color: #697184;
+}
