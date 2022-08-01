@@ -1,18 +1,22 @@
-workflow:
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-
-stages:
-  - linting
-
 superlinter:
+# name the stage for pipelining later
   stage: linting
+
+# use a Docker image for super-linter
   image:
     name: github/super-linter:latest
     entrypoint: [""]
+
+# only run this job on merge-requests
+  only:
+    - merge_requests
+
+# run superlinter
   script:
     - |
       /action/lib/linter.sh
+
+# specify vars used by super-linter
   variables:
     RUN_LOCAL: "true"
     DEFAULT_WORKSPACE: $CI_BUILDS_DIR
