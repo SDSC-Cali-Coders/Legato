@@ -1,6 +1,5 @@
 import React from 'react';
 import profile from '../../assets/profile.svg';
-import darkdivider from '../../assets/darkdivider.svg';
 import Buttons from '../Buttons';
 
 const PrivateProfile = (props) => {
@@ -13,15 +12,19 @@ const PrivateProfile = (props) => {
                 <h1 className="px-5"><b>{props.name}</b></h1>
                 <div className="d-flex justify-content-evenly">
                 <div className="col-auto text-center">
-                        <div className="row-1">{props.followers}</div>
-                        <div className="row-1">Followers</div>
-                    </div>
-                    <img src={darkdivider} alt="" width="2" className='mx-3' />
-                    <div className="col-auto text-center">
-                        <div className="row-1">{props.following}</div>
-                        <div className="row-1">Following</div>
+                    <div className="row-1">
+                        {props.followers} <br/>
+                        Followers
                     </div>
                 </div>
+                <div className="vr mx-3 my-2"></div>
+                <div className="col-auto text-center">
+                    <div className="row-1">
+                        {props.following} <br/>
+                        Following
+                    </div>
+                </div>
+            </div>
             </div>
             <div className="row-auto d-flex justify-content-center">
                 <h1><i class="bi bi-file-lock2 p-5"></i></h1>
