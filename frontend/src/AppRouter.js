@@ -8,6 +8,10 @@ import {
 import MainConcert from './components/concerts/MainConcert';
 import ListeningHistory from './pages/ListeningHistory';
 import Settings from './pages/Settings';
+import Artists from './components/artistSearch/MainView';
+
+import SearchView from './components/artistSearch/SearchView';
+
 /**
  * This AppRouter allows us to navigate across the application and works with our
  * navbar for sending users to different pages/components. 
@@ -26,6 +30,9 @@ function AppRouter() {
             } />
             <Route path = "/settings/" element = {
                 <Settings />
+            } />
+            <Route path = "/Artists/" element = {
+                <SearchView />
             } />
         </Routes>
         </BrowserRouter>

@@ -6,6 +6,7 @@ import { accessToken, getCurrentUserProfile } from './api/spotify';
 import { userIdContext } from './api/userContext'
 import { useState, useEffect, useRef } from 'react';
 import { catchErrors } from './utils';
+import ListeningHistory from './pages/ListeningHistory';
 
 const loggedIn = accessToken ? true : false;
 console.log("access token is" + accessToken);
@@ -19,7 +20,6 @@ console.log("logged in variable is" + loggedIn);
  * We save the id through React contexts.
  */
 
-import ListeningHistory from './pages/ListeningHistory';
 function App(props) {
   /**
    * useState and useEffects are react hooks that allow us to save/set variables

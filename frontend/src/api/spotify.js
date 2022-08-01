@@ -144,6 +144,10 @@ export const getTopArtists = (time_range) => {
     return spotifyInstance.get(`/me/top/artists?time_range=${time_range}&limit=10`);
 };
 
+export const searchArtists = (search) => {
+    return spotifyInstance.get(`/search?query=${search}&type=artists&limit=20`);
+};
+
 /**
 * Get a User's Top Songs
 * https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-top-artists-and-tracks

@@ -8,7 +8,7 @@ const MainView = (props) => {
     // col with w/ horizontal centering of text
     return (
         <div className="container d-flex flex-column min-vh-100 Oswald_regular">
-            <div className="row flex-grow-1 align-items-center">
+            <div className="row flex-grow-1 pt-5">
                 {/* Layout of MainView will be:
                 
                     Searchbar.long

@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import Buttons from '../Buttons';
 import Searchbar from '../Searchbar';
 
+import { useState, useEffect, useRef } from 'react';
+import { accessToken, searchArtists } from '../../api/spotify';
+import { catchErrors } from '../../utils';
+
 // Define an <ArtistResult/> component here
 // <div> - figure out how to align stuff :)
 // [img]..[Artist Name]....[Genre: genre]..........[subscribe + play btn group]
@@ -29,6 +33,21 @@ const ArtistResult = (props) => {
 }
 
 const SearchView = (props) => {
+    const [token, setToken] = useState(null);
+    const [search, setSearch] = useState(null);
+    const [searchResults, setSearchResults] = useState([]);
+
+    useEffect((search) => {
+        setToken(accessToken);
+        if (!search) return setSearchResults([])
+        const fetchData = async(search) => {
+            const { data } = await searchArtists(search);
+            setSearchResults(data);
+            console.log(data)
+        };
+        catchErrors(fetchData());
+    }, [search])
+
     return (
         <>
         {/* Basic Layout
@@ -41,7 +60,7 @@ const SearchView = (props) => {
             <div className="container align-items-center Oswald_regular p-2">
                 <div className="row mb-3">
                     <div className="col align-items-center">
-                        <Searchbar.ArtistSearchbar/>
+                        <Searchbar.ArtistSearchbar onChange={e => setSearch(e.target.value)}/>
                     </div>
                     {/* <span className="placeholder placeholder-lg col-12"/> */}
                 </div>
@@ -56,13 +75,8 @@ const SearchView = (props) => {
                 </div>
                 <div className="row bg-primary">
                     <ol className="list-group gx-3">
-                        <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-                        <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={false}/>
-                        <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-                        <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-                        <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-                        <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
-                        <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/>
+                        {/* <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/> */}
+
                     </ol>
                 </div>
             </div>
