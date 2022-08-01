@@ -6,8 +6,8 @@ import {
 } from 'react-router-dom';
 
 import MainConcert from './components/concerts/MainConcert';
-import ListeningHistory from './pages/ListeningHistory';
-import Settings from './pages/Settings';
+import ListeningHistoryScript from './pageScripts/ListeningHistoryScript';
+import SettingsScript from './pageScripts/SettingsScript';
 /**
  * This AppRouter allows us to navigate across the application and works with our
  * navbar for sending users to different pages/components. 
@@ -19,13 +19,13 @@ function AppRouter() {
         <BrowserRouter>
         <Routes>
             <Route path = "/" element = {
-                <ListeningHistory />
+                <ListeningHistoryScript />
             } />
             <Route path = "/concerts/" element = {
                 <MainConcert />
             } />
             <Route path = "/settings/" element = {
-                <Settings />
+                <SettingsScript />
             } />
         </Routes>
         </BrowserRouter>
