@@ -10,16 +10,17 @@ import ListeningHistory from './pages/ListeningHistory';
 import Settings from './pages/Settings';
 
 function approuter() {
+
     return (
         <BrowserRouter>
         <Routes>
             <Route path = "/" element = {
                 <ListeningHistory />
             } />
-            <Route path = "/concerts" element = {
+            <Route path = "/concerts/" element = {
                 <MainConcert />
             } />
-            <Route path = "/settings" element = {
+            <Route path = "/settings/" element = {
                 <Settings />
             } />
         </Routes>

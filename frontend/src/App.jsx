@@ -1,37 +1,30 @@
 import './App.css';
 import Navbar from './components/Navbar';
 import Login from './pages/Login'
-import { accessToken} from './api/spotify';
 import AppRouter from './AppRouter';
+import { accessToken, getCurrentUserProfile } from './api/spotify';
+import { userIdContext } from './api/userContext'
+import { useState, useEffect, useRef } from 'react';
+import { catchErrors } from './utils';
+
 const loggedIn = accessToken ? true : false;
 console.log("access token is" + accessToken);
 console.log("logged in variable is" + loggedIn);
 
 function App(props) {
+  const [token, setToken] = useState(null);
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    setToken(accessToken);
+    const fetchData = async () => {
+      const { data } = await getCurrentUserProfile();
+      setProfile(data);
+    };
+    catchErrors(fetchData());
+  }, []);
 
   /* CODE FOR US TO USE LATER TO CONNECT TO DB DO NOT DELETE
-  useEffect(() => {
-   async function fetchUser() {
-     // when used on settings page, we wouldnt hardcode the profile.id
-     //const id = params.id.toString();
-
-     axios.get(`http://localhost:27017/user/${profile.id}`)
-       .then(function (response) {
-         // can access specific parts of data by doing ".{DATA}"
-         console.log(response.data)
-       })
-       .catch(function (error) {
-         console.log(error)
-       })
-       .then(function () {
-         console.log("always executed")
-       })
-   }
-   if (!effectTriggeredRef.current && profile) {
-     fetchUser();
-     effectTriggeredRef.current = true;
-   }
- }, [profile]);
 
  useEffect(() => {
    async function fetchNotifications() {
@@ -60,16 +53,19 @@ function App(props) {
 
   return (
     <>
-      {loggedIn ? (
+      {loggedIn ? (profile && 
         <>
           <Navbar />
-          <AppRouter />
+          <userIdContext.Provider value={profile.id}>
+            <AppRouter />
+          </userIdContext.Provider>
         </>
       ) : (
         <>
           <Login />
         </>
-      )}
+      )
+      }
 
     </>
   );

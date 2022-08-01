@@ -3,7 +3,7 @@ import TopCard from '../components/listeningHistory/TopCard';
 
 import { useState, useEffect, useRef } from 'react';
 import { accessToken, getTopSongs, getCurrentUserProfile, getTopArtists, getRecGenres } from '../api/spotify';
-import { catchErrors, checkConcerts } from '../utils';
+import { catchErrors } from '../utils';
 import genreIcon from '../assets/genre-country.svg';
 import { useLayoutEffect } from 'react';
 import axios from 'axios';
@@ -18,25 +18,20 @@ const ListeningHistory = (props) => {
     const [topSongs, setTopSongs] = useState(null);
     const [recGenres, setRecGenres] = useState(null);
     const [profile, setProfile] = useState(null);
-    const [artistEventInfo, setArtistEventInfo] = useState(null);
 
     let effectTriggeredRef = useRef(false);
 
     useEffect(() => {
         setToken(accessToken);
-
         const fetchData = async () => {
             const { data } = await getCurrentUserProfile();
             setProfile(data);
         };
-
         catchErrors(fetchData());
-
     }, []);
 
     useEffect(() => {
         setToken(accessToken);
-
         const fetchData = async () => {
             const { data } = await getTopArtists("short_term");
             setTopArtists(data);
@@ -46,7 +41,6 @@ const ListeningHistory = (props) => {
 
     useEffect(() => {
         setToken(accessToken);
-
         const fetchData = async () => {
             const { data } = await getTopSongs("short_term");
             setTopSongs(data);
@@ -56,7 +50,6 @@ const ListeningHistory = (props) => {
 
     useEffect(() => {
         setToken(accessToken);
-
         const fetchData = async () => {
             const { data } = await getRecGenres();
             setRecGenres(data);
@@ -133,7 +126,6 @@ const ListeningHistory = (props) => {
         }
     }
 
-
     if (recGenres) {
         let topThreeListObj = [];
         let topTenListObj = [];
@@ -157,9 +149,6 @@ const ListeningHistory = (props) => {
             topTenList: topTenListObj,
         }
     }
-
-
-
 
     let TopCards = new Array(3);
 
@@ -195,11 +184,11 @@ const ListeningHistory = (props) => {
 
     return (
         <>
-        
-            {TopCards[0] }
-            {TopCards[1] }
+
+            {TopCards[0]}
+            {TopCards[1]}
             {TopCards[2]}
-        
+
         </>
     );
 }

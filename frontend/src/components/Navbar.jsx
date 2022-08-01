@@ -4,6 +4,7 @@ import divider from '../assets/divider.svg';
 import notification from '../assets/notification.svg';
 import profile from '../assets/profile.svg';
 const Navbar = () => {
+    
     return (
         <div>
             <nav className="navbar navbar-dark navbar-expand-lg bg-neutral-dark shadow">
