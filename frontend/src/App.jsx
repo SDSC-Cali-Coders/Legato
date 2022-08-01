@@ -1,15 +1,15 @@
 import './App.css';
 import Navbar from './components/Navbar';
-import Login from './pages/Login'
+import Login from './pages/Login';
 import AppRouter from './AppRouter';
-import { accessToken, getCurrentUserProfile } from './api/spotify';
-import { userIdContext } from './api/userContext'
-import { useState, useEffect, useRef } from 'react';
-import { catchErrors } from './utils';
+import {accessToken, getCurrentUserProfile} from './api/spotify';
+import {userIdContext} from './api/userContext';
+import {useState, useEffect} from 'react';
+import {catchErrors} from './utils';
 
 const loggedIn = accessToken ? true : false;
-console.log("access token is" + accessToken);
-console.log("logged in variable is" + loggedIn);
+console.log('access token is ' + accessToken);
+console.log('logged in variable is' + loggedIn);
 
 /**
  * App helps handle the initial login and routing for our application.
@@ -19,7 +19,6 @@ console.log("logged in variable is" + loggedIn);
  * We save the id through React contexts.
  */
 
-import ListeningHistory from './pages/ListeningHistory';
 function App(props) {
   /**
    * useState and useEffects are react hooks that allow us to save/set variables
