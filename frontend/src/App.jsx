@@ -11,7 +11,19 @@ const loggedIn = accessToken ? true : false;
 console.log("access token is" + accessToken);
 console.log("logged in variable is" + loggedIn);
 
+/**
+ * App helps handle the initial login and routing for our application.
+ * We create a separate router object that we can import in this file to use
+ * App also makes the initial api call to get our user id which will be shared
+ * by all components (e.g. when we make api calls to the db and need id field)
+ * We save the id through React contexts.
+ */
+
 function App(props) {
+  /**
+   * useState and useEffects are react hooks that allow us to save/set variables
+   * during/across renders.
+   */
   const [token, setToken] = useState(null);
   const [profile, setProfile] = useState(null);
 
@@ -51,6 +63,10 @@ function App(props) {
 
  */
 
+ /**
+  * We set up a ternary operation to check if a user is loggedIn via their 
+  * access token and either return the login component or the navbar + router
+  */
   return (
     <>
       {loggedIn ? (profile && 

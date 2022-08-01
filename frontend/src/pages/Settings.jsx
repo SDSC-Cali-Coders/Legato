@@ -26,10 +26,20 @@ const ProfilePic = (props) => {
 };
 
 const Settings = (props) => {
+    /**
+     * This is an example of how we use React Context to pass global variables
+     * across components. All thats needed for a component to get the id variable
+     * is the import from above and the following line of code.
+     */
     const id = useContext(userIdContext);
     console.log("my id from the context is " + id)
     let effectTriggeredRef = useRef(false);
     const [responseData, setResponseData] = useState(null);
+    /**
+     * This use effect defines the fetchUser function and triggers it once,
+     * allowing us to get data from our db about a specific user (using the
+     * userIdContext to do so)
+     */
     useEffect(() => {
         async function fetchUser() {
             axios.get(`http://localhost:27017/user/${id}`)
@@ -51,7 +61,7 @@ const Settings = (props) => {
         }
     }, []);
 
-
+    // Note: Using "&&" allows us to only render the following components when responseData is not null.
     return (responseData &&
         // Layout overview:
         // Main centerd column holding the UserProfile component [placeholder div]

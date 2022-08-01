@@ -8,8 +8,12 @@ import {
 import MainConcert from './components/concerts/MainConcert';
 import ListeningHistory from './pages/ListeningHistory';
 import Settings from './pages/Settings';
-
-function approuter() {
+/**
+ * This AppRouter allows us to navigate across the application and works with our
+ * navbar for sending users to different pages/components. 
+ * @returns Router components that defines the different paths in our application
+ */
+function AppRouter() {
 
     return (
         <BrowserRouter>
@@ -28,4 +32,4 @@ function approuter() {
     )
 }
 
-export default approuter
+export default AppRouter
