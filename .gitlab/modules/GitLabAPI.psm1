@@ -1,7 +1,14 @@
 # Variables definitions
+
+# Private token injected in pipeline, manually set for local terminal
+if (-not $env:PRIVATE_TOKEN) {
+    $tokenFilePath = "$(git rev-parse --show-toplevel)/.gitlab/modules/token.txt";
+    $env:PRIVATE_TOKEN = Get-Content $tokenFilePath;
+}
+
 # Handle authorization w/ a personal access token
 $session        = [Microsoft.PowerShell.Commands.WebRequestSession]::new();
-$session.Headers.Add('PRIVATE-TOKEN', $(Get-Content token.txt));
+$session.Headers.Add('PRIVATE-TOKEN', $env:PRIVATE_TOKEN);
 
 # User and Project IDs for reference
 $intProjId      = 37495472;

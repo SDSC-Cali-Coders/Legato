@@ -3,5 +3,5 @@ include:
   - .gitlab-linter-ci.yml
   - .gitlab-merger-ci.yml
 stages:
-  - linting
+  # - linting
   - merging

@@ -19,12 +19,20 @@ auto-merger:
   script:
     - |
       Write-Host "`nThe current approval state: $env:APPROVAL_STATUS";
-      Write-Host "`nNow checking some env vars like token:`t $env:PRIVATE_tOKEN";
+      Write-Host "`nNow checking some env vars like token:`t $env:PRIVATE_TOKEN";
       Write-Host "`nIt would make sense to hide that ^ though";
       Write-Host "But can also check by making a request:"
 
-      $session = [Microsoft.Powershell.Commands.WebRequestSession]::new();
-      $session.Headers.Add('PRIVATE-tOKEN', $env:PRIVATE_tOKEN);
-      Invoke-RestMethod "https://gitlab.com/api/v4/projects/37495472" -WebSession $session;
+      Write-Host "`nSince we know we're in the repository root, we can Import-Module like so:";
+      Import-Module .gitlab/moduels/GitLabAPI.psm1
 
-      Write-Host "`nIf that failed, then somethings wrong with the token passed by the job...";
+      Write-Host "Making sure we imported all required variables`nProjUrl:$strProjUrl`nSession:$session";
+
+      Write-Host "Attempting to get a list of all merge requests now";
+      $MRs = Get-MergeRequests;
+
+      Write-Host "Attempting to get a list of opened merge requests now";
+      $OpenMRs = Get-MergeRequests -state "opened";
+
+      Write-Host "`nAttempting to get current merge request (from IID)";
+      Get-MergeRequests -iid $env:MERGE_IID;
