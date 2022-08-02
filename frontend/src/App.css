@@ -166,3 +166,12 @@
 .dropdown > button:hover {
   background-color: #697184;
 }
+
+/* Color for toggle button on find friends page */
+.btn-friendAdded{
+  color: #268BD2;
+}
+
+.btn-friendNotAdded{
+  color: #3FDE77;
+}

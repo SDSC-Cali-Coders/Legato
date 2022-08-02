@@ -1,22 +1,19 @@
-import './App.css';
-import Navbar from './components/Navbar';
-
-// import ConcertResults from "./components/ConcertResults";
-// import ListeningHistory from './pages/ListeningHistory';
-// import Login from "./pages/Login";
-// import DropdownMenu from "./components/DropdownMenu";
-// import Searchbar from "./components/Searchbar";
-
-import UserCard from './components/UserCard';
-import defProfileIcon from './assets/pfpIcon.svg';
-
-import Friends from './pages/Friends';
+import "./App.css";
+import Navbar from "./components/Navbar";
+import UserCard from "./components/UserCard";
+import defProfileIcon from "./assets/pfpIcon.svg";
+import Friends from "./pages/Friends";
+import AddFriendToggleBtn from "./components/friends/AddFriendToggleBtn";
+import NoFriends from "./components/friends/NoFriends";
+import FriendCard from "./components/friends/FriendCard";
 
 function App(props) {
   return (
     <>
-      {props.isLoggedIn && <Navbar/>}
-      <Friends/>
+      {props.isLoggedIn && <Navbar />}
+      <Friends />
+
+      
     </>
   );
 }
