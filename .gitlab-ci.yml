@@ -1,5 +1,6 @@
-# Include and run the linting stage
+# Include and run all stages
 include: .gitlab-linter-ci.yml
+include: .gitlab-merger-ci.yml
 stages:
   - linting
   - merging
