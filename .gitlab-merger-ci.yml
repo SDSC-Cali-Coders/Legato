@@ -11,25 +11,20 @@ auto-merger:
 # Token and Merge IID are the only things needed
 # - but knowing the approvals rn is useful too
   variables:
-    PRIVATE-TOKEN: $CI_JOB_TOKEN
+    PRIVATE_TOKEN: $CI_JOB_TOKEN
     MERGE_IID: $CI_MERGE_REQUEST_IID
-    APPROVAL: $CI_MERGE_REQUEST_APPROVAL
+    APPROVAL_STATUS: $CI_MERGE_REQUEST_APPROVED
 
 # List current directory to get some bearings
   script:
     - |
-      Write-Host "Checking what's under the curr dir:";
-      Get-ChildItem -Path .;
-
-      Write-Host "\nThe current approval state: $env:APPROVAL";
-      Write-Host "Also, the current MR's IID: $env:MERGE_IID";
-
-      Write-Host "\nNow checking some env vars like token:\t $env:PRIVATE-TOKEN";
-      Write-Host "\nIt would make sense to hide that ^ though";
-      Write-Host "But can also check by making a request"
+      Write-Host "`nThe current approval state: $env:APPROVAL_STATUS";
+      Write-Host "`nNow checking some env vars like token:`t $env:PRIVATE_tOKEN";
+      Write-Host "`nIt would make sense to hide that ^ though";
+      Write-Host "But can also check by making a request:"
 
       $session = [Microsoft.Powershell.Commands.WebRequestSession]::new();
-      $session.Headers.Add('PRIVATE-TOKEN', $env:PRIVATE-TOKEN);
+      $session.Headers.Add('PRIVATE-tOKEN', $env:PRIVATE_tOKEN);
       Invoke-RestMethod "https://gitlab.com/api/v4/projects/37495472" -WebSession $session;
 
-      Write-Host "\nIf that failed, then somethings wrong...";
+      Write-Host "`nIf that failed, then somethings wrong with the token passed by the job...";
