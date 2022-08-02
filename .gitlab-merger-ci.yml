@@ -24,7 +24,7 @@ auto-merger:
       Write-Host "But can also check by making a request:"
 
       Write-Host "`nSince we know we're in the repository root, we can Import-Module like so:";
-      Import-Module .gitlab/modules/GitLabAPI.psm1
+      Import-Module ./.gitlab/modules/GitLabAPI.psm1
 
       Write-Host "Making sure we imported all required variables`nProjUrl:$strProjUrl`nSession:$session";
 
