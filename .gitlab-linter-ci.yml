@@ -20,6 +20,6 @@ superlinter:
   variables:
     RUN_LOCAL: "true"
     DEFAULT_WORKSPACE: $CI_BUILDS_DIR/$CI_PROJECT_PATH
-    LINTER_RULES_PATH: .gitlab/linters          # keep all linter specific configs here
-    JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json   # ^ specify ESLint's config file
+    LINTER_RULES_PATH: ".gitlab/linters"          # keeping linter configs here
+    JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json     # ^ specifying ESLint's config
     VALIDATE_JAVASCRIPT_STANDARD: "false"
