@@ -39,25 +39,31 @@ function Get-MergeRequests {
         $source_branch,
 
         [string]
-        $target_branch
+        $target_branch,
+
+        [int]
+        $iid
     )
 
     Begin {
         $strFilterQuery = "?";
+        if ($iid) {
+            $strFilterQuery = "/$iid`?";
+        }
         if ($state) {
-            $strFilterQuery += "state=$state&"
+            $strFilterQuery += "state=$state&";
         }
         if ($milestone) {
-            $strFilterQuery += "milestone=$milestone&"
+            $strFilterQuery += "milestone=$milestone&";
         }
         if ($simpleView) {
-            $strFilterQuery += "view=simple&"
+            $strFilterQuery += "view=simple&";
         }
         if ($source_branch) {
-            $strFilterQuery += "source_branch=$source_branch&"
+            $strFilterQuery += "source_branch=$source_branch&";
         }
         if ($target_branch) {
-            $strFilterQuery += "target_branch=$target_branch&"
+            $strFilterQuery += "target_branch=$target_branch&";
         }
     }
 
