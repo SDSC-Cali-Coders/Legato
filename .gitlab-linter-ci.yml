@@ -19,8 +19,7 @@ superlinter:
 # specify vars used by super-linter
   variables:
     RUN_LOCAL: "true"
-    DEFAULT_WORKSPACE: $CI_BUILDS_DIR
-    ANSIBLE_DIRECTORY: $CI_PROJECT_PATH
-    LINTER_RULES_PATH: $CI_PROJECT_PATH/.github/linters #make sure your eslint is lacated here
-    JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.js
+    DEFAULT_WORKSPACE: $CI_BUILDS_DIR/$CI_PROJECT_PATH
+    LINTER_RULES_PATH: .gitlab/linters          # keep all linter specific configs here
+    JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json   # ^ specify ESLint's config file
     VALIDATE_JAVASCRIPT_STANDARD: "false"
