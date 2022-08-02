@@ -123,7 +123,8 @@ const spotifyInstance = axios.create({
     baseURL: 'https://api.spotify.com/v1',
     headers: {
         'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
     }
 })
 
@@ -144,8 +145,14 @@ export const getTopArtists = (time_range) => {
     return spotifyInstance.get(`/me/top/artists?time_range=${time_range}&limit=10`);
 };
 
+/**
+* Get search result
+* https://developer.spotify.com/documentation/web-api/reference/#/operations/search
+* @param {string} search - artist name
+* @returns {Promise}
+*/
 export const searchArtists = (search) => {
-    return spotifyInstance.get(`/search?query=${search}&type=artists&limit=20`);
+    return spotifyInstance.get(`/search?q=${search}&type=artist&limit=20`);
 };
 
 /**
