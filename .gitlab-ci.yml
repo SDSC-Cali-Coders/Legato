@@ -2,3 +2,4 @@
 include: .gitlab-linter-ci.yml
 stages:
   - linting
+  - merging
