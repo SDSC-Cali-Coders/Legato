@@ -18,18 +18,18 @@ auto-merger:
 # List current directory to get some bearings
   script:
     - |
-    Write-Host "Checking what's under the curr dir:";
-    Get-ChildItem -Path .;
+      Write-Host "Checking what's under the curr dir:";
+      Get-ChildItem -Path .;
 
-    Write-Host "\nThe current approval state: $env:APPROVAL";
-    Write-Host "Also, the current MR's IID: $env:MERGE_IID";
+      Write-Host "\nThe current approval state: $env:APPROVAL";
+      Write-Host "Also, the current MR's IID: $env:MERGE_IID";
 
-    Write-Host "\nNow checking some env vars like token:\t $env:PRIVATE-TOKEN";
-    Write-Host "\nIt would make sense to hide that ^ though";
-    Write-Host "But can also check by making a request"
+      Write-Host "\nNow checking some env vars like token:\t $env:PRIVATE-TOKEN";
+      Write-Host "\nIt would make sense to hide that ^ though";
+      Write-Host "But can also check by making a request"
 
-    $session = [Microsoft.Powershell.Commands.WebRequestSession]::new();
-    $session.Headers.Add('PRIVATE-TOKEN', $env:PRIVATE-TOKEN);
-    Invoke-RestMethod "https://gitlab.com/api/v4/projects/37495472" -WebSession $session;
+      $session = [Microsoft.Powershell.Commands.WebRequestSession]::new();
+      $session.Headers.Add('PRIVATE-TOKEN', $env:PRIVATE-TOKEN);
+      Invoke-RestMethod "https://gitlab.com/api/v4/projects/37495472" -WebSession $session;
 
-    Write-Host "\nIf that failed, then somethings wrong...";
+      Write-Host "\nIf that failed, then somethings wrong...";
