@@ -68,3 +68,6 @@ function Get-MergeRequests {
 }
 function Invoke-MergeAction($session, $strTargetMR) {
 }
+
+Export-ModuleMember -Variable session, strProjUrl;
+Export-ModuleMember -Function Invoke-ApiCall, Get-MergeRequests, Invoke-MergeAction;
