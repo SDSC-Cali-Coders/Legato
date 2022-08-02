@@ -15,3 +15,56 @@ function Invoke-ApiCall([Microsoft.PowerShell.Commands.WebRequestSession]$WebSes
     Write-Host "GET: $Uri";
     return Invoke-RestMethod $Uri -WebSession $WebSession;
 }
+
+function Get-MergeRequests {
+    Param (
+        [Microsoft.PowerShell.Commands.WebRequestSession]
+        $WebSession = $session,
+
+        [string]
+        $Uri = $strProjUrl,
+
+        [ValidateSet("opened, closed, locked, merged")]
+        [string]
+        $state,
+
+        [ValidateSet("Legato: Sprint 2", "Legato: Sprint 3")]
+        [string]
+        $milestone,
+
+        [switch]
+        $simpleView,
+
+        [string]
+        $source_branch,
+
+        [string]
+        $target_branch
+    )
+
+    Begin {
+        $strFilterQuery = "?";
+        if ($state) {
+            $strFilterQuery += "state=$state&"
+        }
+        if ($milestone) {
+            $strFilterQuery += "milestone=$milestone&"
+        }
+        if ($simpleView) {
+            $strFilterQuery += "view=simple&"
+        }
+        if ($source_branch) {
+            $strFilterQuery += "source_branch=$source_branch&"
+        }
+        if ($target_branch) {
+            $strFilterQuery += "target_branch=$target_branch&"
+        }
+    }
+
+    Process {
+        $strMergeEndpoint = "$Uri/merge_requests$strFilterQuery";
+        Invoke-ApiCall $WebSession $strMergeEndpoint;
+    }
+}
+function Invoke-MergeAction($session, $strTargetMR) {
+}
