@@ -2,9 +2,9 @@ superlinter:
 # name the stage for pipelining later
   stage: linting
 
-# use a Docker image for super-linter
+# use a Docker image for super-linter (slim version for faster job execution)
   image:
-    name: github/super-linter:latest
+    name: github/super-linter:slim-v4
     entrypoint: [""]
 
 # only run this job on merge-requests
@@ -19,8 +19,7 @@ superlinter:
 # specify vars used by super-linter
   variables:
     RUN_LOCAL: "true"
-    DEFAULT_WORKSPACE: ${CI_BUILDS_DIR}
-    ANSIBLE_DIRECTORY: $CI_PROJECT_PATH
-    LINTER_RULES_PATH: $CI_PROJECT_PATH/.gitlab/linters   # keeping linter configs here
-    JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json             # ^ specifying ESLint's config
+    DEFAULT_WORKSPACE: $CI_PROJECTS_DIR
+    LINTER_RULES_PATH: ".gitlab/linters"          # keeping linter configs here
+    JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json     # ^ specifying ESLint's config
     VALIDATE_JAVASCRIPT_STANDARD: "false"
