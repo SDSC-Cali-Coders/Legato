@@ -4,7 +4,7 @@ superlinter:
 
 # use a Docker image for super-linter (slim version for faster job execution)
   image:
-    name: github/super-linter:latest
+    name: github/super-linter:slim-v4
     entrypoint: [""]
 
 # only run this job on merge-requests
