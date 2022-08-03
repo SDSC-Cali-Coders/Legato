@@ -21,9 +21,30 @@ $intProjId      = 37495472;
 $strBaseUrl     = 'https://gitlab.com/api/v4';
 $strProjUrl     = "$strBaseUrl/projects/$intProjId";
 
-function Invoke-ApiCall([Microsoft.PowerShell.Commands.WebRequestSession]$WebSession = $session, [string]$Uri) {
-    Write-Host "GET: $Uri";
-    return Invoke-RestMethod $Uri -WebSession $WebSession;
+function Invoke-ApiCall {
+    Param (
+        [Microsoft.PowerShell.Commands.WebRequestSession]
+        $WebSession = $session, 
+        
+        [Parameter(Mandatory)]
+        [string]
+        $Uri,
+
+        [ValidateSet("Get", "Post", "Put", "Head")]
+        [string]
+        $Method = "Get",
+
+        [Object]
+        $Body
+    )
+    
+    Begin {
+        Write-Host "$Method`: $Uri";
+    }
+
+    Process {
+        return Invoke-RestMethod $Uri -WebSession $WebSession -Method $Method -Body $Body;
+    }
 }
 
 function Get-MergeRequests {
@@ -84,8 +105,17 @@ function Get-MergeRequests {
 }
 
 function Invoke-MergeAction([Microsoft.PowerShell.Commands.WebRequestSession]$WebSession = $session, [int]$iid) {
-    # state: opened, merge_status: can_be_merged, 
-    # target_branch: -not main
+    # Endpoint: merge_requests/:iid
+    # access > state, merge_status, target_branch
+
+    # Endpoint: merge_requests/:iid/approvals
+    # access > state, merge_status, approved_by
+
+    # [Tentative] Reqs to be merged:
+    # > state:          opened
+    # > merge_status:   can_be_merged
+    # > target_branch:  -not main
+    # > approved_by:    length==3
 }
 
 Export-ModuleMember -Variable session, strProjUrl;
