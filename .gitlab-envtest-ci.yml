@@ -1,6 +1,6 @@
 envtest:
   stage: test
-  image: mcr.microsoft.com/powershell:latest
+  image: docker pull mcr.microsoft.com/powershell:lts-7.2-debian-buster-slim
 
   variables:
     PRIVATE_TOKEN: $SECRET_TOKEN
@@ -9,7 +9,7 @@ envtest:
 
   script:
     - |
-      echo "Attempting to use a docker img of unix pre-installed w/ psh for lighter pipelining"
+      echo "Attempting to use a docker img of unix pre-installed w/ pwsh for lighter pipelining"
       echo "Expecting a masked PRIVATE_TOKEN: $PRIVATE_TOKEN"
       echo "Expecting 54 for MERGE_IID: $MERGE_IID"
       echo "Expecting true for APPROVAL_STATUS: $APPROVAL_STATUS"
