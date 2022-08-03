@@ -31,7 +31,7 @@ function Get-MergeRequests {
         [string]
         $Uri = $strProjUrl,
 
-        [ValidateSet("opened, closed, locked, merged")]
+        [ValidateSet("opened", "closed", "locked", "merged")]
         [string]
         $state,
 
