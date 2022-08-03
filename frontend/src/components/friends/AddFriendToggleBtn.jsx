@@ -4,7 +4,7 @@ const AddFriendToggleBtn = {
   FriendAdded: (props) => {
     return (
       <button className="btn-friendAdded border-0 bg-transparent fs-1" type="button">
-        <i class="bi bi-person-check-fill"></i>
+        <i className="bi bi-person-check-fill"></i>
       </button>
     );
   },
@@ -12,7 +12,7 @@ const AddFriendToggleBtn = {
   FriendNotAdded: (props) => {
     return (
       <button className="btn-friendNotAdded border-0 bg-transparent fs-1" type="button">
-        <i class="bi bi-person-plus-fill"></i>
+        <i className="bi bi-person-plus-fill"></i>
       </button>
     );
   },
