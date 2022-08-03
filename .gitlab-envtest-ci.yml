@@ -17,7 +17,14 @@ envtest:
       echo "Expecting 54 for MERGE_IID: $MERGE_IID"
       echo "Expecting true for APPROVAL_STATUS: $APPROVAL_STATUS"
 
+      echo
+
       pwsh -c 'Write-Host "If no errors, will continue by accessing from env now"'
       pwsh -c 'Write-Host "Expecting a masked PRIVATE_TOKEN: $env:PRIVATE_TOKEN"'
       pwsh -c 'Write-Host "Expecting 54 for MERGE_IID: $env:MERGE_IID"'
       pwsh -c 'Write-Host "Expecting true for APPROVAL_STATUS: $env:APPROVAL_STATUS"'
+
+      echo
+
+      echo "Now testing ability to import module and run commands"
+      pwsh test.ps1
