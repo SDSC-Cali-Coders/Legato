@@ -1,6 +1,6 @@
 envtest:
   stage: test
-  image: docker pull mcr.microsoft.com/powershell:lts-7.2-debian-buster-slim
+  image: mcr.microsoft.com/powershell:lts-7.2-debian-buster-slim
 
   variables:
     PRIVATE_TOKEN: $SECRET_TOKEN
