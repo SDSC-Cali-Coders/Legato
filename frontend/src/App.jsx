@@ -1,6 +1,6 @@
 import './App.css';
 import Navbar from './components/Navbar';
-import Login from './pages/Login'
+import Login from './pages/Login';
 import AppRouter from './AppRouter';
 import { accessToken, getCurrentUserProfile } from './api/spotify';
 import { userIdContext } from './api/userContext'
@@ -9,8 +9,8 @@ import { catchErrors } from './utils';
 import ListeningHistory from './pages/ListeningHistory';
 
 const loggedIn = accessToken ? true : false;
-console.log("access token is" + accessToken);
-console.log("logged in variable is" + loggedIn);
+console.log('access token is ' + accessToken);
+console.log('logged in variable is' + loggedIn);
 
 /**
  * App helps handle the initial login and routing for our application.
