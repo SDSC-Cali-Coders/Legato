@@ -1,6 +1,6 @@
 envtest:
   stage: test
-  image: docker pull mcr.microsoft.com/powershell:latest
+  image: mcr.microsoft.com/powershell:latest
 
   variables:
     PRIVATE_TOKEN: $SECRET_TOKEN
