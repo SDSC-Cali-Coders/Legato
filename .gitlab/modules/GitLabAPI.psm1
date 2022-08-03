@@ -1,6 +1,9 @@
+# Manually loading in WebRequests to address lazy loading
+Add-Type -AssemblyName Microsoft.PowerShell.Commands.Utility
+
 # Variables definitions
 
-# Private token injected in pipeline, manually set for local terminal
+# Private token injected in pipeline, manually set for local terminal testing
 if (-not $env:PRIVATE_TOKEN) {
     $tokenFilePath = "$(git rev-parse --show-toplevel)/.gitlab/modules/token.txt";
     $env:PRIVATE_TOKEN = Get-Content $tokenFilePath;
@@ -79,7 +82,10 @@ function Get-MergeRequests {
         Invoke-ApiCall $WebSession $strMergeEndpoint;
     }
 }
-function Invoke-MergeAction($session, $strTargetMR) {
+
+function Invoke-MergeAction([Microsoft.PowerShell.Commands.WebRequestSession]$WebSession = $session, [int]$iid) {
+    # state: opened, merge_status: can_be_merged, 
+    # target_branch: -not main
 }
 
 Export-ModuleMember -Variable session, strProjUrl;
