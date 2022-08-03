@@ -25,7 +25,7 @@ const Searchbar = {
 
   ArtistSearchbar: () => {
     return (
-      <div className="input-group d-flex">
+        <div className="input-group d-flex">
         <div className="input-group-prepend">
           <button
             className="btn bg-neutral-secondary btn-outline-bg-neutral-secondary"
