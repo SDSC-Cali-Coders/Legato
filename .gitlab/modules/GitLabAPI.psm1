@@ -104,18 +104,56 @@ function Get-MergeRequests {
     }
 }
 
-function Invoke-MergeAction([Microsoft.PowerShell.Commands.WebRequestSession]$WebSession = $session, [int]$iid) {
-    # Endpoint: merge_requests/:iid
-    # access > state, merge_status, target_branch
+function Invoke-MergeAction {
+    Param (
+        [Microsoft.PowerShell.Commands.WebRequestSession]
+        $WebSession = $session,
 
-    # Endpoint: merge_requests/:iid/approvals
-    # access > state, merge_status, approved_by
+        [Parameter(Mandatory)]
+        [int]
+        $iid
+    )
 
-    # [Tentative] Reqs to be merged:
-    # > state:          opened
-    # > merge_status:   can_be_merged
-    # > target_branch:  -not main
-    # > approved_by:    length==3
+    Begin {
+        # Endpoint: merge_requests/:iid
+        # access > state, merge_status, source_branch, target_branch
+        $strMrBaseUrl   = "$strProjUrl/merge_requests/$iid";
+        $objMrDetails   = Invoke-ApiCall -WebSession $WebSession -Uri $strMrBaseUrl;
+
+        # Endpoint: merge_requests/:iid/approvals
+        # access > state, merge_status, approved_by
+        $strMrApprUrl   = "$strMrBaseUrl/approvals";
+        $objMrApprovs   = Invoke-ApiCall -WebSession $WebSession -Uri $strMrApprUrl;
+
+        # [Tentative] Reqs to be merged:
+        # > state:          opened
+        # > merge_status:   can_be_merged
+        # > target_branch:  -not main
+        # > approved_by:    length==3
+        $mergeability   = @(
+            $objMrDetails.state -eq 'opened';
+            $objMrDetails.merge_status -eq 'can_be_merged';
+            $objMrDetails.target_branch -ne 'main';
+            $objMrApprovs.approved_by.Length -ge 3
+        );
+    }
+
+    Process {
+        # Endpoint: merge_requests/:iid/merge
+        # set > should_remove_source_branch (condition: source_branch is issue/hot-fix branch [regex])
+        # set > merge_when_pipeline_succeeds
+        $strMergeUrl    = "$strMrBaseUrl/merge";
+        $objPostBody    = @{
+            should_remove_source_branch =   $objMrDetails.source_branch -match '^(\d+)|(hot-fix)';
+            merge_when_pipeline_succeeds =  $true;
+        }
+
+        # Mock run first, don't actually merge anything yet
+        Write-Host "Checking mergeability:`n$mergeability";
+        Write-Host "Checking post body:`n$objPostBody";
+        Write-Host "Checking API Call:`n"
+        Write-Host "Invoke-ApiCall -Method Post -WebSession $WebSession -Body $objPostBody -Uri $strMergeUrl"
+    }
 }
 
 Export-ModuleMember -Variable session, strProjUrl;
