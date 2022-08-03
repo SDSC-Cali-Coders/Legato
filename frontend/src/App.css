@@ -133,19 +133,18 @@
 }
 
 /* Additional styling for concert search card artist name */
-.artistName{
-  text-shadow:2px 2px rgb(116, 110, 110);
+.artistName {
+  text-shadow: 2px 2px rgb(116, 110, 110);
 }
 
-.concertcardbtn{
+.concertcardbtn {
   float: right;
 }
 
-.triangleBtnSection{
-  background-color: #B1A6A4 !important;
+.triangleBtnSection {
+  background-color: #b1a6a4 !important;
   transition: 0.2s;
   border: none;
-  
 }
 /* Additional styling for dropdown menus */
 .dropdown-menu > li > a:hover {
@@ -163,4 +162,11 @@ i {
 
 .eventDescription {
   padding-left: 20px;
+}
+
+/* Additional styling for scrollbar feature for who is interested in going concerts page */
+.vertical-scroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 75vh;
 }
