@@ -1,6 +1,9 @@
 envtest:
   stage: test
-  image: mcr.microsoft.com/powershell:lts-7.2-debian-buster-slim
+  image: mcr.microsoft.com/powershell:latest
+
+  only:
+    - merge_requests
 
   variables:
     PRIVATE_TOKEN: $SECRET_TOKEN
@@ -13,9 +16,8 @@ envtest:
       echo "Expecting a masked PRIVATE_TOKEN: $PRIVATE_TOKEN"
       echo "Expecting 54 for MERGE_IID: $MERGE_IID"
       echo "Expecting true for APPROVAL_STATUS: $APPROVAL_STATUS"
-      echo "'echo' is an Alias in pwsh, now testing 'Write-Host' to see if pwsh is the def shell"
 
-      Write-Host "If no errors, will continue by accessing from env now"
-      Write-Host "Expecting a masked PRIVATE_TOKEN: $env:PRIVATE_TOKEN"
-      Write-Host "Expecting 54 for MERGE_IID: $env:MERGE_IID"
-      Write-Host "Expecting true for APPROVAL_STATUS: $env:APPROVAL_STATUS"
+      pwsh -c 'Write-Host "If no errors, will continue by accessing from env now"'
+      pwsh -c Write-Host "Expecting a masked PRIVATE_TOKEN: $env:PRIVATE_TOKEN"'
+      pwsh -c Write-Host "Expecting 54 for MERGE_IID: $env:MERGE_IID"'
+      pwsh -c Write-Host "Expecting true for APPROVAL_STATUS: $env:APPROVAL_STATUS"'
