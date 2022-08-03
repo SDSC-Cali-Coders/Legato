@@ -11,7 +11,7 @@ auto-merger:
 # Token and Merge IID are the only things needed
 # - but knowing the approvals rn is useful too
   variables:
-    PRIVATE_TOKEN: $CI_JOB_TOKEN
+    PRIVATE_TOKEN: $SECRET_TOKEN
     MERGE_IID: $CI_MERGE_REQUEST_IID
     APPROVAL_STATUS: $CI_MERGE_REQUEST_APPROVED
 
