@@ -28,8 +28,6 @@ const UserCard = (props) => {
           <h6>
             {props.mutualArtists} Mutual {props.type3}
           </h6>
-
-
         </div>
         <div class="col-3 border d-flex justify-content-center ">
           {props.isFriendAdded ? (
