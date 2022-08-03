@@ -1,0 +1,9 @@
+superlinter:
+  stage: linting
+  image: github/super-linter:latest
+  script: [ "true" ]
+  variables: 
+    RUN_LOCAL: "true"
+    DEFAULT_WORKSPACE: $CI_BUILDS_DIR
+    ANSIBLE_DIRECTORY: $CI_PROJECT_PATH
+    LINTER_RULES_PATH: $CI_PROJECT_PATH/.github/linters
