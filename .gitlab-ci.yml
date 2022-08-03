@@ -1,8 +1,8 @@
 # Include and run all stages
 include: 
-#  - .gitlab-linter-ci.yml
-  # - .gitlab-merger-ci.yml
-  - .gitlab-envtest-ci.yml
+#  - .gitlab/configs/.gitlab-linter-ci.yml
+  # - .gitlab/configs/.gitlab-merger-ci.yml
+  - .gitlab/configs/.gitlab-envtest-ci.yml
 stages:
 #  - linting
   # - merging

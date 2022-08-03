@@ -31,4 +31,4 @@ envtest:
       echo
 
       echo "Now checking what data is available through JOB_ID"
-      pwsh test.ps1
+      pwsh .gitlab/scripts/test.ps1

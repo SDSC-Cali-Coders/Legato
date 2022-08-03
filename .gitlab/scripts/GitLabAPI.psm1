@@ -5,7 +5,7 @@ Add-Type -AssemblyName Microsoft.PowerShell.Commands.Utility
 
 # Private token injected in pipeline, manually set for local terminal testing
 if (-not $env:PRIVATE_TOKEN) {
-    $tokenFilePath = "$(git rev-parse --show-toplevel)/.gitlab/modules/token.txt";
+    $tokenFilePath = "$(git rev-parse --show-toplevel)/.gitlab/scripts/token.txt";
     $env:PRIVATE_TOKEN = Get-Content $tokenFilePath;
 }
 
