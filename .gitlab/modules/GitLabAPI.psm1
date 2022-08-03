@@ -148,11 +148,13 @@ function Invoke-MergeAction {
             merge_when_pipeline_succeeds =  $true;
         }
 
-        # Mock run first, don't actually merge anything yet
-        Write-Host "Checking mergeability (opened | can_be_merged | non-main | approval >= 3):`n$mergeability";
+        if ($mergeability -contains $false) {
+            Write-Host "Mergeability issue (opened | can_be_merged | non-main | approval >= 3):`n$mergeability";
+            return;
+        }
+
         Write-Host "Checking post body:`n$($objPostBody | Format-Table | Out-String)";
-        Write-Host "Checking API Call:`n"
-        Write-Host "Invoke-ApiCall -Method Post -WebSession $WebSession -Body $objPostBody -Uri $strMergeUrl"
+        Invoke-ApiCall -Method Post -WebSession $WebSession -Body $objPostBody -Uri $strMergeUrl;
     }
 }
 
