@@ -6,9 +6,11 @@ import {
 } from 'react-router-dom';
 
 import MainConcert from './components/concerts/MainConcert';
-import ListeningHistoryScript from './pageScripts/ListeningHistoryScript';
-import SettingsScript from './pageScripts/SettingsScript';
-import MainSearchArtists from './components/artistSearch/MainView';
+import ListeningHistory from './pages/ListeningHistory';
+import Settings from './pages/Settings';
+import Artists from './components/artistSearch/MainView';
+
+import SearchView from './components/artistSearch/SearchView';
 
 /**
  * This AppRouter allows us to navigate across the application and works with our
@@ -31,6 +33,9 @@ function AppRouter() {
             } />
             <Route path = "/artists/" element = {
                 <MainSearchArtists />
+            } />
+            <Route path = "/Artists/" element = {
+                <SearchView />
             } />
         </Routes>
         </BrowserRouter>
