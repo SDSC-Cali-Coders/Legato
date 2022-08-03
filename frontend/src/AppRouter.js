@@ -23,16 +23,13 @@ function AppRouter() {
         <BrowserRouter>
         <Routes>
             <Route path = "/" element = {
-                <ListeningHistoryScript />
+                <ListeningHistory />
             } />
             <Route path = "/concerts/" element = {
                 <MainConcert />
             } />
             <Route path = "/settings/" element = {
-                <SettingsScript />
-            } />
-            <Route path = "/artists/" element = {
-                <MainSearchArtists />
+                <Settings />
             } />
             <Route path = "/Artists/" element = {
                 <SearchView />
