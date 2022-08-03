@@ -1,0 +1,21 @@
+envtest:
+  stage: test
+  image: docker pull mcr.microsoft.com/powershell:latest
+
+  variables:
+    PRIVATE_TOKEN: $SECRET_TOKEN
+    MERGE_IID: $CI_MERGE_REQUEST_IID
+    APPROVAL_STATUS: $CI_MERGE_REQUEST_APPROVED
+
+  script:
+    - |
+      echo "Attempting to use a docker img of unix pre-installed w/ psh for lighter pipelining"
+      echo "Expecting a masked PRIVATE_TOKEN: $PRIVATE_TOKEN"
+      echo "Expecting 54 for MERGE_IID: $MERGE_IID"
+      echo "Expecting true for APPROVAL_STATUS: $APPROVAL_STATUS"
+      echo "'echo' is an Alias in pwsh, now testing 'Write-Host' to see if pwsh is the def shell"
+
+      Write-Host "If no errors, will continue by accessing from env now"
+      Write-Host "Expecting a masked PRIVATE_TOKEN: $env:PRIVATE_TOKEN"
+      Write-Host "Expecting 54 for MERGE_IID: $env:MERGE_IID"
+      Write-Host "Expecting true for APPROVAL_STATUS: $env:APPROVAL_STATUS"
