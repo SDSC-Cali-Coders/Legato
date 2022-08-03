@@ -2,29 +2,33 @@ envtest:
   stage: test
   image: mcr.microsoft.com/powershell:latest
 
-  only:
-    - merge_requests
+# Only catching merge_requests missed "approval" events
+  # only:
+  #   - merge_requests
 
+# SECRET_TOKEN registered to proj (collab w/ PO Jacob)
+# Testing if CI_MERGE_IID is available on approval events
+# Testing if CI_JOB_ID can be used to access MERGE_IID if not
   variables:
     PRIVATE_TOKEN: $SECRET_TOKEN
     MERGE_IID: $CI_MERGE_REQUEST_IID
-    APPROVAL_STATUS: $CI_MERGE_REQUEST_APPROVED
+    JOB_ID: $CI_JOB_ID
 
   script:
     - |
       echo "Attempting to use a docker img of unix pre-installed w/ pwsh for lighter pipelining"
       echo "Expecting a masked PRIVATE_TOKEN: $PRIVATE_TOKEN"
-      echo "Expecting 54 for MERGE_IID: $MERGE_IID"
-      echo "Expecting true for APPROVAL_STATUS: $APPROVAL_STATUS"
+      echo "Expecting an integer MERGE_IID: $MERGE_IID"
+      echo "Expecting an integer JOB_ID: $JOB_ID"
 
       echo
 
       pwsh -c 'Write-Host "If no errors, will continue by accessing from env now"'
       pwsh -c 'Write-Host "Expecting a masked PRIVATE_TOKEN: $env:PRIVATE_TOKEN"'
-      pwsh -c 'Write-Host "Expecting 54 for MERGE_IID: $env:MERGE_IID"'
-      pwsh -c 'Write-Host "Expecting true for APPROVAL_STATUS: $env:APPROVAL_STATUS"'
+      pwsh -c 'Write-Host "Expecting an integer MERGE_IID: $env:MERGE_IID"'
+      pwsh -c 'Write-Host "Expecting an integer JOB_ID: $env:JOB_ID"'
 
       echo
 
-      echo "Now testing ability to import module and run commands"
-      pwsh test.ps1
+      echo "Now checking what data is available through JOB_ID"
+      pwsh -c test.ps1
