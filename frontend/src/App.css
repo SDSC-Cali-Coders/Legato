@@ -175,3 +175,11 @@
 .btn-friendNotAdded{
   color: #3FDE77;
 }
+
+.btn-friendNotAdded:hover, .btn-friendAdded:hover {
+  opacity: 50%;
+}
+
+.btn-friendNotAdded:active, .btn-friendAdded:active {
+  color:white
+}
