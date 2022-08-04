@@ -178,7 +178,7 @@ function Start-Listener {
 
             # Next, parse the payload
             try {
-                [GitlabWebhookEvent]$payload = ($requestBody | ConvertFrom-Json);
+                $payload = ($requestBody | ConvertFrom-Json);
 
                 # For testing: just send the payload back
                 # $generalCallBack.Invoke($response, $requestBody);
