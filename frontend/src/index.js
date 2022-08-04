@@ -9,13 +9,29 @@ import EventInformation from "./components/concerts/EventInformation";
 import Navbar from "./components/Navbar";
 import Concerts from "./pages/Concerts";
 import InterestedAttendees from "./components/concerts/InterestedAttendees";
+import defProfileIcon from "./assets/pfpIcon.svg";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root  = ReactDOM.createRoot(document.getElementById("root"));
+
+let mutuals = Array(6).fill({
+  img: defProfileIcon,
+  name: "John Doe",
+  mutualNumber: 5,
+  type: "Concerts",
+});
+
+let others = Array(438).fill({
+  img: defProfileIcon,
+  name: "John Doe",
+  mutualNumber: 5,
+  type: "Concerts",
+});
+
 root.render(
   <React.StrictMode>
     {/* <App/> */}
     <Navbar />
-    <InterestedAttendees mutualFriends="6" otherUsers="438" />
+    <InterestedAttendees mutualFriends={mutuals} otherUsers={others}/>
     {/* <EventInformation/> */}
   </React.StrictMode>
 );
