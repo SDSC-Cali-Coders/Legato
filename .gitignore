@@ -23,5 +23,5 @@ yarn-error.log*
 # ignore vsc extension settings
 .vscode
 
-# ignore the personal Gitlab API token I'm using 
-token.txt
+# ignore all tokens used in testing/development
+token*.txt
