@@ -33,12 +33,19 @@ function Start-Listener {
 
                 [Parameter(Mandatory)]
                 [string]
-                $respBody = (@{message='Hello World'} | ConvertTo-Json)
+                $respBody = (@{message='Hello World'} | ConvertTo-Json),
+
+                [int]
+                $StatusCode = 200,
+
+                [ValidateSet('application/json', 'html/text')]
+                [string]
+                $ContentType = 'application/json'
             )
 
             # Set StatusCode and ContentType to 200 (Success) and application/json respectively
-            $response.StatusCode    = 200;
-            $response.ContentType   = 'application/json';
+            $response.StatusCode    = $StatusCode;
+            $response.ContentType   = $ContentType;
 
             # Encode JSON response in bytes and write to output stream (w/ proper length settings etc.)
             [byte[]] $respBuffer    = [System.Text.Encoding]::UTF8.GetBytes($respBody);
