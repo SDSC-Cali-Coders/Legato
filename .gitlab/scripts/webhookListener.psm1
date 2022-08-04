@@ -100,20 +100,20 @@ function Start-Listener {
 
             # Validate payload by checking X-Gitlab-Token in the HTTP Headers
             if ($request.Headers.AllKeys -notcontains 'X-Gitlab-Token') {
-                $generalCallBack.Invoke($response, (@{error='unauthorized - missing X-Gitlab-Token'} | ConvertFrom-Json), 401);
+                $generalCallBack.Invoke($response, (@{error='unauthorized - missing X-Gitlab-Token'} | ConvertTo-Json), 401);
                 return;
             } elseif ($request.Headers.Get('X-Gitlab-Token') -ne $env:X_GITLAB_TOKEN) {
-                $generalCallBack.Invoke($response, (@{error='forbidden - wrong X-Gitlab-Token'} | ConvertFrom-Json), 403);
+                $generalCallBack.Invoke($response, (@{error='forbidden - wrong X-Gitlab-Token'} | ConvertTo-Json), 403);
                 return;
             }
 
             # Next, parse the payload
             try {
                 $payload = ($requestBody | ConvertFrom-Json);
-                $generalCallBack.Invoke($response, (@{mesg='Successfully authenticated w/ the X-Gitlab-Token!' | ConvertFrom-Json}));
+                $generalCallBack.Invoke($response, (@{mesg='Successfully authenticated w/ the X-Gitlab-Token!'} | ConvertTo-Json));
             }
             catch {
-                $generalCallBack.Invoke($response, (@{error='bad request - failed to parse the payload from JSON form' | ConvertFrom-Json}), 400);
+                $generalCallBack.Invoke($response, (@{error='bad request - failed to parse the payload from JSON form'} | ConvertTo-Json), 400);
             }
         }
     }
