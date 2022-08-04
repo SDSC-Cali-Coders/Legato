@@ -1,3 +1,10 @@
+# X-Gitlab-Token sent in header to validate recieved payloads
+# Will be injected in pipeline, manually set for local terminal testing
+if (-not $env:X_GITLAB_TOKEN) {
+    $tokenFilePath      = "$(git rev-parse --show-toplevel)/.gitlab/scripts/token2.txt";
+    $env:X_GITLAB_TOKEN = Get-Content $tokenFilePath;
+}
+
 function Start-Listener {
     Param (
         [string[]]
@@ -117,6 +124,9 @@ function Start-Listener {
                 '/end$' {
                     $endCallback.Invoke($response);
                     $httpListener.Stop();
+                }
+                '/comment-webhook$' {
+                    $webhookCallback.Invoke($response, $request);
                 }
                 Default {
                     $headerCallback.Invoke($response, $request);
