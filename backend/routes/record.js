@@ -19,6 +19,7 @@ recordRoutes.route("/user/:id").put(function (req, response) {
   let myobj = {
     _id: req.body.id,
     name: req.body.name,
+    img: req.body.img,
     topArtists: req.body.topArtists,
     topSongs: req.body.topSongs,
     recGenres: req.body.recGenres,
