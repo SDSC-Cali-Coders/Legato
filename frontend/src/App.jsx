@@ -3,7 +3,7 @@ import Navbar from './components/Navbar';
 import ListeningHistory from './pages/ListeningHistory';
 import Login from './pages/Login'
 import { useState, useEffect, useRef } from 'react';
-import { accessToken, getTopSongs, getCurrentUserProfile, getTopArtists, getRecGenres } from './api/spotify';
+import { accessToken, getTopSongs, getCurrentUserProfile, getTopArtists, getTopGenres } from './api/spotify';
 import { catchErrors, checkConcerts } from './utils';
 import { getArtistEvent } from './api/bandsintown';
 import genreIcon from './assets/genre-country.svg';
@@ -14,6 +14,7 @@ import MainConcert from './components/concerts/MainConcert';
 let tracksObject;
 let artistsObject;
 let genresObject;
+let sortedGenres;
 const loggedIn = accessToken ? true : false;
 console.log("access token is" + accessToken);
 console.log("logged in variable is" + loggedIn);
@@ -22,7 +23,8 @@ function App(props) {
   const [token, setToken] = useState(null);
   const [topArtists, setTopArtists] = useState(null);
   const [topSongs, setTopSongs] = useState(null);
-  const [recGenres, setRecGenres] = useState(null);
+  //const [recGenres, setRecGenres] = useState(null);
+  const [topGenres, setTopGenres] = useState(null);
   const [profile, setProfile] = useState(null);
   const [artistEventInfo, setArtistEventInfo] = useState(null);
 
@@ -64,10 +66,11 @@ function App(props) {
     setToken(accessToken);
 
     const fetchData = async () => {
-      const { data } = await getRecGenres();
-      setRecGenres(data);
+      const { data } = await getTopGenres("short_term");
+      setTopGenres(data);
     };
     catchErrors(fetchData());
+
   }, []);
 
   useEffect(() => {
@@ -82,15 +85,15 @@ function App(props) {
         topSongs: topSongs.items.slice(0, 5).map(
           (object => object.name)
         ),
-        recGenres: recGenres.genres.slice(0, 5),
+        topGenres: sortedGenres.slice(0, 5)
       };
       catchErrors(axios.put(`http://localhost:27017/user/${profile.id}`, newUser));
     }
-    if (!effectTriggeredRef.current && profile && topSongs && topArtists && recGenres) {
+    if (!effectTriggeredRef.current && profile && topSongs && topArtists && sortedGenres) {
       addUserDB();
       effectTriggeredRef.current = true;
     }
-  }, [profile, topArtists, topSongs, recGenres]);
+  }, [profile, topArtists, topSongs, sortedGenres]);
 
   /* CODE FOR US TO USE LATER TO CONNECT TO DB DO NOT DELETE
   useEffect(() => {
@@ -191,7 +194,30 @@ function App(props) {
   }
 
 
-  if (recGenres) {
+  if (topGenres) {
+    let aggGenres = {};
+    //get total of each genre
+    for (let i = 0; i < topGenres.items.length; i++) {
+        for (let j = 0; j < topGenres.items[i].genres.length; j++) {
+            if (topGenres.items[i].genres[j] in aggGenres) {
+                aggGenres[topGenres.items[i].genres[j]] += 1
+            }
+            aggGenres[topGenres.items[i].genres[j]] = 1
+        }
+    }
+    //sort genres by value
+    let items = Object.keys(aggGenres).map((key) => {
+        return [key, aggGenres[key]];
+    });
+
+    items.sort((first, second) => {
+        return second[1] - first[1];
+    });
+
+    sortedGenres=[]
+    items.forEach(elem => {
+        sortedGenres.push(elem[0, 0])
+    })
     let topThreeListObj = [];
     let topTenListObj = [];
     for (let i = 0; i < 10; i++) {
@@ -199,12 +225,12 @@ function App(props) {
         topThreeListObj.push({
           rank: i + 1,
           icon: genreIcon,
-          genre: recGenres.genres[i]
+          genre: sortedGenres[i]
         })
       }
       topTenListObj.push({
         icon: genreIcon,
-        genre: recGenres.genres[i],
+        genre: sortedGenres[i],
         percentage: (100 - i * 10)
       })
     }
@@ -220,7 +246,7 @@ function App(props) {
       {loggedIn ? (
         <>
           <Navbar />
-          {topSongs && topArtists && recGenres && (
+          {topSongs && topArtists && topGenres && (
             <ListeningHistory
               Tracks={tracksObject}
               Artists={artistsObject}
