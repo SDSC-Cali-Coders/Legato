@@ -8,7 +8,7 @@ function Start-Listener {
     Begin {
         # Call generic callback w/ {message='Goodbye!'} as the message
         $endCallback = {
-            Param(
+            Param (
                 [Parameter(Mandatory)]
                 [System.Net.HttpListenerResponse]
                 $response
@@ -43,18 +43,41 @@ function Start-Listener {
             $response.OutputStream.Close();
         };
 
+        # Call the generic callback w/ the request header (JSON) as the message
         $headerCallback = {
-            Param(
+            Param (
                 [Parameter(Mandatory)]
                 [System.Net.HttpListenerResponse]
                 $response,
 
+                [Parameter(Mandatory)]
                 [System.Net.HttpListenerRequest]
                 $request
             )
 
-            # Call the generic callback w/ the request header (JSON) as the message
-            $generalCallBack.Invoke($response, ($request.Headers | ConvertTo-Json))
+            $Headers = @{};
+            $request.Headers.AllKeys | ForEach-Object { 
+                $Headers.Add($_, $request.Headers.Get($_));
+            }
+
+            $generalCallBack.Invoke($response, ($Headers | ConvertTo-Json))
+        }
+
+        # Callback to handle Gitlab webhooks triggered by events
+        $webhookCallback = {
+            Param (
+                [Parameter(Mandatory)]
+                [System.Net.HttpListenerResponse]
+                $response,
+
+                [Parameter(Mandatory)]
+                [System.Net.HttpListenerRequest]
+                $request
+            )
+
+            # Validate payload by checking X-Gitlab-Token in the HTTP Headers
+
+            # Parse the payload and 
         }
     }
 
@@ -84,10 +107,9 @@ function Start-Listener {
 
             # Log request info + body to console
             [System.IO.StreamReader]$requestBodyReader  = [System.IO.StreamReader]::new($request.InputStream);
-            Write-Output ("{0} - {1}:`n{2}`n{3}`n" -f
+            Write-Output ("{0} - {1}:`n{2}`n" -f
                             $request.HttpMethod,
                             $request.Url,
-                            ($request.Headers | Out-String),
                             $requestBodyReader.ReadToEnd());
 
             # Handle stopping the listener with an "/end" endpoint w/ regex matching
