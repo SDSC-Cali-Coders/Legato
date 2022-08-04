@@ -120,11 +120,11 @@ function Start-Listener {
             [System.Net.HttpListenerResponse]$response  = $context.Response;
 
             # Log request info + body to console
-            [System.IO.StreamReader]$requestBodyReader  = [System.IO.StreamReader]::new($request.InputStream);
+            [string]$requestBody = [System.IO.StreamReader]::new($request.InputStream).ReadToEnd();
             Write-Output ("{0} - {1}:`n{2}`n" -f
                             $request.HttpMethod,
                             $request.Url,
-                            $requestBodyReader.ReadToEnd());
+                            $requestBody);
 
             # Handle stopping the listener with an "/end" endpoint w/ regex matching
             switch -Regex ($request.Url) {
