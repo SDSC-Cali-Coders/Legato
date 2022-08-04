@@ -60,6 +60,8 @@ class WebhookObjectAttributes {
     $target
     $last_commit
     $labels
+    [ValidateNotNullOrEmpty()][string]$action
+    $assignee
 }
 class GitlabWebhookEvent {
     [ValidateNotNullOrEmpty()][string]$object_kind
