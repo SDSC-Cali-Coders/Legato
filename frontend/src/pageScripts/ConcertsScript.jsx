@@ -8,12 +8,12 @@ import ConcertsBookmarked from '../components/concerts/ConcertsBookmarked';
 import MainConcert from '../components/concerts/MainConcert';
 
 const ConcertsScript = () => {
-    const id = useContext(userIdContext);
-    console.log("my id from the context is " + id)
-    let effectTriggeredRef = useRef(false);
+  const id = useContext(userIdContext);
+  console.log("my id from the context is " + id)
 
-    /**
-     * useEffect(() => {
+  /*
+  let effectTriggeredRef = useRef(false);
+  useEffect(() => {
     async function fetchGoingConcerts() {
       // when used on concerts page, we wouldnt hardcode the profile.id
       //const id = params.id.toString();
@@ -24,24 +24,24 @@ const ConcertsScript = () => {
           console.log(response.data)
         })
         .catch(function (error) {
-          console.log("this is not working" )
+          console.log("this is not working")
           console.log(error)
         })
         .then(function () {
           console.log("always executed")
         })
     }
-    if (!effectTriggeredRef.current && profile) {
+    if (!effectTriggeredRef.current) {
       fetchGoingConcerts();
       effectTriggeredRef.current = true;
     }
   }, []);
-     */
+  */
 
 
-    return (
-        < MainConcert />
-    );
+  return (
+    < MainConcert />
+  );
 }
 
 export default ConcertsScript;
