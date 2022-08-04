@@ -57,8 +57,8 @@ function Start-Listener {
             $response.OutputStream.Close();
         };
 
-        # Call the generic callback w/ the request header (JSON) as the message
-        $headerCallback = {
+        # Call the generic callback w/ the request header (JSON) & body as the message
+        $parrotCallback = {
             Param (
                 [Parameter(Mandatory)]
                 [System.Net.HttpListenerResponse]
@@ -66,15 +66,20 @@ function Start-Listener {
 
                 [Parameter(Mandatory)]
                 [System.Net.HttpListenerRequest]
-                $request
+                $request,
+
+                [string]
+                $requestBody
             )
 
-            $Headers = @{};
+            $respBody = @{};
             $request.Headers.AllKeys | ForEach-Object { 
-                $Headers.Add($_, $request.Headers.Get($_));
+                $respBody.Add($_, $request.Headers.Get($_));
             }
 
-            $generalCallBack.Invoke($response, ($Headers | ConvertTo-Json))
+            $respBody.Add('Request-Body', $requestBody);
+
+            $generalCallBack.Invoke($response, ($respBody | ConvertTo-Json))
         }
 
         # Callback to handle Gitlab webhooks triggered by events
@@ -86,12 +91,24 @@ function Start-Listener {
 
                 [Parameter(Mandatory)]
                 [System.Net.HttpListenerRequest]
-                $request
+                $request,
+
+                [Parameter(Mandatory)]
+                [string]
+                $requestBody
             )
 
             # Validate payload by checking X-Gitlab-Token in the HTTP Headers
+            if ($request.Headers.AllKeys -notcontains 'X-Gitlab-Token') {
+                $generalCallBack.Invoke($response, (@{error='unauthorized - missing X-Gitlab-Token'} | ConvertFrom-Json), 401);
+                return;
+            } elseif ($request.Headers.Get('X-Gitlab-Token') -ne $env:X_GITLAB_TOKEN) {
+                $generalCallBack.Invoke($response, (@{error='forbidden - wrong X-Gitlab-Token'} | ConvertFrom-Json), 403);
+                return;
+            }
 
-            # Parse the payload and 
+            # Next, parse the payload and 
+            $generalCallBack.Invoke($response, (@{mesg='Successfully authenticated w/ the X-Gitlab-Token!' | ConvertFrom-Json}));
         }
     }
 
@@ -133,10 +150,13 @@ function Start-Listener {
                     $httpListener.Stop();
                 }
                 '/comment-webhook$' {
-                    $webhookCallback.Invoke($response, $request);
+                    $webhookCallback.Invoke($response, $request, $requestBody);
+                }
+                '/parrot$' {
+                    $parrotCallback.Invoke($response, $request, $requestBody);
                 }
                 Default {
-                    $headerCallback.Invoke($response, $request);
+                    $generalCallBack.Invoke($response, (@{error=('not found - unrecognized endpoint [{0}]' -f $request.Url.LocalPath)} | ConvertTo-Json), 404)
                 }
             }
         }
