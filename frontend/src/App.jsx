@@ -62,54 +62,7 @@ function App(props) {
      effectTriggeredRef.current = true;
    }
  }, [profile]);
-  useEffect(() => {
-    async function fetchGoingConcerts() {
-      // when used on concerts page, we wouldnt hardcode the profile.id
-      //const id = params.id.toString();
-
-      axios.get(`http://localhost:27017/concerts/going/mgmlj01`)
-        .then(function (response) {
-          // can access specific parts of data by doing "[{# concert}.{DATA}"
-          console.log(response.data)
-        })
-        .catch(function (error) {
-          console.log("this is not working" )
-          console.log(error)
-        })
-        .then(function () {
-          console.log("always executed")
-        })
-    }
-    if (!effectTriggeredRef.current && profile) {
-      fetchGoingConcerts();
-      effectTriggeredRef.current = true;
-    }
-  }, []);
-
-  useEffect(() => {
-    async function fetchInterestedConcerts() {
-      // when used on concerts page, we wouldnt hardcode the profile.id
-      //const id = params.id.toString();
-
-      axios.get(`http://localhost:27017/concerts/interested/mgmlj01`)
-        .then(function (response) {
-          // can access specific parts of data by doing "[{# concert}.{DATA}"
-          console.log(response.data)
-        })
-        .catch(function (error) {
-          console.log("this is not working")
-          console.log(error)
-        })
-        .then(function () {
-          console.log("always executed")
-        })
-    }
-    if (!effectTriggeredRef.current) {
-      fetchInterestedConcerts();
-      effectTriggeredRef.current = true;
-    }
-  }, []);
- */
+*/
 
 
   /**
