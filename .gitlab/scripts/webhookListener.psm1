@@ -107,8 +107,14 @@ function Start-Listener {
                 return;
             }
 
-            # Next, parse the payload and 
-            $generalCallBack.Invoke($response, (@{mesg='Successfully authenticated w/ the X-Gitlab-Token!' | ConvertFrom-Json}));
+            # Next, parse the payload
+            try {
+                $payload = ($requestBody | ConvertFrom-Json);
+                $generalCallBack.Invoke($response, (@{mesg='Successfully authenticated w/ the X-Gitlab-Token!' | ConvertFrom-Json}));
+            }
+            catch {
+                $generalCallBack.Invoke($response, (@{error='bad request - failed to parse the payload from JSON form' | ConvertFrom-Json}), 400);
+            }
         }
     }
 
