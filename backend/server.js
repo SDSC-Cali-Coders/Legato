@@ -33,6 +33,9 @@ const generateRandomString = length => {
 
 const stateKey = 'spotify_auth_state';
 
+// not sure if this will work
+// let db_connect = dbo.getDb();
+
 app.get('/login', (req, res) => {
   const state = generateRandomString(16);
   res.cookie(stateKey, state);
@@ -108,6 +111,11 @@ app.get('/refresh_token', (req, res) => {
     .catch(error => {
       res.send(error);
     });
+});
+
+// Not sure if this is the correct way to do it
+app.get('/user/notification', (req, res) => {
+  res.send({this:'is a test'})
 });
 
 app.listen(port, () => {
