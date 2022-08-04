@@ -140,7 +140,7 @@ export const getCurrentUserProfile = () => spotifyInstance.get('/me');
 * @param {string} time_range - 'short_term' (last 4 weeks) 'medium_term' (last 6 months) or 'long_term' (calculated from several years of data and including all new data as it becomes available). Defaults to 'short_term'
 * @returns {Promise}
 */
-export const getTopArtists = (time_range = 'short_term') => {
+export const getTopArtists = (time_range) => {
     return spotifyInstance.get(`/me/top/artists?time_range=${time_range}&limit=10`);
 };
 

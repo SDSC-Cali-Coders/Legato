@@ -90,10 +90,10 @@ const UserProfile = (props) => {
             <div className="row">
                 <div className="col-10 card-group">
                     <ArtistCard artistImg={props.topArtistsList[0].artistImg} artistName={props.topArtistsList[0].artistName}/>
-                    <ArtistCard artistImg={props.topArtistsList[0].artistImg} artistName={props.topArtistsList[0].artistName}/>
-                    <ArtistCard artistImg={props.topArtistsList[0].artistImg} artistName={props.topArtistsList[0].artistName}/>
-                    <ArtistCard artistImg={props.topArtistsList[0].artistImg} artistName={props.topArtistsList[0].artistName}/>
-                    <ArtistCard artistImg={props.topArtistsList[0].artistImg} artistName={props.topArtistsList[0].artistName}/>
+                    <ArtistCard artistImg={props.topArtistsList[1].artistImg} artistName={props.topArtistsList[1].artistName}/>
+                    <ArtistCard artistImg={props.topArtistsList[2].artistImg} artistName={props.topArtistsList[2].artistName}/>
+                    <ArtistCard artistImg={props.topArtistsList[3].artistImg} artistName={props.topArtistsList[3].artistName}/>
+                    <ArtistCard artistImg={props.topArtistsList[4].artistImg} artistName={props.topArtistsList[4].artistName}/>
                 </div>
                 <div className="col d-flex align-items-end">
                     <div className="row flex-fill">
@@ -124,10 +124,10 @@ const UserProfile = (props) => {
                 <div className="col-5  d-grid px-4 gap-3">
                     <p className="fw-bold">My Top Genres</p>
                     <GenreCard genre={props.topGenreList[0].genre} />
-                    <GenreCard genre={props.topGenreList[0].genre} />
-                    <GenreCard genre={props.topGenreList[0].genre} />
-                    <GenreCard genre={props.topGenreList[0].genre} />
-                    <GenreCard genre={props.topGenreList[0].genre} />
+                    <GenreCard genre={props.topGenreList[1].genre} />
+                    <GenreCard genre={props.topGenreList[2].genre} />
+                    <GenreCard genre={props.topGenreList[3].genre} />
+                    <GenreCard genre={props.topGenreList[4].genre} />
                     <div className="col-4 offset-8">
                         <div className="row">
                             <Buttons.SeeMore/>

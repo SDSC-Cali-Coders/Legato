@@ -1,5 +1,6 @@
 import React from 'react';
 import UserProfile from '../components/settings/UserProfile';
+import { logout } from '../api/spotify';
 
 const ProfilePic = (props) => {
     let extraClassNames = 'border bg-dark p-10';
@@ -32,60 +33,22 @@ const Settings = (props) => {
             </div>
             <div className="row text-center">
                 <div className="col-1"> </div>
-                <div className="col-10 d-flex flex-column justify-content-between bg-secondary border border-dark position-relative my-5 fs-1"> 
-                    <ProfilePic img={props.img}/>
-                    <UserProfile 
-                        userName= 'John Doe'
-                        followersCount={238} 
-                        followingCount={101} 
-                        socialLinks={{
-                            facebook:  'https://facebook.com/JohnDoe',
-                            twitter:   'https://twitter.com/JohnDoe',
-                            instagram: 'https://instagram.com/JohnDoe',
-                            pinterest: 'https://pinterest.com/JohnDoe'
-                        }}
-                        topArtistsList={[
-                            {artistImg:props.img, artistName: 'The Police'},
-                            {artistImg:props.img, artistName: 'The Police'},
-                            {artistImg:props.img, artistName: 'The Police'},
-                            {artistImg:props.img, artistName: 'The Police'},
-                            {artistImg:props.img, artistName: 'The Police'},
-                            {artistImg:props.img, artistName: 'The Police'},
-                            {artistImg:props.img, artistName: 'The Police'},
-                            {artistImg:props.img, artistName: 'The Police'},
-                            {artistImg:props.img, artistName: 'The Police'},
-                            {artistImg:props.img, artistName: 'The Police'}
-                        ]}
-                        topSongsList={[
-                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
-                            {songTitle: 'Malaguena', artistName: 'Caterina Valente'},
-                            {songTitle: 'Wildest Dreams', artistName: 'Asia'},
-                            {songTitle: 'Nuevos Airos', artistName: 'Alex Fox'},
-                            {songTitle: 'Rio Ancho', artistName: 'Paco de Lucia'},
-                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
-                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
-                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
-                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'},
-                            {songTitle: 'Man in a Suitcase', artistName: 'The Police'}
-                        ]}
-                        topGenreList={[
-                            {genre: 'Rock'},
-                            {genre: 'Rock'},
-                            {genre: 'Rock'},
-                            {genre: 'Rock'},
-                            {genre: 'Rock'},
-                            {genre: 'Rock'},
-                            {genre: 'Rock'},
-                            {genre: 'Rock'},
-                            {genre: 'Rock'},
-                            {genre: 'Rock'}
-                        ]}/>
+                <div className="col-10 d-flex flex-column justify-content-between bg-secondary border border-dark position-relative my-5 fs-1">
+                    <ProfilePic img={props.profilePic} />
+                    <UserProfile
+                        userName={props.userName}
+                        followersCount={props.followersCount}
+                        followingCount={props.followingCount}
+                        socialLinks={props.socialLinks}
+                        topArtistsList={props.topArtistsList}
+                        topSongsList={props.topSongsList}
+                        topGenreList={props.topGenreList} />
 
-                    <div className="row py-5"> 
+                    <div className="row py-5">
                         <div className="col-5"></div>
                         <div className="col-2">
                             <div className="row">
-                                <button className="btn btn-secondary">
+                                <button className="btn btn-secondary" onClick={logout}>
                                     Log Out
                                 </button>
                             </div>
