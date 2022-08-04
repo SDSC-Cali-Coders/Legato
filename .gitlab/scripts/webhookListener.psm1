@@ -5,6 +5,73 @@ if (-not $env:X_GITLAB_TOKEN) {
     $env:X_GITLAB_TOKEN = Get-Content $tokenFilePath;
 }
 
+# Attempting to define the type of data received from Gitlab requests
+class WebhookUser {
+    [ValidateNotNullOrEmpty()][int]$id
+    [ValidateNotNullOrEmpty()][string]$name
+    [ValidateNotNullOrEmpty()][string]$username
+    [ValidateNotNullOrEmpty()][string]$avatar_url
+    [ValidateNotNullOrEmpty()][string]$email
+}
+class WebhookProject {
+    [ValidateNotNullOrEmpty()][int]$id
+    [ValidateNotNullOrEmpty()][string]$name
+    [ValidateNotNullOrEmpty()][string]$description
+    [ValidateNotNullOrEmpty()][string]$web_url
+    [string]$avatar_url
+    [ValidateNotNullOrEmpty()][string]$git_ssh_url
+    [ValidateNotNullOrEmpty()][string]$git_http_url
+    [ValidateNotNullOrEmpty()][string]$namespace
+    [ValidateNotNullOrEmpty()][int]$visibility_level
+    [ValidateNotNullOrEmpty()][string]$path_with_namespace
+    [ValidateNotNullOrEmpty()][string]$default_branch
+    [ValidateNotNullOrEmpty()][string]$homepage
+    [ValidateNotNullOrEmpty()][string]$url
+    [ValidateNotNullOrEmpty()][string]$ssh_url
+    [ValidateNotNullOrEmpty()][string]$http_url
+}
+class WebhookRepository {
+    [ValidateNotNullOrEmpty()][string]$name
+    [ValidateNotNullOrEmpty()][string]$url
+    [ValidateNotNullOrEmpty()][string]$description
+    [ValidateNotNullOrEmpty()][string]$homepage
+}
+class WebhookObjectAttributes {
+    [ValidateNotNullOrEmpty()][int]$id
+    [ValidateNotNullOrEmpty()][int]$iid
+    [ValidateNotNullOrEmpty()][string]$target_branch
+    [ValidateNotNullOrEmpty()][string]$source_branch
+    [ValidateNotNullOrEmpty()][int]$source_project_id
+    [ValidateNotNullOrEmpty()][int]$author_id
+    [ValidateNotNullOrEmpty()][int]$assignee_id
+    [ValidateNotNullOrEmpty()][string]$title
+    [ValidateNotNullOrEmpty()][string]$created_at
+    [ValidateNotNullOrEmpty()][string]$updated_at
+    [int]$milestone_id
+    [ValidateNotNullOrEmpty()][string]$state
+    [ValidateNotNullOrEmpty()][bool]$blocking_discussions_resolved
+    [ValidateNotNullOrEmpty()][bool]$work_in_progress
+    [ValidateNotNullOrEmpty()][bool]$first_contribution
+    [ValidateNotNullOrEmpty()][string]$merge_status
+    [ValidateNotNullOrEmpty()][int]$target_project_id
+    [string]$description
+    [ValidateNotNullOrEmpty()][string]$url
+    $source
+    $target
+    $last_commit
+    $labels
+}
+class GitlabWebhookEvent {
+    [ValidateNotNullOrEmpty()][string]$object_kind
+    [ValidateNotNullOrEmpty()][string]$event_type
+    [ValidateNotNullOrEmpty()][WebhookUser]$user
+    [ValidateNotNullOrEmpty()][WebhookProject]$project
+    [ValidateNotNullOrEmpty()][WebhookRepository]$repository
+    [ValidateNotNullOrEmpty()][WebhookObjectAttributes]$object_attributes
+    $labels
+    $changes
+}
+
 function Start-Listener {
     Param (
         [string[]]
