@@ -176,8 +176,18 @@ function Start-Listener {
 
             # Next, parse the payload
             try {
-                $payload = ($requestBody | ConvertFrom-Json);
-                $generalCallBack.Invoke($response, (@{mesg='Successfully authenticated w/ the X-Gitlab-Token!'} | ConvertTo-Json));
+                [GitlabWebhookEvent]$payload = ($requestBody | ConvertFrom-Json);
+
+                # For testing: just send the payload back
+                # $generalCallBack.Invoke($response, $requestBody);
+
+                # Logic to filter out any non-approval events
+                if ($payload.event_type -eq 'merge_request' -and $payload.object_attributes.action -eq 'approved') {
+                    $generalCallBack.Invoke($response, (@{mesg='Approval event captured!'} | ConvertTo-Json));
+                } else {
+                    $generalCallBack.Invoke($response, (@{mesg='Skipping non-approval event'} | ConvertTo-Json));
+                }
+
             }
             catch {
                 $generalCallBack.Invoke($response, (@{error='bad request - failed to parse the payload from JSON form'} | ConvertTo-Json), 400);
