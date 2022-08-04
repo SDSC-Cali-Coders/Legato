@@ -2,10 +2,13 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import AppRouter from './AppRouter';
-import {accessToken, getCurrentUserProfile} from './api/spotify';
-import {userIdContext} from './api/userContext';
-import {useState, useEffect} from 'react';
-import {catchErrors} from './utils';
+import { accessToken, getCurrentUserProfile } from './api/spotify';
+import { userIdContext } from './api/userContext';
+import { useState, useEffect, useRef } from 'react';
+import { catchErrors } from './utils';
+import { getConcertsLocation } from './api/ticketmaster';
+import ConcertSearchResults from './components/concerts/ConcertSearchResults';
+import { render } from "react-dom";
 
 const loggedIn = accessToken ? true : false;
 console.log('access token is ' + accessToken);
@@ -26,6 +29,11 @@ function App(props) {
    */
   const [token, setToken] = useState(null);
   const [profile, setProfile] = useState(null);
+  const [concerts, setConcerts] = useState(null);
+  const [lat, setLat] = useState(null);
+  const [lng, setLng] = useState(null);
+  const [status, setStatus] = useState(null);
+  let effectTriggeredRef = useRef(false);
 
   useEffect(() => {
     setToken(accessToken);
@@ -36,6 +44,41 @@ function App(props) {
     catchErrors(fetchData());
   }, []);
 
+  const getLocation = () => {
+    if (!navigator.geolocation) {
+      setStatus('Geolocation is not supported by your browser');
+    } else {
+      setStatus('Locating...');
+      navigator.geolocation.getCurrentPosition((position) => {
+        setStatus(null);
+        setLat(position.coords.latitude);
+        setLng(position.coords.longitude);
+      }, () => {
+        setStatus('Unable to retrieve your location');
+      });
+    }
+  }
+
+  useEffect(() => {
+    if (!effectTriggeredRef.current) {
+      getLocation();
+      effectTriggeredRef.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await getConcertsLocation(lat, lng, '20');
+      setConcerts(data);
+    };
+    if (lat && lng) {
+      catchErrors(fetchData());
+    }
+  }, [lat, lng]);
+
+  if (concerts) {
+    console.log(concerts);
+  }
   /* CODE FOR US TO USE LATER TO CONNECT TO DB DO NOT DELETE
 
  useEffect(() => {
@@ -63,13 +106,13 @@ function App(props) {
 
  */
 
- /**
-  * We set up a ternary operation to check if a user is loggedIn via their 
-  * access token and either return the login component or the navbar + router
-  */
+  /**
+   * We set up a ternary operation to check if a user is loggedIn via their 
+   * access token and either return the login component or the navbar + router
+   */
   return (
     <>
-      {loggedIn ? (profile && 
+      {loggedIn ? (profile &&
         <>
           <Navbar />
           <userIdContext.Provider value={profile.id}>
