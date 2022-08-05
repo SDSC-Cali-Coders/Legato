@@ -148,11 +148,18 @@ function Invoke-MergeAction {
             merge_when_pipeline_succeeds =  $true;
         }
 
-        Write-Host "Checking mergeability (opened | can_be_merged | non-main | approval >= 3):`n$mergeability";
+        # Log some data for help in debugging in the future
+        Write-Host ("Approval status data:`n{0}" -f ($objMrApprovs | Format-Table | Out-String));
+        Write-Host "`nChecking mergeability (opened | can_be_merged | non-main | approval >= 3):`n$mergeability";
         Write-Host "Checking post body:`n$($objPostBody | Format-Table | Out-String)";
 
         if ($mergeability -notcontains $false) {
-            Invoke-ApiCall -Method Post -WebSession $WebSession -Body $objPostBody -Uri $strMergeUrl;
+            try {
+                Invoke-ApiCall -Method Post -WebSession $WebSession -Body $objPostBody -Uri $strMergeUrl;
+                Write-Host ("SUCCESSFUL POST to {0}" -f $strMergeUrl)
+            } catch {
+                Write-Host ("FAILURE to POST to {0} w/ err:`n{1}" -f $strMergeUrl, $_)
+            }
         }
     }
 }
