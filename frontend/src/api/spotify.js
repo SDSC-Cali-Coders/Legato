@@ -140,7 +140,7 @@ export const getCurrentUserProfile = () => spotifyInstance.get('/me');
 * @param {string} time_range - 'short_term' (last 4 weeks) 'medium_term' (last 6 months) or 'long_term' (calculated from several years of data and including all new data as it becomes available). Defaults to 'short_term'
 * @returns {Promise}
 */
-export const getTopArtists = (time_range = 'short_term') => {
+export const getTopArtists = (time_range) => {
     return spotifyInstance.get(`/me/top/artists?time_range=${time_range}&limit=10`);
 };
 
@@ -156,47 +156,11 @@ export const getTopSongs = (time_range) => {
 
 
 /**
-* Get a User's Recommended Genres
-* https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendation-genres  
-* @returns {Promise}
-*/
-export const getRecGenres = () => {
-    return spotifyInstance.get(`/recommendations/available-genre-seeds`);
-};
-
-/**
 * Get a User's Top Genres (Aggregated from Top Artists)
 * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-top-artists-and-tracks 
 * @returns {Promise}
 */
 export const getTopGenres = (time_range) => {
-    return spotifyInstance.get(`/me/top/artists?time_range=${time_range}&limit=10`);
-    /*let topArtists = spotifyInstance.get(`/me/top/artists?time_range=${time_range}&limit=10`);
-    let aggGenres = {};
-    //get total of each genre
-    for (let i = 0; i < topArtists.items.length; i++) {
-        for (let j = 0; j < topArtists.items[i].genres.length; j++) {
-            if (topArtists.items[i].genres[j] in aggGenres) {
-                aggGenres[topArtists.items[i].genres[j]] += 1
-            }
-            aggGenres[topArtists.items[i].genres[j]] = 1
-        }
-    }
-    //sort genres by value
-    let items = Object.keys(aggGenres).map((key) => {
-        return [key, aggGenres[key]];
-    });
-
-    items.sort((first, second) => {
-        return second[1] - first[1];
-    });
-
-    sortedGenres=[]
-    items.forEach(elem => {
-        sortedGenres.push(elem[0, 0])
-    })
-    console.log('HEY THIS IS WORKING')
-    return sortedGenres
-    */
+    return spotifyInstance.get(`/me/top/artists?time_range=${time_range}&limit=100`);
 
 };
