@@ -28,6 +28,13 @@ const ArtistResult = (props) => {
 const ArtistSearchView = (props) => {
     return (
         <>
+                <div className="row mb-3 pt-5 px-5">
+                    <Searchbar.ArtistSearchbar
+                        searchValue={props.search}
+                        onChange={props.handleChange}
+                    />
+                    {/* <span className="placeholder placeholder-lg col-12"/> */}
+                </div>
             {props.search ? (
                 /* Layout of MSView will be:
                 
@@ -35,14 +42,8 @@ const ArtistSearchView = (props) => {
     
                             Hint text for user
                 */
-                <div className="container align-items-center Oswald_regular pt-5">
-                    <div className="row mb-3">
-                        <Searchbar.ArtistSearchbar
-                            searchValue={props.search}
-                            onChange={props.handleChange}
-                        />
-                        {/* <span className="placeholder placeholder-lg col-12"/> */}
-                    </div>
+                <div className="container align-items-center Oswald_regular">
+
 
                     <div className="row text-center justify-content-end">
                         <div className="btn col-2 bg-light align-self-end fw-bold mx-2">
@@ -63,7 +64,7 @@ const ArtistSearchView = (props) => {
                 </div>
             ) : (
                 <div className="container d-flex flex-column min-vh-100 Oswald_regular">
-                    <div className="row flex-grow-1 pt-5">
+                    <div className="row flex-grow-1">
                         {/* Layout of MainView will be:
             
                         Searchbar.long
@@ -71,10 +72,6 @@ const ArtistSearchView = (props) => {
                         Hint text for user
                     */}
                         <div className="col text-center">
-                            <Searchbar.ArtistSearchbar
-                                searchValue={props.search}
-                                onChange={props.handleChange}
-                            />
 
                             <p className="h3 fw-bold pt-4">
                                 Search your subscribed Artists <br />
