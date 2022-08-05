@@ -9,7 +9,7 @@ automerger:
 # Instead, used a webhook to catch "approval" events and trigger
 # so only run if triggered via pipelines API
   rules:
-    - if: $CI_PIPELINE_SOURCE == "api"
+    - if: $CI_PIPELINE_SOURCE == "trigger"
       when: always
 
 # SECRET_TOKEN registered to proj (collab w/ PO Jacob)
