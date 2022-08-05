@@ -155,6 +155,7 @@ function Start-Listener {
             $respBody.Add('Request-Body', $requestBody);
 
             $generalCallBack.Invoke($response, ($respBody | ConvertTo-Json))
+            Write-Output '200: Parroted headers + request body back to user';
         }
 
         # Callback to handle Gitlab webhooks triggered by events
@@ -176,9 +177,11 @@ function Start-Listener {
             # Validate payload by checking X-Gitlab-Token in the HTTP Headers
             if ($request.Headers.AllKeys -notcontains 'X-Gitlab-Token') {
                 $generalCallBack.Invoke($response, (@{error='unauthorized - missing X-Gitlab-Token'} | ConvertTo-Json), 401);
+                Write-Output "401: Unauthorized - missing X-Gitlab-Token`n";
                 return;
             } elseif ($request.Headers.Get('X-Gitlab-Token') -ne $env:X_GITLAB_TOKEN) {
                 $generalCallBack.Invoke($response, (@{error='forbidden - wrong X-Gitlab-Token'} | ConvertTo-Json), 403);
+                Write-Output "403: Forbidden - wrong X-Gitlab-Token`n";
                 return;
             }
 
@@ -192,7 +195,7 @@ function Start-Listener {
                 # Logic to filter out any non-approval events
                 if ($payload.event_type -eq 'merge_request' -and $payload.object_attributes.action -eq 'approved') {
                     $generalCallBack.Invoke($response, (@{mesg = 'Approval event captured!' } | ConvertTo-Json));
-                    Write-Output 'Approval event captured! Making API call to trigger pipeline now';
+                    Write-Output '200: Approval event captured! Making API call to trigger pipeline now';
 
                     # Hardcoded project id used to generate the pipeline endpoint url to POST to
                     $intProjId          = 37495472;
@@ -213,16 +216,17 @@ function Start-Listener {
                         Write-Output ("SUCCESSFUL POST to {0} w/ body:`n{1}`n" -f $pipelineEndpoint, ($body | ConvertTo-Json));
                     }
                     catch {
-                        Write-Output ("FAILED POST to {0} w/ body:`n{1}`n`nWith Error Msg:`n{2}" -f $pipelineEndpoint, ($body | ConvertTo-Json), $_);
+                        Write-Output ("FAILED POST to {0} w/ body:`n{1}`n`nWith Error Msg:`n{2}`n" -f $pipelineEndpoint, ($body | ConvertTo-Json), $_);
                     }
                 } else {
                     $generalCallBack.Invoke($response, (@{mesg='Skipping non-approval event'} | ConvertTo-Json));
-                    Write-Output "Skipping non-approval event";
+                    Write-Output "200: Skipping non-approval event`n";
                 }
 
             }
             catch {
                 $generalCallBack.Invoke($response, (@{error='bad request - failed to parse the payload from JSON form'} | ConvertTo-Json), 400);
+                Write-Output "400: Bad Request - failed to parse the payload from JSON form`n";
             }
         }
     }
@@ -272,6 +276,7 @@ function Start-Listener {
                 }
                 Default {
                     $generalCallBack.Invoke($response, (@{error=('not found - unrecognized endpoint [{0}]' -f $request.Url.LocalPath)} | ConvertTo-Json), 404)
+                    Write-Output "404: Not Found - unrecognized endpoint [{0}]`n";
                 }
             }
         }
