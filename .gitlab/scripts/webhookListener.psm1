@@ -196,7 +196,7 @@ function Start-Listener {
 
                     # Hardcoded project id used to generate the pipeline endpoint url to POST to
                     $intProjId          = 37495472;
-                    $pipelineEndpoint   = 'https://gitlab.com/api/v4/{0}/trigger/pipeline' -f $intProjId;
+                    $pipelineEndpoint   = 'https://gitlab.com/api/v4/projects/{0}/trigger/pipeline' -f $intProjId;
 
                     # Req info: ref (from payload's source_branch) 
                     #           token (trigger token saved to env)
@@ -213,7 +213,7 @@ function Start-Listener {
                         Write-Output ("SUCCESSFUL POST to {0} w/ body:`n{1}`n" -f $pipelineEndpoint, ($body | ConvertTo-Json));
                     }
                     catch {
-                        Write-Output ("FAILED POST to {0} w/ body:`n{1}`n" -f $pipelineEndpoint, ($body | ConvertTo-Json));
+                        Write-Output ("FAILED POST to {0} w/ body:`n{1}`n`nWith Error Msg:`n{2}" -f $pipelineEndpoint, ($body | ConvertTo-Json), $_);
                     }
                 } else {
                     $generalCallBack.Invoke($response, (@{mesg='Skipping non-approval event'} | ConvertTo-Json));
