@@ -149,9 +149,9 @@ function Invoke-MergeAction {
         }
 
         # Log some data for help in debugging in the future
-        Write-Host ("Approval status data:`n{0}" -f ($objMrApprovs | Format-Table | Out-String));
+        Write-Host ("Approval status data:`n{0}" -f ($objMrApprovs | ConvertTo-Json));
         Write-Host "`nChecking mergeability (opened | can_be_merged | non-main | approval >= 3):`n$mergeability";
-        Write-Host "Checking post body:`n$($objPostBody | Format-Table | Out-String)";
+        Write-Host "Checking post body:`n$($objPostBody | ConvertTo-Json)";
 
         if ($mergeability -notcontains $false) {
             try {
