@@ -156,10 +156,11 @@ export const getTopSongs = (time_range) => {
 
 
 /**
-* Get a User's Recommended Genres
-* https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendation-genres  
+* Get a User's Top Genres (Aggregated from Top Artists)
+* https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-top-artists-and-tracks 
 * @returns {Promise}
 */
-export const getRecGenres = () => {
-    return spotifyInstance.get(`/recommendations/available-genre-seeds`);
+export const getTopGenres = (time_range) => {
+    return spotifyInstance.get(`/me/top/artists?time_range=${time_range}&limit=100`);
+
 };

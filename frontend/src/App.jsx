@@ -34,6 +34,7 @@ function App(props) {
       setProfile(data);
     };
     catchErrors(fetchData());
+
   }, []);
 
   /* CODE FOR US TO USE LATER TO CONNECT TO DB DO NOT DELETE
