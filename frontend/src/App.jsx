@@ -3,10 +3,10 @@ import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import AppRouter from './AppRouter';
 import { accessToken, getCurrentUserProfile } from './api/spotify';
-import { userIdContext } from './api/userContext';
+import { userContext } from './api/userContext';
 import { useState, useEffect, useRef } from 'react';
 import { catchErrors } from './utils';
-import { getConcertsLocation } from './api/ticketmaster';
+import { getConcertsLocation, getConcertsLocationGenre, getGenreDetail } from './api/ticketmaster';
 import ConcertSearchResults from './components/concerts/ConcertSearchResults';
 import { render } from "react-dom";
 
@@ -33,6 +33,7 @@ function App(props) {
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
   const [status, setStatus] = useState(null);
+  const [genreData, setGenreData] = useState(null);
   let effectTriggeredRef = useRef(false);
 
   useEffect(() => {
@@ -67,26 +68,48 @@ function App(props) {
     }
   }, []);
 
+  /* The following is a way to call the getConcertsLocation API Call
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await getConcertsLocation(lat, lng, '20');
+      const { data } = await getConcertsLocation(lat, lng, '20', '75');
       setConcerts(data);
     };
     if (lat && lng) {
       catchErrors(fetchData());
     }
   }, [lat, lng]);
+  */
 
-  if (concerts) {
-    console.log(concerts);
-  }
+  /* The following is a way to call the getGenreDetails API Call
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await getGenreDetail('rap');
+      setGenreData(data);
+    };
+    catchErrors(fetchData());
+  }, []);
+  */
+  
+  /* The following is a way to call the getConcertsLocationGenre API Call
+  useEffect(() => {
+    const fetchData = async () => {
+      let genreId = genreData._embedded.classifications[0].segment._embedded.genres[0].id;
+      const { data } = await getConcertsLocationGenre(lat, lng, '20', '75', genreId);
+      setConcerts(data);
+    };
+    if (lat && lng && genreData) {
+      catchErrors(fetchData());
+    }
+
+  }, [lat, lng, genreData]);
+  */
+
   /* CODE FOR US TO USE LATER TO CONNECT TO DB DO NOT DELETE
-
  useEffect(() => {
    async function fetchNotifications() {
      // when used on notifications page, we wouldnt hardcode the profile.id
      //const id = params.id.toString();
-
+ 
      axios.get(`http://localhost:27017/notification/${profile.id}`)
        .then(function (response) {
          // can access specific parts of data by doing "[{# notification}.{DATA}"
@@ -104,7 +127,7 @@ function App(props) {
      effectTriggeredRef.current = true;
    }
  }, [profile]);
-
+ 
  */
 
   /**
@@ -113,12 +136,16 @@ function App(props) {
    */
   return (
     <>
-      {loggedIn ? (profile &&
+      {loggedIn ? (profile && lat && lng &&
         <>
           <Navbar />
-          <userIdContext.Provider value={profile.id}>
+          <userContext.Provider value={{
+            id: profile.id,
+            lat: lat,
+            lng: lng,
+            }}>
             <AppRouter />
-          </userIdContext.Provider>
+          </userContext.Provider>
         </>
       ) : (
         <>

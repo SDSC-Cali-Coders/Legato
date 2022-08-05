@@ -8,11 +8,24 @@ const ticketmasterInstance = axios.create({
     }
 })
 
-//&geoPoint
-//radius=75&daterange=all&countryCode=US&stateCode=CA&postalCode=94566&city=Pleasanton&
 // Call to get concerts based on location
-export const getConcertsLocation = (lat, lng, size) => {
-    return ticketmasterInstance.get(`events.json?size=${size}&geoPoint=${lat},${lng}&apikey=${ticketmaster_key}`);
+// Follows documentation: https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/
+export const getConcertsLocation = (lat, lng, size, radius) => {
+    return ticketmasterInstance.get(`events.json?classificationName=music&`
+    +`size=${size}&geoPoint=${lat},${lng}&`
+    +`radius=${radius}&apikey=${ticketmaster_key}`);
+};
+//classificationName=music&
+
+//Call to get Genre Details
+export const getGenreDetail = (genre) => {
+    return ticketmasterInstance.get(`classifications.json?keyword=${genre}&apikey=${ticketmaster_key}`);
 };
 
 // Call to get concert based on location + genre
+export const getConcertsLocationGenre = (lat, lng, size, radius, genre) => {
+    return ticketmasterInstance.get(`events.json?classificationId=${genre}&`
+    +`size=${size}&geoPoint=${lat},${lng}&`
+    +`radius=${radius}&`
+    +`apikey=${ticketmaster_key}`);
+};

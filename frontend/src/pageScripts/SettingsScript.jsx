@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Settings from '../pages/Settings';
 import { useState, useEffect, useRef } from 'react';
-import { userIdContext } from '../api/userContext'
+import { userContext } from '../api/userContext'
 import { useContext } from 'react';
 
 
@@ -12,8 +12,11 @@ const SettingsScript = () => {
      * across components. All thats needed for a component to get the id variable
      * is the import from above and the following line of code.
      */
-    const id = useContext(userIdContext);
-    console.log("my id from the context is " + id)
+    const id = useContext(userContext).id;
+    console.log("my id from the context is " + id);
+    const lat = useContext(userContext).lat;
+    const lng = useContext(userContext).lng;
+    console.log("my lat,lng from the context is " + lat + "," + lng);
     let effectTriggeredRef = useRef(false);
     const [responseData, setResponseData] = useState(null);
     /**
