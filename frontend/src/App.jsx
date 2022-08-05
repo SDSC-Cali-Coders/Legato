@@ -70,8 +70,7 @@ function App(props) {
   */
   return (
     <>
-      {loggedIn ? (profile && 
-        <>
+      {loggedIn ? (profile && <>
           <Navbar />
           <userIdContext.Provider value={profile.id}>
             <AppRouter />

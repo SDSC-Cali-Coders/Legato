@@ -2,6 +2,8 @@ import React from 'react';
 import Searchbar from '../Searchbar';
 
 const MainView = (props) => {
+
+    // *******Deprecated**********
     // Recipe for centering a div on a page:
     // Container flexbox in the column orientation that takes entire height encapsulates
     // row that grows to fill entire height w/ vertical center alignment for items
