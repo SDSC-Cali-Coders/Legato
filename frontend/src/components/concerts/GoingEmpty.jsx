@@ -1,17 +1,17 @@
 import React from "react";
 import DropdownMenu from "../DropdownMenu";
 import Searchbar from "../Searchbar";
-import BookmarkInterestedBtn from "./BookmarkInterestedBtn"
+import InterestButton from "./InterestButton"
 
 export default function GoingEmpty() {
   return (
     <div className="container mt-3 min-vw-100 Oswald_regular">
       <Searchbar.ConcertSearchbar />
       <div className="btn-group m-2" role="group" aria-label="First group">
-        <BookmarkInterestedBtn.YourBookmarks isPressed={true} />
+        <InterestButton.Bookmarked isPressed={true} />
       </div>
       <div className="btn-group m-2" role="group" aria-label="Second group">
-        <BookmarkInterestedBtn.Going isPressed={false} />
+        <InterestButton.Going isPressed={false} />
       </div>
 
       <div className="row my-5 text-center">

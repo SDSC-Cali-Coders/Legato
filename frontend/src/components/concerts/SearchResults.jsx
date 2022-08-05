@@ -1,7 +1,7 @@
 import React from "react";
 import Buttons from "../Buttons";
 
-const ConcertSearchResults = {
+const SearchResults = {
   Card: () => {
     return (
       <div className="card shadow">
@@ -20,7 +20,7 @@ const ConcertSearchResults = {
           <p className="Oswald_bold text-center fs-4">
             TUES, JUL 5
           </p>
-          <a href="#" className="btn btn-transparent border-0 stretched-link"/>
+          <a href="/concerts/eventinformation/" className="btn btn-transparent border-0 stretched-link"/>
         </div>
       </div>
     );
@@ -41,10 +41,10 @@ const ConcertSearchResults = {
         </div>
 
         {/* Make whole card clickable again */}
-        <a href="#" className="btn btn-transparent border-0 stretched-link"/>
+        <a href="/concerts/eventinformation/" className="btn btn-transparent border-0 stretched-link"/>
       </li>
     );
   }
 };
 
-export default ConcertSearchResults;
+export default SearchResults;

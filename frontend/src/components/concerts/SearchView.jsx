@@ -1,10 +1,9 @@
 import React from 'react';
 import Searchbar from "../Searchbar";
-import ConcertResults from "../ConcertResults"
 import DropdownMenu from "../DropdownMenu";
-import ConcertSearchResults from './ConcertSearchResults';
+import SearchResults from './SearchResults';
 
-export default function ConcertSearch() {
+export default function SearchView() {
   return (
     <div className="container mt-3 min-vw-100 Oswald_regular">
       
@@ -15,11 +14,11 @@ export default function ConcertSearch() {
 
       <div className="row">
         <ol className="list-group gx-3">
-          <ConcertSearchResults.List/>
-          <ConcertSearchResults.List/>
-          <ConcertSearchResults.List/>
-          <ConcertSearchResults.List/>
-          <ConcertSearchResults.List/>
+          <SearchResults.List/>
+          <SearchResults.List/>
+          <SearchResults.List/>
+          <SearchResults.List/>
+          <SearchResults.List/>
         </ol>
       </div>
 

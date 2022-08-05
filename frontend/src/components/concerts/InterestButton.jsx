@@ -1,7 +1,7 @@
 import React from "react";
 
-const BookmarkInterestedBtn = {
-  YourBookmarks: (props) => {
+const InterestButton = {
+  Bookmarked: (props) => {
     return (
         <button
           className={` concertToggleBtn btn btn-secondary px-4 py-0 d-flex ${
@@ -32,4 +32,4 @@ const BookmarkInterestedBtn = {
   },
 };
 
-export default BookmarkInterestedBtn;
+export default InterestButton;
