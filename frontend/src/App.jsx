@@ -42,6 +42,7 @@ function App(props) {
       setProfile(data);
     };
     catchErrors(fetchData());
+
   }, []);
 
   const getLocation = () => {
