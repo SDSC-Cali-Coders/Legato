@@ -8,8 +8,8 @@ automerger:
 
 # Instead, used a webhook to catch "approval" events and trigger
 # so only run if triggered via pipelines API
-  only:
-    - api
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "api"
 
 # SECRET_TOKEN registered to proj (collab w/ PO Jacob)
 # CI_MERGE_IID is only available on approval events - so will not have access to it
