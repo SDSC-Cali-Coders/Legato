@@ -68,42 +68,6 @@ function App(props) {
     }
   }, []);
 
-  /* The following is a way to call the getConcertsLocation API Call
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await getConcertsLocation(lat, lng, '20', '75');
-      setConcerts(data);
-    };
-    if (lat && lng) {
-      catchErrors(fetchData());
-    }
-  }, [lat, lng]);
-  */
-
-  /* The following is a way to call the getGenreDetails API Call
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await getGenreDetail('rap');
-      setGenreData(data);
-    };
-    catchErrors(fetchData());
-  }, []);
-  */
-  
-  /* The following is a way to call the getConcertsLocationGenre API Call
-  useEffect(() => {
-    const fetchData = async () => {
-      let genreId = genreData._embedded.classifications[0].segment._embedded.genres[0].id;
-      const { data } = await getConcertsLocationGenre(lat, lng, '20', '75', genreId);
-      setConcerts(data);
-    };
-    if (lat && lng && genreData) {
-      catchErrors(fetchData());
-    }
-
-  }, [lat, lng, genreData]);
-  */
-
   /* CODE FOR US TO USE LATER TO CONNECT TO DB DO NOT DELETE
  useEffect(() => {
    async function fetchNotifications() {

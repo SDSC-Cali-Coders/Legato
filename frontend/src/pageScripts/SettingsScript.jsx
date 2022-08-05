@@ -14,9 +14,6 @@ const SettingsScript = () => {
      */
     const id = useContext(userContext).id;
     console.log("my id from the context is " + id);
-    const lat = useContext(userContext).lat;
-    const lng = useContext(userContext).lng;
-    console.log("my lat,lng from the context is " + lat + "," + lng);
     let effectTriggeredRef = useRef(false);
     const [responseData, setResponseData] = useState(null);
     /**

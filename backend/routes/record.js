@@ -79,7 +79,6 @@ recordRoutes.route("/notification/:id").get(function (req, response) {
     });
 });
 
-
 // This section will help us add concerts 
 // NOTE: needs functionality to make sure concert isnt already added
 recordRoutes.route("/concerts/add").put(function (req, response) {
@@ -104,4 +103,19 @@ recordRoutes.route("/concerts/add").put(function (req, response) {
      });
 });
 
+// This section will help us get a user's going concerts
+recordRoutes.route("/concerts/:id").get(function (req, response) {
+  let db_connect = dbo.getDb();
+  let myquery = { "goingUsers": req.params.id };
+  db_connect.collection("event")
+    .find(myquery)
+    .toArray(function (err, res) {
+      if (err) {
+        console.log(err);
+        return err;
+      }
+      //all data is sent in res.data
+      response.json(res);
+    });
+});
 module.exports = recordRoutes;
