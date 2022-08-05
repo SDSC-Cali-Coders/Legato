@@ -234,7 +234,7 @@ function Start-Listener {
                     $endCallback.Invoke($response);
                     $httpListener.Stop();
                 }
-                '/comment-webhook$' {
+                '/webhook$' {
                     $webhookCallback.Invoke($response, $request, $requestBody);
                 }
                 '/parrot$' {
