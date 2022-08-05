@@ -258,10 +258,11 @@ function Start-Listener {
 
             # Log request info + body to console
             [string]$requestBody = [System.IO.StreamReader]::new($request.InputStream).ReadToEnd();
-            Write-Output ("{0} - {1}:`n{2}`n" -f
+            Write-Output ("`n{0} {1} -> {2}:{3}" -f
                             $request.HttpMethod,
+                            $request.RemoteEndPoint,
                             $request.Url,
-                            $requestBody);
+                            $(if ($requestBody) {"`n$requestBody"} else {" <No Body>"}));
 
             # Handle stopping the listener with an "/end" endpoint w/ regex matching
             switch -Regex ($request.Url) {
