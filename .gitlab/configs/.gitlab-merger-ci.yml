@@ -1,38 +1,41 @@
-auto-merger:
-  stage: merging
+automerger:
+  stage: automerge
+  image: mcr.microsoft.com/powershell:latest
 
-  tags:
-    - windows
+# Only catching merge_requests missed "approval" events
+  # only:
+  #   - merge_requests
 
-# only run this job on merge-requests
-  only:
-    - merge_requests
+# Instead, used a webhook to catch "approval" events and trigger
+# so only run if triggered via pipelines API
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "api"
+      when: always
 
-# Token and Merge IID are the only things needed
-# - but knowing the approvals rn is useful too
+# SECRET_TOKEN registered to proj (collab w/ PO Jacob)
+# CI_MERGE_IID is only available on approval events - so will not have access to it
+# > instead, webhook will forward the IID variable
+# Testing if CI_JOB_ID can be used to access MERGE_IID if not
   variables:
     PRIVATE_TOKEN: $SECRET_TOKEN
-    MERGE_IID: $CI_MERGE_REQUEST_IID
-    APPROVAL_STATUS: $CI_MERGE_REQUEST_APPROVED
+    MERGE_IID: $MERGE_IID
+    JOB_ID: $CI_JOB_ID
 
-# List current directory to get some bearings
   script:
     - |
-      Write-Host "`nThe current approval state: $env:APPROVAL_STATUS";
-      Write-Host "`nNow checking some env vars like token:`t $env:PRIVATE_TOKEN";
-      Write-Host "`nIt would make sense to hide that ^ though";
-      Write-Host "But can also check by making a request:"
+      echo "Attempting to use a docker img of unix pre-installed w/ pwsh for lighter pipelining"
+      echo "Expecting a masked PRIVATE_TOKEN: $PRIVATE_TOKEN"
+      echo "Expecting an integer MERGE_IID: $MERGE_IID"
+      echo "Expecting an integer JOB_ID: $JOB_ID"
 
-      Write-Host "`nSince we know we're in the repository root, we can Import-Module like so:";
-      Import-Module ./.gitlab/modules/GitLabAPI.psm1
+      echo
 
-      Write-Host "Making sure we imported all required variables`nProjUrl:$strProjUrl`nSession:$session";
+      pwsh -c 'Write-Host "If no errors, will continue by accessing from env now"'
+      pwsh -c 'Write-Host "Expecting a masked PRIVATE_TOKEN: $env:PRIVATE_TOKEN"'
+      pwsh -c 'Write-Host "Expecting an integer MERGE_IID: $env:MERGE_IID"'
+      pwsh -c 'Write-Host "Expecting an integer JOB_ID: $env:JOB_ID"'
 
-      Write-Host "Attempting to get a list of all merge requests now";
-      $MRs = Get-MergeRequests;
+      echo
 
-      Write-Host "Attempting to get a list of opened merge requests now";
-      $OpenMRs = Get-MergeRequests -state "opened";
-
-      Write-Host "`nAttempting to get current merge request (from IID)";
-      Get-MergeRequests -iid $env:MERGE_IID;
+      echo "Now checking what data is available through JOB_ID"
+      pwsh .gitlab/scripts/test.ps1

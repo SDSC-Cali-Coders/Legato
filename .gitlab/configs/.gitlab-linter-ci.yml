@@ -8,8 +8,8 @@ superlinter:
     entrypoint: [""]
 
 # only run this job on merge-requests
-  only:
-    - merge_requests
+  rule:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
 # run superlinter
   script:
@@ -25,5 +25,5 @@ superlinter:
     FILTER_REGEX_EXCLUDE: (.*/assets/|.vscode/|.gitlab).*
     VALIDATE_JAVASCRIPT_STANDARD: "false"
   
-# Let the merge job run afterwards too
+# Let other job run afterwards too, even if linting (most likely) fails
   allow_failure: true
