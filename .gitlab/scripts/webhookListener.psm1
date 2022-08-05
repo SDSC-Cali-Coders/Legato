@@ -1,8 +1,14 @@
 # X-Gitlab-Token sent in header to validate recieved payloads
 # Will be injected in pipeline, manually set for local terminal testing
 if (-not $env:X_GITLAB_TOKEN) {
-    $tokenFilePath      = "$(git rev-parse --show-toplevel)/.gitlab/scripts/token2.txt";
-    $env:X_GITLAB_TOKEN = Get-Content $tokenFilePath;
+    $token2FilePath      = "$(git rev-parse --show-toplevel)/.gitlab/scripts/token2.txt";
+    $env:X_GITLAB_TOKEN = Get-Content $token2FilePath;
+}
+
+# Token used to trigger pipelines
+if (-not $env:TRIGGER_TOKEN) {
+    $token3FilePath      = "$(git rev-parse --show-toplevel)/.gitlab/scripts/token3.txt";
+    $env:TRIGGER_TOKEN = Get-Content $token3FilePath;
 }
 
 # Attempting to define the type of data received from Gitlab requests
@@ -185,9 +191,30 @@ function Start-Listener {
 
                 # Logic to filter out any non-approval events
                 if ($payload.event_type -eq 'merge_request' -and $payload.object_attributes.action -eq 'approved') {
-                    $generalCallBack.Invoke($response, (@{mesg='Approval event captured!'} | ConvertTo-Json));
+                    $generalCallBack.Invoke($response, (@{mesg = 'Approval event captured!' } | ConvertTo-Json));
+                    Write-Output 'Approval event captured! Making API call to trigger pipeline now';
+
+                    # Hardcoded project id used to generate the pipeline endpoint url to POST to
+                    $intProjId          = 37495472;
+                    $pipelineEndpoint   = 'https://gitlab.com/api/v4/{0}/trigger/pipeline' -f $intProjId;
+
+                    # Req info: ref (from payload's source_branch) 
+                    #           token (trigger token saved to env)
+                    # 
+                    # Additional info: variables (array of {key, value_type, value} obj [default value_type = env_var if excluded])
+                    # > will be used to supply automerge job w/ MERGE_IID value
+                    $refBranch  = $payload.object_attributes.source_branch;
+                    $variables  = @(@{key = 'MERGE_IID'; value = $payload.object_attributes.iid});
+
+                    $body       = @{token=$env:TRIGGER_TOKEN; ref=$refBranch; variables=$variables};
+
+                    # Mockup/Dry run for testing
+                    # Invoke-RestMethod -Method Post -Body @{token=$env:TRIGGER_TOKEN}
+                    Write-Output ("Made POST to {0} w/ body:`n{1}`n" -f $pipelineEndpoint, ($body | ConvertTo-Json));
+
                 } else {
                     $generalCallBack.Invoke($response, (@{mesg='Skipping non-approval event'} | ConvertTo-Json));
+                    Write-Output "Skipping non-approval event";
                 }
 
             }
