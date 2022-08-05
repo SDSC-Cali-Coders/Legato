@@ -36,7 +36,7 @@ const SearchView = (props) => {
     const [token, setToken] = useState(null);
     const [search, setSearch] = useState("");
     const [searchResults, setSearchResults] = useState([]);
-    
+
     // console.log(search)
     // console.log(data)
     // if (searchResults) {
@@ -76,39 +76,62 @@ const SearchView = (props) => {
 
     return (
         <>
-            {/* Basic Layout
-                <SearchBar.Long/>
+            {search ? (
+                // Layout of SearchView will be:
 
-                <div> aligned right w/ 2 selectable boxes [Subscribed/New]
+                //   Searchbar.long
 
-                <ol> of <ArtistResult/> components
-            */}
-            <div className="container align-items-center Oswald_regular p-2">
-                <div className="row mb-3">
-                    <Searchbar.ArtistSearchbar 
-                        searchValue={search}
-                        onChange={handleChange}
-                    />
-                    {/* <span className="placeholder placeholder-lg col-12"/> */}
-                </div>
-
-                <div className="row text-center justify-content-end">
-                    <div className="btn col-2 bg-light align-self-end fw-bold mx-2">
-                        Subscribed Artists
+                //   ArtistsCard according to the search results
+                //
+                <div className="container align-items-center Oswald_regular pt-5">
+                    <div className="row mb-3">
+                        <Searchbar.ArtistSearchbar
+                            searchValue={search}
+                            onChange={handleChange}
+                        />
+                        {/* <span className="placeholder placeholder-lg col-12"/> */}
                     </div>
-                    <div className="btn col-2 bg-primary align-self-end fw-bold">
-                        New Artists
+
+                    <div className="row text-center justify-content-end">
+                        <div className="btn col-2 bg-light align-self-end fw-bold mx-2">
+                            Subscribed Artists
+                        </div>
+                        <div className="btn col-2 bg-primary align-self-end fw-bold">
+                            New Artists
+                        </div>
+                    </div>
+                    <div className="row bg-primary">
+                        <ol className="list-group gx-3">
+                            {/* <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/> */}
+                            {searchResults.map(artist => (
+                                <ArtistResult img={artist.img} name={artist.name} genre={artist.genre} isSubscribed={true} />
+                            ))}
+                        </ol>
                     </div>
                 </div>
-                <div className="row bg-primary">
-                    <ol className="list-group gx-3">
-                        {/* <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/> */}
-                        {searchResults.map(artist => (
-                            <ArtistResult img={artist.img} name={artist.name} genre={artist.genre} isSubscribed={true}/>
-                        ))}
-                    </ol>
+            ) : (
+                <div className="container d-flex flex-column min-vh-100 Oswald_regular">
+                    <div className="row flex-grow-1 pt-5">
+                        {/* Layout of MainView will be:
+                
+                            Searchbar.long
+
+                            Hint text for user
+                        */}
+                        <div className="col text-center">
+                            <Searchbar.ArtistSearchbar
+                                searchValue={search}
+                                onChange={handleChange}
+                            />
+
+                            <p className="h3 fw-bold pt-4">
+                                Search your subscribed Artists <br />
+                                and Explore new ones!
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            )}
         </>
     );
 }
