@@ -1,6 +1,6 @@
 # Include and run all stages
 include: 
-  - .gitlab/configs/.gitlab-envtest-ci.yml
+  - .gitlab/configs/.gitlab-merger-ci.yml
   - .gitlab/configs/.gitlab-linter-ci.yml
 stages:
   - automerge

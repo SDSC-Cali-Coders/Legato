@@ -8,7 +8,7 @@ superlinter:
     entrypoint: [""]
 
 # only run this job on merge-requests
-  rule:
+  rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
 # run superlinter
