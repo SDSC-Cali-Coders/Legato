@@ -37,5 +37,5 @@ automerger:
 
       echo
 
-      echo "Now checking what data is available through JOB_ID"
-      pwsh .gitlab/scripts/test.ps1
+      echo "Will now perform:`n`t- Check on curr ($env:MERGE_IID) merge data`n`t- Check on curr merge approval status`n`t- Invoke the Merge Action (just an attempt)`n"
+      pwsh .gitlab/scripts/script.ps1
