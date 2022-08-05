@@ -1,6 +1,6 @@
 superlinter:
 # name the stage for pipelining later
-  stage: linting
+  stage: lint
 
 # use a Docker image for super-linter (slim version for faster job execution)
   image:

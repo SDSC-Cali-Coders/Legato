@@ -1,4 +1,4 @@
-approval_trigger_pipeline:
+automerger:
   stage: automerge
   image: mcr.microsoft.com/powershell:latest
 
