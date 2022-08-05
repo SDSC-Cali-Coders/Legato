@@ -208,10 +208,13 @@ function Start-Listener {
 
                     $body       = @{token=$env:TRIGGER_TOKEN; ref=$refBranch; variables=$variables};
 
-                    # Mockup/Dry run for testing
-                    # Invoke-RestMethod -Method Post -Body @{token=$env:TRIGGER_TOKEN}
-                    Write-Output ("Made POST to {0} w/ body:`n{1}`n" -f $pipelineEndpoint, ($body | ConvertTo-Json));
-
+                    try {
+                        Invoke-RestMethod -Method Post -Body @{token=$env:TRIGGER_TOKEN} $pipelineEndpoint;
+                        Write-Output ("SUCCESSFUL POST to {0} w/ body:`n{1}`n" -f $pipelineEndpoint, ($body | ConvertTo-Json));
+                    }
+                    catch {
+                        Write-Output ("FAILED POST to {0} w/ body:`n{1}`n" -f $pipelineEndpoint, ($body | ConvertTo-Json));
+                    }
                 } else {
                     $generalCallBack.Invoke($response, (@{mesg='Skipping non-approval event'} | ConvertTo-Json));
                     Write-Output "Skipping non-approval event";
