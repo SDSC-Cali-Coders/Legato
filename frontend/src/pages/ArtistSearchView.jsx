@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
-import Buttons from '../Buttons';
-import Searchbar from '../Searchbar';
+import Buttons from '../components/Buttons';
+import Searchbar from '../components/Searchbar';
 
-import { useState, useEffect, useRef } from 'react';
-import { accessToken, searchArtists } from '../../api/spotify';
-import { catchErrors } from '../../utils';
-
-// Define an <ArtistResult/> component here
-// <div> - figure out how to align stuff :)
-// [img]..[Artist Name]....[Genre: genre]..........[subscribe + play btn group]
 const ArtistResult = (props) => {
     return (
         <li className="list-group-item d-flex align-item-center bg-primary border-end-0 border-start-0">
@@ -32,62 +25,21 @@ const ArtistResult = (props) => {
     );
 }
 
-const SearchView = (props) => {
-    const [token, setToken] = useState(null);
-    const [search, setSearch] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
-
-    // console.log(search)
-    // console.log(data)
-    // if (searchResults) {
-    //     console.log("There's your data")
-    // }
-    // console.log(searchResults)
-    // console.log(artistResult)
-
-    useEffect(() => {
-        setToken(accessToken);
-        if (!search) return setSearchResults([])
-        const fetchData = async () => {
-            const { data } = await searchArtists(search);
-            setSearchResults(
-                data.artists.items.map(artist => {
-                    return {
-                        img: artist.images[0].url,
-                        name: artist.name,
-                        genre: artist.genres[0]
-                    }
-                })
-            );
-            // console.log(search)
-            // console.log(data)
-            // if (searchResults) {
-            //     console.log("There's your data")
-            // }
-            // console.log(searchResults)
-            // console.log(artistResult)
-        };
-        catchErrors(fetchData());
-    }, [search]);
-
-    function handleChange(e) {
-        setSearch(e.target.value);
-    }
-
+const ArtistSearchView = (props) => {
     return (
         <>
-            {search ? (
-                // Layout of SearchView will be:
-
-                //   Searchbar.long
-
-                //   ArtistsCard according to the search results
-                //
+            {props.search ? (
+                /* Layout of MSView will be:
+                
+                            Searchbar.long
+    
+                            Hint text for user
+                */
                 <div className="container align-items-center Oswald_regular pt-5">
                     <div className="row mb-3">
                         <Searchbar.ArtistSearchbar
-                            searchValue={search}
-                            onChange={handleChange}
+                            searchValue={props.search}
+                            onChange={props.handleChange}
                         />
                         {/* <span className="placeholder placeholder-lg col-12"/> */}
                     </div>
@@ -103,7 +55,7 @@ const SearchView = (props) => {
                     <div className="row bg-primary">
                         <ol className="list-group gx-3">
                             {/* <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/> */}
-                            {searchResults.map(artist => (
+                            {props.searchResults.map(artist => (
                                 <ArtistResult img={artist.img} name={artist.name} genre={artist.genre} isSubscribed={true} />
                             ))}
                         </ol>
@@ -113,15 +65,15 @@ const SearchView = (props) => {
                 <div className="container d-flex flex-column min-vh-100 Oswald_regular">
                     <div className="row flex-grow-1 pt-5">
                         {/* Layout of MainView will be:
-                
-                            Searchbar.long
+            
+                        Searchbar.long
 
-                            Hint text for user
-                        */}
+                        Hint text for user
+                    */}
                         <div className="col text-center">
                             <Searchbar.ArtistSearchbar
-                                searchValue={search}
-                                onChange={handleChange}
+                                searchValue={props.search}
+                                onChange={props.handleChange}
                             />
 
                             <p className="h3 fw-bold pt-4">
@@ -136,10 +88,4 @@ const SearchView = (props) => {
     );
 }
 
-
-SearchView.propTypes = {
-
-};
-
-
-export default SearchView;
+export default ArtistSearchView;

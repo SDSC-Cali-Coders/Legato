@@ -8,9 +8,12 @@ import {
 import MainConcert from './components/concerts/MainConcert';
 import ListeningHistory from './pages/ListeningHistory';
 import Settings from './pages/Settings';
+
+import ArtistSearchViewScript from './components/pageScripts/ArtistSearchViewScript';
+
 import Artists from './components/artistSearch/MainView';
 
-import SearchView from './components/artistSearch/SearchView';
+//import SearchView from './components/artistSearch/SearchView';
 
 /**
  * This AppRouter allows us to navigate across the application and works with our
@@ -32,7 +35,7 @@ function AppRouter() {
                 <Settings />
             } />
             <Route path = "/Artists/" element = {
-                <SearchView />
+                <ArtistSearchViewScript />
             } />
         </Routes>
         </BrowserRouter>
