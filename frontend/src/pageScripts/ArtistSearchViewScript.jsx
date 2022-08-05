@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import Buttons from '../Buttons';
-import Searchbar from '../Searchbar';
 
-import ArtistSearchView from '../../pages/ArtistSearchView';
+import ArtistSearchView from '../pages/ArtistSearchView';
 
 import { useState, useEffect, useRef } from 'react';
-import { accessToken, searchArtists } from '../../api/spotify';
-import { catchErrors } from '../../utils';
+import { accessToken, searchArtists } from '../api/spotify';
+import { catchErrors } from '../utils';
 
 // Define an <ArtistResult/> component here
 // <div> - figure out how to align stuff :)

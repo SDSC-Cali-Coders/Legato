@@ -123,8 +123,7 @@ const spotifyInstance = axios.create({
     baseURL: 'https://api.spotify.com/v1',
     headers: {
         'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Content-Type': 'application/json'
     }
 })
 
@@ -135,15 +134,6 @@ const spotifyInstance = axios.create({
  */
 export const getCurrentUserProfile = () => spotifyInstance.get('/me');
 
-/**
-* Get a User's Top Artists
-* https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-top-artists-and-tracks
-* @param {string} time_range - 'short_term' (last 4 weeks) 'medium_term' (last 6 months) or 'long_term' (calculated from several years of data and including all new data as it becomes available). Defaults to 'short_term'
-* @returns {Promise}
-*/
-export const getTopArtists = (time_range) => {
-    return spotifyInstance.get(`/me/top/artists?time_range=${time_range}&limit=10`);
-};
 
 /**
 * Get search result
@@ -153,6 +143,17 @@ export const getTopArtists = (time_range) => {
 */
 export const searchArtists = (search) => {
     return spotifyInstance.get(`/search?q=${search}&type=artist&limit=20`);
+};
+
+
+/**
+* Get a User's Top Artists
+* https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-top-artists-and-tracks
+* @param {string} time_range - 'short_term' (last 4 weeks) 'medium_term' (last 6 months) or 'long_term' (calculated from several years of data and including all new data as it becomes available). Defaults to 'short_term'
+* @returns {Promise}
+*/
+export const getTopArtists = (time_range) => {
+    return spotifyInstance.get(`/me/top/artists?time_range=${time_range}&limit=10`);
 };
 
 /**
@@ -167,10 +168,11 @@ export const getTopSongs = (time_range) => {
 
 
 /**
-* Get a User's Recommended Genres
-* https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendation-genres  
+* Get a User's Top Genres (Aggregated from Top Artists)
+* https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-top-artists-and-tracks 
 * @returns {Promise}
 */
-export const getRecGenres = () => {
-    return spotifyInstance.get(`/recommendations/available-genre-seeds`);
+export const getTopGenres = (time_range) => {
+    return spotifyInstance.get(`/me/top/artists?time_range=${time_range}&limit=100`);
+
 };

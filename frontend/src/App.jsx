@@ -2,11 +2,10 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Login from './pages/Login'
 import AppRouter from './AppRouter';
-import { accessToken, getCurrentUserProfile } from './api/spotify';
-import { userIdContext } from './api/userContext'
-import { useState, useEffect, useRef } from 'react';
-import { catchErrors } from './utils';
-import ListeningHistory from './pages/ListeningHistory';
+import {accessToken, getCurrentUserProfile} from './api/spotify';
+import {userIdContext} from './api/userContext';
+import {useState, useEffect} from 'react';
+import {catchErrors} from './utils';
 
 const loggedIn = accessToken ? true : false;
 console.log("access token is" + accessToken);
@@ -35,6 +34,7 @@ function App(props) {
       setProfile(data);
     };
     catchErrors(fetchData());
+
   }, []);
 
   /* CODE FOR US TO USE LATER TO CONNECT TO DB DO NOT DELETE

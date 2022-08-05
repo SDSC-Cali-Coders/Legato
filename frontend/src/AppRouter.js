@@ -6,12 +6,9 @@ import {
 } from 'react-router-dom';
 
 import MainConcert from './components/concerts/MainConcert';
-import ListeningHistory from './pages/ListeningHistory';
-import Settings from './pages/Settings';
-
-import ArtistSearchViewScript from './components/pageScripts/ArtistSearchViewScript';
-
-import Artists from './components/artistSearch/MainView';
+import ListeningHistoryScript from './pageScripts/ListeningHistoryScript';
+import SettingsScript from './pageScripts/SettingsScript';
+import ArtistSearchViewScript from './pageScripts/ArtistSearchViewScript';
 
 //import SearchView from './components/artistSearch/SearchView';
 
@@ -26,13 +23,13 @@ function AppRouter() {
         <BrowserRouter>
         <Routes>
             <Route path = "/" element = {
-                <ListeningHistory />
+                <ListeningHistoryScript />
             } />
             <Route path = "/concerts/" element = {
                 <MainConcert />
             } />
             <Route path = "/settings/" element = {
-                <Settings />
+                <SettingsScript />
             } />
             <Route path = "/Artists/" element = {
                 <ArtistSearchViewScript />
