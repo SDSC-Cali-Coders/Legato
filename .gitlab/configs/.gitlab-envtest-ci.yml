@@ -1,17 +1,23 @@
-envtest:
-  stage: test
+approval_trigger_pipeline:
+  stage: automerge
   image: mcr.microsoft.com/powershell:latest
 
 # Only catching merge_requests missed "approval" events
   # only:
   #   - merge_requests
 
+# Instead, used a webhook to catch "approval" events and trigger
+# so only run if triggered via pipelines API
+  only:
+    - api
+
 # SECRET_TOKEN registered to proj (collab w/ PO Jacob)
-# Testing if CI_MERGE_IID is available on approval events
+# CI_MERGE_IID is only available on approval events - so will not have access to it
+# > instead, webhook will forward the IID variable
 # Testing if CI_JOB_ID can be used to access MERGE_IID if not
   variables:
     PRIVATE_TOKEN: $SECRET_TOKEN
-    MERGE_IID: $CI_MERGE_REQUEST_IID
+    MERGE_IID: $MERGE_IID
     JOB_ID: $CI_JOB_ID
 
   script:

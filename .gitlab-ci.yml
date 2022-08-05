@@ -6,4 +6,4 @@ include:
 stages:
 #  - linting
   # - merging
-  - test
+  - automerge
