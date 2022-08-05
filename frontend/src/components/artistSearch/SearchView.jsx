@@ -42,7 +42,7 @@ const SearchView = (props) => {
     // if (searchResults) {
     //     console.log("There's your data")
     // }
-    console.log(searchResults)
+    // console.log(searchResults)
     // console.log(artistResult)
 
     useEffect(() => {
@@ -70,6 +70,10 @@ const SearchView = (props) => {
         catchErrors(fetchData());
     }, [search]);
 
+    function handleChange(e) {
+        setSearch(e.target.value);
+    }
+
     return (
         <>
             {/* Basic Layout
@@ -81,27 +85,10 @@ const SearchView = (props) => {
             */}
             <div className="container align-items-center Oswald_regular p-2">
                 <div className="row mb-3">
-                    <div className="col align-items-center">
-                        <div className="input-group d-flex">
-                            <div className="input-group-prepend">
-                                <button
-                                    className="btn bg-neutral-secondary btn-outline-bg-neutral-secondary"
-                                    type="button"
-                                >
-                                    <i className="bi bi-search text-dark"></i>
-                                </button>
-                            </div>
-                            <div className="searchinput flex-fill">
-                                <input
-                                    type="search"
-                                    className="form-control bg-neutral-secondary text-dark "
-                                    value={search}
-                                    placeholder="Search artists..."
-                                    onChange={e => setSearch(e.target.value)}
-                                />
-                            </div>
-                        </div>
-                    </div>
+                    <Searchbar.ArtistSearchbar 
+                        searchValue={search}
+                        onChange={handleChange}
+                    />
                     {/* <span className="placeholder placeholder-lg col-12"/> */}
                 </div>
 
