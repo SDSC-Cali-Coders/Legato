@@ -206,14 +206,15 @@ function Start-Listener {
                     # 
                     # Additional info: variables (array of {key, value_type, value} obj [default value_type = env_var if excluded])
                     # > will be used to supply automerge job w/ MERGE_IID value
-                    $refBranch  = $payload.object_attributes.source_branch;
-                    $variables  = @(@{key = 'MERGE_IID'; value = $payload.object_attributes.iid});
-
-                    $body       = @{token=$env:TRIGGER_TOKEN; ref=$refBranch; variables=$variables};
+                    $body       = @{
+                        "token"                 = $env:TRIGGER_TOKEN; 
+                        "ref"                   = $payload.object_attributes.source_branch;
+                        "variables[MERGE_IID]"  = $payload.object_attributes.iid
+                    };
 
                     try {
-                        Invoke-RestMethod -Method Post -Body @{token=$env:TRIGGER_TOKEN} $pipelineEndpoint;
-                        Write-Output ("SUCCESSFUL POST to {0} w/ body:`n{1}`n" -f $pipelineEndpoint, ($body | ConvertTo-Json));
+                        Invoke-RestMethod -Method Post -Body $body $pipelineEndpoint;
+                        Write-Output ("SUCCESSFUL POST to {0} w/ body:`n{1}`n" -f $pipelineEndpoint, $body);
                     }
                     catch {
                         Write-Output ("FAILED POST to {0} w/ body:`n{1}`n`nWith Error Msg:`n{2}`n" -f $pipelineEndpoint, ($body | ConvertTo-Json), $_);
