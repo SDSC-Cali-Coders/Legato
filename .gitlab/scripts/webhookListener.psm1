@@ -143,22 +143,26 @@ function Start-Listener {
                 $response,
 
                 [Parameter(Mandatory)]
-                [System.Net.HttpListenerRequest]
-                $request,
+                $requestHeaders,
 
                 $requestBody
             )
 
-            # Header info collected as an obj
-            $headers = @{};
-            $request.Headers.AllKeys | ForEach-Object { 
-                $headers.Add($_, $request.Headers.Get($_));
+            # RequestHeaders converted to JSON if needed
+            if ($requestHeaders -isnot [string]) {
+                try {
+                    $requestHeaders = $requestHeaders | ConvertTo-Json -Compress;
+                }
+                catch {
+                    $requestHeaders = $requestHeaders | Out-String
+                    Write-Out "Failed to convert input requestHeaders into JSON, defaulting to Out-String:`n$requestHeaders"
+                }
             }
 
             # RequestBody converted to JSON if needed
             if ($requestBody -isnot [string]) {
                 try {
-                    $requestBody = $requestBody | ConvertTo-Json;
+                    $requestBody = $requestBody | ConvertTo-Json -Compress;
                 }
                 catch {
                     $requestBody = $requestBody | Out-String
@@ -167,7 +171,7 @@ function Start-Listener {
             }
 
             # Response is created using headers and body parsed above
-            $respBody = "Headers:`n{0}`nBody:`n{1}" -f ($headers | ConvertTo-Json), $requestBody;
+            $respBody = "Headers:`n{0}`nBody:`n{1}" -f $requestHeaders, $requestBody;
 
             $generalCallBack.Invoke($response, $respBody);
             Write-Output '200: Parroted headers + request body back to user';
@@ -270,14 +274,21 @@ function Start-Listener {
             [System.Net.HttpListenerRequest]$request    = $context.Request;
             [System.Net.HttpListenerResponse]$response  = $context.Response;
 
+            # Header info collected as an obj
+            $headers = @{};
+            $request.Headers.AllKeys | ForEach-Object { 
+                $headers.Add($_, $request.Headers.Get($_));
+            }
+
             # Log request info + body to console
             [string]$requestBody = [System.IO.StreamReader]::new($request.InputStream).ReadToEnd();
-            Write-Output ("`n{0} | {1} {2} -> {3}:{4}" -f
+            Write-Output ("`n{0} | {1} {2} -> {3}`nHeaders: {4}`nBody: {5}" -f
                             $(Get-Date),
                             $request.HttpMethod,
                             $request.RemoteEndPoint,
                             $request.Url,
-                            $(if ($requestBody) {"`n$($requestBody -replace $compressJsonRegEx)"} else {" <No Body>"}));
+                            $(if ($headers.Count) {$headers | ConvertTo-Json -Compress} else {"<No Headers received>"}),
+                            $(if ($requestBody) {$requestBody -replace $compressJsonRegEx} else {"<No Body received>"}));
 
             # Handle stopping the listener with an "/end" endpoint w/ regex matching
             switch -Regex ($request.Url) {
@@ -289,7 +300,7 @@ function Start-Listener {
                     $webhookCallback.Invoke($response, $request, $requestBody);
                 }
                 '/parrot$' {
-                    $parrotCallback.Invoke($response, $request, $requestBody);
+                    $parrotCallback.Invoke($response, $headers, $requestBody);
                 }
                 Default {
                     $generalCallBack.Invoke($response, (@{error=('not found - unrecognized endpoint [{0}]' -f $request.Url.LocalPath)} | ConvertTo-Json), 404)
