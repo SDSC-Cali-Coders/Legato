@@ -88,6 +88,9 @@ function Start-Listener {
 
     # Write callbacks to handle each endpoint
     Begin {
+        # Define a RegEx that can be used to compress JSON strings
+        $compressJsonRegEx = '(?<=(\{|\[|:|,))\s*|\s*(?=(\}|\]))';
+
         # Call generic callback w/ {message='Goodbye!'} as the message
         $endCallback = {
             Param (
@@ -224,11 +227,11 @@ function Start-Listener {
                     };
 
                     try {
-                        Invoke-RestMethod -Method Post -Body $body $pipelineEndpoint;
-                        Write-Output ("SUCCESSFUL POST to {0} w/ body:`n{1}" -f $pipelineEndpoint, $body);
+                        Invoke-RestMethod -Method Post -Body $body $pipelineEndpoint | Out-Null;
+                        Write-Output ("SUCCESSFUL POST to {0} w/ body:`n{1}" -f $pipelineEndpoint, ($body | ConvertTo-Json -Compress));
                     }
                     catch {
-                        Write-Output ("FAILED POST to {0} w/ body:`n{1}`n`nWith Error Msg:`n{2}" -f $pipelineEndpoint, ($body | ConvertTo-Json), $_);
+                        Write-Output ("FAILED POST to {0} w/ body:`n{1}`nWith Error Msg:`n{2}" -f $pipelineEndpoint, ($body | ConvertTo-Json -Compress), $_);
                     }
                 } else {
                     $generalCallBack.Invoke($response, (@{mesg='Skipping non-approval event'} | ConvertTo-Json));
@@ -274,7 +277,7 @@ function Start-Listener {
                             $request.HttpMethod,
                             $request.RemoteEndPoint,
                             $request.Url,
-                            $(if ($requestBody) {"`n$requestBody"} else {" <No Body>"}));
+                            $(if ($requestBody) {"`n$($requestBody -replace $compressJsonRegEx)"} else {" <No Body>"}));
 
             # Handle stopping the listener with an "/end" endpoint w/ regex matching
             switch -Regex ($request.Url) {
