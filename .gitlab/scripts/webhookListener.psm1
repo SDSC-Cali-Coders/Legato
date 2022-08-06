@@ -293,7 +293,7 @@ function Start-Listener {
                 }
                 Default {
                     $generalCallBack.Invoke($response, (@{error=('not found - unrecognized endpoint [{0}]' -f $request.Url.LocalPath)} | ConvertTo-Json), 404)
-                    Write-Output "404: Not Found - unrecognized endpoint [{0}]";
+                    Write-Output ("404: Not Found - unrecognized endpoint [{0}]" -f $request.Url.LocalPath);
                 }
             }
 
