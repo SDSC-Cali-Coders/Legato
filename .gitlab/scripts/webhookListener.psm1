@@ -91,17 +91,6 @@ function Start-Listener {
         # Define a RegEx that can be used to compress JSON strings
         $compressJsonRegEx = '(?<=(\{|\[|:|,))\s*|\s*(?=(\}|\]))';
 
-        # Call generic callback w/ {message='Goodbye!'} as the message
-        $endCallback = {
-            Param (
-                [Parameter(Mandatory)]
-                [System.Net.HttpListenerResponse]
-                $response
-            )
-
-            $generalCallBack.Invoke($response, (@{message='Goodbye!'} | ConvertTo-Json));
-        };
-
         # Generates and encodes a response from a JSON respBody
         $generalCallBack = {
             Param (
@@ -133,6 +122,36 @@ function Start-Listener {
 
             # Close the output stream afterwards
             $response.OutputStream.Close();
+        };
+
+        # Call generic callback w/ {message='Goodbye!'} as the message
+        $endCallback = {
+            Param (
+                [Parameter(Mandatory)]
+                [System.Net.HttpListenerResponse]
+                $response,
+
+                [Parameter(Mandatory)]
+                [System.Net.HttpListenerRequest]
+                $request
+            )
+
+            # Validate payload by checking X-Gitlab-Token in the HTTP Headers
+            if ($request.Headers.AllKeys -notcontains 'X-Gitlab-Token') {
+                $generalCallBack.Invoke($response, (@{error='unauthorized - missing X-Gitlab-Token'} | ConvertTo-Json), 401);
+                Write-Output "401: Unauthorized - missing X-Gitlab-Token";
+                return;
+            } elseif ($request.Headers.Get('X-Gitlab-Token') -ne $env:X_GITLAB_TOKEN) {
+                $generalCallBack.Invoke($response, (@{error='forbidden - wrong X-Gitlab-Token'} | ConvertTo-Json), 403);
+                Write-Output "403: Forbidden - wrong X-Gitlab-Token";
+                return;
+            }
+
+            # Only stop the listener if endpoint called by authorized user (has token)
+            $generalCallBack.Invoke($response, (@{message='Goodbye!'} | ConvertTo-Json));
+            Write-Output '200: Authorized user ended listening session';
+
+            $httpListener.Stop();
         };
 
         # Call the generic callback w/ the request header (JSON) & body as the message
@@ -293,8 +312,7 @@ function Start-Listener {
             # Handle stopping the listener with an "/end" endpoint w/ regex matching
             switch -Regex ($request.Url) {
                 '/end$' {
-                    $endCallback.Invoke($response);
-                    $httpListener.Stop();
+                    $endCallback.Invoke($response, $request);
                 }
                 '/webhook$' {
                     $webhookCallback.Invoke($response, $request, $requestBody);
