@@ -177,11 +177,11 @@ function Start-Listener {
             # Validate payload by checking X-Gitlab-Token in the HTTP Headers
             if ($request.Headers.AllKeys -notcontains 'X-Gitlab-Token') {
                 $generalCallBack.Invoke($response, (@{error='unauthorized - missing X-Gitlab-Token'} | ConvertTo-Json), 401);
-                Write-Output "401: Unauthorized - missing X-Gitlab-Token`n";
+                Write-Output "401: Unauthorized - missing X-Gitlab-Token";
                 return;
             } elseif ($request.Headers.Get('X-Gitlab-Token') -ne $env:X_GITLAB_TOKEN) {
                 $generalCallBack.Invoke($response, (@{error='forbidden - wrong X-Gitlab-Token'} | ConvertTo-Json), 403);
-                Write-Output "403: Forbidden - wrong X-Gitlab-Token`n";
+                Write-Output "403: Forbidden - wrong X-Gitlab-Token";
                 return;
             }
 
@@ -214,20 +214,20 @@ function Start-Listener {
 
                     try {
                         Invoke-RestMethod -Method Post -Body $body $pipelineEndpoint;
-                        Write-Output ("SUCCESSFUL POST to {0} w/ body:`n{1}`n" -f $pipelineEndpoint, $body);
+                        Write-Output ("SUCCESSFUL POST to {0} w/ body:`n{1}" -f $pipelineEndpoint, $body);
                     }
                     catch {
-                        Write-Output ("FAILED POST to {0} w/ body:`n{1}`n`nWith Error Msg:`n{2}`n" -f $pipelineEndpoint, ($body | ConvertTo-Json), $_);
+                        Write-Output ("FAILED POST to {0} w/ body:`n{1}`n`nWith Error Msg:`n{2}" -f $pipelineEndpoint, ($body | ConvertTo-Json), $_);
                     }
                 } else {
                     $generalCallBack.Invoke($response, (@{mesg='Skipping non-approval event'} | ConvertTo-Json));
-                    Write-Output "200: Skipping non-approval event`n";
+                    Write-Output "200: Skipping non-approval event";
                 }
 
             }
             catch {
                 $generalCallBack.Invoke($response, (@{error='bad request - failed to parse the payload from JSON form'} | ConvertTo-Json), 400);
-                Write-Output "400: Bad Request - failed to parse the payload from JSON form`n";
+                Write-Output "400: Bad Request - failed to parse the payload from JSON form";
             }
         }
     }
@@ -258,7 +258,8 @@ function Start-Listener {
 
             # Log request info + body to console
             [string]$requestBody = [System.IO.StreamReader]::new($request.InputStream).ReadToEnd();
-            Write-Output ("`n{0} {1} -> {2}:{3}" -f
+            Write-Output ("`n{0} | {1} {2} -> {3}:{4}" -f
+                            $(Get-Date),
                             $request.HttpMethod,
                             $request.RemoteEndPoint,
                             $request.Url,
@@ -278,9 +279,12 @@ function Start-Listener {
                 }
                 Default {
                     $generalCallBack.Invoke($response, (@{error=('not found - unrecognized endpoint [{0}]' -f $request.Url.LocalPath)} | ConvertTo-Json), 404)
-                    Write-Output "404: Not Found - unrecognized endpoint [{0}]`n";
+                    Write-Output "404: Not Found - unrecognized endpoint [{0}]";
                 }
             }
+
+            # Separate requests with a newline
+            Write-Output "";
         }
     }
 }
