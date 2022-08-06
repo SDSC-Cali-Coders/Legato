@@ -143,18 +143,30 @@ function Start-Listener {
                 [System.Net.HttpListenerRequest]
                 $request,
 
-                [string]
                 $requestBody
             )
 
-            $respBody = @{};
+            # Header info collected as an obj
+            $headers = @{};
             $request.Headers.AllKeys | ForEach-Object { 
-                $respBody.Add($_, $request.Headers.Get($_));
+                $headers.Add($_, $request.Headers.Get($_));
             }
 
-            $respBody.Add('Request-Body', $requestBody);
+            # RequestBody converted to JSON if needed
+            if ($requestBody -isnot [string]) {
+                try {
+                    $requestBody = $requestBody | ConvertTo-Json;
+                }
+                catch {
+                    $requestBody = $requestBody | Out-String
+                    Write-Out "Failed to convert input requestBody into JSON, defaulting to Out-String:`n$requestBody"
+                }
+            }
 
-            $generalCallBack.Invoke($response, ($respBody | ConvertTo-Json))
+            # Response is created using headers and body parsed above
+            $respBody = "Headers:`n{0}`nBody:`n{1}" -f ($headers | ConvertTo-Json), $requestBody;
+
+            $generalCallBack.Invoke($response, $respBody);
             Write-Output '200: Parroted headers + request body back to user';
         }
 
@@ -170,7 +182,6 @@ function Start-Listener {
                 $request,
 
                 [Parameter(Mandatory)]
-                [string]
                 $requestBody
             )
 
