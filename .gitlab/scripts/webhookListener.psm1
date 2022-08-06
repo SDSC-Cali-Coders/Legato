@@ -162,35 +162,16 @@ function Start-Listener {
                 $response,
 
                 [Parameter(Mandatory)]
+                [string]
                 $requestHeaders,
 
+                [Parameter(Mandatory)]
+                [string]
                 $requestBody
             )
 
-            # RequestHeaders converted to JSON if needed
-            if ($requestHeaders -isnot [string]) {
-                try {
-                    $requestHeaders = $requestHeaders | ConvertTo-Json -Compress;
-                }
-                catch {
-                    $requestHeaders = $requestHeaders | Out-String
-                    Write-Out "Failed to convert input requestHeaders into JSON, defaulting to Out-String:`n$requestHeaders"
-                }
-            }
-
-            # RequestBody converted to JSON if needed
-            if ($requestBody -isnot [string]) {
-                try {
-                    $requestBody = $requestBody | ConvertTo-Json -Compress;
-                }
-                catch {
-                    $requestBody = $requestBody | Out-String
-                    Write-Out "Failed to convert input requestBody into JSON, defaulting to Out-String:`n$requestBody"
-                }
-            }
-
             # Response is created using headers and body parsed above
-            $respBody = "Headers:`n{0}`nBody:`n{1}" -f $requestHeaders, $requestBody;
+            $respBody = "Headers: {0}`nBody: {1}" -f $requestHeaders, $requestBody;
 
             $generalCallBack.Invoke($response, $respBody);
             Write-Output '200: Parroted headers + request body back to user';
@@ -294,20 +275,25 @@ function Start-Listener {
             [System.Net.HttpListenerResponse]$response  = $context.Response;
 
             # Header info collected as an obj
-            $headers = @{};
+            $requestHeader = @{};
             $request.Headers.AllKeys | ForEach-Object { 
-                $headers.Add($_, $request.Headers.Get($_));
+                $requestHeader.Add($_, $request.Headers.Get($_));
             }
 
             # Log request info + body to console
             [string]$requestBody = [System.IO.StreamReader]::new($request.InputStream).ReadToEnd();
+
+            # Convert request header/body obj into compressed JSON, handling the nonexist case as well
+            $requestBody    = $(if ($requestBody)           {$requestBody -replace $compressJsonRegEx;} else {"<No Body received>"});
+            $requestHeader  = $(if ($requestHeader.Count)   {$requestHeader | ConvertTo-Json -Compress} else {"<No Headers received>"});
+
             Write-Output ("`n{0} | {1} {2} -> {3}`nHeaders: {4}`nBody: {5}" -f
                             $(Get-Date),
                             $request.HttpMethod,
                             $request.RemoteEndPoint,
                             $request.Url,
-                            $(if ($headers.Count) {$headers | ConvertTo-Json -Compress} else {"<No Headers received>"}),
-                            $(if ($requestBody) {$requestBody -replace $compressJsonRegEx} else {"<No Body received>"}));
+                            $requestHeader,
+                            $requestBody);
 
             # Handle stopping the listener with an "/end" endpoint w/ regex matching
             switch -Regex ($request.Url) {
@@ -318,7 +304,7 @@ function Start-Listener {
                     $webhookCallback.Invoke($response, $request, $requestBody);
                 }
                 '/parrot$' {
-                    $parrotCallback.Invoke($response, $headers, $requestBody);
+                    $parrotCallback.Invoke($response, $requestHeader, $requestBody);
                 }
                 Default {
                     $generalCallBack.Invoke($response, (@{error=('not found - unrecognized endpoint [{0}]' -f $request.Url.LocalPath)} | ConvertTo-Json), 404)
@@ -327,7 +313,7 @@ function Start-Listener {
             }
 
             # Separate requests with a newline
-            Write-Output "";
+            # Edit: requests are naturally separated by invoking callbacks (empty line)
         }
     }
 }
