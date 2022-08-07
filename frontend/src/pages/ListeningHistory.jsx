@@ -1,7 +1,10 @@
 import React from 'react';
 import TopCard from '../components/listeningHistory/TopCard';
+import genreIcon from '../assets/genre-country.svg';
+import { useLayoutEffect } from 'react';
 
 const ListeningHistory = (props) => {
+
     let TopCards = new Array(3);
     TopCards[1] = <TopCard selection='Tracks'
         topThreeList={props.Tracks.topThreeList}
@@ -21,9 +24,11 @@ const ListeningHistory = (props) => {
 
     return (
         <>
+
             {TopCards[0]}
             {TopCards[1]}
             {TopCards[2]}
+
         </>
     );
 }
