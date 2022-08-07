@@ -113,11 +113,6 @@ app.get('/refresh_token', (req, res) => {
     });
 });
 
-// Not sure if this is the correct way to do it
-app.get('/user/notification', (req, res) => {
-  res.send({this:'is a test'})
-});
-
 app.listen(port, () => {
   // perform a database connection when server starts
   dbo.connectToServer(function (err) {
