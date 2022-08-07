@@ -64,6 +64,62 @@ recordRoutes.route("/user/:id").get(function (req, response) {
     });
 });
 
+// This section will help add a user follower
+// FIXME
+recordRoutes.route("/user/follow").put(function (req, response) {
+  let db_connect = dbo.getDb();
+  let myquery1 = {"_id":req.body.userId}
+  let myquery2 = {"_id": req.body.followId}
+  let newfollow1 = {
+    $push: {
+      followers: req.body.followId
+    }};
+  let newfollow2 = {
+    $push: {
+      following: req.body.userId
+    }
+  }
+  db_connect.collection("user")
+    .updateOne(myquery1, newfollow1, function (err, res) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      console.log("1 follower added")
+      response.json(res);
+    });
+  db_connect.collection("user")
+    .updateOne(myquery2, newfollow2, function (err, res) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      console.log("1 follower added")
+      response.json(res);
+    });
+});
+
+// This section will help unfollow a user
+// TODO: update follower/following arrays on both ends
+// FIXME
+recordRoutes.route("/user/follow").delete((req, response) => {
+  let db_connect = dbo.getDb();
+  let myquery = {"_id": req.body.userId};
+  let newvalues = {
+    $pullAll: {
+      following: req.body.followId
+    }};
+  db_connect.collection("user")
+    .updateOne(myquery, function (err, obj){
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      console.log("1 user unfollowed");
+      response.json(obj);
+    });
+});
+
 // This section will help us get notifications
 recordRoutes.route("/notification/:id").get(function (req, response) {
   let db_connect = dbo.getDb();
