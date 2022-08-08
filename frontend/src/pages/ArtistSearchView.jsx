@@ -46,22 +46,22 @@ const ArtistSearchView = (props) => {
 
 
                     <div className="row text-center justify-content-end">
-            <div className="btn-group bg-light col-4 px-0" role="group" aria-label="radio toggle button group">
-              <input type="radio" className="btn-check px-0" name="searchFilter" id="filterOn" autoComplete="off" defaultChecked onChange={() => {props.toggleFilter(true); console.log("Subscribed Artist changed.")}}/>
-              <label htmlFor="filterOn" className="btn fw-bold">
-                Subscribed Artists
-              </label>
-              <input type="radio" className="btn-check px-0" name="searchFilter" id="filterOff" autoComplete="off" onChange={() => {props.toggleFilter(false); console.log("New Artists changed")}}/>
-              <label htmlFor="filterOff" className="btn fw-bold">
-                New Artists
-              </label>
-            </div>
-            {/* <div className="btn col-2 bg-light align-self-end fw-bold mx-2">
-              Subscribed Artists
-            </div>
-            <div className="btn col-2 bg-primary align-self-end fw-bold">
-              New Artists
-            </div> */}
+                        <div className="btn-group bg-light col-4 px-0" role="group" aria-label="radio toggle button group">
+                            <input type="radio" className="btn-check px-0" name="searchFilter" id="filterOn" autoComplete="off" defaultChecked onChange={() => {props.toggleFilter(true); console.log("Subscribed Artist changed.")}}/>
+                            <label htmlFor="filterOn" className="btn fw-bold">
+                                Subscribed Artists
+                            </label>
+                            <input type="radio" className="btn-check px-0" name="searchFilter" id="filterOff" autoComplete="off" onChange={() => {props.toggleFilter(false); console.log("New Artists changed")}}/>
+                            <label htmlFor="filterOff" className="btn fw-bold">
+                                New Artists
+                            </label>
+                        </div>
+                        {/* <div className="btn col-2 bg-light align-self-end fw-bold mx-2">
+                        Subscribed Artists
+                        </div>
+                        <div className="btn col-2 bg-primary align-self-end fw-bold">
+                        New Artists
+                        </div> */}
                     </div>
                     <div className="row bg-primary">
                         <ol className="list-group gx-3">
