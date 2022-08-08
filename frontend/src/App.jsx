@@ -2,10 +2,11 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import AppRouter from './AppRouter';
-import {accessToken, getCurrentUserProfile} from './api/spotify';
-import {userIdContext} from './api/userContext';
-import {useState, useEffect} from 'react';
-import {catchErrors} from './utils';
+import { accessToken, getCurrentUserProfile } from './api/spotify';
+import { userIdContext } from './api/userContext';
+import { useState, useEffect, useRef } from 'react';
+import { catchErrors } from './utils';
+import axios from 'axios';
 
 const loggedIn = accessToken ? true : false;
 console.log('access token is ' + accessToken);
@@ -26,6 +27,7 @@ function App(props) {
    */
   const [token, setToken] = useState(null);
   const [profile, setProfile] = useState(null);
+  let effectTriggeredRef = useRef(false);
 
   useEffect(() => {
     setToken(accessToken);
@@ -61,16 +63,16 @@ function App(props) {
      effectTriggeredRef.current = true;
    }
  }, [profile]);
+*/
 
- */
 
- /**
-  * We set up a ternary operation to check if a user is loggedIn via their 
-  * access token and either return the login component or the navbar + router
-  */
+  /**
+   * We set up a ternary operation to check if a user is loggedIn via their 
+   * access token and either return the login component or the navbar + router
+   */
   return (
     <>
-      {loggedIn ? (profile && 
+      {loggedIn ? (profile &&
         <>
           <Navbar />
           <userIdContext.Provider value={profile.id}>
