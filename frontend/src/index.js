@@ -34,7 +34,7 @@ let card2 = Array(3).fill({
   date: "AUG 4",
 });
 
-let list1 = Array(16).fill({
+let list1 = Array(11).fill({
   date:"July 7, 2022",
   day:"Thursday",
   time:"8:00 PM PST",
@@ -48,7 +48,7 @@ root.render(
   <React.StrictMode>
     {/* <App /> */}
     <Navbar />
-    <Concerts recommendedCard={card1} nearbyCard={card2} /> 
+    {/* <Concerts recommendedCard={card1} nearbyCard={card2} />  */}
     {/* <BookmarkedConcerts card={card1}/> */}
     {/* <BookmarkedEmpty/> */}
     {/* <GoingConcerts card={card1}/> */}

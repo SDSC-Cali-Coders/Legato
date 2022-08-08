@@ -27,37 +27,11 @@ const SearchView = (props) => {
 
       <div className="row">
         <div className="col border border-dark bg-primary mx-4">
-          <div className="row align-items-center">
-            <ol className="list-group mx-4 gx-3">{searchCard}</ol>
-          </div>
-          {/* <div className="vertical-scroll col">{searchCard}</div> */}
+          <div className="vertical-scroll row align-items-center">{searchCard}</div>
         </div>
       </div>
     </div>
   );
 };
-//   return (
-//     <div className="container mt-3 min-vw-100 Oswald_regular">
-
-//       <div className="row mb-3">
-//         <Searchbar.ConcertSearchbar />
-//         <div className="m-2">
-//         <DropdownMenu.ConcertSortBy/>
-//         </div>
-//       </div>
-
-//       <div className="row">
-//         <ol className="list-group mx-4 gx-3">
-//           <SearchResults.List/>
-//           <SearchResults.List/>
-//           <SearchResults.List/>
-//           <SearchResults.List/>
-//           <SearchResults.List/>
-//         </ol>
-//       </div>
-
-//     </div>
-//   )
-// };
 
 export default SearchView;
