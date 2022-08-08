@@ -154,8 +154,9 @@ function Invoke-MergeAction {
         Write-Host "Checking post body:`n$($objPostBody | ConvertTo-Json)";
 
         if ($mergeability -notcontains $false) {
+            $WebSession.Headers.Add('content-type', 'application/x-www-form-urlencoded');
             try {
-                Invoke-ApiCall -Method Post -WebSession $WebSession -Body $objPostBody -Uri $strMergeUrl;
+                Invoke-ApiCall -Method Put -WebSession $WebSession -Body $objPostBody -Uri $strMergeUrl;
                 Write-Host ("SUCCESSFUL POST to {0}" -f $strMergeUrl)
             } catch {
                 Write-Host ("FAILURE to POST to {0} w/ err:`n{1}" -f $strMergeUrl, $_)
