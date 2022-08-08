@@ -1,5 +1,4 @@
 import './App.css';
-import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import AppRouter from './AppRouter';
 import { accessToken, getCurrentUserProfile } from './api/spotify';
@@ -74,7 +73,6 @@ function App(props) {
     <>
       {loggedIn ? (profile &&
         <>
-          <Navbar />
           <userIdContext.Provider value={profile.id}>
             <AppRouter />
           </userIdContext.Provider>

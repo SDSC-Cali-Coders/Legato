@@ -1,8 +1,10 @@
 import React from "react";
+import Navbar from './components/Navbar';
+
 import {
-    BrowserRouter,
-    Routes,
-    Route,
+  BrowserRouter,
+  Routes,
+  Route,
 } from 'react-router-dom';
 
 import ConcertsScript from './pageScripts/ConcertsScript';
@@ -17,24 +19,25 @@ import MainSearchArtists from './components/artistSearch/MainView';
  */
 function AppRouter() {
 
-    return (
-        <BrowserRouter>
-        <Routes>
-            <Route path = "/" element = {
-                <ListeningHistoryScript />
-            } />
-            <Route path = "/concerts/" element = {
-                <ConcertsScript />
-            } />
-            <Route path = "/settings/" element = {
-                <SettingsScript />
-            } />
-            <Route path = "/artists/" element = {
-                <MainSearchArtists />
-            } />
-        </Routes>
-        </BrowserRouter>
-    )
+  return (
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={
+          <ListeningHistoryScript />
+        } />
+        <Route path="/concerts/" element={
+          <ConcertsScript />
+        } />
+        <Route path="/settings/" element={
+          <SettingsScript />
+        } />
+        <Route path="/artists/" element={
+          <MainSearchArtists />
+        } />
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default AppRouter
