@@ -118,4 +118,22 @@ recordRoutes.route("/concerts/:id").get(function (req, response) {
       response.json(res);
     });
 });
+
+// This section will help us add social media links to a user's profile 
+recordRoutes.route("/user/add").put(function (req, response) {
+  let db_connect = dbo.getDb();
+  let newValues = {
+    $linkedSocials: req.body.linkedSocials,
+  };
+  let myquery = { _id: req.body._id };
+  db_connect.collection("event")
+    .insertOne(myquery, newValues, function (err, res) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      console.log("one document updated");
+      response.json(res);
+     });
+});
 module.exports = recordRoutes;

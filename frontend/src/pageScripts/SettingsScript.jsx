@@ -15,6 +15,8 @@ const SettingsScript = () => {
     const id = useContext(userContext).id;
     console.log("my id from the context is " + id);
     let effectTriggeredRef = useRef(false);
+    let effectTriggeredRef1 = useRef(false);
+
     const [responseData, setResponseData] = useState(null);
     /**
      * This use effect defines the fetchUser function and triggers it once,
@@ -39,6 +41,31 @@ const SettingsScript = () => {
         if (!effectTriggeredRef.current) {
             fetchUser();
             effectTriggeredRef.current = true;
+        }
+    }, []);
+
+    /**
+     * The following code defined the updateSocials method which should be
+     * triggered when the user wants to update their social media links.
+     */
+
+     useEffect(() => {
+        async function updateSocials() {
+            axios.put(`http://localhost:27017/user/socials`)
+                .then(function (response) {
+                    // can access specific parts of data by doing ".{DATA}"
+                    console.log("update user document");
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+                .then(function () {
+                    console.log("always executed")
+                })
+        }
+        if (!effectTriggeredRef1.current) {
+            updateSocials();
+            effectTriggeredRef1.current = true;
         }
     }, []);
 
