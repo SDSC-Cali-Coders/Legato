@@ -63,11 +63,9 @@ function App(props) {
      effectTriggeredRef.current = true;
    }
  }, [profile]);
-  
+*/
 
 
-  
- */
   /**
    * We set up a ternary operation to check if a user is loggedIn via their 
    * access token and either return the login component or the navbar + router
