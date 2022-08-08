@@ -6,7 +6,7 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "google"
+        "standard"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -19,6 +19,5 @@
         "react"
     ],
     "rules": {
-        "linebreak-style":"off"
     }
 }
