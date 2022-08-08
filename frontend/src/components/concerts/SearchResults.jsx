@@ -18,10 +18,7 @@ const SearchResults = {
           <p className="Oswald_bold text-center fs-4">
             {props.day}, {props.date}
           </p>
-          <a
-            href="/concerts/eventinformation/"
-            className="btn btn-transparent border-0 stretched-link"
-          />
+          <a href="/concerts/eventinformation/" className="stretched-link" />
         </div>
       </div>
     );
@@ -45,10 +42,7 @@ const SearchResults = {
             {props.venueName} - {props.venueLocation}
           </div>
         </div>
-        <a
-          href="/concerts/eventinformation/"
-          className="btn btn-transparent border-0 stretched-link"
-        />
+        <a href="/concerts/eventinformation/" className="stretched-link" />
       </li>
     );
   },
