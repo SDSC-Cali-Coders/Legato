@@ -6,28 +6,44 @@ import { useContext } from 'react';
 import ConcertsGoing from '../components/concerts/ConcertsGoing';
 import ConcertsBookmarked from '../components/concerts/ConcertsBookmarked';
 import MainConcert from '../components/concerts/MainConcert';
+import { getArtistDetail, getConcertsForArtist } from '../api/ticketmaster';
+import { catchErrors } from '../utils';
 
 const ConcertsScript = () => {
   const id = useContext(userContext).id;
-  console.log("my id from the context is " + id)
+  // console.log("my id from the context is " + id)
   const lat = useContext(userContext).lat;
   const lng = useContext(userContext).lng;
-  console.log("my lat,lng from the context is " + lat + "," + lng);
+  // console.log("my lat,lng from the context is " + lat + "," + lng);
+  const [artistData, setArtistData] = useState(null);
+  const [concerts, setConcerts] = useState(null);
 
 
-
-  /* The following is a way to call the getConcertsLocationGenre API Call
+  /* INFO ON CODE BLOCK: integrates the getArtistDetail + getConcertsForArtist API Call
+  // Note: both of these API calls should be used together
   useEffect(() => {
     const fetchData = async () => {
-      let genreId = genreData._embedded.classifications[0].segment._embedded.genres[0].id;
-      const { data } = await getConcertsLocationGenre(lat, lng, '20', '75', genreId);
+      const { data } = await getArtistDetail('The Weeknd');
+      setArtistData(data);
+    };
+    catchErrors(fetchData());
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log(artistData._embedded.attractions[0].id)
+      const artistId = artistData._embedded.attractions[0].id;
+      const { data } = await getConcertsForArtist(lat, lng, '20', '75', artistId);
       setConcerts(data);
     };
-    if (lat && lng && genreData) {
+    if (lat && lng && artistData) {
       catchErrors(fetchData());
     }
 
-  /* The following is a way to call the getConcertsLocation API Call
+  }, [lat, lng, artistData]);
+  */
+
+  /* INFO ON CODE BLOCK: integrates the getConcertsLocation API Call
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await getConcertsLocation(lat, lng, '20', '75');
@@ -39,7 +55,8 @@ const ConcertsScript = () => {
   }, [lat, lng]);
   */
 
-  /* The following is a way to call the getGenreDetails API Call
+  /* INFO ON CODE BLOCK: integrates getConcertsLocationGenre and getGenreDeatil API Call
+  // Note: both of these API calls should be used together
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await getGenreDetail('rap');
@@ -47,9 +64,7 @@ const ConcertsScript = () => {
     };
     catchErrors(fetchData());
   }, []);
-  */
 
-  /* The following is a way to call the getConcertsLocationGenre API Call
   useEffect(() => {
     const fetchData = async () => {
       let genreId = genreData._embedded.classifications[0].segment._embedded.genres[0].id;
@@ -63,7 +78,7 @@ const ConcertsScript = () => {
   }, [lat, lng, genreData]);
   */
 
-  /*
+  /* INFO ON CODE BLOCK: Makes an example API Call to the concerts route to fetch going concerts
   let effectTriggeredRef = useRef(false);
   useEffect(() => {
     async function fetchGoingConcerts() {
@@ -88,7 +103,9 @@ const ConcertsScript = () => {
       effectTriggeredRef.current = true;
     }
   }, []);
+  */
 
+  /* INFO ON CODE BLOCK: Makes an example API Call to the concerts route to fetch bookmarked concerts
   useEffect(() => {
     async function fetchInterestedConcerts() {
       // when used on concerts page, we wouldnt hardcode the profile.id
