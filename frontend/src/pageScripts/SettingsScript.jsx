@@ -19,7 +19,7 @@ const SettingsScript = () => {
     /**
      * This use effect defines the fetchUser function and triggers it once,
      * allowing us to get data from our db about a specific user (using the
-     * userIdContext to do so)
+     * userContext to do so)
      */
     useEffect(() => {
         async function fetchUser() {
