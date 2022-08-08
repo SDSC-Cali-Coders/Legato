@@ -38,6 +38,7 @@ const ArtistSearchViewScript = (props) => {
     const [token, setToken] = useState(null);
     const [search, setSearch] = useState("");
     const [searchResults, setSearchResults] = useState([]);
+    const [filterToggle, setFilterToggle] = useState(true);
 
     // console.log(search)
     // console.log(data)
@@ -46,6 +47,10 @@ const ArtistSearchViewScript = (props) => {
     // }
     // console.log(searchResults)
     // console.log(artistResult)
+
+    useEffect(() => {
+        console.log(filterToggle);
+    }, [filterToggle])
 
     useEffect(() => {
         setToken(accessToken);
@@ -76,10 +81,14 @@ const ArtistSearchViewScript = (props) => {
         setSearch(e.target.value);
     }
 
+    function toggleFilter(val) {
+        setFilterToggle(val);
+    }
+
     return (
 
         <>
-            <ArtistSearchView search={search} handleChange={handleChange} searchResults={searchResults} />
+            <ArtistSearchView search={search} handleChange={handleChange} searchResults={searchResults} toggleFilter={toggleFilter}/>
 
 
             {/* <>
