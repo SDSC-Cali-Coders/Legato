@@ -49,19 +49,16 @@ const SettingsScript = () => {
      * triggered when the user wants to update their social media links.
      */
 
-     useEffect(() => {
+    useEffect(() => {
         async function updateSocials() {
-            axios.put(`http://localhost:27017/user/socials`)
-                .then(function (response) {
-                    // can access specific parts of data by doing ".{DATA}"
-                    console.log("update user document");
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
-                .then(function () {
-                    console.log("always executed")
-                })
+            const newValues = {
+                linkedSocials: {
+                    facebook: 'https://www.facebook.com/JacobCBolano/',
+                    instagram: 'https://www.instagram.com/jacobbolano/',
+                    twitter: {},
+                    pinterest: {}},
+            };
+            catchErrors(axios.put(`http://localhost:27017/user/socials`, newValues));
         }
         if (!effectTriggeredRef1.current) {
             updateSocials();
@@ -71,8 +68,8 @@ const SettingsScript = () => {
 
     // Note: Using "&&" allows us to only render the following components when responseData is not null.
     return (responseData &&
-        <Settings responseData = {responseData}
-            profilePic = {responseData.img}
+        <Settings responseData={responseData}
+            profilePic={responseData.img}
             userName={responseData.name}
             followersCount={responseData.followers.length}
             followingCount={responseData.following.length}
