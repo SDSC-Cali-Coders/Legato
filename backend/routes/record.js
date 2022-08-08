@@ -65,58 +65,63 @@ recordRoutes.route("/user/:id").get(function (req, response) {
 });
 
 // This section will help add a user follower
-// FIXME
-recordRoutes.route("/user/follow").put(function (req, response) {
+// TODO: check if user is already followed?
+recordRoutes.route("/follow").put(function (req, response) {
   let db_connect = dbo.getDb();
-  let myquery1 = {"_id":req.body.userId}
-  let myquery2 = {"_id": req.body.followId}
-  let newfollow1 = {
+  db_connect.collection("user").updateOne({"_id":req.body.userId}, {
     $push: {
-      followers: req.body.followId
-    }};
-  let newfollow2 = {
-    $push: {
-      following: req.body.userId
-    }
-  }
-  db_connect.collection("user")
-    .updateOne(myquery1, newfollow1, function (err, res) {
+      following: req.body.followId
+    }}, function (err, res) {
       if (err) {
         console.log(err);
         throw err;
       }
-      console.log("1 follower added")
-      response.json(res);
-    });
-  db_connect.collection("user")
-    .updateOne(myquery2, newfollow2, function (err, res) {
+      console.log("following added")
+      // TODO: find out how to include multiple responses
+      // response.json(res);
+  });
+  
+  db_connect.collection("user").updateOne({"_id": req.body.followId}, {
+    $push: {
+      followers: req.body.userId
+    }}, function (err, res) {
       if (err) {
         console.log(err);
         throw err;
       }
-      console.log("1 follower added")
+      console.log("followed user")
       response.json(res);
-    });
+    });  
 });
 
 // This section will help unfollow a user
-// TODO: update follower/following arrays on both ends
-// FIXME
-recordRoutes.route("/user/follow").delete((req, response) => {
+// TODO: check if user is being followed?
+recordRoutes.route("/unfollow").delete((req, response) => {
   let db_connect = dbo.getDb();
-  let myquery = {"_id": req.body.userId};
-  let newvalues = {
-    $pullAll: {
-      following: req.body.followId
-    }};
   db_connect.collection("user")
-    .updateOne(myquery, function (err, obj){
-      if (err) {
-        console.log(err);
-        throw err;
-      }
-      console.log("1 user unfollowed");
-      response.json(obj);
+    .updateOne({"_id": req.body.userId}, {
+      $pull: {
+        following: req.body.followId
+      }}, function (err, obj){
+        if (err) {
+          console.log(err);
+          throw err;
+        }
+        console.log("1 user unfollowed");
+        // TODO: find out how to include multiple responses
+        // response.json(obj);
+    });
+  db_connect.collection("user")
+    .updateOne({"_id": req.body.followId}, {
+      $pull: {
+        followers: req.body.userId
+      }}, function (err, obj){
+        if (err) {
+          console.log(err);
+          throw err;
+        }
+        console.log("1 user unfollowed");
+        response.json(obj);
     });
 });
 
