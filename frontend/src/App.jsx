@@ -107,7 +107,7 @@ function App(props) {
             id: profile.id,
             lat: lat,
             lng: lng,
-            }}>
+          }}>
             <AppRouter />
           </userContext.Provider>
         </>

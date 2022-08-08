@@ -104,9 +104,25 @@ recordRoutes.route("/concerts/add").put(function (req, response) {
 });
 
 // This section will help us get a user's going concerts
-recordRoutes.route("/concerts/:id").get(function (req, response) {
+recordRoutes.route("/concerts/going/:id").get(function (req, response) {
   let db_connect = dbo.getDb();
   let myquery = { "goingUsers": req.params.id };
+  db_connect.collection("event")
+    .find(myquery)
+    .toArray(function (err, res) {
+      if (err) {
+        console.log(err);
+        return err;
+      }
+      //all data is sent in res.data
+      response.json(res);
+    });
+});
+
+// This section will help us get a user's interested concerts
+recordRoutes.route("/concerts/interested/:id").get(function (req, response) {
+  let db_connect = dbo.getDb();
+  let myquery = { "interestedUsers": req.params.id };
   db_connect.collection("event")
     .find(myquery)
     .toArray(function (err, res) {
@@ -135,7 +151,6 @@ recordRoutes.route("/user/socials/add").put(function (req, response) {
         throw err;
       }
       console.log("one document updated");
-      response.json(res);
     });
 });
 module.exports = recordRoutes;
