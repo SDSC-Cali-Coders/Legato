@@ -2,13 +2,37 @@ import React from "react";
 import DropdownMenu from "../components/DropdownMenu";
 import SearchResults from "../components/concerts/SearchResults";
 import Searchbar from "../components/Searchbar";
-import InterestButton from "../components/concerts/InterestButton"
+import InterestButton from "../components/concerts/InterestButton";
 
+const Concerts = (props) => {
+  const recommendedCard = props.recommendedCard.map((item) => {
+    return (
+      <SearchResults.Card
+        img={item.img}
+        name={item.name}
+        venueName={item.venueName}
+        venueLocation={item.venueLocation}
+        day={item.day}
+        date={item.date}
+      />
+    );
+  });
 
-export default function Concerts() {
+  const nearbyCard = props.nearbyCard.map((item) => {
+    return (
+      <SearchResults.Card
+        img={item.img}
+        name={item.name}
+        venueName={item.venueName}
+        venueLocation={item.venueLocation}
+        day={item.day}
+        date={item.date}
+      />
+    );
+  });
+
   return (
     <div className="container mt-1 min-vw-100 Oswald_regular">
-
       <Searchbar.ConcertSearchbar />
       <div className="btn-group m-2" role="group" aria-label="First group">
         <InterestButton.Bookmarked isPressed={false} />
@@ -17,52 +41,32 @@ export default function Concerts() {
         <InterestButton.Going isPressed={false} />
       </div>
 
-      {/* Row: [Recc col] [Nearby col] */}
       <div className="row">
-        
-        {/* Recc col:
-              Row: title
-              Row: Grid [3x2] */}
         <div className="col border border-dark bg-primary mx-4">
-          <div className="row fs-2"> 
-            <div className="col">
-              Recommended for you 
-            </div>
+          <div className="row fs-2">
+            <div className="col">Recommended for you</div>
           </div>
-          <div className="row row-cols-3 g-4">
-            <div className="col"> <SearchResults.Card/> </div>
-            <div className="col"> <SearchResults.Card/> </div>
-            <div className="col"> <SearchResults.Card/> </div>
-            <div className="col"> <SearchResults.Card/> </div>
-            <div className="col"> <SearchResults.Card/> </div>
-            <div className="col"> <SearchResults.Card/> </div>
+          <div className="vertical-scroll row row-cols-md-3 g-0">
+            {recommendedCard}
           </div>
         </div>
 
-        {/* Nearby col:
-              Row: title [radius btn]
-              Row: Grid [3x2] */}
         <div className="col border border-dark bg-primary mx-4">
-          <div className="row align-items-center"> 
-            <div className="col-10 fs-2"> Nearby You</div>
+          <div className="row align-items-center">
+            <div className="col-10 fs-2"> Nearby you</div>
             <div className="col-2">
-              <div className="row">
+              <div className="row float-end">
                 <DropdownMenu.Radius />
               </div>
             </div>
           </div>
-
-          <div className="row row-cols-3 g-4">
-            <div className="col"> <SearchResults.Card/> </div>
-            <div className="col"> <SearchResults.Card/> </div>
-            <div className="col"> <SearchResults.Card/> </div>
-            <div className="col"> <SearchResults.Card/> </div>
-            <div className="col"> <SearchResults.Card/> </div>
-            <div className="col"> <SearchResults.Card/> </div>
+          <div className="vertical-scroll row row-cols-md-3 g-0">
+            {nearbyCard}
           </div>
         </div>
       </div>
-      
     </div>
   );
-}
+};
+
+export default Concerts;

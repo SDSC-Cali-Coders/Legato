@@ -27,7 +27,7 @@ const PrivateProfile = (props) => {
             </div>
             </div>
             <div className="row-auto d-flex justify-content-center">
-                <h1><i class="bi bi-file-lock2 p-5"></i></h1>
+                <h1><i className="bi bi-file-lock2 p-5"></i></h1>
             </div>
             <div className="row-auto d-flex justify-content-center">
                 <h5>This is a private account.</h5>
