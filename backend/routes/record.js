@@ -23,7 +23,7 @@ recordRoutes.route("/user/:id").put(function (req, response) {
     topArtists: req.body.topArtists,
     topSongs: req.body.topSongs,
     topGenres: req.body.topGenres,
-    linkedSocials: {facebook: {}, instagram: {}, twitter: {}, pinterest: {}},
+    linkedSocials: { facebook: {}, instagram: {}, twitter: {}, pinterest: {} },
     followers: [],
     following: [],
     interestedEvents: [],
@@ -84,7 +84,7 @@ recordRoutes.route("/notification/:id").get(function (req, response) {
 recordRoutes.route("/concerts/add").put(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
-    _id : req.body._id,
+    _id: req.body._id,
     venueName: req.body.venueName,
     date: req.body.date,
     associatedArtists: req.body.associatedArtists,
@@ -100,7 +100,7 @@ recordRoutes.route("/concerts/add").put(function (req, response) {
         throw err;
       }
       response.json(res);
-     });
+    });
 });
 
 // This section will help us get a user's going concerts
@@ -120,20 +120,22 @@ recordRoutes.route("/concerts/:id").get(function (req, response) {
 });
 
 // This section will help us add social media links to a user's profile 
-recordRoutes.route("/user/socials").put(function (req, response) {
+recordRoutes.route("/user/socials/add").put(function (req, response) {
   let db_connect = dbo.getDb();
   let newValues = {
-    $linkedSocials: req.body.linkedSocials,
+    $set: {
+      linkedSocials: req.body.linkedSocials,
+    }
   };
   let myquery = { _id: req.body._id };
-  db_connect.collection("event")
-    .insertOne(myquery, newValues, function (err, res) {
+  db_connect.collection("user")
+    .updateOne(myquery, newValues, function (err, res) {
       if (err) {
         console.log(err);
         throw err;
       }
       console.log("one document updated");
       response.json(res);
-     });
+    });
 });
 module.exports = recordRoutes;

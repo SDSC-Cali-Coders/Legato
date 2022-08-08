@@ -4,6 +4,8 @@ import Settings from '../pages/Settings';
 import { useState, useEffect, useRef } from 'react';
 import { userContext } from '../api/userContext'
 import { useContext } from 'react';
+import { catchErrors } from '../utils';
+
 
 
 const SettingsScript = () => {
@@ -44,27 +46,27 @@ const SettingsScript = () => {
         }
     }, []);
 
-    /**
-     * The following code defined the updateSocials method which should be
-     * triggered when the user wants to update their social media links.
-     */
-
+    /* The following is working code that updates a user's socials field 
     useEffect(() => {
         async function updateSocials() {
             const newValues = {
+                _id: id,
+                // These linked Socials hsouldnt be empty but instead be set
+                // to what the user wants as their linked socials
                 linkedSocials: {
-                    facebook: 'https://www.facebook.com/JacobCBolano/',
-                    instagram: 'https://www.instagram.com/jacobbolano/',
-                    twitter: {},
-                    pinterest: {}},
+                    facebook: '',
+                    instagram: '',
+                    twitter: '',
+                    pinterest: ''},
             };
-            catchErrors(axios.put(`http://localhost:27017/user/socials`, newValues));
+            catchErrors(axios.put(`http://localhost:27017/user/socials/add`, newValues));
         }
         if (!effectTriggeredRef1.current) {
             updateSocials();
             effectTriggeredRef1.current = true;
         }
     }, []);
+    */
 
     // Note: Using "&&" allows us to only render the following components when responseData is not null.
     return (responseData &&
