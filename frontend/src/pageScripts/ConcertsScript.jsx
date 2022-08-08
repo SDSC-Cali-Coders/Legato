@@ -6,7 +6,7 @@ import { useContext } from 'react';
 import ConcertsGoing from '../components/concerts/ConcertsGoing';
 import ConcertsBookmarked from '../components/concerts/ConcertsBookmarked';
 import MainConcert from '../components/concerts/MainConcert';
-import { getArtistDetail, getConcertsForArtist } from '../api/ticketmaster';
+import { getArtistDetail, getConcertsForArtistDateSorted } from '../api/ticketmaster';
 import { catchErrors } from '../utils';
 
 const ConcertsScript = () => {
@@ -31,9 +31,8 @@ const ConcertsScript = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(artistData._embedded.attractions[0].id)
       const artistId = artistData._embedded.attractions[0].id;
-      const { data } = await getConcertsForArtist(lat, lng, '20', '75', artistId);
+      const { data } = await getConcertsForArtistDateSorted(lat, lng, '20', artistId);
       setConcerts(data);
     };
     if (lat && lng && artistData) {
