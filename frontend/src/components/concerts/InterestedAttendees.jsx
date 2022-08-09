@@ -2,7 +2,6 @@ import React from "react";
 import UserCard from "../UserCard";
 
 const InterestedAttendees = (props) => {
-  // const newArray = array.map(item => {return //what you want to return for each corresponding item in the array})
   const mutualFriends = props.mutualFriends.map(item => {
     return <UserCard img={item.img} name={item.name} mutualNumber={item.mutualNumber} type={item.type}/>
   });
