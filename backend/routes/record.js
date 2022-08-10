@@ -64,6 +64,53 @@ recordRoutes.route("/user/:id").get(function (req, response) {
     });
 });
 
+recordRoutes.route("/user/:id").delete(function (req, response) {
+  /**
+   * remove user from every data entry they're associated with:
+   * artist subscribers from every artist ✓
+   * going and interested users from every event ✓
+   * associated users from all notifications ✓
+   * delete all their notifications ✓
+   * followers from every user ✓
+   * following from every user ✓
+   * all incoming and outgoing requests ✓
+   * their profile ✓
+   */
+  let user = req.params.id;
+  let db_connect = dbo.getDb();
+  function callback(err, res){
+    if (err){
+      console.log(err);
+      throw err;
+    }
+  }
+  // define array fields updateMany will check for each collection (only deletes
+  // user in arrays, does not delete documents)
+  let propsAssociated = {
+    "artist": ["subscribedUsers"],
+    "event": ["interestedUsers", "goingUsers"],
+    "notification": ["associatedUsers"],
+    "user": ["followers", "following", "outGoingFriendRequests", 
+             "inComingfriendRequests"]
+  };
+  for(const prop in propsAssociated){
+    for(i in propsAssociated[prop]){
+      let curr_prop = propsAssociated[prop][i];
+      db_connect.collection(prop).updateMany({}, {
+        "$pull": {[curr_prop]:user}}, callback);
+    }
+  }
+  // deleting documents
+  db_connect.collection("notification").deleteMany({userId: user}, callback);
+  db_connect.collection("user").deleteOne({_id: user}, function (err, res){
+    if (err){
+      console.log(err);
+      throw err;
+    }
+    response.json(res);
+  });
+});
+
 // This section will help add a user follower
 // TODO: check if user is already followed?
 recordRoutes.route("/follow").put(function (req, response) {
@@ -76,7 +123,7 @@ recordRoutes.route("/follow").put(function (req, response) {
         console.log(err);
         throw err;
       }
-      console.log("following added")
+      console.log("following added");
       // TODO: find out how to include multiple responses
       // response.json(res);
   });
