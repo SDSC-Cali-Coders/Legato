@@ -1,22 +1,7 @@
-workflow:
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-
+# Include and run all stages
+include: 
+  - .gitlab/configs/.gitlab-merger-ci.yml
+  - .gitlab/configs/.gitlab-linter-ci.yml
 stages:
-  - linting
-
-superlinter:
-  stage: linting
-  image:
-    name: github/super-linter:latest
-    entrypoint: [""]
-  script:
-    - |
-      /action/lib/linter.sh
-  variables:
-    RUN_LOCAL: "true"
-    DEFAULT_WORKSPACE: $CI_BUILDS_DIR
-    ANSIBLE_DIRECTORY: $CI_PROJECT_PATH
-    LINTER_RULES_PATH: $CI_PROJECT_PATH/.gitlab/linters   # linter specific config files stored here
-    JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json             # ^ ESLint config in json format 
-    VALIDATE_JAVASCRIPT_STANDARD: "false"
+  - automerge
+  - lint

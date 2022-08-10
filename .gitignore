@@ -22,3 +22,9 @@ yarn-error.log*
 
 # ignore vsc extension settings
 .vscode
+
+# ignore all tokens used in testing/development
+token*.txt
+
+# ignore webhook logs
+*webhook*log*
