@@ -1,4 +1,6 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { userContext } from '../api/userContext'
@@ -13,6 +15,9 @@ import GoingConcerts from "../components/concerts/GoingConcerts";
 import InterestedAttendees from "../components/concerts/InterestedAttendees";
 import SearchView from "../components/concerts/SearchView";
 import PrivateProfile from "../components/concerts/PrivateProfile";
+import ListeningHistoryScript from './ListeningHistoryScript';
+import SettingsScript from './SettingsScript';
+import MainView from '../components/artistSearch/MainView';
 
 // filler data taken from old `concerts-pages` AppRouter.js
 let card1 = Array(7).fill({
@@ -168,8 +173,6 @@ const ConcertsScript = () => {
   // replaced with `concerts-page` branch's old Approuter.js content --------------------
   return <BrowserRouter>
       <Routes>
-        <Route path="/" element={<ListeningHistoryScript />} />
-
         {/* Concerts */}
         <Route
           path="/concerts/"
@@ -207,9 +210,6 @@ const ConcertsScript = () => {
           path="/concerts/searchview/"
           element={<SearchView searchCard={list1} />}
         />
-
-        <Route path="/settings/" element={<SettingsScript />} />
-        <Route path="/artists/" element={<MainSearchArtists />} />
       </Routes>
     </BrowserRouter>
 };
