@@ -1,14 +1,12 @@
 import './App.css';
 import Login from './pages/Login';
 import Navbar from './components/Navbar';
-import Login from './pages/Login';
 import AppRouter from './AppRouter';
 import { accessToken, getCurrentUserProfile } from './api/spotify';
 import { userContext } from './api/userContext';
 import { useState, useEffect, useRef } from 'react';
 import { catchErrors } from './utils';
 import { getConcertsLocation, getConcertsLocationGenre, getGenreDetail } from './api/ticketmaster';
-import ConcertSearchResults from './components/concerts/ConcertSearchResults';
 import { render } from "react-dom";
 
 const loggedIn = accessToken ? true : false;

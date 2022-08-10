@@ -3,19 +3,16 @@ import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { userContext } from '../api/userContext'
 import { useContext } from 'react';
-import ConcertsGoing from '../components/concerts/ConcertsGoing';
-import ConcertsBookmarked from '../components/concerts/ConcertsBookmarked';
-import MainConcert from '../components/concerts/MainConcert';
 import { getArtistDetail, getConcertsForArtistDateSorted } from '../api/ticketmaster';
 import { catchErrors } from '../utils';
 
-import Concerts from "./pages/Concerts";
-import EventInformation from "./components/concerts/EventInformation";
-import BookmarkedConcerts from "./components/concerts/BookmarkedConcerts";
-import GoingConcerts from "./components/concerts/GoingConcerts";
-import InterestedAttendees from "./components/concerts/InterestedAttendees";
-import SearchView from "./components/concerts/SearchView";
-import PrivateProfile from "./components/concerts/PrivateProfile";
+import Concerts from "../pages/Concerts";
+import EventInformation from "../components/concerts/EventInformation";
+import BookmarkedConcerts from "../components/concerts/BookmarkedConcerts";
+import GoingConcerts from "../components/concerts/GoingConcerts";
+import InterestedAttendees from "../components/concerts/InterestedAttendees";
+import SearchView from "../components/concerts/SearchView";
+import PrivateProfile from "../components/concerts/PrivateProfile";
 
 // filler data taken from old `concerts-pages` AppRouter.js
 let card1 = Array(7).fill({
