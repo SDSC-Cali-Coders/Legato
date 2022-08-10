@@ -31,7 +31,7 @@ const Navbar = () => {
                             <a className="nav-link" href="#">Friends</a>
                         </li>
                     </ul>
-                    <button className="btn" ><img src={notification} alt="" width="auto" /></button>
+                    <a className="btn" href='http://localhost:3000/notifications'><img src={notification} alt="" width="auto" /></a>
                     <a href="http://localhost:3000/settings">
                         <button className="btn" ><img src={profile} alt="" width="auto" /></button>
                     </a>

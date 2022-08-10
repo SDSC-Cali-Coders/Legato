@@ -4,7 +4,7 @@ import Buttons from '../Buttons';
 
 
 const NotificationCard = {
-    friendRequest: (props) => {
+    followRequest: (props) => {
         return (
             <div className="card m-5 bg-neutral-light Oswald_regular shadow">
                 <span class="position-absolute top-0 start-100 translate-middle p-2 rounded-circle">
@@ -29,7 +29,7 @@ const NotificationCard = {
         );
     },
 
-    artistsConcert: (props) => {
+    artistsEvent: (props) => {
         return (
             <div className="card m-5 bg-neutral-light Oswald_regular shadow">
                 <span class="position-absolute top-0 start-100 translate-middle p-2 rounded-circle">
@@ -50,7 +50,7 @@ const NotificationCard = {
         );
     },
 
-    friendConcert: (props) => {
+    userAttendingEvent: (props) => {
         return (
             <div className="card m-5 bg-neutral-light Oswald_regular shadow">
                 <span class="position-absolute top-0 start-100 translate-middle p-2 rounded-circle">

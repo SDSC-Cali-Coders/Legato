@@ -1,5 +1,4 @@
 import './App.css';
-import Login from './pages/Login';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import AppRouter from './AppRouter';

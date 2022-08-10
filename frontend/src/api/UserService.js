@@ -8,7 +8,7 @@ export async function getUserNotifications(id){
    * @return {Array notificationObj} - Array of notification objects. 
    */
   try {
-    let call = '/notification/' + id;
+    let call = '/notification/' + userId;
     const response = await fetch(call);
     return await response.json();
   }catch(error) {

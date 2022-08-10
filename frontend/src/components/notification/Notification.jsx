@@ -1,7 +1,5 @@
 import React from 'react';
-import Buttons from '../components/Buttons';
-import NotificationCard from '../components/notification/NotificationCard';
-import genreIcon from '../assets/genre-country.svg';
+import Buttons from '../Buttons';
 
 const Notification = (props) => {
     return (
