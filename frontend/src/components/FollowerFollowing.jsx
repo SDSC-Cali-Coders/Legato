@@ -52,7 +52,7 @@ const FollowerFollowing = (props) => {
                 </div>
 
                 {/* Row: Grid 2xn for (Followers / Following) */}
-                <div className="row row-cols-2 g-4">
+                <div className="row row-cols-2 g-2 overflow-auto vh-50 align-content-start">
                     { listDisplay }
                 </div>
             </div>
