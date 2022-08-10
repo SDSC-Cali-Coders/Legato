@@ -1,9 +1,9 @@
 import React from 'react';
-import Buttons from './Buttons';
 import UserCard from './UserCard';
 
 const FollowerFollowing = (props) => {
-    const followers = props.followerList.map(item => {
+
+    const listDisplay = props.followList.map(item => {
         return (
             <div key={item.id} className="col">
                 <UserCard img={item.img}
@@ -13,17 +13,6 @@ const FollowerFollowing = (props) => {
             </div>
         )
     })
-    const following = props.followingList.map(item => {
-        return (
-            <div key={item.id} className="col">
-                <UserCard img={item.img}
-                        name={item.name}
-                        mutualNumber={item.mutualNumber}
-                        type={item.type}/>
-            </div>
-        )
-    })
-    const listDisplay = props.followSelector === 'follower' ? followers : following
 
     return (
         <div>
