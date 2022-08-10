@@ -155,6 +155,13 @@
   background-color: #697184;
 }
 
+/* Additional styling for scrollbar feature on main concerts page */
+.vertical-scroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 75vh;
+}
+
 /* Additional styling to remove italics in EventInformation */
 i {
   font-style: normal;
@@ -162,11 +169,4 @@ i {
 
 .eventDescription {
   padding-left: 20px;
-}
-
-/* Additional styling for scrollbar feature for who is interested in going concerts page */
-.vertical-scroll {
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: 75vh;
 }
