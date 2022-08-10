@@ -1,6 +1,6 @@
 import React from "react";
 import TopThree from "./TopThree";
-import TopTen from "./Topten";
+import TopTen from "./TopTen";
 
 export default function TopCard(props) {
   let TopThreeCards = new Array(3);
