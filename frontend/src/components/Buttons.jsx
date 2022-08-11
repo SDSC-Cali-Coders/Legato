@@ -66,8 +66,15 @@ const Buttons = {
     },
     Following: () => {
         return (
-            <button className="btn btn-follow btn-light border-dark fw-semibold">
+            <button className="btn btn-follow btn-light border-dark text-light fw-semibold">
                 Following
+            </button>
+		);
+    },
+    Follow: () => {
+        return (
+            <button className="btn btn-follow-short bg-neutral-body py-0 px-4 border-dark text-light fw-semibold">
+                Follow
             </button>
 		);
     }

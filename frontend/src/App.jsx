@@ -7,7 +7,6 @@ import { userContext } from './api/userContext';
 import { useState, useEffect, useRef } from 'react';
 import { catchErrors } from './utils';
 import { getConcertsLocation, getConcertsLocationGenre, getGenreDetail } from './api/ticketmaster';
-import ConcertSearchResults from './components/concerts/ConcertSearchResults';
 import { render } from "react-dom";
 
 const loggedIn = accessToken ? true : false;
@@ -33,7 +32,6 @@ function App(props) {
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
   const [status, setStatus] = useState(null);
-  const [genreData, setGenreData] = useState(null);
   let effectTriggeredRef = useRef(false);
 
   useEffect(() => {
@@ -67,6 +65,18 @@ function App(props) {
       effectTriggeredRef.current = true;
     }
   }, []);
+
+  /* NOTE: The following gets all events for a specific artist (used on artist page)
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await getArtistEvent('The Weeknd', 'upcoming');
+      setArtistEventInfo(data);
+    };
+    catchErrors(fetchData());
+  }, []);
+  */
+
+
 
   /* CODE FOR US TO USE LATER TO CONNECT TO DB DO NOT DELETE
  useEffect(() => {
@@ -107,7 +117,7 @@ function App(props) {
             id: profile.id,
             lat: lat,
             lng: lng,
-            }}>
+          }}>
             <AppRouter />
           </userContext.Provider>
         </>
