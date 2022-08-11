@@ -62,7 +62,10 @@ const ArtistDescription = (props) => {
                 </div>
 
                 {/* [Upcoming concerts col] */}
-                <div className="col-4">
+                <div className="col bg-secondary border border-dark mx-1">
+                    <h2 className="fw-bold m-3 text-center">
+                        Upcoming Concerts
+                    </h2>
                 </div>
             </div>
 
