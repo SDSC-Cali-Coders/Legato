@@ -26,7 +26,7 @@ const SettingsScript = () => {
             axios.get(`http://localhost:27017/user/${id}`)
                 .then(function (response) {
                     // can access specific parts of data by doing ".{DATA}"
-                    //console.log(response.data);
+                    console.log(response.data);
                     setResponseData(response.data);
                 })
                 .catch(function (error) {
@@ -41,42 +41,53 @@ const SettingsScript = () => {
             effectTriggeredRef.current = true;
         }
     }, []);
-
-    // Note: Using "&&" allows us to only render the following components when responseData is not null.
-    return (responseData &&
-        <Settings responseData = {responseData}
-            profilePic = {responseData.img}
-            userName={responseData.name}
-            followersCount={responseData.followers.length}
-            followingCount={responseData.following.length}
-            socialLinks={{
+    let settingsObj = null;
+    if (responseData) {
+        settingsObj = {
+            img: responseData.img,
+            name: responseData.name,
+            followersCount: responseData.followers.length,
+            followingCount: responseData.following.length,
+            socialLinks: {
                 facebook: responseData.linkedSocials.facebook,
                 twitter: responseData.linkedSocials.twitter,
                 instagram: responseData.linkedSocials.instagram,
                 pinterest: responseData.linkedSocials.pinterest
-            }}
-            topArtistsList={[
+            },
+            topArtistsList: [
                 { artistImg: responseData.topArtists[0].images[0].url, artistName: responseData.topArtists[0].name },
                 { artistImg: responseData.topArtists[1].images[0].url, artistName: responseData.topArtists[1].name },
                 { artistImg: responseData.topArtists[2].images[0].url, artistName: responseData.topArtists[2].name },
                 { artistImg: responseData.topArtists[3].images[0].url, artistName: responseData.topArtists[3].name },
                 { artistImg: responseData.topArtists[4].images[0].url, artistName: responseData.topArtists[4].name },
-            ]}
-            topSongsList={[
+            ],
+            topSongsList: [
                 { songTitle: responseData.topSongs[0].name, artistName: responseData.topSongs[0].artists[0].name },
                 { songTitle: responseData.topSongs[1].name, artistName: responseData.topSongs[1].artists[0].name },
                 { songTitle: responseData.topSongs[2].name, artistName: responseData.topSongs[2].artists[0].name },
                 { songTitle: responseData.topSongs[3].name, artistName: responseData.topSongs[3].artists[0].name },
                 { songTitle: responseData.topSongs[4].name, artistName: responseData.topSongs[4].artists[0].name },
-
-            ]}
-            topGenreList={[
+            ],
+            topGenreList: [
                 { genre: responseData.recGenres[0] },
                 { genre: responseData.recGenres[1] },
                 { genre: responseData.recGenres[2] },
                 { genre: responseData.recGenres[3] },
                 { genre: responseData.recGenres[4] },
-            ]}
+            ]
+        }
+    }
+    // Note: Using "&&" allows us to only render the following components when responseData is not null.
+    return (settingsObj &&
+        <Settings
+            profilePic={settingsObj.img}
+            userName={settingsObj.name}
+            followersCount={settingsObj.followersCount}
+            followingCount={settingsObj.followingCount}
+            socialLinks={settingsObj.socialLinks}
+            topArtistsList={settingsObj.topArtistsList}
+            topSongsList={settingsObj.topSongsList}
+            topGenreList={settingsObj.topGenreList}
         />
     );
 }
