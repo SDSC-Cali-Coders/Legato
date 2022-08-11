@@ -1,11 +1,14 @@
 import './App.css';
+import Login from './pages/Login';
 import Navbar from './components/Navbar';
-import Login from './pages/Login'
 import AppRouter from './AppRouter';
-import {accessToken, getCurrentUserProfile} from './api/spotify';
-import {userIdContext} from './api/userContext';
-import {useState, useEffect} from 'react';
-import {catchErrors} from './utils';
+import { accessToken, getCurrentUserProfile } from './api/spotify';
+import { userContext } from './api/userContext';
+import { useState, useEffect, useRef } from 'react';
+import { catchErrors } from './utils';
+import { getConcertsLocation, getConcertsLocationGenre, getGenreDetail } from './api/ticketmaster';
+import ConcertSearchResults from './components/concerts/ConcertSearchResults';
+import { render } from "react-dom";
 
 const loggedIn = accessToken ? true : false;
 console.log("access token is" + accessToken);
@@ -26,6 +29,12 @@ function App(props) {
    */
   const [token, setToken] = useState(null);
   const [profile, setProfile] = useState(null);
+  const [concerts, setConcerts] = useState(null);
+  const [lat, setLat] = useState(null);
+  const [lng, setLng] = useState(null);
+  const [status, setStatus] = useState(null);
+  const [genreData, setGenreData] = useState(null);
+  let effectTriggeredRef = useRef(false);
 
   useEffect(() => {
     setToken(accessToken);
@@ -37,13 +46,34 @@ function App(props) {
 
   }, []);
 
-  /* CODE FOR US TO USE LATER TO CONNECT TO DB DO NOT DELETE
+  const getLocation = () => {
+    if (!navigator.geolocation) {
+      setStatus('Geolocation is not supported by your browser');
+    } else {
+      setStatus('Locating...');
+      navigator.geolocation.getCurrentPosition((position) => {
+        setStatus(null);
+        setLat(position.coords.latitude);
+        setLng(position.coords.longitude);
+      }, () => {
+        setStatus('Unable to retrieve your location');
+      });
+    }
+  }
 
+  useEffect(() => {
+    if (!effectTriggeredRef.current) {
+      getLocation();
+      effectTriggeredRef.current = true;
+    }
+  }, []);
+
+  /* CODE FOR US TO USE LATER TO CONNECT TO DB DO NOT DELETE
  useEffect(() => {
    async function fetchNotifications() {
      // when used on notifications page, we wouldnt hardcode the profile.id
      //const id = params.id.toString();
-
+ 
      axios.get(`http://localhost:27017/notification/${profile.id}`)
        .then(function (response) {
          // can access specific parts of data by doing "[{# notification}.{DATA}"
@@ -61,20 +91,25 @@ function App(props) {
      effectTriggeredRef.current = true;
    }
  }, [profile]);
-
+ 
  */
 
- /**
-  * We set up a ternary operation to check if a user is loggedIn via their 
-  * access token and either return the login component or the navbar + router
-  */
+  /**
+   * We set up a ternary operation to check if a user is loggedIn via their 
+   * access token and either return the login component or the navbar + router
+   */
   return (
     <>
-      {loggedIn ? (profile && <>
+      {loggedIn ? (profile && lat && lng &&
+        <>
           <Navbar />
-          <userIdContext.Provider value={profile.id}>
+          <userContext.Provider value={{
+            id: profile.id,
+            lat: lat,
+            lng: lng,
+            }}>
             <AppRouter />
-          </userIdContext.Provider>
+          </userContext.Provider>
         </>
       ) : (
         <>

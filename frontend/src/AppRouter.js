@@ -5,7 +5,7 @@ import {
     Route,
 } from 'react-router-dom';
 
-import MainConcert from './components/concerts/MainConcert';
+import ConcertsScript from './pageScripts/ConcertsScript';
 import ListeningHistoryScript from './pageScripts/ListeningHistoryScript';
 import SettingsScript from './pageScripts/SettingsScript';
 import ArtistSearchViewScript from './pageScripts/ArtistSearchViewScript';
@@ -26,7 +26,7 @@ function AppRouter() {
                 <ListeningHistoryScript />
             } />
             <Route path = "/concerts/" element = {
-                <MainConcert />
+                <ConcertsScript />
             } />
             <Route path = "/settings/" element = {
                 <SettingsScript />
