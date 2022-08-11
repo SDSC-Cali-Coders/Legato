@@ -1,9 +1,22 @@
 import React from 'react';
 import Buttons from '../Buttons';
+import UserCard from '../UserCard';
 
 const ArtistDescription = (props) => {
+    const topSongs = props.topSongs.map(songName => {
+        return (
+            <div className="card bg-primary text-start my-2 p-1">
+                {songName}
+            </div>
+        )
+    })
+
+    const subscribedUsers = props.users.map(user => {
+        return <UserCard img={user.pfp} name={user.name} mutualNumber={user.mutualNumer} type={user.type} />
+    })
+
     return (
-        <div className="container bg-light my-5 p-4 Oswald_regular border border-dark vh-75">
+        <div className="container bg-light mt-5 p-5 Oswald_regular border border-dark">
             {/* Encapsulates entirety of Artist Description page */}
             <div className="row">
                 <div className="col-8">
@@ -14,9 +27,9 @@ const ArtistDescription = (props) => {
                         </div>
                         <div className="col align-content-center">
                             <h1 className='fs-1 fw-bold'>{props.artist.name}</h1>
-                            <h4>Genre: {props.artist.genre}</h4>
-                            <h4>Followers:</h4>
-                            <h4>{props.artist.followers.toLocaleString()}</h4>
+                            <h5>Genre: {props.artist.genre}</h5>
+                            <h5>Followers:</h5>
+                            <h5>{props.artist.followers.toLocaleString()}</h5>
                         </div>
                         <div className="col-3">
                             <div className="row">
@@ -24,12 +37,26 @@ const ArtistDescription = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row mt-4 vh-50">
                         {/* [Top Songs col] */}
-                        <div className="col"></div>
+                        <div className="col h-100 d-flex flex-column bg-secondary border border-dark mx-1">
+                            <h2 className="fw-bold m-3 text-center">
+                                Top Songs
+                            </h2>
+                            <div className='flex-fill d-flex flex-column justify-content-between overflow-auto'>
+                                {topSongs}
+                            </div>
+                        </div>
 
                         {/* [Subscribed Users col] */}
-                        <div className="col"></div>
+                        <div className="col h-100 d-flex flex-column bg-secondary border border-dark mx-1">
+                            <h2 className="fw-bold m-3 text-center">
+                                Subscribed Users
+                            </h2>
+                            <div className="overflow-auto">
+                                {subscribedUsers}
+                            </div>
+                        </div>
                     </div>
                 </div>
 
