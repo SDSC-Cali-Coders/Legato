@@ -71,11 +71,11 @@ const SettingsScript = () => {
 
             ]}
             topGenreList={[
-                { genre: responseData.topGenres[0] },
-                { genre: responseData.topGenres[1] },
-                { genre: responseData.topGenres[2] },
-                { genre: responseData.topGenres[3] },
-                { genre: responseData.topGenres[4] },
+                { genre: responseData.recGenres[0] },
+                { genre: responseData.recGenres[1] },
+                { genre: responseData.recGenres[2] },
+                { genre: responseData.recGenres[3] },
+                { genre: responseData.recGenres[4] },
             ]}
         />
     );
