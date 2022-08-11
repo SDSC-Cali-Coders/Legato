@@ -25,13 +25,14 @@ const ArtistDescription = (props) => {
                         <div className="col-4">
                             <img src={props.artist.img} alt="pfp" className="img-fluid rounded-circle" />
                         </div>
-                        <div className="col align-content-center">
+                        <div className="col align-self-end">
                             <h1 className='fs-1 fw-bold'>{props.artist.name}</h1>
-                            <h5>Genre: {props.artist.genre}</h5>
-                            <h5>Followers:</h5>
+                            <br/>
+                            <h5><span className='fw-bold'>Genre: </span> {props.artist.genre}</h5>
+                            <h5 className="fw-bold">Followers:</h5>
                             <h5>{props.artist.followers.toLocaleString()}</h5>
                         </div>
-                        <div className="col-3">
+                        <div className="col-3 me-5 align-self-end">
                             <div className="row">
                                 <Buttons.Subscribe />
                             </div>
