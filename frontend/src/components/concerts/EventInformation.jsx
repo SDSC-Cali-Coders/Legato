@@ -56,7 +56,7 @@ const EventInformation = (props) => {
                 <span className="eventDescription">
                   <p className="card-text d-inline">
                     <a
-                      href="/concerts/interestedattendees"
+                      href={`/concerts/interestedattendees?event=${props.id}`}
                       className="eventDescriptionLink"
                     >
                       {props.mutualFriends} mutual friends and {props.others}{" "}

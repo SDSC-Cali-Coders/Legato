@@ -32,6 +32,7 @@ const EventInformationScript = (props) => {
 
     concertObject = {
       name: concertData.name,
+      id: eventId,
       img: concertData.images[4].url,
       genre: concertData.classifications[0].genre.name,
       venueName: concertData._embedded.venues[0].name,
@@ -46,6 +47,7 @@ const EventInformationScript = (props) => {
   return (concertObject &&
       <EventInformation
         name={concertObject.name}
+        id={concertObject.id}
         img={concertObject.img}
         genre={concertObject.genre}
         venueName={concertObject.venueName}
