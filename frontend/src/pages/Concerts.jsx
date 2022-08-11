@@ -8,6 +8,7 @@ const Concerts = (props) => {
   const recommendedCard = props.recommendedCard.map((item) => {
     return (
       <SearchResults.Card
+        id={item.id}
         img={item.img}
         name={item.name}
         venueName={item.venueName}
@@ -21,6 +22,7 @@ const Concerts = (props) => {
   const nearbyCard = props.nearbyCard.map((item) => {
     return (
       <SearchResults.Card
+        id={item.id}
         img={item.img}
         name={item.name}
         venueName={item.venueName}

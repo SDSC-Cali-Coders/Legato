@@ -51,6 +51,7 @@ const ConcertsGoingScript = () => {
   if (responseData) {
     for (let i = 0; i < responseData.length; i++) {
       goingCards.push({
+        id: responseData[i]._id,
         img: responseData[i].img,
         name: responseData[i].name,
         venueName: responseData[i].venueName,

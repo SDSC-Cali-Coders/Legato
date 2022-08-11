@@ -104,7 +104,7 @@ const ConcertsScript = () => {
     console.log(reccConcerts)
     for (let i = 0; i < reccConcerts.page.size; i++) {
       reccCards.push({
-        id: nearbyConcerts._embedded.events[i].id,
+        id: reccConcerts._embedded.events[i].id,
         img: reccConcerts._embedded.events[i].images[5].url,
         name: reccConcerts._embedded.events[i]._embedded.attractions ?
           reccConcerts._embedded.events[i]._embedded.attractions[0].name : reccConcerts._embedded.events[i].name,
@@ -124,15 +124,15 @@ const ConcertsScript = () => {
       // When a post request is sent to the create url, we'll add a new record to the database.
       console.log(reccCards)
       const newEvent = {
-        _id: reccCards[11].id,
-        img: reccCards[11].img,
-        name: reccCards[11].name,
-        venueName: reccCards[11].venueName,
-        venueLocation: reccCards[11].venueLocation,
-        day: reccCards[11].day,
+        _id: reccCards[9].id,
+        img: reccCards[9].img,
+        name: reccCards[9].name,
+        venueName: reccCards[9].venueName,
+        venueLocation: reccCards[9].venueLocation,
+        day: reccCards[9].day,
         // NEEDS TO BE CHANGED: Filter the date and time
-        date: reccCards[11].date,
-        interestedUsers: id,
+        date: reccCards[9].date,
+        goingUsers: id,
       };
       catchErrors(axios.put(`http://localhost:27017/concerts/add`, newEvent));
     }

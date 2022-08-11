@@ -18,7 +18,7 @@ const SearchResults = {
           <p className="Oswald_bold text-center fs-4">
             {props.day}, {props.date}
           </p>
-          <a href="/concerts/eventinformation/" className="stretched-link" />
+          <a href= {`/concerts/eventinformation?event=${props.id}`} className="stretched-link" />
         </div>
       </div>
     );

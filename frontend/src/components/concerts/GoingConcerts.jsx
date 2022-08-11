@@ -8,6 +8,7 @@ const GoingConcerts = (props) => {
   const card = props.card.map((item) => {
     return (
       <SearchResults.Card
+        id={item.id}
         img={item.img}
         name={item.name}
         venueName={item.venueName}

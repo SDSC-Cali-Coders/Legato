@@ -54,6 +54,7 @@ const ConcertsBookmarkedScript = () => {
   if (responseData) {
     for (let i = 0; i < responseData.length; i++) {
       bookmarkedCards.push({
+        id: responseData[i]._id,
         img: responseData[i].img,
         name: responseData[i].name,
         venueName: responseData[i].venueName,
