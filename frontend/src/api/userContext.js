@@ -1,2 +1,2 @@
 import React from 'react'
-export const userIdContext = React.createContext();
+export const userContext = React.createContext();

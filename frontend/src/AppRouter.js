@@ -10,7 +10,9 @@ import {
 import ConcertsScript from './pageScripts/ConcertsScript';
 import ListeningHistoryScript from './pageScripts/ListeningHistoryScript';
 import SettingsScript from './pageScripts/SettingsScript';
-import MainSearchArtists from './components/artistSearch/MainView';
+import ArtistSearchViewScript from './pageScripts/ArtistSearchViewScript';
+
+//import SearchView from './components/artistSearch/SearchView';
 
 /**
  * This AppRouter allows us to navigate across the application and works with our
@@ -19,25 +21,24 @@ import MainSearchArtists from './components/artistSearch/MainView';
  */
 function AppRouter() {
 
-  return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={
-          <ListeningHistoryScript />
-        } />
-        <Route path="/concerts/" element={
-          <ConcertsScript />
-        } />
-        <Route path="/settings/" element={
-          <SettingsScript />
-        } />
-        <Route path="/artists/" element={
-          <MainSearchArtists />
-        } />
-      </Routes>
-    </BrowserRouter>
-  )
+    return (
+        <BrowserRouter>
+        <Routes>
+            <Route path = "/" element = {
+                <ListeningHistoryScript />
+            } />
+            <Route path = "/concerts/" element = {
+                <ConcertsScript />
+            } />
+            <Route path = "/settings/" element = {
+                <SettingsScript />
+            } />
+            <Route path = "/Artists/" element = {
+                <ArtistSearchViewScript />
+            } />
+        </Routes>
+        </BrowserRouter>
+    )
 }
 
 export default AppRouter

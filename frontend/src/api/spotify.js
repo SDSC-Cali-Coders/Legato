@@ -134,6 +134,18 @@ const spotifyInstance = axios.create({
  */
 export const getCurrentUserProfile = () => spotifyInstance.get('/me');
 
+
+/**
+* Get search result
+* https://developer.spotify.com/documentation/web-api/reference/#/operations/search
+* @param {string} search - artist name
+* @returns {Promise}
+*/
+export const searchArtists = (search) => {
+    return spotifyInstance.get(`/search?q=${search}&type=artist&limit=20`);
+};
+
+
 /**
 * Get a User's Top Artists
 * https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-top-artists-and-tracks

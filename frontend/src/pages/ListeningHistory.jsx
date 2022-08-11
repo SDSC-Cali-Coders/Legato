@@ -1,6 +1,5 @@
 import React from 'react';
 import TopCard from '../components/listeningHistory/TopCard';
-import genreIcon from '../assets/genre-country.svg';
 import { useLayoutEffect } from 'react';
 
 const ListeningHistory = (props) => {

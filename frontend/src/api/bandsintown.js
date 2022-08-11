@@ -7,10 +7,13 @@ const bandsintownInstance = axios.create({
     }
 })
 
+// Note: The following API calls follow this documentation - https://artists.bandsintown.com/support/public-api
+
 /**
- * Get an artist's event info
- * 
- * 
+ * Get an artist's event info (only for a specific artist)
+ * @param {*} artist String representing the aritst we want
+ * @param {*} date Date representing when we want the events/concerts
+ * @returns 
  */
 export const getArtistEvent = (artist, date) => {
     return bandsintownInstance.get(`${artist}/events/?app_id=${BANDSINTOWN_appID}&date=${date}`);
@@ -18,7 +21,7 @@ export const getArtistEvent = (artist, date) => {
 
 //TO BE USED IN REACT COMPONENT PAGE
 
-  /* CONCERT FUNCTIONALITY NOT NEEDED RN
+  /* The following gets all events for a specific artist (used on artist page)
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await getArtistEvent('The Weeknd', 'upcoming');
