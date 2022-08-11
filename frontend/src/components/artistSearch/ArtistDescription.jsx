@@ -34,6 +34,10 @@ const ArtistDescription = (props) => {
         )
     })
 
+    const uncomingConcerts = props.concerts.map(concertData => {
+        return <UpcomingConcertCard date={concertData.date} venue={concertData.venue} artist={props.artist.name} genre={props.artist.genre}/>
+    })
+
     const subscribedUsers = props.users.map(user => {
         return <UserCard img={user.pfp} name={user.name} mutualNumber={user.mutualNumber} type={user.type} />
     })
@@ -41,8 +45,8 @@ const ArtistDescription = (props) => {
     return (
         <div className="container bg-light mt-5 p-5 Oswald_regular border border-dark">
             {/* Encapsulates entirety of Artist Description page */}
-            <div className="row">
-                <div className="col-8">
+            <div className="row vh-75">
+                <div className="col-7">
                     {/* [pfp] [Name / Genre/ Followers] [subscribe/subscribed btn] */}
                     <div className="row align-items-center">
                         <div className="col-4">
@@ -85,10 +89,13 @@ const ArtistDescription = (props) => {
                 </div>
 
                 {/* [Upcoming concerts col] */}
-                <div className="col bg-secondary border border-dark mx-1">
+                <div className="col h-100 d-flex flex-column bg-secondary border border-dark mx-1">
                     <h2 className="fw-bold m-3 text-center">
                         Upcoming Concerts
                     </h2>
+                    <div className="overflow-auto">
+                        {uncomingConcerts}
+                    </div>
                 </div>
             </div>
 
