@@ -167,6 +167,20 @@ i {
   font-style: normal;
 }
 
+/* Additional styling for words in EventInformation */
 .eventDescription {
   padding-left: 20px;
+  text-decoration: none;
+  color: black;
+}
+
+.eventDescriptionLink {
+  text-decoration: none;
+  color: black;
+
+}
+
+a:hover {
+  background-color: #d8cfd0;
+  color: black;
 }

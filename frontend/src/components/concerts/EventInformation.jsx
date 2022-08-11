@@ -54,8 +54,15 @@ const EventInformation = (props) => {
             <div className="row py-3">
               <i className="bi bi-star fs-1">
                 <span className="eventDescription">
-                  {props.mutualFriends} mutual friends and {props.others} others
-                  are also interested in this event.
+                  <p className="card-text d-inline">
+                    <a
+                      href="/concerts/interestedattendees"
+                      className="eventDescriptionLink"
+                    >
+                      {props.mutualFriends} mutual friends and {props.others}{" "}
+                      others are also interested in this event.
+                    </a>
+                  </p>
                 </span>
               </i>
             </div>
