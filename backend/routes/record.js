@@ -231,13 +231,14 @@ recordRoutes.route("/concerts/add").put(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
     _id : req.body._id,
+    img: req.body.img,
+    name: req.body.name,
     venueName: req.body.venueName,
+    venueLocation: req.body.venueLocation,
+    day: req.body.day,
     date: req.body.date,
-    associatedArtists: req.body.associatedArtists,
     interestedUsers: [req.body.interestedUsers],
     goingUsers: [req.body.goingUsers],
-    latitude: req.body.latitude,
-    longitude: req.body.longitude,
   };
   db_connect.collection("event")
     .insertOne(myobj, function (err, res) {
@@ -245,6 +246,7 @@ recordRoutes.route("/concerts/add").put(function (req, response) {
         console.log(err);
         throw err;
       }
+      console.log("Added a concert")
       response.json(res);
      });
 });
@@ -280,4 +282,36 @@ recordRoutes.route("/concerts/interested/:id").get(function (req, response) {
       response.json(res);
     });
 });
+
+// This section will help us mutual friends and others going
+recordRoutes.route("/concerts/interestedattendees/:id").get(function (req, response) {
+  let db_connect = dbo.getDb();
+  let myquery = { "_id": req.params.id };
+  db_connect.collection("event")
+    .find(myquery)
+    .toArray(function (err, res) {
+      if (err) {
+        console.log(err);
+        return err;
+      }
+      //all data is sent in res.data
+      response.json(res);
+    });
+});
+
+// TODO: write route that compares users
+recordRoutes.route("user/:userId/:mutualId").get(function (req, reqponse) {
+  let db_connect = dbo.getDb();
+  let myquery = { "user": req.params.id };
+  db_connect.collection("event")
+    .find(myquery)
+    .toArray(function (err, res) {
+      if (err) {
+        console.log(err);
+        return err;
+      }
+      //all data is sent in res.data
+      response.json(res);
+    });
+})
 module.exports = recordRoutes;
