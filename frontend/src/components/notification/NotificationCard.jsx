@@ -4,11 +4,11 @@ import Buttons from '../Buttons';
 
 
 const NotificationCard = {
-    followRequest: (props) => {
+    FollowRequest: (props) => {
         return (
             <div className="card m-5 bg-neutral-light Oswald_regular shadow">
                 <span class="position-absolute top-0 start-100 translate-middle p-2 rounded-circle">
-                    <Buttons.Close></Buttons.Close>
+                    <Buttons.Close />
                 </span>
                 <div className="row g-0 align-items-center">
                     <div className="col-sm-1 d-flex align-items-center">
@@ -29,11 +29,11 @@ const NotificationCard = {
         );
     },
 
-    artistsEvent: (props) => {
+    ArtistsEvent: (props) => {
         return (
             <div className="card m-5 bg-neutral-light Oswald_regular shadow">
-                <span class="position-absolute top-0 start-100 translate-middle p-2 rounded-circle">
-                    <Buttons.Close></Buttons.Close>
+                <span className="position-absolute top-0 start-100 translate-middle p-2 rounded-circle">
+                    <Buttons.Close onClick={props.onClick}/>
                 </span>
                 <div className="row g-0 align-items-center">
                     <div className="col-sm-1 d-flex align-items-center">
@@ -41,7 +41,7 @@ const NotificationCard = {
                     </div>
                     <div className="col-sm-8">
                         <div className="card-body">
-                            <h5 className="card-title">One of your favorite artists <b>{props.artisitName}</b> is having a concert</h5>
+                            <h5 className="card-title">One of your favorite artists <b>{props.artistName}</b> is having a concert</h5>
                             <h6 className="card-text">Your friend <b>{props.friendName}</b> is also going to this concert</h6>
                         </div>
                     </div>
@@ -50,11 +50,11 @@ const NotificationCard = {
         );
     },
 
-    userAttendingEvent: (props) => {
+    UserAttendingEvent: (props) => {
         return (
             <div className="card m-5 bg-neutral-light Oswald_regular shadow">
                 <span class="position-absolute top-0 start-100 translate-middle p-2 rounded-circle">
-                    <Buttons.Close></Buttons.Close>
+                    <Buttons.Close />
                 </span>
                 <div className="row g-0 align-items-center">
                     <div className="col-sm-1 d-flex align-items-center">
