@@ -12,7 +12,7 @@ const ArtistDescription = (props) => {
     })
 
     const subscribedUsers = props.users.map(user => {
-        return <UserCard img={user.pfp} name={user.name} mutualNumber={user.mutualNumer} type={user.type} />
+        return <UserCard img={user.pfp} name={user.name} mutualNumber={user.mutualNumber} type={user.type} />
     })
 
     return (
