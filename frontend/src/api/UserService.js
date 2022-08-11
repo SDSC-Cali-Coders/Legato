@@ -7,13 +7,8 @@ export async function getUserNotifications(id){
    * @param  {string} id - id of user who's notification you want to get
    * @return {Array notificationObj} - Array of notification objects. 
    */
-  try {
-    let call = '/notification/' + userId;
-    const response = await fetch(call);
-    return await response.json();
-  }catch(error) {
-    return error;
-  }
+  const response = await fetch('/notification/' + id);
+  return await response;
 }
 
 export async function deleteUserNotification(objId){
