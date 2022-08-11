@@ -235,4 +235,20 @@ recordRoutes.route("/concerts/interested/:id").get(function (req, response) {
       response.json(res);
     });
 });
+
+// TODO: write route that compares users
+recordRoutes.route("user/:userId/:mutualId").get(function (req, reqponse) {
+  let db_connect = dbo.getDb();
+  let myquery = { "user": req.params.id };
+  db_connect.collection("event")
+    .find(myquery)
+    .toArray(function (err, res) {
+      if (err) {
+        console.log(err);
+        return err;
+      }
+      //all data is sent in res.data
+      response.json(res);
+    });
+})
 module.exports = recordRoutes;
