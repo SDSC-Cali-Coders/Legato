@@ -6,9 +6,9 @@ import ConcertsGoingScript from './pageScripts/ConcertsGoingScript';
 import ConcertsBookmarkedScript from './pageScripts/ConcertsBookmarkedScript';
 import EventInformationScript from './pageScripts/EventInformationScript';
 import ListeningHistoryScript from './pageScripts/ListeningHistoryScript';
+import InterestedAttendeesScript from './pageScripts/InterestedAttendeesScript';
 import SettingsScript from './pageScripts/SettingsScript';
 import MainSearchArtists from './components/artistSearch/MainView';
-import InterestedAttendees from "./components/concerts/InterestedAttendees";
 
 /**
  * This AppRouter allows us to navigate across the application and works with our
@@ -36,7 +36,7 @@ function AppRouter() {
                 <EventInformationScript />
             } />
             <Route path = {`/concerts/interestedattendees`} element = {
-                <InterestedAttendees />
+                <InterestedAttendeesScript />
             } />
             <Route path = "/settings/" element = {
                 <SettingsScript />
