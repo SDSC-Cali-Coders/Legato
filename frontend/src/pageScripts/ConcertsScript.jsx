@@ -1,61 +1,26 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { userContext } from '../api/userContext'
 import { useContext } from 'react';
-import { getArtistDetail, getConcertsForArtistDateSorted } from '../api/ticketmaster';
+import { getArtistDetail, getConcertsForArtistDateSorted, getConcertsLocation, getGenreDetail, getConcertsLocationGenre } from '../api/ticketmaster';
 import { catchErrors } from '../utils';
 
 import Concerts from "../pages/Concerts";
 import EventInformation from "../components/concerts/EventInformation";
-import BookmarkedConcerts from "../components/concerts/BookmarkedConcerts";
-import GoingConcerts from "../components/concerts/GoingConcerts";
 import InterestedAttendees from "../components/concerts/InterestedAttendees";
 import SearchView from "../components/concerts/SearchView";
 import PrivateProfile from "../components/concerts/PrivateProfile";
-import ListeningHistoryScript from './ListeningHistoryScript';
-import SettingsScript from './SettingsScript';
 import MainView from '../components/artistSearch/MainView';
-
-// filler data taken from old `concerts-pages` AppRouter.js
-let card1 = Array(7).fill({
-  img: "https://i.guim.co.uk/img/media/26bd84ad34111920d6eebf52de3ee1b098b4a3e6/0_47_1472_883/master/1472.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=75dfdb3554b9610d5baacb8d7e44b74a",
-  name: "Drake",
-  venueName: "The Forum",
-  venueLocation: "Inglewood, CA",
-  day: "TUES",
-  date: "JUL 5",
-});
-
-let card2 = Array(4).fill({
-  img: "https://cdn1.umg3.net/986/files/2021/06/album_thepolice-compressed.jpg",
-  name: "The Police",
-  venueName: "Rose Bowl Stadium",
-  venueLocation: "Pasadena, CA",
-  day: "THUR",
-  date: "AUG 4",
-});
-
-let list1 = Array(11).fill({
-  date: "July 7, 2022",
-  day: "Thursday",
-  time: "8:00 PM PST",
-  name: "Drake",
-  genre: "Hip-Hop",
-  venueName: "The Forum",
-  venueLocation: "Inglewood, CA",
-});
 
 const ConcertsScript = () => {
   const id = useContext(userContext).id;
-  // console.log("my id from the context is " + id)
   const lat = useContext(userContext).lat;
   const lng = useContext(userContext).lng;
-  // console.log("my lat,lng from the context is " + lat + "," + lng);
-  const [artistData, setArtistData] = useState(null);
-  const [concerts, setConcerts] = useState(null);
+  const [genreData, setGenreData] = useState(null);
+  const [nearbyConcerts, setNearbyConcerts] = useState(null);
+  const [reccConcerts, setReccConcerts] = useState(null);
+  let effectTriggeredRef = useRef(false);
 
   /* INFO ON CODE BLOCK: integrates the getArtistDetail + getConcertsForArtist API Call
   // Note: both of these API calls should be used together
@@ -80,22 +45,40 @@ const ConcertsScript = () => {
   }, [lat, lng, artistData]);
   */
 
-  /* INFO ON CODE BLOCK: integrates the getConcertsLocation API Call
+  // INFO ON CODE BLOCK: integrates the getConcertsLocation API Call
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await getConcertsLocation(lat, lng, '20', '75');
-      setConcerts(data);
+      setNearbyConcerts(data);
     };
     if (lat && lng) {
       catchErrors(fetchData());
     }
   }, [lat, lng]);
-  */
 
-  /* INFO ON CODE BLOCK: integrates getConcertsLocationGenre and getGenreDeatil API Call
+  let loccCards = [];
+  if (nearbyConcerts) {
+    for (let i = 0; i < nearbyConcerts.page.size; i++) {
+      loccCards.push({
+        id: nearbyConcerts._embedded.events[i].id,
+        img: nearbyConcerts._embedded.events[i].images[5].url,
+        name: nearbyConcerts._embedded.events[i]._embedded.attractions ?
+          nearbyConcerts._embedded.events[i]._embedded.attractions[0].name : nearbyConcerts._embedded.events[i].name,
+        venueName: nearbyConcerts._embedded.events[i]._embedded.venues[0].name,
+        venueLocation: nearbyConcerts._embedded.events[i]._embedded.venues[0].city.name
+          + ", " + nearbyConcerts._embedded.events[i]._embedded.venues[0].state.stateCode,
+        day: nearbyConcerts._embedded.events[i].dates.start.localDate,
+        // NEEDS TO BE CHANGED: Filter the date and time
+        date: nearbyConcerts._embedded.events[i].dates.start.localTime,
+      })
+    }
+  }
+
+  // INFO ON CODE BLOCK: integrates getConcertsLocationGenre and getGenreDeatil API Call
   // Note: both of these API calls should be used together
   useEffect(() => {
     const fetchData = async () => {
+      // We would enter the user's top genre below
       const { data } = await getGenreDetail('rap');
       setGenreData(data);
     };
@@ -104,114 +87,68 @@ const ConcertsScript = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      let genreId = genreData._embedded.classifications[0].segment._embedded.genres[0].id;
+      const genreId = genreData._embedded.classifications[0].segment._embedded.genres[0].id;
+      // note: can specify the radius below
       const { data } = await getConcertsLocationGenre(lat, lng, '20', '75', genreId);
-      setConcerts(data);
+      setReccConcerts(data);
     };
     if (lat && lng && genreData) {
       catchErrors(fetchData());
     }
 
   }, [lat, lng, genreData]);
-  */
 
-  /* INFO ON CODE BLOCK: Makes an example API Call to the concerts route to fetch going concerts
-  let effectTriggeredRef = useRef(false);
-  useEffect(() => {
-    async function fetchGoingConcerts() {
-      // when used on concerts page, we wouldnt hardcode the profile.id
-      //const id = params.id.toString();
 
-      axios.get(`http://localhost:27017/concerts/mgmlj01`)
-        .then(function (response) {
-          // can access specific parts of data by doing "[{# concert}.{DATA}"
-          console.log(response.data)
-        })
-        .catch(function (error) {
-          console.log("this is not working")
-          console.log(error)
-        })
-        .then(function () {
-          console.log("always executed")
-        })
+  let reccCards = [];
+  if (reccConcerts) {
+    console.log(reccConcerts)
+    for (let i = 0; i < reccConcerts.page.size; i++) {
+      reccCards.push({
+        id: nearbyConcerts._embedded.events[i].id,
+        img: reccConcerts._embedded.events[i].images[5].url,
+        name: reccConcerts._embedded.events[i]._embedded.attractions ?
+          reccConcerts._embedded.events[i]._embedded.attractions[0].name : reccConcerts._embedded.events[i].name,
+        venueName: reccConcerts._embedded.events[i]._embedded.venues[0].name,
+        venueLocation: reccConcerts._embedded.events[i]._embedded.venues[0].city.name
+          + ", " + reccConcerts._embedded.events[i]._embedded.venues[0].state.stateCode,
+        day: reccConcerts._embedded.events[i].dates.start.localDate,
+        // NEEDS TO BE CHANGED: Filter the date and time
+        date: reccConcerts._embedded.events[i].dates.start.localTime,
+      })
     }
-    if (!effectTriggeredRef.current) {
-      fetchGoingConcerts();
+  }
+
+  /* NOTE: The following code block integrates adding a concert to the db
+  useEffect(() => {
+    async function addConcertDB() {
+      // When a post request is sent to the create url, we'll add a new record to the database.
+      console.log(reccCards)
+      const newEvent = {
+        _id: reccCards[11].id,
+        img: reccCards[11].img,
+        name: reccCards[11].name,
+        venueName: reccCards[11].venueName,
+        venueLocation: reccCards[11].venueLocation,
+        day: reccCards[11].day,
+        // NEEDS TO BE CHANGED: Filter the date and time
+        date: reccCards[11].date,
+        interestedUsers: id,
+      };
+      catchErrors(axios.put(`http://localhost:27017/concerts/add`, newEvent));
+    }
+    if (!effectTriggeredRef.current && reccCards.length) {
+      addConcertDB();
+      console.log("added concert")
       effectTriggeredRef.current = true;
     }
-  }, []);
+  }, [reccCards]);
   */
 
-  /* INFO ON CODE BLOCK: Makes an example API Call to the concerts route to fetch bookmarked concerts
-  useEffect(() => {
-    async function fetchInterestedConcerts() {
-      // when used on concerts page, we wouldnt hardcode the profile.id
-      //const id = params.id.toString();
-
-      axios.get(`http://localhost:27017/concerts/interested/mgmlj01`)
-        .then(function (response) {
-          // can access specific parts of data by doing "[{# concert}.{DATA}"
-          console.log(response.data)
-        })
-        .catch(function (error) {
-          console.log("this is not working")
-          console.log(error)
-        })
-        .then(function () {
-          console.log("always executed")
-        })
-    }
-    if (!effectTriggeredRef.current) {
-      fetchInterestedConcerts();
-      effectTriggeredRef.current = true;
-    }
-  }, []);
-*/
-
-  // REPLACED ---------------------------------------------------------------------------
-  // return <MainConcert />;
-  // replaced with `concerts-page` branch's old Approuter.js content --------------------
-  return <BrowserRouter>
-      <Routes>
-        {/* Concerts */}
-        <Route
-          path="/concerts/"
-          element={<Concerts recommendedCard={card1} nearbyCard={card2} />}
-        />
-        <Route
-          path="/concerts/eventinformation/"
-          element={
-            <EventInformation
-              img="https://i.guim.co.uk/img/media/26bd84ad34111920d6eebf52de3ee1b098b4a3e6/0_47_1472_883/master/1472.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=75dfdb3554b9610d5baacb8d7e44b74a"
-              name="Drake"
-              genre="Hip-Hop"
-              venueName="The Novo"
-              venueAddress="800 W Olympic Blvd, Los Angeles, CA"
-              date="Tuesday, July 5, 2022"
-              time="8:00 PM PST"
-              mutualFriends="5"
-              others="463"
-            />
-          }
-        />
-        <Route
-          path="/concerts/bookmarked/"
-          element={<BookmarkedConcerts card={card1} />}
-        />
-        <Route
-          path="/concerts/going/"
-          element={<GoingConcerts card={card1} />}
-        />
-        <Route
-          path="/concerts/interestedattendees/"
-          element={<InterestedAttendees />}
-        />
-        <Route
-          path="/concerts/searchview/"
-          element={<SearchView searchCard={list1} />}
-        />
-      </Routes>
-    </BrowserRouter>
+  return (loccCards && reccCards &&
+    <>
+      <Concerts recommendedCard={reccCards} nearbyCard={loccCards} />
+    </>
+  )
 };
 
 export default ConcertsScript;

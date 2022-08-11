@@ -2,6 +2,9 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import ConcertsScript from './pageScripts/ConcertsScript';
+import ConcertsGoingScript from './pageScripts/ConcertsGoingScript';
+import ConcertsBookmarkedScript from './pageScripts/ConcertsBookmarkedScript';
+
 import ListeningHistoryScript from './pageScripts/ListeningHistoryScript';
 import SettingsScript from './pageScripts/SettingsScript';
 import MainSearchArtists from './components/artistSearch/MainView';
@@ -21,6 +24,12 @@ function AppRouter() {
             } />
             <Route path = "/concerts/" element = {
                 <ConcertsScript />
+            } />
+            <Route path = "/concerts/going" element = {
+                <ConcertsGoingScript />
+            } />
+            <Route path = "/concerts/bookmarked" element = {
+                <ConcertsBookmarkedScript />
             } />
             <Route path = "/settings/" element = {
                 <SettingsScript />
