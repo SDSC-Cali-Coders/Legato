@@ -2,6 +2,29 @@ import React from 'react';
 import Buttons from '../Buttons';
 import UserCard from '../UserCard';
 
+const UpcomingConcertCard = (props) => {
+    const dateString = props.date.toLocaleString('en-US', {month: 'long', day: 'numeric', year: 'numeric'})
+    const timeString = props.date.toLocaleString('en-US', {weekday: 'long', hour: 'numeric', minute: 'numeric', timeZoneName:'short'})
+
+    return (
+        <div className="container bg-primary border rounded">
+            <div className="row justify-content-start">
+                <div className="col-5">
+                    <p> {dateString} </p>
+                    <p> {timeString} </p>
+                </div>
+                <div className="col">
+                    <p> {props.artist}, {props.genre} </p>
+                    <p> {props.venue} </p>
+                </div>
+                {/* <div className="col-2 bg-dark">
+                    <Buttons.Play />
+                </div> */}
+            </div>
+        </div>
+    )
+}
+
 const ArtistDescription = (props) => {
     const topSongs = props.topSongs.map(songName => {
         return (
