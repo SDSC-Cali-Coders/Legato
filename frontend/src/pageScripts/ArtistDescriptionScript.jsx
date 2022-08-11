@@ -6,8 +6,8 @@ import defPfp from '../assets/profile.svg'
 const demoArtistData = {
     img: demoImg,
     name: 'The Police',
-    Genre: 'Rock',
-    Followers: 200102
+    genre: 'Rock',
+    followers: 200102
 }
 
 const demoTopSongs = [
