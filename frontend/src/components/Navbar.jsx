@@ -3,8 +3,10 @@ import logo from '../assets/icon.svg';
 import divider from '../assets/divider.svg';
 import notification from '../assets/notification.svg';
 import profile from '../assets/profile.svg';
+import { NavLink } from "react-router-dom";
+
 const Navbar = () => {
-    
+
     return (
         <div>
             <nav className="navbar navbar-dark navbar-expand-lg bg-neutral-dark shadow">
@@ -15,26 +17,28 @@ const Navbar = () => {
                     <div className='d-flex align-items-center ms-2'>
                         <img src={logo} alt="" width="30" />
                         <img src={divider} alt="" width="2" className='mx-3' />
-                        <a className="Sofia_cursive fs-4 p-0" href="#">Legato</a>
+                        <a className="Sofia_cursive fs-4 p-0" to="/">Legato</a>
                     </div>
                     <ul className="navbar-nav ms-auto me-auto Oswald_regular">
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="http://localhost:3000/">History</a>
+                            <NavLink className="nav-link" aria-current="page" to="/">History</NavLink>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link " href="http://localhost:3000/artists">Artists</a>
+                            <NavLink className="nav-link" to="/artists">Artists</NavLink>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="http://localhost:3000/concerts">Concerts</a>
+                            <NavLink className="nav-link" to="/concerts">Concerts</NavLink>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Friends</a>
+                            <NavLink className="nav-link" to="/Friends">Friends</NavLink>
                         </li>
                     </ul>
-                    <a className="btn" href='http://localhost:3000/notifications'><img src={notification} alt="" width="auto" /></a>
-                    <a href="http://localhost:3000/settings">
+                    <NavLink className="nav-link" to="/notifications">
+                        <button className="btn" ><img src={notification} alt="" width="auto" /></button>
+                    </NavLink>
+                    <NavLink className="nav-link" to="/settings">
                         <button className="btn" ><img src={profile} alt="" width="auto" /></button>
-                    </a>
+                    </NavLink>
                 </div>
             </nav>
         </div>

@@ -5,6 +5,8 @@ import {
     Route,
 } from 'react-router-dom';
 
+import Navbar from "./components/Navbar";
+
 import ConcertsScript from './pageScripts/ConcertsScript';
 import ListeningHistoryScript from './pageScripts/ListeningHistoryScript';
 import SettingsScript from './pageScripts/SettingsScript';
@@ -20,6 +22,7 @@ function AppRouter() {
 
     return (
         <BrowserRouter>
+        <Navbar/>
         <Routes>
             <Route path = "/" element = {
                 <ListeningHistoryScript />
