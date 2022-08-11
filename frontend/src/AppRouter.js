@@ -8,7 +8,9 @@ import EventInformationScript from './pageScripts/EventInformationScript';
 import ListeningHistoryScript from './pageScripts/ListeningHistoryScript';
 import InterestedAttendeesScript from './pageScripts/InterestedAttendeesScript';
 import SettingsScript from './pageScripts/SettingsScript';
-import MainSearchArtists from './components/artistSearch/MainView';
+import ArtistSearchViewScript from './pageScripts/ArtistSearchViewScript';
+
+//import SearchView from './components/artistSearch/SearchView';
 
 /**
  * This AppRouter allows us to navigate across the application and works with our
@@ -41,8 +43,8 @@ function AppRouter() {
             <Route path = "/settings/" element = {
                 <SettingsScript />
             } />
-            <Route path = "/artists/" element = {
-                <MainSearchArtists />
+            <Route path = "/Artists/" element = {
+                <ArtistSearchViewScript />
             } />
         </Routes>
         </BrowserRouter>

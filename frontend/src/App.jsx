@@ -10,8 +10,8 @@ import { getConcertsLocation, getConcertsLocationGenre, getGenreDetail } from '.
 import { render } from "react-dom";
 
 const loggedIn = accessToken ? true : false;
-console.log('access token is ' + accessToken);
-console.log('logged in variable is' + loggedIn);
+console.log("access token is" + accessToken);
+console.log("logged in variable is" + loggedIn);
 
 /**
  * App helps handle the initial login and routing for our application.
