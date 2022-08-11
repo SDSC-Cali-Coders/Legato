@@ -51,11 +51,13 @@ const EventInformation = (props) => {
                 </span>
               </i>
             </div>
-            <div className="row py-3">
+            <div className="row py-3" >
               <i className="bi bi-star fs-1">
-                <span className="eventDescription">
-                  {props.mutualFriends} mutual friends and {props.others} others
-                  are also interested in this event.
+                <span className="eventDescription" >
+
+                    {props.mutualFriends} mutual friends and {props.others} others
+                    are also interested in this event.
+
                 </span>
               </i>
             </div>
