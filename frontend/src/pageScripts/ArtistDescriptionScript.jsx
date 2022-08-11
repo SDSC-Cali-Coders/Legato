@@ -25,12 +25,13 @@ const demoTopSongs = [
 
 const userJaneDoe = {
     pfp: defPfp,
-    userName: 'Jane Doe',
+    name: 'Jane Doe',
     mutualNumber: 5,
     type: 'Friends'
 }
 
-const demoUsersData = Array(demoArtistData.Followers).fill(userJaneDoe)
+// const demoUsersData = Array(Math.min(demoArtistData.followers, 20)).fill(userJaneDoe)
+const demoUsersData = Array(20).fill(userJaneDoe)
 
 const demoConcertData = Array(20).fill({
     date: (new Date()),
