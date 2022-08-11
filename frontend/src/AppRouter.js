@@ -9,6 +9,7 @@ import ConcertsScript from './pageScripts/ConcertsScript';
 import ListeningHistoryScript from './pageScripts/ListeningHistoryScript';
 import SettingsScript from './pageScripts/SettingsScript';
 import MainSearchArtists from './components/artistSearch/MainView';
+import ArtistDescriptionScript from './pageScripts/ArtistDescriptionScript';
 
 /**
  * This AppRouter allows us to navigate across the application and works with our
@@ -31,6 +32,9 @@ function AppRouter() {
             } />
             <Route path = "/artists/" element = {
                 <MainSearchArtists />
+            } />
+            <Route path = "/Artists/Description" element = {
+                <ArtistDescriptionScript />
             } />
         </Routes>
         </BrowserRouter>
