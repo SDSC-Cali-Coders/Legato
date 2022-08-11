@@ -6,11 +6,16 @@ const SearchResults = {
     return (
       <div className="card shadow">
         <div className="card-body border border-dark rounded">
-          <img
-            src={props.img}
-            className="img-fluid rounded-circle"
-            alt="Artist image"
-          />
+          <div className=" d-flex">
+            <div className="ratio ratio-1x1">
+              <img
+                src={props.img}
+                className="flex-fill img-fluid rounded ratio ratio-1x1"
+                alt="Artist image"
+              />
+            </div>
+          </div>
+
           <p className="artistName text-center fs-1 fw-bold">{props.name}</p>
           <p className="text-center fs-4">
             {props.venueName} | {props.venueLocation}
@@ -18,7 +23,10 @@ const SearchResults = {
           <p className="Oswald_bold text-center fs-4">
             {props.day}, {props.date}
           </p>
-          <a href= {`/concerts/eventinformation?event=${props.id}`} className="stretched-link" />
+          <a
+            href={`/concerts/eventinformation?event=${props.id}`}
+            className="stretched-link"
+          />
         </div>
       </div>
     );

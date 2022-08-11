@@ -18,11 +18,16 @@ const EventInformation = (props) => {
         <div className="row align-items-center">
           <div className="col-3 fs-2">
             <div className="card-body rounded p-1 text-center">
-              <img
-                src={props.img}
-                className="img-fluid rounded-circle"
-                alt="Artist image"
-              />
+              <div className=" d-flex">
+                <div className="ratio ratio-1x1">
+                  <img
+                    src={props.img}
+                    className="flex-fill img-fluid rounded ratio ratio-1x1"
+                    alt="Artist image"
+                  />
+                </div>
+              </div>
+
               <p className="artistName text-center fs-1 fw-bold">
                 {props.name}
               </p>
