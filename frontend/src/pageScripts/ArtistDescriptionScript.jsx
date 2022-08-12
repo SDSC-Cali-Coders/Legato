@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, useState, useEffect, useRef } from "react";
 import ArtistDescription from '../components/artistSearch/ArtistDescription';
 import demoImg from '../assets/ThePolice.jpg'
 import defPfp from '../assets/profile.svg'
@@ -7,7 +7,7 @@ const demoArtistData = {
     img: demoImg,
     name: 'The Police',
     genre: 'Rock',
-    followers: 200102
+    followers: 200102,
 }
 
 const demoTopSongs = [
@@ -39,8 +39,10 @@ const demoConcertData = Array(20).fill({
 })
 
 const ArtistDescriptionScript = (props) => {
+    const [isNotSubscribed, setIsNotSubscribed] = useState(true);
+    
     return (
-        <ArtistDescription artist={demoArtistData} topSongs={demoTopSongs} users={demoUsersData} concerts={demoConcertData} />
+        <ArtistDescription artist={demoArtistData} topSongs={demoTopSongs} users={demoUsersData} concerts={demoConcertData} isNotSubscribed={isNotSubscribed} toggleSubscribed={setIsNotSubscribed}/>
     );
 }
 

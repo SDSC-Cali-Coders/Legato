@@ -68,7 +68,27 @@ const ArtistDescription = (props) => {
                         </div>
                         <div className="col-3 me-5 align-self-end">
                             <div className="row">
-                                <Buttons.Subscribe />
+                                {props.isNotSubscribed ? (
+                                <button
+                                    onClick={() => {
+                                    console.log(`Subscribing to artist`);
+                                    props.toggleSubscribed(false);
+                                    }}
+                                    className="btn btn-success" type="button" >
+                                    Subscribe
+                                    <i className="bi bi-plus-lg ps-sm-2"></i>
+                                </button>
+                                ) : (
+                                <button
+                                    onClick={() => {
+                                    console.log(`Unsubscribing from artist`);
+                                    props.toggleSubscribed(true);
+                                    }}
+                                className="btn btn-danger" type="button">
+                                    Subscribed
+                                    <i className="bi bi-dash-lg ps-2"></i>
+                                </button>
+                                )}
                             </div>
                         </div>
                     </div>
