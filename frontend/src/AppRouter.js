@@ -51,7 +51,7 @@ function AppRouter() {
                 <Route path="/settings/FollowersFollowing/" element={
                     <FollowerFollowingScript />
                 } />
-                <Route path="/artist/description" element={
+                <Route path="/artists/description" element={
                     <ArtistDescriptionScript />
                 } />
             </Routes>
