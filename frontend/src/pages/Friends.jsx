@@ -5,6 +5,22 @@ import FriendCard from "../components/friends/FriendCard";
 import defProfileIcon from "../assets/pfpIcon.svg";
 
 const Friends = (props) => {
+  const card = props.card.map((item) => {
+    return (
+      <FriendCard
+        img={item.img}
+        name={item.name}
+        followers={item.followers}
+        mutualFriends={item.mutualFriends}
+        type1={item.type1}
+        mutualConcerts={item.mutualConcerts}
+        type2={item.type2}
+        mutualArtists={item.mutualArtists}
+        type3={item.type3}
+        isFriendAdded={false}
+      />
+    );
+  });
   return (
     <>
       <div className="container mt-3 min-vw-100 Oswald_regular">
@@ -24,109 +40,17 @@ const Friends = (props) => {
         <div className="container-fluid border border-dark bg-primary">
           {/* Row: title [radius btn] */}
           <div className="row align-items-center">
-            <div className="col-10 fs-2">Suggested Friends:</div>
+            <div className="fs-2">Suggested Friends:</div>
           </div>
 
           {/* Row: Grid [2xn] */}
-          <div className="row row-cols-2 g-4">
-            <div className="col">
-              <FriendCard
-                img={defProfileIcon}
-                name="John Doe"
-                followers="41"
-                mutualFriends="5"
-                type1="Friends"
-                mutualConcerts="2"
-                type2="Concerts"
-                mutualArtists="8"
-                type3="Artists"
-                isFriendAdded=""
-              ></FriendCard>
-            </div>
-            <div className="col">
-              <FriendCard
-                img={defProfileIcon}
-                name="John Doe"
-                followers="41"
-                mutualFriends="5"
-                type1="Friends"
-                mutualConcerts="2"
-                type2="Concerts"
-                mutualArtists="8"
-                type3="Artists"
-                isFriendAdded="false"
-              ></FriendCard>
-            </div>
-            <div className="col">
-              <FriendCard
-                img={defProfileIcon}
-                name="John Doe"
-                followers="41"
-                mutualFriends="5"
-                type1="Friends"
-                mutualConcerts="2"
-                type2="Concerts"
-                mutualArtists="8"
-                type3="Artists"
-                isFriendAdded="false"
-              ></FriendCard>
-            </div>
-            <div className="col">
-              <FriendCard
-                img={defProfileIcon}
-                name="John Doe"
-                followers="41"
-                mutualFriends="5"
-                type1="Friends"
-                mutualConcerts="2"
-                type2="Concerts"
-                mutualArtists="8"
-                type3="Artists"
-                isFriendAdded=""
-              ></FriendCard>
-            </div>
-            <div className="col">
-              <FriendCard
-                img={defProfileIcon}
-                name="John Doe"
-                followers="41"
-                mutualFriends="5"
-                type1="Friends"
-                mutualConcerts="2"
-                type2="Concerts"
-                mutualArtists="8"
-                type3="Artists"
-                isFriendAdded="false"
-              ></FriendCard>
+          <div className="vertical-scroll col">
+            <div className="row row-cols-2 border border-primary m-2">
+              {card}
             </div>
           </div>
         </div>
       </div>
-
-      {/*  */}
-      {/* <div className="container">
-        <div className="row mt-5">
-          <div className="col-11">
-            <Searchbar.ConcertSearchbar />
-          </div>
-          <div className="col-1">
-            <DropdownMenu.FindFriendsSortBy />
-          </div>
-        </div>
-        <div className="container border text-left Oswald_regular bg-neutral-secondary">
-          <div className="row-auto mb-2">Suggested Friends:</div>
-          <div className="container text-center mb-2">
-            <div className="row">
-              <div className="col border rounded bg-neutral-primary">
-                <h1 className="m-5">FriendCard PlaceHolder</h1>
-              </div>
-              <div className="col border rounded bg-neutral-primary">
-                <h1 className="m-5">FriendCard PlaceHolder</h1>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
     </>
   );
 };

@@ -5,7 +5,7 @@ import Buttons from "../Buttons";
 const UserCard = (props) => {
   return (
     <div className="container Oswald_regular border border-dark rounded bg-neutral-primary">
-      <div className="row align-items-center">
+      <div className="row align-items-center ">
         <div className="col-4 text-center">
           <img
             src={props.img}
