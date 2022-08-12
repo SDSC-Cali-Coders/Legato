@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const Searchbar = {
   ConcertSearchbar: () => {
@@ -23,7 +23,7 @@ const Searchbar = {
     );
   },
 
-  ArtistSearchbar: () => {
+  ArtistSearchbar: (props) => {
     return (
         <div className="input-group d-flex">
         <div className="input-group-prepend">
@@ -38,7 +38,9 @@ const Searchbar = {
           <input
             type="text"
             className="form-control bg-neutral-secondary text-dark "
+            value={props.searchValue}
             placeholder="Search artists..."
+            onChange={props.onChange}
           />
         </div>
       </div>

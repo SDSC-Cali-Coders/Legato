@@ -87,3 +87,12 @@ export const getConcertsForArtistLocSorted = (lat, lng, size, artist) => {
     +`sort=date,asc&`
     +`apikey=${ticketmaster_key}`);
 };
+
+/**
+ * Call to get information for a specific concert with an id
+ * @param {*} id Ticketmaster id for an event
+ * @returns object containing event info
+ */
+export const getSpecificConcert = (id) => {
+    return ticketmasterInstance.get(`events/${id}.json?apikey=${ticketmaster_key}`);
+};

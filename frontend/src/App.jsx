@@ -1,18 +1,16 @@
 import './App.css';
 import Login from './pages/Login';
-import Navbar from './components/Navbar';
 import AppRouter from './AppRouter';
 import { accessToken, getCurrentUserProfile } from './api/spotify';
 import { userContext } from './api/userContext';
 import { useState, useEffect, useRef } from 'react';
 import { catchErrors } from './utils';
 import { getConcertsLocation, getConcertsLocationGenre, getGenreDetail } from './api/ticketmaster';
-import ConcertSearchResults from './components/concerts/ConcertSearchResults';
 import { render } from "react-dom";
 
 const loggedIn = accessToken ? true : false;
-console.log('access token is ' + accessToken);
-console.log('logged in variable is' + loggedIn);
+console.log("access token is" + accessToken);
+console.log("logged in variable is" + loggedIn);
 
 /**
  * App helps handle the initial login and routing for our application.
@@ -33,7 +31,6 @@ function App(props) {
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
   const [status, setStatus] = useState(null);
-  const [genreData, setGenreData] = useState(null);
   let effectTriggeredRef = useRef(false);
 
   useEffect(() => {
@@ -67,6 +64,18 @@ function App(props) {
       effectTriggeredRef.current = true;
     }
   }, []);
+
+  /* NOTE: The following gets all events for a specific artist (used on artist page)
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await getArtistEvent('The Weeknd', 'upcoming');
+      setArtistEventInfo(data);
+    };
+    catchErrors(fetchData());
+  }, []);
+  */
+
+
 
   /* CODE FOR US TO USE LATER TO CONNECT TO DB DO NOT DELETE
  useEffect(() => {
@@ -102,12 +111,11 @@ function App(props) {
     <>
       {loggedIn ? (profile && lat && lng &&
         <>
-          <Navbar />
           <userContext.Provider value={{
             id: profile.id,
             lat: lat,
             lng: lng,
-            }}>
+          }}>
             <AppRouter />
           </userContext.Provider>
         </>
