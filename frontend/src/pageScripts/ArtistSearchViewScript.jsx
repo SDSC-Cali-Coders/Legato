@@ -1,45 +1,27 @@
 import React, { Component } from 'react';
 
 import ArtistSearchView from '../pages/ArtistSearchView';
-
-import { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+import { useState, useEffect, useRef, useContext } from 'react';
 import { accessToken, searchArtists } from '../api/spotify';
 import { catchErrors } from '../utils';
+import { userContext } from '../api/userContext'
+import { getSubArtist } from "../api/UserService";
 
 // Define an <ArtistResult/> component here
 // <div> - figure out how to align stuff :)
 // [img]..[Artist Name]....[Genre: genre]..........[subscribe + play btn group]
 
 
-// const ArtistResult = (props) => {
-//     return (
-//         <li className="list-group-item d-flex align-item-center bg-primary border-end-0 border-start-0">
-//             <div className="col-1 mx-3">
-//                 <img className='img-fluid' src={props.img} alt="ArtistResult img" />
-//             </div>
-//             <div className="col align-self-center fs-3 text-nowrap text-truncate p-3">
-//                 {props.name}
-//             </div>
-//             <div className="col align-self-center fs-4 text-nowrap text-truncate p-3">
-//                 Genre: {props.genre}
-//             </div>
-//             <div className="col-2 align-self-center d-flex justify-content-between align-items-center">
-//                 {props.isSubscribed
-//                     ? <Buttons.Unsubscribe />
-//                     : <Buttons.Subscribe />
-//                 }
-//                 <Buttons.Play />
-//             </div>
-//         </li>
-//     );
-// }
 
 const ArtistSearchViewScript = (props) => {
+    const id = useContext(userContext).id;
     const [token, setToken] = useState(null);
     const [search, setSearch] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [filterToggle, setFilterToggle] = useState(true);
-
+    let effectTriggeredRef = useRef(false);
+    const [subData, setSubData] = useState(null);
     // console.log(search)
     // console.log(data)
     // if (searchResults) {
@@ -52,30 +34,92 @@ const ArtistSearchViewScript = (props) => {
         console.log(filterToggle);
     }, [filterToggle])
 
+    /* Workflow for getting artist subscriptions:
+        * get the user's list of artist subscriptions
+        * check to see if the first returned artist from spotify search api is in this list
+            * if this is true and we are on the subscribed tab, then return this artists search card
+            * if this is false and we are on the subscribed tab, then return nothing (THIS IS AN EDGE CASE WE NEED TO EXPAND ON)
+            * if this is true and we are on the new artist tab, dont display this artist and display other artists using spotify search api
+            * if this is false and we are on the new artist tab, display all search cards as normal
+    */
+
+    // Makes an API Call to the user connection to fetch all subscribed artists
+    useEffect(() => {
+        async function fetchSubUser() {
+            axios.get(`http://localhost:27017/user/${id}`)
+                .then(function (response) {
+                    setSubData(response.data.subscribedArtists);
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+                .then(function () {
+                    console.log("always executed")
+                })
+        }
+        if (!effectTriggeredRef.current) {
+            fetchSubUser();
+            effectTriggeredRef.current = true;
+        }
+    }, []);
+
     useEffect(() => {
         setToken(accessToken);
         if (!search) return setSearchResults([])
         const fetchData = async () => {
             const { data } = await searchArtists(search);
-            setSearchResults(
-                data.artists.items.map(artist => {
-                    return {
-                        img: artist.images[0].url,
-                        name: artist.name,
-                        genre: artist.genres[0]
-                    }
-                })
-            );
-            // console.log(search)
-            // console.log(data)
-            // if (searchResults) {
-            //     console.log("There's your data")
-            // }
-            // console.log(searchResults)
-            // console.log(artistResult)
+            let artistId = data.artists.items[0].id
+            // if this is true and we are on the subscribed tab, then return this artists search card
+            if (subData.includes(artistId) && filterToggle) {
+                let subArtist = [JSON.parse(JSON.stringify(data.artists.items[0]))];
+                setSearchResults(
+                    subArtist.map(artist => {
+                        return {
+                            img: artist.images[0].url,
+                            name: artist.name,
+                            genre: artist.genres[0]
+                        }
+                    })
+                );
+            }
+
+            // if this is false and we are on the subscribed tab, then return nothing
+            if (!subData.includes(artistId) && filterToggle){
+                //NEED TO FLESH OUT THIS EDGE CASE
+                setSearchResults([])
+            }
+
+            //if this is true and we are on the new artist tab, dont display this artist and display other artists using spotify search api
+            if (subData.includes(artistId) && !filterToggle) {
+                let newArtist = JSON.parse(JSON.stringify(data.artists.items));
+                // remove subscribed artist to show only new artists
+                delete newArtist[0];
+                setSearchResults(
+                    newArtist.map(artist => {
+                        return {
+                            img: artist.images[0].url,
+                            name: artist.name,
+                            genre: artist.genres[0]
+                        }
+                    })
+                );
+            }
+
+            // if this is false and we are on the new artist tab, display all search cards as normal
+            if (!subData.includes(artistId) && !filterToggle) {
+                setSearchResults(
+                    data.artists.items.map(artist => {
+                        return {
+                            img: artist.images[0].url,
+                            name: artist.name,
+                            genre: artist.genres[0]
+                        }
+                    })
+                );
+            }
         };
         catchErrors(fetchData());
-    }, [search]);
+    }, [search, filterToggle]);
 
     function handleChange(e) {
         setSearch(e.target.value);
@@ -152,10 +196,6 @@ const ArtistSearchViewScript = (props) => {
     );
 }
 
-
-// SearchView.propTypes = {
-
-// };
 
 
 export default ArtistSearchViewScript;
