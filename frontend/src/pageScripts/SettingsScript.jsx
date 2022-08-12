@@ -26,7 +26,7 @@ const SettingsScript = () => {
             axios.get(`http://localhost:27017/user/${id}`)
                 .then(function (response) {
                     // can access specific parts of data by doing ".{DATA}"
-                    console.log(response.data);
+                    //console.log(response.data);
                     setResponseData(response.data);
                 })
                 .catch(function (error) {
@@ -69,11 +69,11 @@ const SettingsScript = () => {
                 { songTitle: responseData.topSongs[4].name, artistName: responseData.topSongs[4].artists[0].name },
             ],
             topGenreList: [
-                { genre: responseData.recGenres[0] },
-                { genre: responseData.recGenres[1] },
-                { genre: responseData.recGenres[2] },
-                { genre: responseData.recGenres[3] },
-                { genre: responseData.recGenres[4] },
+                { genre: responseData.topGenres[0] },
+                { genre: responseData.topGenres[1] },
+                { genre: responseData.topGenres[2] },
+                { genre: responseData.topGenres[3] },
+                { genre: responseData.topGenres[4] },
             ]
         }
     }
