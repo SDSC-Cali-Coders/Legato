@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import ArtistSearchView from '../pages/ArtistSearchView';
+import ArtistView from '../pages/ArtistSearchView';
 import axios from 'axios';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { accessToken, searchArtists } from '../api/spotify';
@@ -22,6 +22,8 @@ const ArtistSearchViewScript = (props) => {
     const [filterToggle, setFilterToggle] = useState(true);
     let effectTriggeredRef = useRef(false);
     const [subData, setSubData] = useState(null);
+    const [isNotSubscribed, setIsNotSubscribed] = useState(true);
+
     // console.log(search)
     // console.log(data)
     // if (searchResults) {
@@ -69,15 +71,25 @@ const ArtistSearchViewScript = (props) => {
         const fetchData = async () => {
             const { data } = await searchArtists(search);
             let artistId = data.artists.items[0].id
+
+            if ((subData === null) && filterToggle) {
+                // ADD CASE WHEN THERE IS NO SUBBED ARTISTS
+                // FIX SUBDATA NULL
+            }
+
             // if this is true and we are on the subscribed tab, then return this artists search card
             if (subData.includes(artistId) && filterToggle) {
                 let subArtist = [JSON.parse(JSON.stringify(data.artists.items[0]))];
+                // console.log('This is subArtist: ', subArtist)
                 setSearchResults(
-                    subArtist.map(artist => {
+                    subArtist.map((artist, index) => {
                         return {
+                            ind: index,
+                            artistId: artist.id,
                             img: artist.images[0].url,
                             name: artist.name,
-                            genre: artist.genres[0]
+                            genre: artist.genres[0],
+                            isNotSubscribed: false,
                         }
                     })
                 );
@@ -93,13 +105,16 @@ const ArtistSearchViewScript = (props) => {
             if (subData.includes(artistId) && !filterToggle) {
                 let newArtist = JSON.parse(JSON.stringify(data.artists.items));
                 // remove subscribed artist to show only new artists
-                delete newArtist[0];
+                newArtist.shift();
                 setSearchResults(
-                    newArtist.map(artist => {
+                    newArtist.map((artist, index) => {
                         return {
+                            ind: index,
+                            artistId: artist.id,
                             img: artist.images[0].url,
                             name: artist.name,
-                            genre: artist.genres[0]
+                            genre: artist.genres[0],
+                            isNotSubscribed: true,
                         }
                     })
                 );
@@ -108,11 +123,14 @@ const ArtistSearchViewScript = (props) => {
             // if this is false and we are on the new artist tab, display all search cards as normal
             if (!subData.includes(artistId) && !filterToggle) {
                 setSearchResults(
-                    data.artists.items.map(artist => {
+                    data.artists.items.map((artist, index) => {
                         return {
+                            ind: index,
+                            artistId: artist.id,
                             img: artist.images[0].url,
                             name: artist.name,
-                            genre: artist.genres[0]
+                            genre: artist.genres[0],
+                            isNotSubscribed: true,
                         }
                     })
                 );
@@ -120,6 +138,16 @@ const ArtistSearchViewScript = (props) => {
         };
         catchErrors(fetchData());
     }, [search, filterToggle]);
+
+
+    async function addArtistSub(newData) {
+        // When a post request is sent to the create url, we'll add a new record to the database.
+        const newUser = {
+            subscribedArtists: newData
+        };
+        catchErrors(axios.put(`http://localhost:27017/user/${id}`, newUser));
+    }
+
 
     function handleChange(e) {
         setSearch(e.target.value);
@@ -129,10 +157,42 @@ const ArtistSearchViewScript = (props) => {
         setFilterToggle(val);
     }
 
+    function toggleSubscribed(val, ind) {
+        // First make a deep copy
+        let newSearchResults = [...searchResults];
+    
+        // Use key to figure out which obj in the searchResults [] needs to be modified
+        // val is gonna be the new isNotSubscribed value
+        newSearchResults.at(ind).isNotSubscribed = val;
+        
+        // tyler the creator is not subscribed (true) --> onclick --> (false)
+        
+        console.log("this is toggle artistId", newSearchResults.at(ind).artistId)
+
+        // add artist to subscribed artists
+        if (!newSearchResults.at(ind).isNotSubscribed) {
+            let newSubData = [...subData];
+            newSubData.push(newSearchResults.at(ind).artistId)
+            //addArtistSub(newSubData)
+        }
+
+        // Call set to update the searchResults array
+        setSearchResults(newSearchResults);
+        
+
+        // IMPORTANT: THIS IS ONLY UI --- STILL NEED TO TRIGGER AN API CALL TO UPDATE THE BACKEND WITH THIS DATA CHANGE
+    }
+
     return (
 
         <>
-            <ArtistSearchView search={search} handleChange={handleChange} searchResults={searchResults} toggleFilter={toggleFilter}/>
+            <ArtistView 
+                search={search}
+                handleChange={handleChange}
+                searchResults={searchResults}
+                toggleFilter={toggleFilter}
+                toggleSubscribed={toggleSubscribed}
+            />
 
 
             {/* <>
