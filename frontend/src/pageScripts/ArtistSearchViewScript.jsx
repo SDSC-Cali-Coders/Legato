@@ -71,10 +71,9 @@ const ArtistSearchViewScript = (props) => {
         const fetchData = async () => {
             const { data } = await searchArtists(search);
             let artistId = data.artists.items[0].id
-
-            if ((subData === null) && filterToggle) {
-                // ADD CASE WHEN THERE IS NO SUBBED ARTISTS
-                // FIX SUBDATA NULL
+            console.log('This is subData: ', subData)
+            if ((subData == []) && filterToggle) {
+                setSearchResults([])
             }
 
             // if this is true and we are on the subscribed tab, then return this artists search card
@@ -94,7 +93,7 @@ const ArtistSearchViewScript = (props) => {
                     })
                 );
             }
-
+            
             // if this is false and we are on the subscribed tab, then return nothing
             if (!subData.includes(artistId) && filterToggle){
                 //NEED TO FLESH OUT THIS EDGE CASE
@@ -140,13 +139,13 @@ const ArtistSearchViewScript = (props) => {
     }, [search, filterToggle]);
 
 
-    async function addArtistSub(newData) {
+    /* async function addArtistSub(newData) {
         // When a post request is sent to the create url, we'll add a new record to the database.
         const newUser = {
             subscribedArtists: newData
         };
         catchErrors(axios.put(`http://localhost:27017/user/${id}`, newUser));
-    }
+    } */
 
 
     function handleChange(e) {
