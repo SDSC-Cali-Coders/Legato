@@ -28,6 +28,12 @@ function AppRouter() {
                 <Route path="/concerts/" element={
                     <ConcertsScript />
                 } />
+                <Route path="/settings" element={
+                    <SettingsScript />
+                } />
+                <Route path="/Artists/" element={
+                    <ArtistSearchViewScript />
+                } />
                 <Route path="/concerts/going" element={
                     <ConcertsGoingScript />
                 } />
@@ -39,12 +45,6 @@ function AppRouter() {
                 } />
                 <Route path={`/concerts/interestedattendees`} element={
                     <InterestedAttendeesScript />
-                } />
-                <Route path="/settings" element={
-                    <SettingsScript />
-                } />
-                <Route path="/Artists/" element={
-                    <ArtistSearchViewScript />
                 } />
                 <Route path="/settings/FollowersFollowing/" element={
                     <FollowerFollowingScript />
