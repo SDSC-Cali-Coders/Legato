@@ -1,6 +1,5 @@
 import React from "react";
 import AddFriendToggleBtn from "./AddFriendToggleBtn";
-import Buttons from "../Buttons";
 
 const UserCard = (props) => {
   return (
