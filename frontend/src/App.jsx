@@ -8,7 +8,7 @@ import NoFriends from "./components/friends/NoFriends";
 import FriendCard from "./components/friends/FriendCard";
 
 function App(props) {
-  let friendCard1 = Array(10).fill({
+  let friendCard1 = Array(2).fill({
     img: defProfileIcon,
     name: "John Doe",
     followers: "41",
@@ -18,14 +18,13 @@ function App(props) {
     type2: "Concerts",
     mutualArtists: "8",
     type3: "Artists",
-    // isFriendAdded: false,
+    isFriendAdded:false,
   })
   return (
     <>
       {props.isLoggedIn && <Navbar />}
-      <Friends card={friendCard1}/>
-
-      
+      {/* <Friends card={friendCard1}/> */}
+      <NoFriends/>
     </>
   );
 }

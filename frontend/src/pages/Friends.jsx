@@ -2,7 +2,6 @@ import React from "react";
 import Searchbar from "../components/Searchbar";
 import DropdownMenu from "../components/DropdownMenu";
 import FriendCard from "../components/friends/FriendCard";
-import defProfileIcon from "../assets/pfpIcon.svg";
 
 const Friends = (props) => {
   const card = props.card.map((item) => {
@@ -17,7 +16,7 @@ const Friends = (props) => {
         type2={item.type2}
         mutualArtists={item.mutualArtists}
         type3={item.type3}
-        isFriendAdded={false}
+        isFriendAdded={item.isFriendAdded}
       />
     );
   });
@@ -45,6 +44,7 @@ const Friends = (props) => {
 
           {/* Row: Grid [2xn] */}
           <div className="vertical-scroll col">
+            
             <div className="row row-cols-2 border border-primary m-2">
               {card}
             </div>
