@@ -22,4 +22,4 @@ Quick recap of what files changed and the extent to which they changed - of the 
 /assign me
 /assign_reviewer @jacobcbolano @MarcusDudeBro @tambat22
 /target_branch develop
-/milestone %Legato: Sprint 4
+/milestone %"Legato: Sprint 4"
