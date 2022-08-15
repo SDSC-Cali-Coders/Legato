@@ -8,7 +8,7 @@ const NoFriends = (props) => {
         <div className="container">
             <div className="row mt-5">
                 <div className="col-11">
-                    <Searchbar.ConcertSearchbar />
+                    <Searchbar.FindFriendsSearchbar />
                 </div>
                 <div className="col-1">
                     <DropdownMenu.FindFriendsSortBy />
