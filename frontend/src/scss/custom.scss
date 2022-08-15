@@ -10,7 +10,8 @@
 @import "node_modules/bootstrap/scss/variables";
 
 // 4. Include any default map overrides here
-/* Neutral background colors */
+
+// Overriding bootstrap colors with the neutralis scheme
 $bg-neutral-light: #F2F1EF;
 
 $bg-neutral-body: #697184;
@@ -29,6 +30,7 @@ $theme-colors: (
   "body": $bg-neutral-body
 );
 
+// Appending additional positions to positions map
 $extended-positions: (
   5: 5%,
   10: 10%,
@@ -37,6 +39,42 @@ $extended-positions: (
 
 // Merging into positions map now
 $position-values: map-merge($extended-positions, $position-values);
+
+// Extending spacers map with drastic additional spacing
+$extended-spacers: (
+  10: $spacer * 6,
+  15: $spacer * 9,
+  20: $spacer * 12,
+  25: $spacer * 15,
+  30: $spacer * 18,
+  35: $spacer * 21,
+  40: $spacer * 24,
+  45: $spacer * 27,
+);
+
+$spacers: map-merge($extended-spacers, $spacers);
+
+$extended-fs: (
+  7: $h6-font-size * .75,
+  8: $h6-font-size * .50,
+  9: $h6-font-size * .25
+);
+
+$font-sizes: map-merge($extended-fs, $font-sizes);
+
+// Extending spacers map with drastic additional spacing
+$extended-spacers: (
+  10: $spacer * 6,
+  15: $spacer * 9,
+  20: $spacer * 12,
+  25: $spacer * 15,
+  30: $spacer * 18,
+  35: $spacer * 21,
+  40: $spacer * 24,
+  45: $spacer * 27,
+);
+
+$spacers: map-merge($extended-spacers, $spacers);
 
 // 5. Include remainder of required parts
 @import "/node_modules/bootstrap/scss/maps";
@@ -52,6 +90,27 @@ $position-values: map-merge($extended-positions, $position-values);
 @import "/node_modules/bootstrap/scss/grid";
 @import "/node_modules/bootstrap/scss/helpers";
 
+// Extend utilities' viewport height value options
+$utilities: map-merge(
+  $utilities, 
+  (
+    "viewport-height": map-merge(
+      map-get($utilities, "viewport-height"),
+      (
+        "values": map-merge(
+          map-get(map-get($utilities, "viewport-height"), "values"),
+          (
+            10: 10vh,
+            25: 25vh,
+            50: 50vh,
+            75: 75vh,
+            90: 90vh
+          )
+        )
+      )
+    )
+  ) 
+);
 // 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
 @import "/node_modules/bootstrap/scss/utilities/api";
 

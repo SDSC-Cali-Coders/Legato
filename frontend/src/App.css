@@ -112,12 +112,6 @@
   align-items: center;
   justify-content: center;
 }
-.btn-colored {
-  width: 10rem;
-}
-.btn-follow {
-  width: 15rem;
-}
 
 /* Special styling for btn-play (uniquely shaped) */
 .btn-play:hover {
@@ -133,30 +127,24 @@
 }
 
 /* Style for button group on listening history TopCard */
-.button-group:hover{
+.button-group:hover {
   color: white;
   transition: 0.9s;
 }
 
-/* Additional styling for ConcertResults */
-/* .container {
-  text-align: left;
-  padding: none;
-  margin: none;
-  background-color: #B1A6A4;
-} */
-
-.concertResultsBtn:hover, .concertResultsBtn:active, .concertResultsBtn:focus {
-  background-color: #B1A6A4 !important;
-  transition: 0.2s;
-  border: #B1A6A4;
+/* Additional styling for concert search card artist name */
+.artistName {
+  text-shadow: 2px 2px rgb(116, 110, 110);
 }
 
-.triangleBtnSection{
-  background-color: #B1A6A4 !important;
+.concertcardbtn {
+  float: right;
+}
+
+.triangleBtnSection {
+  background-color: #b1a6a4 !important;
   transition: 0.2s;
   border: none;
-  
 }
 /* Additional styling for dropdown menus */
 .dropdown-menu > li > a:hover {
@@ -182,4 +170,34 @@
 
 .btn-friendNotAdded:active, .btn-friendAdded:active {
   color:white
+}
+
+/* Additional styling for scrollbar feature on main concerts page */
+.vertical-scroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 75vh;
+}
+
+/* Additional styling to remove italics in EventInformation */
+i {
+  font-style: normal;
+}
+
+/* Additional styling for words in EventInformation */
+.eventDescription {
+  padding-left: 20px;
+  text-decoration: none;
+  color: black;
+}
+
+.eventDescriptionLink {
+  text-decoration: none;
+  color: black;
+
+}
+
+a:not(nav-link) hover {
+  background-color: #d8cfd0;
+  color: black;
 }
