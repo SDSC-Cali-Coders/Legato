@@ -191,7 +191,8 @@ i {
   color: black;
 }
 
-.eventDescriptionLink {
+.eventDescriptionLink
+.findFriendsLink {
   text-decoration: none;
   color: black;
 

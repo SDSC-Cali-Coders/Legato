@@ -1,7 +1,7 @@
 import React from "react";
 
 const AddFriendToggleBtn = {
-  FriendAdded: (props) => {
+  FriendAdded: () => {
     return (
       <button className="btn-friendAdded border-0 bg-transparent fs-1" type="button">
         <i className="bi bi-person-check-fill"></i>
@@ -9,7 +9,7 @@ const AddFriendToggleBtn = {
     );
   },
 
-  FriendNotAdded: (props) => {
+  FriendNotAdded: () => {
     return (
       <button className="btn-friendNotAdded border-0 bg-transparent fs-1" type="button">
         <i className="bi bi-person-plus-fill"></i>
