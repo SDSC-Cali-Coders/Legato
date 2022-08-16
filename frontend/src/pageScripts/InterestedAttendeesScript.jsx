@@ -152,56 +152,56 @@ useEffect(() => {
 }, [userTypeToggle, mutualFriendList, followingList])
 
 // ---------------------------------------------------------
-  // const id = useContext(userContext).id;
-  // const [responseDataConcert, setResponseDataConcert] = useState(null);
-  // const [responseDataUser, setResponseDataUser] = useState(null);
-  // const [searchParams] = useSearchParams();
-  // const eventId = searchParams.get("event");
+  const id = useContext(userContext).id;
+  const [responseDataConcert, setResponseDataConcert] = useState(null);
+  const [responseDataUser, setResponseDataUser] = useState(null);
+  const [searchParams] = useSearchParams();
+  const eventId = searchParams.get("event");
 
-  // let effectTriggeredRefConcert = useRef(false);
-  // let effectTriggeredRefUser = useRef(false);
+  let effectTriggeredRefConcert = useRef(false);
+  let effectTriggeredRefUser = useRef(false);
 
-  // useEffect(() => {
-  //   async function fetchConcertObject() {
-  //     // when used on concerts page, we wouldnt hardcode the profile.id
-  //     //const id = params.id.toString();
+  useEffect(() => {
+    async function fetchConcertObject() {
+      // when used on concerts page, we wouldnt hardcode the profile.id
+      //const id = params.id.toString();
 
-  //     axios.get(`http://localhost:27017/concerts/interestedattendees/${eventId}`)
-  //       .then(function (response) {
-  //         setResponseDataConcert(response.data);
-  //       })
-  //       .catch(function (error) {
-  //         console.log("this is not working")
-  //         console.log(error)
-  //       })
-  //       .then(function () {
-  //         console.log("always executed")
-  //       })
-  //   }
-  //   if (!effectTriggeredRefConcert.current) {
-  //     fetchConcertObject();
-  //     effectTriggeredRefConcert.current = true;
-  //   }
-  // }, []);
+      axios.get(`http://localhost:27017/concerts/interestedattendees/${eventId}`)
+        .then(function (response) {
+          setResponseDataConcert(response.data);
+        })
+        .catch(function (error) {
+          console.log("this is not working")
+          console.log(error)
+        })
+        .then(function () {
+          console.log("always executed")
+        })
+    }
+    if (!effectTriggeredRefConcert.current) {
+      fetchConcertObject();
+      effectTriggeredRefConcert.current = true;
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   async function fetchUser() {
-  //     axios.get(`http://localhost:27017/user/${id}`)
-  //       .then(function (response) {
-  //         setResponseDataUser(response.data);
-  //       })
-  //       .catch(function (error) {
-  //         console.log(error)
-  //       })
-  //       .then(function () {
-  //         console.log("always executed")
-  //       })
-  //   }
-  //   if (!effectTriggeredRefUser.current) {
-  //     fetchUser();
-  //     effectTriggeredRefUser.current = true;
-  //   }
-  // }, []);
+  useEffect(() => {
+    async function fetchUser() {
+      axios.get(`http://localhost:27017/user/${id}`)
+        .then(function (response) {
+          setResponseDataUser(response.data);
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+        .then(function () {
+          console.log("always executed")
+        })
+    }
+    if (!effectTriggeredRefUser.current) {
+      fetchUser();
+      effectTriggeredRefUser.current = true;
+    }
+  }, []);
 
   // if (responseDataConcert && responseDataUser) {
   //   console.log(responseDataConcert)
