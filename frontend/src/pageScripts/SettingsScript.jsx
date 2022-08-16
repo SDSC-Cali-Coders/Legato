@@ -4,7 +4,7 @@ import Settings from '../pages/Settings';
 import { useState, useEffect, useRef } from 'react';
 import { userContext } from '../api/userContext'
 import { useContext } from 'react';
-
+import { fetchUser } from '../api/UserService'
 
 const SettingsScript = () => {
     /**
@@ -27,24 +27,23 @@ const SettingsScript = () => {
             axios.get(`http://localhost:27017/user/${id}`)
                 .then(function (response) {
                     // can access specific parts of data by doing ".{DATA}"
-                    //console.log(response.data);
-                    setResponseData(response.data);
+                    // console.log(response.data);
+                    setResponseData(response.data)
                 })
                 .catch(function (error) {
                     console.log(error)
                 })
-                .then(function () {
-                    console.log("always executed")
-                })
         }
         if (!effectTriggeredRef.current) {
-            console.log("fetch user called")
+            console.log("fetch user called");
             fetchUser();
             effectTriggeredRef.current = true;
         }
     }, [id]);
     let settingsObj = null;
     if (responseData) {
+        console.log('printing desponse data')
+        console.log(responseData)
         settingsObj = {
             img: responseData.img,
             name: responseData.name,

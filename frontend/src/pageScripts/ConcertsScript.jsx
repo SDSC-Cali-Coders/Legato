@@ -21,6 +21,27 @@ const ConcertsScript = () => {
   const [nearbyConcerts, setNearbyConcerts] = useState(null);
   const [reccConcerts, setReccConcerts] = useState(null);
   let effectTriggeredRef = useRef(false);
+  const [responseData, setResponseData] = useState(null);
+
+  /*useEffect(() => {
+    console.log("use effect")
+    async function fetchUser() {
+      axios.get(`http://localhost:27017/user/${id}`)
+        .then(function (response) {
+          // can access specific parts of data by doing ".{DATA}"
+          // console.log(response.data);
+          setResponseData(response.data)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    }
+    if (!effectTriggeredRef.current) {
+      console.log("fetch user called");
+      fetchUser();
+      effectTriggeredRef.current = true;
+    }
+  }, [id]);*/
 
   /* INFO ON CODE BLOCK: integrates the getArtistDetail + getConcertsForArtist API Call
   // Note: both of these API calls should be used together
@@ -74,25 +95,28 @@ const ConcertsScript = () => {
     }
   }
 
-  // INFO ON CODE BLOCK: integrates getConcertsLocationGenre and getGenreDeatil API Call
+
+  // INFO ON CODE BLOCK: integrates getConcertsLocationGenre and getGenreDetail API Call
   // Note: both of these API calls should be used together
   useEffect(() => {
     const fetchData = async () => {
       // We would enter the user's top genre below
-      const { data } = await getGenreDetail('rap');
+      const { data } = await getGenreDetail(`dance`);
       setGenreData(data);
     };
     catchErrors(fetchData());
   }, []);
 
+
   useEffect(() => {
     const fetchData = async () => {
       const genreId = genreData._embedded.classifications[0].segment._embedded.genres[0].id;
       // note: can specify the radius below
-      const { data } = await getConcertsLocationGenre(lat, lng, '20', '75', genreId);
+      const { data } = await getConcertsLocationGenre(lat, lng, '20', '100', genreId);
       setReccConcerts(data);
     };
     if (lat && lng && genreData) {
+      //console.log(Object.keys(genreData).length)
       catchErrors(fetchData());
     }
 

@@ -8,6 +8,11 @@ const ticketmasterInstance = axios.create({
     }
 })
 
+export const ticketMasterGenres = ['alternative', 'ballads', 'romantic', 'blues', 'children',
+    'classical', 'country', 'dance', 'electronic', 'folk', 'rap', 'hip-hop', 'holiday',
+    'jazz', 'latin', 'metal', 'new age', 'pop', 'r&b', 'reggae', 'religion', 'rock',
+    'world'];
+
 // Note: All the API Calls follow the following documentation: https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/
 
 /**
@@ -20,8 +25,8 @@ const ticketmasterInstance = axios.create({
  */
 export const getConcertsLocation = (lat, lng, size, radius) => {
     return ticketmasterInstance.get(`events.json?classificationName=music&`
-    +`size=${size}&geoPoint=${lat},${lng}&`
-    +`radius=${radius}&apikey=${ticketmaster_key}`);
+        + `size=${size}&geoPoint=${lat},${lng}&`
+        + `radius=${radius}&apikey=${ticketmaster_key}`);
 };
 
 /**
@@ -30,6 +35,7 @@ export const getConcertsLocation = (lat, lng, size, radius) => {
  * @returns An object containing a _embedded field that helps us access the ticketmaster id
  */
 export const getGenreDetail = (genre) => {
+    //console.log(ticketmasterInstance.get(`classifications.json?keyword=rap&apikey=${ticketmaster_key}`))
     return ticketmasterInstance.get(`classifications.json?keyword=${genre}&apikey=${ticketmaster_key}`);
 };
 
@@ -44,9 +50,9 @@ export const getGenreDetail = (genre) => {
  */
 export const getConcertsLocationGenre = (lat, lng, size, radius, genre) => {
     return ticketmasterInstance.get(`events.json?classificationId=${genre}&`
-    +`size=${size}&geoPoint=${lat},${lng}&`
-    +`radius=${radius}&`
-    +`apikey=${ticketmaster_key}`);
+        + `size=${size}&geoPoint=${lat},${lng}&`
+        + `radius=${radius}&`
+        + `apikey=${ticketmaster_key}`);
 };
 
 /**
@@ -68,9 +74,9 @@ export const getArtistDetail = (artist) => {
  */
 export const getConcertsForArtistLocSorted = (lat, lng, size, artist) => {
     return ticketmasterInstance.get(`events.json?attractionId=${artist}&`
-    +`size=${size}&geoPoint=${lat},${lng}&`
-    +`sort=distance,date,asc&`
-    +`apikey=${ticketmaster_key}`);
+        + `size=${size}&geoPoint=${lat},${lng}&`
+        + `sort=distance,date,asc&`
+        + `apikey=${ticketmaster_key}`);
 };
 
 /**
@@ -81,11 +87,11 @@ export const getConcertsForArtistLocSorted = (lat, lng, size, artist) => {
  * @param {*} artist This is a string, specifically a ticketmaster id
  * @returns an object consisting of an embedded field which we use
  */
- export const getConcertsForArtistDateSorted = (lat, lng, size, artist) => {
+export const getConcertsForArtistDateSorted = (lat, lng, size, artist) => {
     return ticketmasterInstance.get(`events.json?attractionId=${artist}&`
-    +`size=${size}&geoPoint=${lat},${lng}&`
-    +`sort=date,asc&`
-    +`apikey=${ticketmaster_key}`);
+        + `size=${size}&geoPoint=${lat},${lng}&`
+        + `sort=date,asc&`
+        + `apikey=${ticketmaster_key}`);
 };
 
 /**
