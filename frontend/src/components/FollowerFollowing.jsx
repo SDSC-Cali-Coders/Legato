@@ -81,11 +81,9 @@ const FollowerFollowing = (props) => {
       </div>
 
       {/* Row: Grid 2xn for (Followers / Following) */}
-      <a href={`#`} className="userProfileLink">
-        <div className="row row-cols-2 g-2 overflow-auto vh-50 align-content-start">
-          {listDisplay}
-        </div>
-      </a>
+      <div className="row row-cols-2 g-2 overflow-auto vh-50 align-content-start">
+        {listDisplay}
+      </div>
     </div>
   );
 };

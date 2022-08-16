@@ -115,11 +115,9 @@ const InterestedAttendees = (props) => {
       <div className="col text-start align-self-center fs-3">
         {userList.length} Users:
       </div>
-      <a href={`#`} className="userProfileLink">
         <div className="row row-cols-2 g-2 overflow-auto vh-50 align-content-start">
           {userList}
         </div>
-      </a>
     </div>
   );
 };
