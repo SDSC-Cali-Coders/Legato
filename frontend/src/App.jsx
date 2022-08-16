@@ -112,7 +112,6 @@ function App(props) {
     <>
       {loggedIn ? (profile && lat && lng &&
         <>
-          <Navbar />
           <userContext.Provider value={{
             id: profile.id,
             lat: lat,

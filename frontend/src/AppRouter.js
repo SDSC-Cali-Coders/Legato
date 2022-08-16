@@ -10,6 +10,8 @@ import InterestedAttendeesScript from './pageScripts/InterestedAttendeesScript';
 import SettingsScript from './pageScripts/SettingsScript';
 import ArtistSearchViewScript from './pageScripts/ArtistSearchViewScript';
 
+import Navbar from "./components/Navbar";
+
 //import SearchView from './components/artistSearch/SearchView';
 
 /**
@@ -21,6 +23,7 @@ function AppRouter() {
 
     return (
         <BrowserRouter>
+        <Navbar />
         <Routes>
             <Route path = "/" element = {
                 <ListeningHistoryScript />
