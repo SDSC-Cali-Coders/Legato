@@ -11,6 +11,7 @@ import SettingsScript from './pageScripts/SettingsScript';
 import FollowerFollowingScript from "./pageScripts/FollowerFollowingScript";
 import ArtistSearchViewScript from './pageScripts/ArtistSearchViewScript';
 import ArtistDescriptionScript from "./pageScripts/ArtistDescriptionScript";
+import FriendsScript from "./pageScripts/FriendsScript";
 
 
 /**
@@ -53,6 +54,9 @@ function AppRouter() {
                 } />
                 <Route path="/artists/description" element={
                     <ArtistDescriptionScript />
+                } />
+                <Route path="/friends/" element={
+                    <FriendsScript/>
                 } />
             </Routes>
         </BrowserRouter>
