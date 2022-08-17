@@ -22,6 +22,7 @@ const SettingsScript = () => {
      * userContext to do so)
      */
     useEffect(() => {
+        console.log("use effect")
         async function fetchUser() {
             axios.get(`http://localhost:27017/user/${id}`)
                 .then(function (response) {
@@ -37,10 +38,11 @@ const SettingsScript = () => {
                 })
         }
         if (!effectTriggeredRef.current) {
+            console.log("fetch user called")
             fetchUser();
             effectTriggeredRef.current = true;
         }
-    }, []);
+    }, [id]);
     let settingsObj = null;
     if (responseData) {
         settingsObj = {
@@ -79,16 +81,19 @@ const SettingsScript = () => {
     }
     // Note: Using "&&" allows us to only render the following components when responseData is not null.
     return (settingsObj &&
-        <Settings
-            profilePic={settingsObj.img}
-            userName={settingsObj.name}
-            followersCount={settingsObj.followersCount}
-            followingCount={settingsObj.followingCount}
-            socialLinks={settingsObj.socialLinks}
-            topArtistsList={settingsObj.topArtistsList}
-            topSongsList={settingsObj.topSongsList}
-            topGenreList={settingsObj.topGenreList}
-        />
+        <>
+            <Settings
+                profilePic={settingsObj.img}
+                userName={settingsObj.name}
+                followersCount={settingsObj.followersCount}
+                followingCount={settingsObj.followingCount}
+                socialLinks={settingsObj.socialLinks}
+                topArtistsList={settingsObj.topArtistsList}
+                topSongsList={settingsObj.topSongsList}
+                topGenreList={settingsObj.topGenreList}
+            />
+        </>
+
     );
 }
 
