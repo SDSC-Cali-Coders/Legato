@@ -64,13 +64,9 @@ const TopThree = {
         return (
             <div className="card text-center bg-light m-3 rounded-4">
                 <RankBadge rank={props.rank}/>
-
-                <img src={props.icon} alt="TopGenre icon" className='card-img-top px-5 pt-5'/>
-                <div className="card-body px-5">
-                    <h3 className="card-title fw-bold">
-                        {props.genre}
-                    </h3>
-                </div>
+                <h3 className="card-title fw-bold my-auto">
+                    {props.genre}
+                </h3>
             </div>
         );
     }

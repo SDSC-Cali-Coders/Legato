@@ -29,16 +29,16 @@ export default function TopCard(props) {
       });
 
       break;
-    case 'Genres':
-      props.topThreeList.forEach((item, index) => {
-        TopThreeCards[index] = <TopThree.Genres rank={item.rank} icon={item.icon} genre={item.genre}/>;
-      });
+    // case 'Genres':
+    //   props.topThreeList.forEach((item, index) => {
+    //     TopThreeCards[index] = <TopThree.Genres rank={item.rank} icon={item.icon} genre={item.genre}/>;
+    //   });
 
-      props.topTenList.forEach((item, index) => {
-        TopTenCards[index] = <TopTen.Genres icon={item.icon} genre={item.genre}/>;
-      });
+    //   props.topTenList.forEach((item, index) => {
+    //     TopTenCards[index] = <TopTen.Genres icon={item.icon} genre={item.genre}/>;
+    //   });
 
-      break;
+    //   break;
   }
 
   return (
