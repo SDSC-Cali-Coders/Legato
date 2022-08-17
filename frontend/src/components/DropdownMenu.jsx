@@ -1,23 +1,26 @@
 import React from "react";
+import { useState } from "react";
 
 const DropdownMenu = {
-  Radius: () => {
+  Radius: (props) => {
+    // const [radius, setRadius] = useState();
     return (
       <div className="dropdown">
-        <button
+        <select
           className="btn bg-neutral-body btn-secondary dropdown-toggle Oswald_less_bold text-white"
-          data-bs-toggle="dropdown"
-          type="button"
-          aria-expanded="false"
+          value={props.radius}
+          onChange={props.onChange}
         >
-          Radius
-        </button>
-        <ul className="dropdown-menu bg-neutral-primary">
+          <option value="75">75 Miles</option>
+          <option value="50">50 Miles</option>
+          <option value="25">25 Miles</option>
+          <option value="10">10 Miles</option>
+          <option value="5">5 Miles</option>
+        </select>
+        {/* <h1>Selected Radius: {radius}</h1> */}
+        {/* <ul className="dropdown-menu bg-neutral-primary">
           <li>
-            <a
-              className="dropdown-item text-white Oswald_less_bold text-white"
-              href="#"
-            >
+            <a className="dropdown-item text-white Oswald_less_bold text-white" href="#">
               5 Miles
             </a>
           </li>
@@ -31,7 +34,7 @@ const DropdownMenu = {
               25 Miles
             </a>
           </li>
-        </ul>
+        </ul> */}
       </div>
     );
   },

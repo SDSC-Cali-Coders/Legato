@@ -17,6 +17,7 @@ const ConcertsScript = () => {
   const id = useContext(userContext).id;
   const lat = useContext(userContext).lat;
   const lng = useContext(userContext).lng;
+  const [rad, setRad] = useState("75");
   const [genreData, setGenreData] = useState(null);
   const [nearbyConcerts, setNearbyConcerts] = useState(null);
   const [reccConcerts, setReccConcerts] = useState(null);
@@ -48,13 +49,19 @@ const ConcertsScript = () => {
   // INFO ON CODE BLOCK: integrates the getConcertsLocation API Call
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await getConcertsLocation(lat, lng, '20', '75');
+      const { data } = await getConcertsLocation(lat, lng, '20', rad);
       setNearbyConcerts(data);
     };
-    if (lat && lng) {
+    if (lat && lng && rad) {
       catchErrors(fetchData());
     }
-  }, [lat, lng]);
+  }, [lat, lng, rad]);
+
+  // INFO ON CODE BLOCK: handle the getConcertsLocation API radius change
+  function handleRadiusChange(e) {
+    setRad(e.target.value);
+    console.log(rad);
+  }
 
   let loccCards = [];
   if (nearbyConcerts) {
@@ -146,7 +153,7 @@ const ConcertsScript = () => {
 
   return (loccCards && reccCards &&
     <>
-      <Concerts recommendedCard={reccCards} nearbyCard={loccCards} />
+      <Concerts recommendedCard={reccCards} nearbyCard={loccCards} onChange={handleRadiusChange} radius={rad}/>
     </>
   )
 };
