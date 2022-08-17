@@ -65,7 +65,8 @@ const ConcertsScript = () => {
 
   let loccCards = [];
   if (nearbyConcerts) {
-    for (let i = 0; i < nearbyConcerts.page.size; i++) {
+    console.log(nearbyConcerts)
+    for (let i = 0; i < nearbyConcerts._embedded.events.length; i++) {
       loccCards.push({
         id: nearbyConcerts._embedded.events[i].id,
         img: nearbyConcerts._embedded.events[i].images[5].url,
@@ -96,7 +97,7 @@ const ConcertsScript = () => {
     const fetchData = async () => {
       const genreId = genreData._embedded.classifications[0].segment._embedded.genres[0].id;
       // note: can specify the radius below
-      const { data } = await getConcertsLocationGenre(lat, lng, '20', '75', genreId);
+      const { data } = await getConcertsLocationGenre(lat, lng, '20', '40', genreId);
       setReccConcerts(data);
     };
     if (lat && lng && genreData) {
@@ -108,8 +109,7 @@ const ConcertsScript = () => {
 
   let reccCards = [];
   if (reccConcerts) {
-    console.log(reccConcerts)
-    for (let i = 0; i < reccConcerts.page.size; i++) {
+    for (let i = 0; i < reccConcerts._embedded.events.length; i++) {
       reccCards.push({
         id: reccConcerts._embedded.events[i].id,
         img: reccConcerts._embedded.events[i].images[5].url,
