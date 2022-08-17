@@ -20,11 +20,12 @@ recordRoutes.route("/user/:id").put(function (req, response) {
   let myobj = {
     _id: req.body.id,
     name: req.body.name,
+    lowercase_name: req.body.lowercase_name,
     img: req.body.img,
     topArtists: req.body.topArtists,
     topSongs: req.body.topSongs,
     topGenres: req.body.topGenres,
-    linkedSocials: {facebook: {}, instagram: {}, twitter: {}, pinterest: {}},
+    linkedSocials: { facebook: {}, instagram: {}, twitter: {}, pinterest: {} },
     followers: [],
     following: [],
     interestedEvents: [],
@@ -37,7 +38,21 @@ recordRoutes.route("/user/:id").put(function (req, response) {
   let myquery = { "_id": myobj._id };
   db_connect.collection("user").findOne(myquery, function (err, res) {
     if (res != null) {
-      console.log("User exists");
+      console.log("User exists, will now update");
+      var newvalues = {
+        $set: {
+          name: req.body.name,
+          lowercase_name: req.body.lowercase_name,
+          img: req.body.img,
+          topArtists: req.body.topArtists,
+          topSongs: req.body.topSongs,
+          topGenres: req.body.topGenres,
+        }
+      };
+      db_connect.collection("user").updateOne(myquery, newvalues, function (err, res) {
+        if (err) throw err;
+        response.json(res);
+      });
     }
     else {
       console.log("user does not exist yet");
@@ -49,7 +64,7 @@ recordRoutes.route("/user/:id").put(function (req, response) {
   });
 });
 
-// This section will help us get users their info for the settings page
+// This section will help us get user's by their id
 recordRoutes.route("/user/:id").get(function (req, response) {
   let db_connect = dbo.getDb();
   let myquery = { "_id": req.params.id };
@@ -79,8 +94,8 @@ recordRoutes.route("/user/:id").delete(function (req, response) {
    */
   let user = req.params.id;
   let db_connect = dbo.getDb();
-  function callback(err, res){
-    if (err){
+  function callback(err, res) {
+    if (err) {
       console.log(err);
       throw err;
     }
@@ -91,20 +106,21 @@ recordRoutes.route("/user/:id").delete(function (req, response) {
     "artist": ["subscribedUsers"],
     "event": ["interestedUsers", "goingUsers"],
     "notification": ["associatedUsers"],
-    "user": ["followers", "following", "outGoingFriendRequests", 
-             "inComingfriendRequests"]
+    "user": ["followers", "following", "outGoingFriendRequests",
+      "inComingfriendRequests"]
   };
-  for(const prop in propsAssociated){
-    for(i in propsAssociated[prop]){
+  for (const prop in propsAssociated) {
+    for (i in propsAssociated[prop]) {
       let curr_prop = propsAssociated[prop][i];
       db_connect.collection(prop).updateMany({}, {
-        "$pull": {[curr_prop]:user}}, callback);
+        "$pull": { [curr_prop]: user }
+      }, callback);
     }
   }
   // deleting documents
-  db_connect.collection("notification").deleteMany({userId: user}, callback);
-  db_connect.collection("user").deleteOne({_id: user}, function (err, res){
-    if (err){
+  db_connect.collection("notification").deleteMany({ userId: user }, callback);
+  db_connect.collection("user").deleteOne({ _id: user }, function (err, res) {
+    if (err) {
       console.log(err);
       throw err;
     }
@@ -116,30 +132,32 @@ recordRoutes.route("/user/:id").delete(function (req, response) {
 // TODO: check if user is already followed?
 recordRoutes.route("/follow").put(function (req, response) {
   let db_connect = dbo.getDb();
-  db_connect.collection("user").updateOne({"_id":req.body.userId}, {
+  db_connect.collection("user").updateOne({ "_id": req.body.userId }, {
     $push: {
       following: req.body.followId
-    }}, function (err, res) {
-      if (err) {
-        console.log(err);
-        throw err;
-      }
-      console.log("following added");
-      // TODO: find out how to include multiple responses
-      // response.json(res);
+    }
+  }, function (err, res) {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+    console.log("following added");
+    // TODO: find out how to include multiple responses
+    // response.json(res);
   });
-  
-  db_connect.collection("user").updateOne({"_id": req.body.followId}, {
+
+  db_connect.collection("user").updateOne({ "_id": req.body.followId }, {
     $push: {
       followers: req.body.userId
-    }}, function (err, res) {
-      if (err) {
-        console.log(err);
-        throw err;
-      }
-      console.log("followed user")
-      response.json(res);
-    });  
+    }
+  }, function (err, res) {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+    console.log("followed user")
+    response.json(res);
+  });
 });
 
 // This section will help unfollow a user
@@ -147,29 +165,31 @@ recordRoutes.route("/follow").put(function (req, response) {
 recordRoutes.route("/unfollow").delete((req, response) => {
   let db_connect = dbo.getDb();
   db_connect.collection("user")
-    .updateOne({"_id": req.body.userId}, {
+    .updateOne({ "_id": req.body.userId }, {
       $pull: {
         following: req.body.followId
-      }}, function (err, obj){
-        if (err) {
-          console.log(err);
-          throw err;
-        }
-        console.log("1 user unfollowed");
-        // TODO: find out how to include multiple responses
-        // response.json(obj);
+      }
+    }, function (err, obj) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      console.log("1 user unfollowed");
+      // TODO: find out how to include multiple responses
+      // response.json(obj);
     });
   db_connect.collection("user")
-    .updateOne({"_id": req.body.followId}, {
+    .updateOne({ "_id": req.body.followId }, {
       $pull: {
         followers: req.body.userId
-      }}, function (err, obj){
-        if (err) {
-          console.log(err);
-          throw err;
-        }
-        console.log("1 user unfollowed");
-        response.json(obj);
+      }
+    }, function (err, obj) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      console.log("1 user unfollowed");
+      response.json(obj);
     });
 });
 
@@ -215,8 +235,8 @@ recordRoutes.route("/notification/add").put(function (req, response) {
 // This section will help delete a notification
 recordRoutes.route("/notification/delete/:id").delete((req, response) => {
   let db_connect = dbo.getDb();
-  let myquery = {"_id": ObjectId(req.params.id)};
-  db_connect.collection("notification").deleteOne(myquery, function (err, obj){
+  let myquery = { "_id": ObjectId(req.params.id) };
+  db_connect.collection("notification").deleteOne(myquery, function (err, obj) {
     if (err) {
       console.log(err);
       throw err;
@@ -231,7 +251,7 @@ recordRoutes.route("/notification/delete/:id").delete((req, response) => {
 recordRoutes.route("/concerts/add").put(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
-    _id : req.body._id,
+    _id: req.body._id,
     img: req.body.img,
     name: req.body.name,
     venueName: req.body.venueName,
@@ -249,7 +269,7 @@ recordRoutes.route("/concerts/add").put(function (req, response) {
       }
       console.log("Added a concert")
       response.json(res);
-     });
+    });
 });
 
 // This section will help us get a user's going concerts
@@ -304,7 +324,7 @@ recordRoutes.route("/concerts/interestedattendees/:id").get(function (req, respo
 recordRoutes.route("user/:userId/:mutualId").get(function (req, reqponse) {
   let db_connect = dbo.getDb();
   let myquery = { "user": req.params.id };
-  db_connect.collection("event")
+  db_connect.collection("user")
     .find(myquery)
     .toArray(function (err, res) {
       if (err) {
@@ -315,4 +335,22 @@ recordRoutes.route("user/:userId/:mutualId").get(function (req, reqponse) {
       response.json(res);
     });
 })
+
+// This section will help us get user's by their name
+recordRoutes.route("/friends/:name").get(function (req, response) {
+  let db_connect = dbo.getDb();
+  let myquery = { "lowercase_name": req.params.name };
+  db_connect.collection("user")
+    .find(myquery)
+    .toArray(function (err, res) {
+      if (err) {
+        console.log(err);
+        return err;
+      }
+      //all data is sent in res.data
+      console.log("got your user")
+      response.json(res);
+    });
+});
+
 module.exports = recordRoutes;
