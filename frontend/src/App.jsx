@@ -7,7 +7,7 @@ import { useState, useEffect, useRef } from 'react';
 import { catchErrors } from './utils';
 import { getConcertsLocation, getConcertsLocationGenre, getGenreDetail } from './api/ticketmaster';
 import { render } from "react-dom";
-
+import axios from 'axios';
 const loggedIn = accessToken ? true : false;
 console.log("access token is" + accessToken);
 console.log("logged in variable is" + loggedIn);
@@ -75,7 +75,27 @@ function App(props) {
   }, []);
   */
 
-
+  /* Note on Code Block: This implements the fetch user by name api route
+  useEffect(() => {
+    async function fetchUserByName() {
+      // name can be upercase/lower case. it just needs to be toLowerCased
+      const name = 'Jacob';
+      axios.get(`http://localhost:27017/friends/${name.toLowerCase()}`)
+        .then(function (response) {
+          // can access specific parts of data by doing response.data.{whatever you want}
+          // Note: response.data will be an array of the results
+          console.log(response.data)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+        .then(function () {
+          console.log("always executed")
+        })
+    }
+    fetchUserByName();
+  }, []);
+  */
 
   /* CODE FOR US TO USE LATER TO CONNECT TO DB DO NOT DELETE
  useEffect(() => {
