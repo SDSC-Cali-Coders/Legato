@@ -1,6 +1,7 @@
 import React from 'react';
 import TopCard from '../components/listeningHistory/TopCard';
 import { useLayoutEffect } from 'react';
+import TopGenre from '../components/listeningHistory/TopGenre';
 
 const ListeningHistory = (props) => {
 
@@ -12,7 +13,7 @@ const ListeningHistory = (props) => {
     TopCards[0] = <TopCard selection={selection}
         topThreeList={props.Artists.topThreeList}
         topTenList={props.Artists.topTenList} />
-    TopCards[2] = <TopCard selection='Genres'
+    TopCards[2] = <TopGenre selection='Genres'
         topThreeList={props.Genres.topThreeList}
         topTenList={props.Genres.topTenList} />
 
