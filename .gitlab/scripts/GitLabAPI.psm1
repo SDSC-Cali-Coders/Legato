@@ -134,7 +134,7 @@ function Invoke-MergeAction {
             $objMrDetails.state -eq 'opened';
             $objMrDetails.merge_status -eq 'can_be_merged';
             $objMrDetails.target_branch -ne 'main';
-            $objMrApprovs.approved_by.Length -ge 3
+            $objMrApprovs.approved_by.Length -ge 2
         );
     }
 
@@ -150,7 +150,7 @@ function Invoke-MergeAction {
 
         # Log some data for help in debugging in the future
         Write-Host ("Approval status data:`n{0}" -f ($objMrApprovs | ConvertTo-Json));
-        Write-Host "`nChecking mergeability (opened | can_be_merged | non-main | approval >= 3):`n$mergeability";
+        Write-Host "`nChecking mergeability (opened | can_be_merged | non-main | approval >= 2):`n$mergeability";
         Write-Host "Checking post body:`n$($objPostBody | ConvertTo-Json)";
 
         if ($mergeability -notcontains $false) {
