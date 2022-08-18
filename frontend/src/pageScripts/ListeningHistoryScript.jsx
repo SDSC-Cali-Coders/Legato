@@ -11,7 +11,7 @@ let artistsObject;
 let genresObject;
 let sortedGenres;
 
-const ListeningHistoryScript = (props) => {
+const ListeningHistoryScript = () => {
 
     const [token, setToken] = useState(null);
     const [topArtists, setTopArtists] = useState(null);
@@ -64,8 +64,9 @@ const ListeningHistoryScript = (props) => {
             // When a post request is sent to the create url, we'll add a new record to the database.
             const newUser = {
                 id: profile.id,
-                name: profile.display_name,
-                img: profile.images[0].url,
+                name: profile.display_name ? profile.display_name : 'User',
+                lowercase_name:  profile.display_name ? profile.display_name.toLowerCase() : 'user',
+                img: profile.images.length > 0 ? profile.images[0].url : 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg',
                 topArtists: topArtists.items.slice(0, 5),
                 topSongs: topSongs.items.slice(0, 5),
                 topGenres: sortedGenres.slice(0, 5)

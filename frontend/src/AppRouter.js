@@ -11,6 +11,7 @@ import SettingsScript from './pageScripts/SettingsScript';
 import FollowerFollowingScript from "./pageScripts/FollowerFollowingScript";
 import ArtistSearchViewScript from './pageScripts/ArtistSearchViewScript';
 import ArtistDescriptionScript from "./pageScripts/ArtistDescriptionScript";
+import FriendsScript from "./pageScripts/FriendsScript";
 
 
 /**
@@ -30,6 +31,12 @@ function AppRouter() {
                 <Route path="/concerts/" element={
                     <ConcertsScript />
                 } />
+                <Route path="/settings" element={
+                    <SettingsScript />
+                } />
+                <Route path="/Artists/" element={
+                    <ArtistSearchViewScript />
+                } />
                 <Route path="/concerts/going" element={
                     <ConcertsGoingScript />
                 } />
@@ -42,17 +49,14 @@ function AppRouter() {
                 <Route path={`/concerts/interestedattendees`} element={
                     <InterestedAttendeesScript />
                 } />
-                <Route path="/settings" element={
-                    <SettingsScript />
-                } />
-                <Route path="/Artists/" element={
-                    <ArtistSearchViewScript />
-                } />
                 <Route path="/settings/FollowersFollowing/" element={
                     <FollowerFollowingScript />
                 } />
                 <Route path="/artists/description" element={
                     <ArtistDescriptionScript />
+                } />
+                <Route path="/friends/" element={
+                    <FriendsScript/>
                 } />
             </Routes>
         </BrowserRouter>
