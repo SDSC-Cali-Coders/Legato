@@ -27,6 +27,9 @@ const FriendsScript = () => {
             mutualFriends: 5,     // hard-coded for now due to 
             mutualConcerts: 2,    // complexity of determing "mutual" data
             mutualArtists: 8,
+            type1: 'Friends',     // also hard-coded for now
+            type2: 'Concerts',    // aiming to get rid of this in the future
+            type3: 'Artists',
             isFollowing: false    // also hard-coded for now due to complexity
           }
         }
