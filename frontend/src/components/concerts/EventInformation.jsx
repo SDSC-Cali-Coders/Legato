@@ -1,6 +1,4 @@
 import React from "react";
-import DropdownMenu from "../DropdownMenu";
-import SearchResults from "./SearchResults";
 import InterestButton from "./InterestButton";
 import Buttons from "../Buttons";
 
