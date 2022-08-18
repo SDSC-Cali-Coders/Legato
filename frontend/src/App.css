@@ -162,14 +162,8 @@
   height: 75vh;
 }
 
-/* Additional styling to remove italics in EventInformation */
-i {
-  font-style: normal;
-}
-
 /* Additional styling for words in EventInformation */
 .eventDescription {
-  padding-left: 20px;
   text-decoration: none;
   color: black;
 }
@@ -177,7 +171,6 @@ i {
 .eventDescriptionLink {
   text-decoration: none;
   color: black;
-
 }
 
 a:hover {

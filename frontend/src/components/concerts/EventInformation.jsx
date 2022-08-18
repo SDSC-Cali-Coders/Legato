@@ -33,32 +33,46 @@ const EventInformation = (props) => {
               </p>
             </div>
           </div>
-          {/* Spacing */}
+          {/* Column spacing */}
           <div className="col-1"></div>
           {/* Concert Information */}
           <div className="col-7 fs-3">
             <div className="row py-3">
-              <i className="bi bi-file-earmark-music fs-1">
-                <span className="eventDescription">Genre: {props.genre}</span>
-              </i>
+              <div className="col-1">
+                <i className="bi bi-file-earmark-music fs-1"></i>
+              </div>
+              <div className="col-11">
+                <span className="eventDescription fs-1">
+                  Genre: {props.genre}
+                </span>
+              </div>
             </div>
             <div className="row py-3">
-              <i className="bi bi-geo-alt fs-1">
-                <span className="eventDescription">
+              <div className="col-1">
+                <i className="bi bi-geo-alt fs-1"></i>
+              </div>
+              <div className="col-11">
+                <span className="eventDescription fs-1">
                   Venue Information: {props.venueName}, {props.venueAddress}
                 </span>
-              </i>
+              </div>
             </div>
             <div className="row py-3">
-              <i className="bi bi-calendar-event fs-1">
-                <span className="eventDescription">
+              <div className="col-1">
+                <i className="bi bi-calendar-event fs-1"></i>
+              </div>
+              <div className="col-11">
+                <span className="eventDescription fs-1">
                   Date: {props.date}, {props.time}
                 </span>
-              </i>
+              </div>
             </div>
             <div className="row py-3">
-              <i className="bi bi-people fs-1">
-                <span className="eventDescription">
+              <div className="col-1">
+                <i className="bi bi-people fs-1"></i>
+              </div>
+              <div className="col-11">
+                <span className="eventDescription fs-1">
                   <p className="card-text d-inline">
                     <a
                       href={`/concerts/interestedattendees?event=${props.id}`}
@@ -69,7 +83,7 @@ const EventInformation = (props) => {
                     </a>
                   </p>
                 </span>
-              </i>
+              </div>
             </div>
           </div>
           <div className="col-1 vstack gap-3 float-end justify-content-center">
