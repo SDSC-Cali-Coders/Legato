@@ -67,6 +67,11 @@ export const getArtistDetail = (artist) => {
  * @returns an object consisting of an embedded field which we use
  */
 export const getConcertsForArtistLocSorted = (lat, lng, size, artist) => {
+    /*
+    const artistDetailData = getArtistDetail(artist);
+    console.log("the details are " + artistDetailData.toString());
+    const id = artistDetailData._embedded.attractions[0].id;
+    console.log("the id is " + id);*/
     return ticketmasterInstance.get(`events.json?attractionId=${artist}&`
     +`size=${size}&geoPoint=${lat},${lng}&`
     +`sort=distance,date,asc&`

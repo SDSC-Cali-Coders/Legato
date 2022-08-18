@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 const Searchbar = {
-  ConcertSearchbar: () => {
+  ConcertSearchbar: (props) => {
     return (
         <div className="input-group d-flex">
           <div className="input-group-prepend">
@@ -10,13 +10,17 @@ const Searchbar = {
               type="button"
             >
               <i className="bi bi-search text-dark"></i>
+              <a href= {`/concerts/searchresults?artist=${props.searchValue}`} className="stretched-link" />
+
             </button>
           </div>
           <div className="searchinput flex-fill">
             <input
               type="text"
               className="form-control bg-neutral-secondary text-dark "
+              value={props.searchValue}
               placeholder="Search concerts..."
+              onChange={props.onChange}
             />
           </div>
         </div>

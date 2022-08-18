@@ -11,7 +11,7 @@ import SettingsScript from './pageScripts/SettingsScript';
 import FollowerFollowingScript from "./pageScripts/FollowerFollowingScript";
 import ArtistSearchViewScript from './pageScripts/ArtistSearchViewScript';
 import ArtistDescriptionScript from "./pageScripts/ArtistDescriptionScript";
-
+import ConcertsSearchScript from "./pageScripts/ConcertsSearchScript";
 
 /**
  * This AppRouter allows us to navigate across the application and works with our
@@ -38,6 +38,9 @@ function AppRouter() {
                 } />
                 <Route path="/concerts/going" element={
                     <ConcertsGoingScript />
+                } />
+                <Route path={`/concerts/searchresults`} element={
+                    <ConcertsSearchScript />
                 } />
                 <Route path="/concerts/bookmarked" element={
                     <ConcertsBookmarkedScript />
