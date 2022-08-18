@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-
+ 
 import ArtistView from '../pages/ArtistSearchView';
 import axios from 'axios';
 import { useState, useEffect, useRef, useContext } from 'react';
-import { accessToken, searchArtists } from '../api/spotify';
+import { accessToken, searchArtists, getArtist } from '../api/spotify';
 import { catchErrors } from '../utils';
 import { userContext } from '../api/userContext'
-import { getSubArtist } from "../api/UserService";
-
+import { getUserInfo } from "../api/UserService";
+ 
 // Define an <ArtistResult/> component here
 // <div> - figure out how to align stuff :)
 // [img]..[Artist Name]....[Genre: genre]..........[subscribe + play btn group]
-
-
-
+ 
+ 
+ 
 const ArtistSearchViewScript = (props) => {
     const id = useContext(userContext).id;
     const [token, setToken] = useState(null);
@@ -22,8 +22,9 @@ const ArtistSearchViewScript = (props) => {
     const [filterToggle, setFilterToggle] = useState(true);
     let effectTriggeredRef = useRef(false);
     const [subData, setSubData] = useState(null);
-    const [isNotSubscribed, setIsNotSubscribed] = useState(true);
-
+    const [artistInfo, setArtistInfo] = useState(null);
+    // const [isNotSubscribed, setIsNotSubscribed] = useState(true);
+ 
     // console.log(search)
     // console.log(data)
     // if (searchResults) {
@@ -31,20 +32,20 @@ const ArtistSearchViewScript = (props) => {
     // }
     // console.log(searchResults)
     // console.log(artistResult)
-
+ 
     useEffect(() => {
         console.log(filterToggle);
     }, [filterToggle])
-
-    /* Workflow for getting artist subscriptions:
+ 
+    
+    /* Workflow for artist search page:
         * get the user's list of artist subscriptions
-        * check to see if the first returned artist from spotify search api is in this list
-            * if this is true and we are on the subscribed tab, then return this artists search card
-            * if this is false and we are on the subscribed tab, then return nothing (THIS IS AN EDGE CASE WE NEED TO EXPAND ON)
-            * if this is true and we are on the new artist tab, dont display this artist and display other artists using spotify search api
-            * if this is false and we are on the new artist tab, display all search cards as normal
+        * if we are on the subscribed artist tab
+            * get artist info for each artist subscription and display to user 
+        * if we are on the general artist tab
+            * search through artists normally with spotify search api and display to user
     */
-
+ 
     // Makes an API Call to the user connection to fetch all subscribed artists
     useEffect(() => {
         async function fetchSubUser() {
@@ -60,23 +61,64 @@ const ArtistSearchViewScript = (props) => {
                 })
         }
         if (!effectTriggeredRef.current) {
-            fetchSubUser();
+            fetchSubUser();    
             effectTriggeredRef.current = true;
         }
-    }, []);
-
+    }, [id]);
+ 
     useEffect(() => {
         setToken(accessToken);
         if (!search) return setSearchResults([])
         const fetchData = async () => {
             const { data } = await searchArtists(search);
-            let artistId = data.artists.items[0].id
+ 
             console.log('This is subData: ', subData)
             if ((subData == []) && filterToggle) {
                 setSearchResults([])
             }
+            
+            
 
-            // if this is true and we are on the subscribed tab, then return this artists search card
+            if (!filterToggle) {
+                console.log("data.items: ", data.artists.items)
+                setSearchResults(
+                    data.artists.items.map((artist, index) => {
+                        return {
+                            ind: index,
+                            artistId: artist.id,
+                            img: artist.images[0].url,
+                            name: artist.name,
+                            genre: artist.genres[0],
+                            isNotSubscribed: true,
+                        }
+                    })
+                );
+ 
+            }
+            
+            // TWO TYPES OF TABS: General Artist Tab & Sub Artist Tab
+            if (filterToggle) {
+                let subArtists = []
+                subData.forEach(async (elem) => {
+                    const { data } = await getArtist(elem);
+                    subArtists.push(data);
+                    setSearchResults(
+                        subArtists.map((artist, index) => {
+                            return {
+                                ind: index,
+                                artistId: artist.id,
+                                img: artist.images[0].url,
+                                name: artist.name,
+                                genre: artist.genres[0],
+                                isNotSubscribed: false,
+                            }
+                        })
+                    )
+                })
+            }
+ 
+ 
+            /* // if subData in artistId and we are on the subscribed tab, then return this artists search card
             if (subData.includes(artistId) && filterToggle) {
                 let subArtist = [JSON.parse(JSON.stringify(data.artists.items[0]))];
                 // console.log('This is subArtist: ', subArtist)
@@ -95,11 +137,11 @@ const ArtistSearchViewScript = (props) => {
             }
             
             // if this is false and we are on the subscribed tab, then return nothing
-            if (!subData.includes(artistId) && filterToggle){
+            if (!subData.includes(artistId) && filterToggle) {
                 //NEED TO FLESH OUT THIS EDGE CASE
                 setSearchResults([])
             }
-
+ 
             //if this is true and we are on the new artist tab, dont display this artist and display other artists using spotify search api
             if (subData.includes(artistId) && !filterToggle) {
                 let newArtist = JSON.parse(JSON.stringify(data.artists.items));
@@ -118,7 +160,7 @@ const ArtistSearchViewScript = (props) => {
                     })
                 );
             }
-
+ 
             // if this is false and we are on the new artist tab, display all search cards as normal
             if (!subData.includes(artistId) && !filterToggle) {
                 setSearchResults(
@@ -133,12 +175,12 @@ const ArtistSearchViewScript = (props) => {
                         }
                     })
                 );
-            }
+            } */
         };
         catchErrors(fetchData());
     }, [search, filterToggle]);
-
-
+ 
+ 
     /* async function addArtistSub(newData) {
         // When a post request is sent to the create url, we'll add a new record to the database.
         const newUser = {
@@ -146,16 +188,16 @@ const ArtistSearchViewScript = (props) => {
         };
         catchErrors(axios.put(`http://localhost:27017/user/${id}`, newUser));
     } */
-
-
+ 
+ 
     function handleChange(e) {
         setSearch(e.target.value);
     }
-
+ 
     function toggleFilter(val) {
         setFilterToggle(val);
     }
-
+ 
     function toggleSubscribed(val, ind) {
         // First make a deep copy
         let newSearchResults = [...searchResults];
@@ -167,23 +209,23 @@ const ArtistSearchViewScript = (props) => {
         // tyler the creator is not subscribed (true) --> onclick --> (false)
         
         console.log("this is toggle artistId", newSearchResults.at(ind).artistId)
-
+ 
         // add artist to subscribed artists
         if (!newSearchResults.at(ind).isNotSubscribed) {
             let newSubData = [...subData];
             newSubData.push(newSearchResults.at(ind).artistId)
             //addArtistSub(newSubData)
         }
-
+ 
         // Call set to update the searchResults array
         setSearchResults(newSearchResults);
         
-
+ 
         // IMPORTANT: THIS IS ONLY UI --- STILL NEED TO TRIGGER AN API CALL TO UPDATE THE BACKEND WITH THIS DATA CHANGE
     }
-
+ 
     return (
-
+ 
         <>
             <ArtistView 
                 search={search}
@@ -192,8 +234,8 @@ const ArtistSearchViewScript = (props) => {
                 toggleFilter={toggleFilter}
                 toggleSubscribed={toggleSubscribed}
             />
-
-
+ 
+ 
             {/* <>
                 {search ? (
                     /* Layout of MSView will be:
@@ -209,7 +251,7 @@ const ArtistSearchViewScript = (props) => {
                                 onChange={handleChange} />
                             {/* <span className="placeholder placeholder-lg col-12"/> 
                         </div>
-
+ 
                         <div className="row text-center justify-content-end">
                             <div className="btn col-2 bg-light align-self-end fw-bold mx-2">
                                 Subscribed Artists
@@ -233,14 +275,14 @@ const ArtistSearchViewScript = (props) => {
                             {/* Layout of MainView will be:
     
                 Searchbar.long
-
+ 
                 Hint text for user
             
                             <div className="col text-center">
                                 <Searchbar.ArtistSearchbar
                                     searchValue={search}
                                     onChange={handleChange} />
-
+ 
                                 <p className="h3 fw-bold pt-4">
                                     Search your subscribed Artists <br />
                                     and Explore new ones!
@@ -254,7 +296,8 @@ const ArtistSearchViewScript = (props) => {
         </>
     );
 }
-
-
-
+ 
+ 
+ 
 export default ArtistSearchViewScript;
+ 
