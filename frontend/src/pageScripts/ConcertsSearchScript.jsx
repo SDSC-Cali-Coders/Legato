@@ -46,17 +46,23 @@ const ConcertsSearchScript = () => {
         console.log(concerts)
         for (let i = 0; i < concerts._embedded.events.length; i++) {
             console.log(concerts._embedded.events[i])
+            console.log(concerts._embedded.events[i]._embedded.venues[0].name)
+            const state = concerts._embedded.events[i]._embedded.venues[0].country.countryCode == 'US' ?
+                concerts._embedded.events[i]._embedded.venues[0].state.stateCode :
+                concerts._embedded.events[i]._embedded.venues[0].country.name;
+            const venueName = concerts._embedded.events[i]._embedded.venues[0].name ?
+                concerts._embedded.events[i]._embedded.venues[0].name :
+                concerts._embedded.events[i]._embedded.venues[0].address.line1;
             searchCards.push({
                 id: concerts._embedded.events[i].id,
                 name: concerts._embedded.events[i]._embedded.attractions ?
                     concerts._embedded.events[i]._embedded.attractions[0].name : concerts._embedded.events[i].name,
-                venueName: concerts._embedded.events[i]._embedded.venues[0].name,
+                venueName: venueName,
                 venueLocation: concerts._embedded.events[i]._embedded.venues[0].city.name
-                    + ", " + concerts._embedded.events[i]._embedded.venues[0].country.countryCode == 'US' ?
-                    concerts._embedded.events[i]._embedded.venues[0].state.stateCode : 
-                    concerts._embedded.events[i]._embedded.venues[0].country.name,
+                    + ", " + state,
                 date: concerts._embedded.events[i].dates.start.localDate,
-                // need to add day
+                // TODO: need to add day
+                day: 'day',
                 time: concerts._embedded.events[i].dates.start.localTime,
             })
         }

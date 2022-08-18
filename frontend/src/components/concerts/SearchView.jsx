@@ -7,6 +7,7 @@ const SearchView = (props) => {
   const searchCard = props.searchCard.map((item) => {
     return (
       <SearchResults.List
+        id={item.id}
         date={item.date}
         day={item.day}
         time={item.time}
