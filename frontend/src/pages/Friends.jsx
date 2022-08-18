@@ -4,9 +4,10 @@ import DropdownMenu from "../components/DropdownMenu";
 import FriendCard from "../components/friends/FriendCard";
 
 const Friends = (props) => {
-  const card = props.card.map((item) => {
+  const card = props.card.map((item, ind) => {
     return (
       <FriendCard
+        key={ind}
         img={item.img}
         name={item.name}
         followers={item.followers}
@@ -20,6 +21,7 @@ const Friends = (props) => {
       />
     );
   });
+
   return (
     <>
       <div className="container mt-3 min-vw-100 Oswald_regular">
