@@ -11,7 +11,7 @@ let artistsObject;
 let genresObject;
 let sortedGenres;
 
-const ListeningHistoryScript = (props) => {
+const ListeningHistoryScript = () => {
 
     const [token, setToken] = useState(null);
     const [topArtists, setTopArtists] = useState(null);
