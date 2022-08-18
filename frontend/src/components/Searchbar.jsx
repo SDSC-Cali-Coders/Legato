@@ -48,6 +48,7 @@ const Searchbar = {
   },
 
   FindFriendsSearchbar: () => {
+    const [searchQuery, setSearchQuery] = useState('')
     return (
         <div className="input-group d-flex">
         <div className="input-group-prepend">
@@ -63,6 +64,10 @@ const Searchbar = {
             type="text"
             className="form-control bg-neutral-secondary text-dark "
             placeholder="Search users..."
+            value={searchQuery}
+            onChange={ (e) => {
+              setSearchQuery(e.target.value)
+            }}
           />
         </div>
       </div>
