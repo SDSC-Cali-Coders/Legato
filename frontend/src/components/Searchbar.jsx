@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 
 const Searchbar = {
   ConcertSearchbar: () => {
@@ -70,6 +70,9 @@ const Searchbar = {
             value={searchQuery}
             onChange={ (e) => {
               setSearchQuery(e.target.value)
+            }}
+            onKeyDown={
+              (e) => {if (e.key === 'Enter') props.handleSearch(searchQuery)
             }}
           />
         </div>
