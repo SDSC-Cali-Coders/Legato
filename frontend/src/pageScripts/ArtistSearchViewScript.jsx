@@ -25,13 +25,6 @@ const ArtistSearchViewScript = (props) => {
     const [artistInfo, setArtistInfo] = useState(null);
     // const [isNotSubscribed, setIsNotSubscribed] = useState(true);
  
-    // console.log(search)
-    // console.log(data)
-    // if (searchResults) {
-    //     console.log("There's your data")
-    // }
-    // console.log(searchResults)
-    // console.log(artistResult)
  
     useEffect(() => {
         console.log(filterToggle);
@@ -64,7 +57,7 @@ const ArtistSearchViewScript = (props) => {
             fetchSubUser();    
             effectTriggeredRef.current = true;
         }
-    }, [id]);
+    }, [id, filterToggle]);
  
     useEffect(() => {
         setToken(accessToken);
@@ -86,9 +79,9 @@ const ArtistSearchViewScript = (props) => {
                         return {
                             ind: index,
                             artistId: artist.id,
-                            img: artist.images[0].url,
+                            img: artist.images.length > 0 ? artist.images[0].url : 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg',
                             name: artist.name,
-                            genre: artist.genres[0],
+                            genre: artist.genres.length > 0 ? artist.genres[0] : "N/A",
                             isNotSubscribed: true,
                         }
                     })
@@ -117,65 +110,6 @@ const ArtistSearchViewScript = (props) => {
                 })
             }
  
- 
-            /* // if subData in artistId and we are on the subscribed tab, then return this artists search card
-            if (subData.includes(artistId) && filterToggle) {
-                let subArtist = [JSON.parse(JSON.stringify(data.artists.items[0]))];
-                // console.log('This is subArtist: ', subArtist)
-                setSearchResults(
-                    subArtist.map((artist, index) => {
-                        return {
-                            ind: index,
-                            artistId: artist.id,
-                            img: artist.images[0].url,
-                            name: artist.name,
-                            genre: artist.genres[0],
-                            isNotSubscribed: false,
-                        }
-                    })
-                );
-            }
-            
-            // if this is false and we are on the subscribed tab, then return nothing
-            if (!subData.includes(artistId) && filterToggle) {
-                //NEED TO FLESH OUT THIS EDGE CASE
-                setSearchResults([])
-            }
- 
-            //if this is true and we are on the new artist tab, dont display this artist and display other artists using spotify search api
-            if (subData.includes(artistId) && !filterToggle) {
-                let newArtist = JSON.parse(JSON.stringify(data.artists.items));
-                // remove subscribed artist to show only new artists
-                newArtist.shift();
-                setSearchResults(
-                    newArtist.map((artist, index) => {
-                        return {
-                            ind: index,
-                            artistId: artist.id,
-                            img: artist.images[0].url,
-                            name: artist.name,
-                            genre: artist.genres[0],
-                            isNotSubscribed: true,
-                        }
-                    })
-                );
-            }
- 
-            // if this is false and we are on the new artist tab, display all search cards as normal
-            if (!subData.includes(artistId) && !filterToggle) {
-                setSearchResults(
-                    data.artists.items.map((artist, index) => {
-                        return {
-                            ind: index,
-                            artistId: artist.id,
-                            img: artist.images[0].url,
-                            name: artist.name,
-                            genre: artist.genres[0],
-                            isNotSubscribed: true,
-                        }
-                    })
-                );
-            } */
         };
         catchErrors(fetchData());
     }, [search, filterToggle]);
@@ -235,64 +169,6 @@ const ArtistSearchViewScript = (props) => {
                 toggleSubscribed={toggleSubscribed}
             />
  
- 
-            {/* <>
-                {search ? (
-                    /* Layout of MSView will be:
-                    
-                                Searchbar.long
-            
-                                Hint text for user
-                    
-                    <div className="container align-items-center Oswald_regular pt-5">
-                        <div className="row mb-3">
-                            <Searchbar.ArtistSearchbar
-                                searchValue={search}
-                                onChange={handleChange} />
-                            {/* <span className="placeholder placeholder-lg col-12"/> 
-                        </div>
- 
-                        <div className="row text-center justify-content-end">
-                            <div className="btn col-2 bg-light align-self-end fw-bold mx-2">
-                                Subscribed Artists
-                            </div>
-                            <div className="btn col-2 bg-primary align-self-end fw-bold">
-                                New Artists
-                            </div>
-                        </div>
-                        <div className="row bg-primary">
-                            <ol className="list-group gx-3">
-                                {/* <ArtistResult img={props.img} name={props.name} genre={props.genre} isSubscribed={props.isSubscribed}/> 
-                                {searchResults.map(artist => (
-                                    <ArtistResult img={artist.img} name={artist.name} genre={artist.genre} isSubscribed={true} />
-                                ))}
-                            </ol>
-                        </div>
-                    </div>
-                ) : (
-                    <div className="container d-flex flex-column min-vh-100 Oswald_regular">
-                        <div className="row flex-grow-1 pt-5">
-                            {/* Layout of MainView will be:
-    
-                Searchbar.long
- 
-                Hint text for user
-            
-                            <div className="col text-center">
-                                <Searchbar.ArtistSearchbar
-                                    searchValue={search}
-                                    onChange={handleChange} />
- 
-                                <p className="h3 fw-bold pt-4">
-                                    Search your subscribed Artists <br />
-                                    and Explore new ones!
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                )}
-            </>
-             */}
         </>
     );
 }
