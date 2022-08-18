@@ -1,9 +1,30 @@
 import React, { useEffect, useState } from "react";
 import Friends from "../pages/Friends";
 import defProfileIcon from "../assets/pfpIcon.svg"
+import { catchErrors } from "../utils";
+import axios from "axios";
 
 const FriendsScript = () => {
   const [searchQuery, setSearchQuery] = useState('')
+  const [searchResults, setSearchResults] = useState([])
+
+  // searchQuery updates triggers network call to backend
+  // response data is used to set searchResults
+  useEffect(() => {
+    if (!searchQuery) return setSearchResults([])
+
+    axios.get(`http://localhost:27017/friends/${searchQuery.toLowerCase()}`)
+    .then((response) => {
+      setSearchResults(response.data)
+    })
+    .catch((error) => {
+      console.log(error)
+    }).then(() => {
+      // Put any "final" logic here (i.e. stuff you always want to run)
+    }
+    )
+  },
+  [searchQuery])
 
   let friendCard1 = Array(2).fill({
     img: defProfileIcon,
