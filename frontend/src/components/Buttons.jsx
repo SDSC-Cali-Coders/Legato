@@ -60,7 +60,7 @@ const Buttons = {
         >
           {" "}
         </i>
-        <audio src={props.preview_url}></audio>
+        <audio loop src={props.preview_url}></audio>
       </>
     );
   },
