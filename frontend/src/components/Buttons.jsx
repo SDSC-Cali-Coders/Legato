@@ -23,7 +23,9 @@ const Buttons = {
         <i
           className="bi bi-caret-right-fill btn-play"
           type="button"
-          onClick={(e) => {
+          onClick={ props.preview_url ?
+            // Conditional onClick audio handling if preview_url provided
+            (e) => {
             const audioPlayer = e.target.nextElementSibling
 
             // preview_url keeps track of state
@@ -56,8 +58,11 @@ const Buttons = {
             e.target.classList.add('bi-pause-fill')
             props.setAudioPlaying(audioPlayer)
 
-          }}
-        >
+            } :
+            // Otherwise, empty callback / no action (prevent errors for "decorational" button use)
+            () => { }
+          }
+          >
           {" "}
         </i>
         <audio loop src={props.preview_url}></audio>
