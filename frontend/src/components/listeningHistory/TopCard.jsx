@@ -25,7 +25,7 @@ export default function TopCard(props) {
       });
 
       props.topTenList.forEach((item, index) => {
-        TopTenCards[index] = <TopTen.Tracks img={item.img} name={item.name} artist={item.artist}/>;
+        TopTenCards[index] = <TopTen.Tracks img={item.img} name={item.name} artist={item.artist} preview_url={item.preview_url}/>;
       });
 
       break;
@@ -39,6 +39,7 @@ export default function TopCard(props) {
     //   });
 
     //   break;
+    default:
   }
 
   return (
