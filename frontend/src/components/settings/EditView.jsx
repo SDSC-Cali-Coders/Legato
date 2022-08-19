@@ -1,4 +1,6 @@
 import React from 'react';
+import { useNavigate, NavLink } from "react-router-dom";
+
 
 const Button = (props) => {
     return (
@@ -9,12 +11,17 @@ const Button = (props) => {
 }
 
 const EditView = (props) => {
+    const navigate = useNavigate();
     return (
         <div className="container d-flex flex-column gap-4 p-5">
             <div className="row mx-5">
                 <div className="col-10"></div>
                 <div className="col-2 text-center">
-                    <Button text="Save"/>
+                    <NavLink to="/settings">
+                        <Button
+                            text="Save"
+                        />
+                    </NavLink>
                 </div>
             </div>
             <div className="row flex-grow-1 mx-5">
@@ -26,7 +33,6 @@ const EditView = (props) => {
                                 <img src={props.img} alt="pfp Image missing" className="img-fluid rounded-circle" />
                             </div>
                             <div className="col d-flex fs-3 align-items-end">
-                                John Doe
                                 {props.name}
                             </div>
                         </div>
@@ -37,28 +43,28 @@ const EditView = (props) => {
                         <div className="row my-2">
                             <div className="input-group align-items-center">
                                 <i className="bi bi-facebook fs-3"></i>
-                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://facebook.com/JohnDoe'/>
+                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://facebook.com/JohnDoe' />
                                 <i className="bi bi-x fs-3"></i>
                             </div>
                         </div>
                         <div className="row my-2">
                             <div className="input-group align-items-center">
                                 <i className="bi bi-twitter fs-3"></i>
-                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://twitter.com/JohnDoe'/>
+                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://twitter.com/JohnDoe' />
                                 <i className="bi bi-x fs-3"></i>
                             </div>
                         </div>
                         <div className="row my-2">
                             <div className="input-group align-items-center">
                                 <i className="bi bi-instagram fs-3"></i>
-                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://instagram.com/JohnDoe'/>
+                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://instagram.com/JohnDoe' />
                                 <i className="bi bi-x fs-3"></i>
                             </div>
                         </div>
                         <div className="row my-2">
                             <div className="input-group align-items-center">
                                 <i className="bi bi-pinterest fs-3"></i>
-                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://pinterest.com/JohnDoe'/>
+                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://pinterest.com/JohnDoe' />
                                 <i className="bi bi-x fs-3"></i>
                             </div>
                         </div>
@@ -70,11 +76,11 @@ const EditView = (props) => {
                             <i className="bi bi-eye-fill fs-4"></i>
                             <div className="flex-grow-1 ps-3">
                                 <div className='fs-4'>Public</div>
-                                Everyone can see your profile information <br/>
+                                Everyone can see your profile information <br />
                                 (profile picture, listening history, linked socials)
                             </div>
                             <div className="form-check form-check-reverse">
-                                <input type="radio" className="form-check-input" name='defaultVisibility' id='publicVisibilityOn'/>
+                                <input type="radio" className="form-check-input" name='defaultVisibility' id='publicVisibilityOn' />
                                 <label htmlFor="defaultVisibility" className="form-check-label">
                                 </label>
                             </div>
@@ -86,7 +92,7 @@ const EditView = (props) => {
                                 No one can see your profile information
                             </div>
                             <div className="form-check form-check-reverse">
-                                <input type="radio" className="form-check-input" name='defaultVisibility' id='publicVisibilityOff'/>
+                                <input type="radio" className="form-check-input" name='defaultVisibility' id='publicVisibilityOff' />
                                 <label htmlFor="defaultVisibility" className="form-check-label">
                                 </label>
                             </div>
@@ -97,7 +103,12 @@ const EditView = (props) => {
                             <div className="col-2"></div>
                             <div className="col-8">
                                 <div className="row">
-                                    <Button text="Delete Account" fs={4}/>
+                                    <NavLink to="/settings/delete">
+                                        <Button
+                                            text="Delete Account"
+                                            fs={4}
+                                        />
+                                    </NavLink>
                                 </div>
                             </div>
                             <div className="col-2"></div>

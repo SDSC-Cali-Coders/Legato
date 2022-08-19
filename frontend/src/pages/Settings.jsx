@@ -28,7 +28,9 @@ const Settings = (props) => {
             <div className="row text-center">
                 <div className="col-11"></div>
                 <div className="col-1">
-                    <i className="bi bi-gear-fill text-primary fs-1"></i>
+                    <a href='/settings/edit'>
+                        <i className="bi bi-gear-fill text-primary fs-1"></i>
+                    </a>
                 </div>
             </div>
             <div className="row text-center">

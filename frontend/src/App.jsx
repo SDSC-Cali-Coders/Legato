@@ -3,10 +3,10 @@ import Login from './pages/Login';
 import AppRouter from './AppRouter';
 import { accessToken, getCurrentUserProfile } from './api/spotify';
 import { userContext } from './api/userContext';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { catchErrors } from './utils';
 import { getConcertsLocation, getConcertsLocationGenre, getGenreDetail } from './api/ticketmaster';
-import { render } from "react-dom";
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 const loggedIn = accessToken ? true : false;
 console.log("access token is" + accessToken);
@@ -123,6 +123,8 @@ function App(props) {
  
  */
 
+  
+
   /**
    * We set up a ternary operation to check if a user is loggedIn via their 
    * access token and either return the login component or the navbar + router
@@ -136,7 +138,7 @@ function App(props) {
             lat: lat,
             lng: lng,
           }}>
-            <AppRouter />
+              <AppRouter />
           </userContext.Provider>
         </>
       ) : (
@@ -146,7 +148,7 @@ function App(props) {
       )
       }
 
-      
+
     </>
   );
 }
