@@ -44,7 +44,7 @@ const TopTen = {
                 </div>
                 <div className="col d-flex justify-content-end">
                     Play Preview
-                    <Buttons.Play preview_url={props.preview_url}/>
+                    <Buttons.Play preview_url={props.preview_url} audioPlaying={props.audioPlaying} setAudioPlaying={props.setAudioPlaying}/>
                 </div>
             </li>
         );

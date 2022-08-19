@@ -25,7 +25,13 @@ const Buttons = {
           type="button"
           onClick={(e) => {
             const audioPlayer = e.target.nextElementSibling
-            audioPlayer.paused ? audioPlayer.play() : audioPlayer.pause()
+
+            if (Object.keys(props.audioPlaying).length) {
+                props.audioPlaying.load()
+            }
+
+            audioPlayer.play()
+            props.setAudioPlaying(audioPlayer)
           }}
         >
           {" "}
