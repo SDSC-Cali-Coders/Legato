@@ -150,41 +150,64 @@ const ConcertsScript = () => {
   }, [reccCards]);
   */
 
-  /*
+  
+  // useEffect(() => {
+  //   if (!search) return setSearchResults([])
+  //   const fetchData = async () => {
+  //     const { artistDetailData } = await getArtistDetail(search);
+  //     setArtistData(artistDetailData);
+  //     const artistId = artistDetailData._embedded.attractions[0].id;
+  //     const { data } = await getConcertsForArtistLocSorted(lat, lng, '50', artistId);
+  //     setSearchResults(
+  //       // data.artists.items.map(artist => {
+  //       //   return {
+  //       //     img: artist.images[0].url,
+  //       //     name: artist.name,
+  //       //     genre: artist.genres[0]
+  //       //   }
+  //       // })
+  //       data
+  //     );
+  //      console.log(search)
+  //      console.log(data)
+  //     // if (searchResults) {
+  //     //     console.log("There's your data")
+  //     // }
+  //     // console.log(searchResults)
+  //     // console.log(artistResult)
+  //   };
+  //   catchErrors(fetchData());
+  // }, [search]);
+
   useEffect(() => {
-    if (!search) return setSearchResults([])
     const fetchData = async () => {
-      const { artistDetailData } = await getArtistDetail(search);
-      setArtistData(artistDetailData);
-      const artistId = artistData._embedded.attractions[0].id;
-      const { data } = await getConcertsForArtistLocSorted(lat, lng, '50', artistId);
-      setSearchResults(
-        data.artists.items.map(artist => {
-          return {
-            img: artist.images[0].url,
-            name: artist.name,
-            genre: artist.genres[0]
-          }
-        })
-      );
-      // console.log(search)
-      // console.log(data)
-      // if (searchResults) {
-      //     console.log("There's your data")
-      // }
-      // console.log(searchResults)
-      // console.log(artistResult)
+      const { data } = await getArtistDetail(search);
+      setArtistData(data);
     };
     catchErrors(fetchData());
   }, [search]);
-  */
-  function handleChange(e) {
-    setSearch(e.target.value);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const artistId= artistData._embedded.attractions[0].id;
+      const { data } = await getConcertsForArtistLocSorted(lat, lng, '50', artistId);
+      setConcerts(data);
+      console.log(data);
+      console.log(concerts);
+    };
+    if (lat && lng && artistData) {
+      catchErrors(fetchData());
+    }
+  }, [lat, lng, artistData]);
+
+  function handleSearch(query) {
+    setSearch(query);
   }
   
   return (loccCards && reccCards &&
     <>
-      <Concerts search={search} handleChange={handleChange} recommendedCard={reccCards} nearbyCard={loccCards} />
+      <Concerts search={search} concerts={concerts} handleSearch={handleSearch} 
+      recommendedCard={reccCards} nearbyCard={loccCards} />
     </>
   )
 };

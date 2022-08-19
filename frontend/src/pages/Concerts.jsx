@@ -3,6 +3,7 @@ import DropdownMenu from "../components/DropdownMenu";
 import SearchResults from "../components/concerts/SearchResults";
 import Searchbar from "../components/Searchbar";
 import InterestButton from "../components/concerts/InterestButton";
+import ConcertsSearchScript from "../pageScripts/ConcertsSearchScript";
 
 const Concerts = (props) => {
   const recommendedCard = props.recommendedCard.map((item) => {
@@ -34,44 +35,51 @@ const Concerts = (props) => {
   });
 
   return (
-    <div className="container mt-1 min-vw-100 Oswald_regular">
-      <Searchbar.ConcertSearchbar
-        searchValue={props.search}
-        onChange={props.handleChange}
-      />
-      <div className="btn-group m-2" role="group" aria-label="First group">
-        <InterestButton.Bookmarked isPressed={false} />
+    <>
+      <div className="container mt-1 min-vw-100 Oswald_regular">
+        <Searchbar.ConcertSearchbar
+          handleSearch={props.handleSearch}
+        />
       </div>
-      <div className="btn-group m-2" role="group" aria-label="Second group">
-        <InterestButton.Going isPressed={false} />
-      </div>
-
-      <div className="row">
-        <div className="col border border-dark bg-primary mx-4">
-          <div className="row fs-2">
-            <div className="col">Recommended for you</div>
+      {props.search ? (
+        <ConcertsSearchScript concerts={props.concerts}/>
+      ) : (
+        <div className="container mt-1 min-vw-100 Oswald_regular">
+          <div className="btn-group m-2" role="group" aria-label="First group">
+            <InterestButton.Bookmarked isPressed={false} />
           </div>
-          <div className="vertical-scroll row row-cols-md-3 g-0">
-            {recommendedCard}
+          <div className="btn-group m-2" role="group" aria-label="Second group">
+            <InterestButton.Going isPressed={false} />
           </div>
-        </div>
 
-        <div className="col border border-dark bg-primary mx-4">
-          <div className="row align-items-center">
-            <div className="col-10 fs-2"> Nearby you</div>
-            <div className="col-2">
-              <div className="row float-end">
-                <DropdownMenu.Radius />
+          <div className="row">
+            <div className="col border border-dark bg-primary mx-4">
+              <div className="row fs-2">
+                <div className="col">Recommended for you</div>
+              </div>
+              <div className="vertical-scroll row row-cols-md-3 g-0">
+                {recommendedCard}
+              </div>
+            </div>
+
+            <div className="col border border-dark bg-primary mx-4">
+              <div className="row align-items-center">
+                <div className="col-10 fs-2"> Nearby you</div>
+                <div className="col-2">
+                  <div className="row float-end">
+                    <DropdownMenu.Radius />
+                  </div>
+                </div>
+              </div>
+              <div className="vertical-scroll row row-cols-md-3 g-0">
+                {nearbyCard}
               </div>
             </div>
           </div>
-          <div className="vertical-scroll row row-cols-md-3 g-0">
-            {nearbyCard}
-          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
-};
+}
 
 export default Concerts;

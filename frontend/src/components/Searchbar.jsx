@@ -1,26 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 
 const Searchbar = {
   ConcertSearchbar: (props) => {
-
+    const [searchQuery, setSearchQuery] = useState('')
     return (
       <div className="input-group d-flex">
         <div className="input-group-prepend">
           <button
             className="btn bg-neutral-secondary btn-outline-bg-neutral-secondary"
             type="button"
+            onClick={() => props.handleSearch(searchQuery)}
           >
             <i className="bi bi-search text-dark"></i>
-            <a href={`/concerts/searchresults?artist=${props.searchValue}`} className="stretched-link" />
+            {/* <a href={`/concerts/searchresults?artist=${props.searchValue}`} className="stretched-link" /> */}
           </button>
         </div>
         <div className="searchinput flex-fill">
           <input
             type="text"
             className="form-control bg-neutral-secondary text-dark "
-            value={props.searchValue}
+            value={searchQuery}
             placeholder="Search concerts..."
-            onChange={props.onChange}
+            onChange={(e) => {setSearchQuery(e.target.value)}}
+            onKeyDown={(e) => {if (e.key === 'Enter') props.handleSearch(searchQuery)}}
           />
         </div>
       </div>
