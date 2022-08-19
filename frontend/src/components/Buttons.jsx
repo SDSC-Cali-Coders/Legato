@@ -26,12 +26,20 @@ const Buttons = {
           onClick={(e) => {
             const audioPlayer = e.target.nextElementSibling
 
+            // preview_url keeps track of state
+            // For no state change, just toggle play/pause
+            if (audioPlayer.src === props.audioPlaying.src) {
+                audioPlayer.paused ? audioPlayer.play() : audioPlayer.pause()
+                return
+            }
+
+            // For state change, reset current audio then set to and play new
             if (Object.keys(props.audioPlaying).length) {
                 props.audioPlaying.load()
             }
-
             audioPlayer.play()
             props.setAudioPlaying(audioPlayer)
+
           }}
         >
           {" "}
