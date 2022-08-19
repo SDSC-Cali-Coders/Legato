@@ -48,7 +48,7 @@ const Settings = (props) => {
                         <div className="col-5"></div>
                         <div className="col-2">
                             <div className="row">
-                                <button className="btn btn-secondary" onClick={logout}>
+                                <button className="btn btn-align btn-secondary btn-lg border-dark Oswald_less_bold" onClick={logout}>
                                     Log Out
                                 </button>
                             </div>
