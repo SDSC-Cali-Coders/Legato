@@ -2,6 +2,20 @@ import React from "react";
 import Searchbar from "../components/Searchbar";
 import DropdownMenu from "../components/DropdownMenu";
 import FriendCard from "../components/friends/FriendCard";
+import NoUser from "../assets/NoUser.svg";
+
+const EmptyResults = () => {
+  return (
+    <div className="text-center vh-75"> 
+      <div className="row-auto mt-5">
+        <img src={NoUser} className="img" width="50" alt="No User pfp"></img>
+      </div>
+      <div className="row-auto mb-5">
+        <h1>No Users Found...</h1>
+      </div>
+    </div>
+  )
+}
 
 const Friends = (props) => {
   const card = props.card.map((item, ind) => {
@@ -22,6 +36,25 @@ const Friends = (props) => {
     );
   });
 
+  const content = props.card.length ? (
+    <>
+      {/* Row: title [radius btn] */}
+      <div className="row align-items-center">
+        <div className="fs-2">Search Results:</div>
+      </div>
+
+      {/* Row: Grid [2xn] */}
+      <div className="vertical-scroll col">
+        
+        <div className="row row-cols-2 border border-primary m-2">
+          {card}
+        </div>
+      </div>
+    </>
+  ) : (
+    <EmptyResults />
+  )
+
   return (
     <>
       <div className="container mt-3 min-vw-100 Oswald_regular">
@@ -35,24 +68,12 @@ const Friends = (props) => {
         </div>
       </div>
 
-      {/*  */}
-
       <div className="container mt-3 min-vw-100 Oswald_regular">
         <div className="container-fluid border border-dark bg-primary">
-          {/* Row: title [radius btn] */}
-          <div className="row align-items-center">
-            <div className="fs-2">Suggested Friends:</div>
-          </div>
-
-          {/* Row: Grid [2xn] */}
-          <div className="vertical-scroll col">
-            
-            <div className="row row-cols-2 border border-primary m-2">
-              {card}
-            </div>
-          </div>
+          {content}
         </div>
       </div>
+
     </>
   );
 };
