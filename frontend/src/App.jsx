@@ -1,6 +1,5 @@
 import './App.css';
 import Login from './pages/Login';
-import Navbar from './components/Navbar';
 import AppRouter from './AppRouter';
 import { accessToken, getCurrentUserProfile } from './api/spotify';
 import { userContext } from './api/userContext';

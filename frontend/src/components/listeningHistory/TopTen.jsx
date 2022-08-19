@@ -52,16 +52,16 @@ const TopTen = {
 
     Genres: (props) => {
         return (
-            <li className="list-group-item hstack bg-neutral-primary">
+            <li className="list-group-item hstack bg-neutral-secondary">
                 <div className={`container-fluid hstack bg-neutral-secondary rounded ms-2 w-${props.percentage}`}>
-                    <div className="col-2 px-4 d-flex">
+                    {/* <div className="col-2 px-4 d-flex">
                         <img className="img-fluid" src={props.icon} alt="..." />
                     </div>
                     <div className="col fs-4">
-                        <div className='invisible'> test</div>
+                        <div className='invisible'> test</div> */}
                         {props.genre}
-                        <div className='invisible'> test</div>
-                    </div>
+                        {/* <div className='invisible'> test</div>
+                    </div> */}
                 </div>
             </li>
         );

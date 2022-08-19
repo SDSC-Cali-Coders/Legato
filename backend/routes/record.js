@@ -60,6 +60,7 @@ recordRoutes.route("/user/:id").get(function (req, response) {
         return err;
       }
       //all data is sent in res.data
+      console.log("got your user")
       response.json(res);
     });
 });

@@ -39,14 +39,14 @@ const UserProfile = (props) => {
     return (
         <div className="container mt-4 px-4 d-grid gap-3 Oswald_regular">
             {/* Row: Invite/Subscribe button */}
-            { props.type === 'personal'
-                ?  <div className="row">
-                        <div className="col-3 offset-9">
-                            <div className="row">
-                                <Buttons.Invite/>
-                            </div>
+            {props.type === 'personal'
+                ? <div className="row">
+                    <div className="col-3 offset-9">
+                        <div className="row">
+                            <Buttons.Invite />
                         </div>
                     </div>
+                </div>
                 : <></>
             }
 
@@ -58,34 +58,34 @@ const UserProfile = (props) => {
                         {props.userName}
                         <div className="hstack justify-content-between">
                             <a className='text-dark' href={props.socialLinks.facebook}>
-                                <i className="bi bi-facebook"/>
+                                <i className="bi bi-facebook" />
                             </a>
                             <a className='text-dark' href={props.socialLinks.twitter}>
-                                <i className="bi bi-twitter"/>
+                                <i className="bi bi-twitter" />
                             </a>
                             <a className='text-dark' href={props.socialLinks.instagram}>
-                                <i className="bi bi-instagram"/>
+                                <i className="bi bi-instagram" />
                             </a>
                             <a className='text-dark' href={props.socialLinks.pinterest}>
-                                <i className="bi bi-pinterest"/>
+                                <i className="bi bi-pinterest" />
                             </a>
                         </div>
                     </div>
                 </div>
                 <div className="col-3 offset-1 align-self-end">
                     <div className="hstack justify-content-evenly">
-                        <div className='text-center fs-3'>
-                            {props.followersCount}
-                            <p className="fs-5">Followers</p>
-                        </div>
-                        <div className="vr my-3"></div>
-                        <div className='text-center fs-3'>
-                            {props.followingCount}
-                            <p className="fs-5">Following</p>
-                        </div>
+                            <div className='text-center fs-3'>
+                                {props.followersCount}
+                                <p className="fs-5">Followers</p>
+                            </div>
+                            <div className="vr my-3"></div>
+                            <div className='text-center fs-3'>
+                                {props.followingCount}
+                                <p className="fs-5">Following</p>
+                            </div>
                     </div>
                     <div className="row">
-                        <Buttons.Follow/>
+                        <Buttons.Follow />
                     </div>
                 </div>
             </div>
@@ -99,12 +99,12 @@ const UserProfile = (props) => {
             <div className="row">
                 <div className="col-10 card-group">
                     {props.topArtistsList.map(item => {
-                        return <ArtistCard artistImg={item.artistImg} artistName={item.artistName}/>
+                        return <ArtistCard artistImg={item.artistImg} artistName={item.artistName} />
                     })}
                 </div>
                 <div className="col d-flex align-items-end">
                     <div className="row flex-fill">
-                        <Buttons.SeeMore/>
+                        <Buttons.SeeMore />
                     </div>
                 </div>
             </div>
@@ -116,11 +116,11 @@ const UserProfile = (props) => {
                 <div className="col-7  d-grid px-4 gap-3">
                     <p className="fw-bold">My Top Songs</p>
                     {props.topSongsList.map(item => {
-                        return <SongCard songTitle={item.songTitle} artistName={item.artistName}/>
+                        return <SongCard songTitle={item.songTitle} artistName={item.artistName} />
                     })}
                     <div className="col-3 offset-9">
                         <div className="row">
-                            <Buttons.SeeMore/>
+                            <Buttons.SeeMore />
                         </div>
                     </div>
                 </div>
@@ -133,7 +133,7 @@ const UserProfile = (props) => {
                     })}
                     <div className="col-4 offset-8">
                         <div className="row">
-                            <Buttons.SeeMore/>
+                            <Buttons.SeeMore />
                         </div>
                     </div>
                 </div>
