@@ -7,13 +7,9 @@ export async function getUserNotifications(id){
    * @param  {string} id - id of user who's notification you want to get
    * @return {Array notificationObj} - Array of notification objects. 
    */
-  try {
-    let call = '/notification/' + id;
-    const response = await fetch(call);
-    return await response.json();
-  }catch(error) {
-    return error;
-  }
+  const response = await fetch('/notification/' + id);
+  const data = await response.json();
+  return data;
 }
 
 export async function deleteUserNotification(objId){
@@ -28,7 +24,8 @@ export async function deleteUserNotification(objId){
   const response = await fetch(call, {
     method: 'DELETE'
   });
-  return await response.json();
+  const data = await response.json();
+  return data;
 }
 
 export async function addUserNotification(notification){
@@ -43,5 +40,32 @@ export async function addUserNotification(notification){
     method: 'PUT',
     body: JSON.stringify(notification)
   });
-  return await response.json()
+  const data = await response.json();
+  return data;
+}
+
+export async function followUser(followId, userId){
+  let b = {
+    followId: followId,
+    userId: userId
+  }
+  const response = await fetch('/follow', {
+    method: 'PUT',
+    body: JSON.stringify(b)
+  });
+  const data = await response.json();
+  return data;
+}
+
+export async function unfollowUser(followId, userId){
+  let b = {
+    followId: followId,
+    userId: userId
+  }
+  const response = await fetch('/unfollow', {
+    method: 'DELETE',
+    body: JSON.stringify(b)
+  });
+  const data = response.json();
+  return data;
 }
