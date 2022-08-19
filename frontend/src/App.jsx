@@ -1,5 +1,4 @@
 import './App.css';
-import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import AppRouter from './AppRouter';
 import { accessToken, getCurrentUserProfile } from './api/spotify';
@@ -7,12 +6,11 @@ import { userContext } from './api/userContext';
 import { useState, useEffect, useRef } from 'react';
 import { catchErrors } from './utils';
 import { getConcertsLocation, getConcertsLocationGenre, getGenreDetail } from './api/ticketmaster';
-import ConcertSearchResults from './components/concerts/ConcertSearchResults';
 import { render } from "react-dom";
-
+import axios from 'axios';
 const loggedIn = accessToken ? true : false;
-console.log('access token is ' + accessToken);
-console.log('logged in variable is' + loggedIn);
+console.log("access token is" + accessToken);
+console.log("logged in variable is" + loggedIn);
 
 /**
  * App helps handle the initial login and routing for our application.
@@ -33,7 +31,6 @@ function App(props) {
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
   const [status, setStatus] = useState(null);
-  const [genreData, setGenreData] = useState(null);
   let effectTriggeredRef = useRef(false);
 
   useEffect(() => {
@@ -67,6 +64,38 @@ function App(props) {
       effectTriggeredRef.current = true;
     }
   }, []);
+
+  /* NOTE: The following gets all events for a specific artist (used on artist page)
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await getArtistEvent('The Weeknd', 'upcoming');
+      setArtistEventInfo(data);
+    };
+    catchErrors(fetchData());
+  }, []);
+  */
+
+  /* Note on Code Block: This implements the fetch user by name api route
+  useEffect(() => {
+    async function fetchUserByName() {
+      // name can be upercase/lower case. it just needs to be toLowerCased
+      const name = 'Jacob';
+      axios.get(`http://localhost:27017/friends/${name.toLowerCase()}`)
+        .then(function (response) {
+          // can access specific parts of data by doing response.data.{whatever you want}
+          // Note: response.data will be an array of the results
+          console.log(response.data)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+        .then(function () {
+          console.log("always executed")
+        })
+    }
+    fetchUserByName();
+  }, []);
+  */
 
   /* CODE FOR US TO USE LATER TO CONNECT TO DB DO NOT DELETE
  useEffect(() => {
@@ -102,7 +131,6 @@ function App(props) {
     <>
       {loggedIn ? (profile && lat && lng &&
         <>
-          <Navbar />
           <userContext.Provider value={{
             id: profile.id,
             lat: lat,
@@ -118,6 +146,7 @@ function App(props) {
       )
       }
 
+      
     </>
   );
 }
