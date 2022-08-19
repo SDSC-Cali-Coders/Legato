@@ -8,7 +8,7 @@ const EmptyResults = () => {
   return (
     <div className="text-center vh-75"> 
       <div className="row-auto mt-5">
-        <img src={NoUser} className="img" width="50" alt="No User pfp"></img>
+        <img src={NoUser} alt="No User pfp"></img>
       </div>
       <div className="row-auto mb-5">
         <h1>No Users Found...</h1>
