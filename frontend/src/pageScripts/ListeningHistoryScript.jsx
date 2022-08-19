@@ -93,7 +93,8 @@ const ListeningHistoryScript = () => {
             topTenListObj.push({
                 img: topSongs.items[i].album.images[1].url,
                 name: topSongs.items[i].artists[0].name,
-                artist: topSongs.items[i].name
+                artist: topSongs.items[i].name,
+                preview_url: topSongs.items[i].preview_url
             })
         }
         tracksObject =
