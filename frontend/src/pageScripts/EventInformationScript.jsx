@@ -29,7 +29,8 @@ const EventInformationScript = (props) => {
   let concertObject = null;
   if (concertData) {
     console.log("render")
-
+    const date = new Date(concertData.dates.start.dateTime);
+    console.log(date)
     concertObject = {
       name: concertData.name,
       id: eventId,
@@ -38,25 +39,26 @@ const EventInformationScript = (props) => {
       venueName: concertData._embedded.venues[0].name,
       venueAddress: concertData._embedded.venues[0].address.line1 + " " + concertData._embedded.venues[0].city.name + " " +
         concertData._embedded.venues[0].state.stateCode,
-      date: concertData.dates.start.localDate,
-      time: concertData.dates.start.localTime,
+      date: date.toLocaleDateString(undefined, { dateStyle: 'long' }),
+      day: date.toLocaleDateString(undefined, { weekday: 'long' }),
+      time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
   }
 
   // TODO: Mutual friends and others (rn its hardcoded)
   return (concertObject &&
-      <EventInformation
-        name={concertObject.name}
-        id={concertObject.id}
-        img={concertObject.img}
-        genre={concertObject.genre}
-        venueName={concertObject.venueName}
-        venueAddress={concertObject.venueAddress}
-        date={concertObject.date}
-        time={concertObject.time}
-        mutualFriends = {"4"}
-        others = {"10"}
-      />
+    <EventInformation
+      name={concertObject.name}
+      id={concertObject.id}
+      img={concertObject.img}
+      genre={concertObject.genre}
+      venueName={concertObject.venueName}
+      venueAddress={concertObject.venueAddress}
+      date={concertObject.date}
+      time={concertObject.time}
+      mutualFriends={"4"}
+      others={"10"}
+    />
   )
 };
 

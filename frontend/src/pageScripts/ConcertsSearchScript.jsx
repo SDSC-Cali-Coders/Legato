@@ -8,6 +8,7 @@ import { catchErrors } from '../utils';
 import { useSearchParams } from 'react-router-dom';
 
 import SearchView from "../components/concerts/SearchView";
+import SearchEmpty from "../components/concerts/SearchEmpty";
 
 const ConcertsSearchScript = () => {
     const id = useContext(userContext).id;
@@ -15,10 +16,11 @@ const ConcertsSearchScript = () => {
     const lng = useContext(userContext).lng;
     const [concerts, setConcerts] = useState(null);
     const [artistData, setArtistData] = useState(null);
-
     const [searchParams] = useSearchParams();
     const artistName = searchParams.get("artist");
-    console.log(artistName)
+    const [searchQuery, setSearchQuery] = useState('')
+
+    let emptyResults = false;
     // INFO ON CODE BLOCK: integrates the getArtistDetail + getConcertsForArtist API Call
     // Note: both of these API calls should be used together
     useEffect(() => {
@@ -36,40 +38,44 @@ const ConcertsSearchScript = () => {
             setConcerts(data);
         };
         if (lat && lng && artistData) {
-            console.log("within the conditional");
             catchErrors(fetchData());
         }
     }, [lat, lng, artistData]);
 
     let searchCards = [];
     if (concerts) {
-        console.log(concerts)
-        for (let i = 0; i < concerts._embedded.events.length; i++) {
-            console.log(concerts._embedded.events[i])
-            console.log(concerts._embedded.events[i]._embedded.venues[0].name)
-            const state = concerts._embedded.events[i]._embedded.venues[0].country.countryCode == 'US' ?
-                concerts._embedded.events[i]._embedded.venues[0].state.stateCode :
-                concerts._embedded.events[i]._embedded.venues[0].country.name;
-            const venueName = concerts._embedded.events[i]._embedded.venues[0].name ?
-                concerts._embedded.events[i]._embedded.venues[0].name :
-                concerts._embedded.events[i]._embedded.venues[0].address.line1;
-            searchCards.push({
-                id: concerts._embedded.events[i].id,
-                name: concerts._embedded.events[i]._embedded.attractions ?
-                    concerts._embedded.events[i]._embedded.attractions[0].name : concerts._embedded.events[i].name,
-                venueName: venueName,
-                venueLocation: concerts._embedded.events[i]._embedded.venues[0].city.name
-                    + ", " + state,
-                date: concerts._embedded.events[i].dates.start.localDate,
-                // TODO: need to add day
-                day: 'day',
-                time: concerts._embedded.events[i].dates.start.localTime,
-            })
+        if (concerts.page.totalElements == 0) {
+            emptyResults = true;
+        }
+        else {
+            for (let i = 0; i < concerts._embedded.events.length; i++) {
+                console.log(concerts._embedded.events[i])
+                const state = concerts._embedded.events[i]._embedded.venues[0].country.countryCode == 'US' ?
+                    concerts._embedded.events[i]._embedded.venues[0].state.stateCode :
+                    concerts._embedded.events[i]._embedded.venues[0].country.name;
+                const venueName = concerts._embedded.events[i]._embedded.venues[0].name ?
+                    concerts._embedded.events[i]._embedded.venues[0].name :
+                    concerts._embedded.events[i]._embedded.venues[0].address.line1;
+                const date = new Date(concerts._embedded.events[i].dates.start.dateTime);
+                console.log(date.toLocaleDateString(undefined, { weekday: 'long' }))
+                searchCards.push({
+                    id: concerts._embedded.events[i].id,
+                    name: concerts._embedded.events[i]._embedded.attractions ?
+                        concerts._embedded.events[i]._embedded.attractions[0].name : concerts._embedded.events[i].name,
+                    venueName: venueName,
+                    venueLocation: concerts._embedded.events[i]._embedded.venues[0].city.name
+                        + ", " + state,
+                    date: date.toLocaleDateString(undefined, { dateStyle: 'long' }),
+                    day: date.toLocaleDateString(undefined, { weekday: 'long' }),
+                    genre: concerts._embedded.events[i].classifications[0].genre.name,
+                    time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                })
+            }
         }
     }
     return (searchCards &&
         <>
-            <SearchView searchCard={searchCards} />
+            {emptyResults ? <SearchEmpty/> : <SearchView searchCard={searchCards} />}
         </>
     )
 };

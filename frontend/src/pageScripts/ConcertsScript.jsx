@@ -62,6 +62,7 @@ const ConcertsScript = () => {
   let loccCards = [];
   if (nearbyConcerts) {
     for (let i = 0; i < nearbyConcerts._embedded.events.length; i++) {
+      const date = new Date(nearbyConcerts._embedded.events[i].dates.start.dateTime);
       loccCards.push({
         id: nearbyConcerts._embedded.events[i].id,
         img: nearbyConcerts._embedded.events[i].images[5].url,
@@ -70,9 +71,10 @@ const ConcertsScript = () => {
         venueName: nearbyConcerts._embedded.events[i]._embedded.venues[0].name,
         venueLocation: nearbyConcerts._embedded.events[i]._embedded.venues[0].city.name
           + ", " + nearbyConcerts._embedded.events[i]._embedded.venues[0].state.stateCode,
-        day: nearbyConcerts._embedded.events[i].dates.start.localDate,
-        // NEEDS TO BE CHANGED: Filter the date and time
-        date: nearbyConcerts._embedded.events[i].dates.start.localTime,
+          date: date.toLocaleDateString(undefined, { dateStyle: 'long' }),
+          day: date.toLocaleDateString(undefined, { weekday: 'long' }),
+          genre: nearbyConcerts._embedded.events[i].classifications[0].genre.name,
+          time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       })
     }
   }
@@ -105,6 +107,7 @@ const ConcertsScript = () => {
   let reccCards = [];
   if (reccConcerts) {
     for (let i = 0; i < reccConcerts._embedded.events.length; i++) {
+      const date = new Date(reccConcerts._embedded.events[i].dates.start.dateTime);
       reccCards.push({
         id: reccConcerts._embedded.events[i].id,
         img: reccConcerts._embedded.events[i].images[5].url,
@@ -113,9 +116,10 @@ const ConcertsScript = () => {
         venueName: reccConcerts._embedded.events[i]._embedded.venues[0].name,
         venueLocation: reccConcerts._embedded.events[i]._embedded.venues[0].city.name
           + ", " + reccConcerts._embedded.events[i]._embedded.venues[0].state.stateCode,
-        day: reccConcerts._embedded.events[i].dates.start.localDate,
-        // NEEDS TO BE CHANGED: Filter the date and time
-        date: reccConcerts._embedded.events[i].dates.start.localTime,
+          date: date.toLocaleDateString(undefined, { dateStyle: 'long' }),
+          day: date.toLocaleDateString(undefined, { weekday: 'long' }),
+          genre: reccConcerts._embedded.events[i].classifications[0].genre.name,
+          time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       })
     }
   }
