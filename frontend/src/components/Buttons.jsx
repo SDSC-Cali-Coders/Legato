@@ -29,15 +29,31 @@ const Buttons = {
             // preview_url keeps track of state
             // For no state change, just toggle play/pause
             if (audioPlayer.src === props.audioPlaying.src) {
-                audioPlayer.paused ? audioPlayer.play() : audioPlayer.pause()
+                if (audioPlayer.paused) {
+                    audioPlayer.play() 
+                    e.target.classList.remove('bi-caret-right-fill')
+                    e.target.classList.add('bi-pause-fill')
+                } 
+                else {
+                    audioPlayer.pause()
+                    e.target.classList.remove('bi-pause-fill')
+                    e.target.classList.add('bi-caret-right-fill')
+                }
+
+                // early termination to isolate the following state change logic
                 return
             }
 
             // For state change, reset current audio then set to and play new
             if (Object.keys(props.audioPlaying).length) {
                 props.audioPlaying.load()
+                const playingButton = props.audioPlaying.previousElementSibling
+                playingButton.classList.remove('bi-pause-fill')
+                playingButton.classList.add('bi-caret-right-fill')
             }
             audioPlayer.play()
+            e.target.classList.remove('bi-caret-right-fill')
+            e.target.classList.add('bi-pause-fill')
             props.setAudioPlaying(audioPlayer)
 
           }}
