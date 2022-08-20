@@ -30,7 +30,8 @@ const FriendsScript = () => {
             type1: 'Friends',     // also hard-coded for now
             type2: 'Concerts',    // aiming to get rid of this in the future
             type3: 'Artists',
-            isFollowing: false    // also hard-coded for now due to complexity
+            isFollowing: false,   // also hard-coded for now due to complexity
+            handleFollow: () => {}
           }
         }
       ))
@@ -48,11 +49,7 @@ const FriendsScript = () => {
   },
   [searchQuery])
 
-  function handleSearch(query) {
-    setSearchQuery(query)
-  }
-
-  return <Friends card={searchResults} handleSearch={handleSearch}/>
+  return <Friends card={searchResults} handleSearch={setSearchQuery}/>
 };
 
 export default FriendsScript;
