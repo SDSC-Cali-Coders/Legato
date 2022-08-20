@@ -9,7 +9,7 @@ const FriendsScript = () => {
   // Callback to handle follow button being pressed
   function toggleFollow(ind) {
     const newSearchResults = [...searchResults];
-    newSearchResults.at(ind).isFollowing = !newSearchResults.at(ind).isFollowing;
+    newSearchResults.at(ind).isFriendAdded = !newSearchResults.at(ind).isFriendAdded;
     setSearchResults(newSearchResults);
   }
 
@@ -36,7 +36,7 @@ const FriendsScript = () => {
                 type1: "Friends", // also hard-coded for now
                 type2: "Concerts", // aiming to get rid of this in the future
                 type3: "Artists",
-                isFollowing: false, // also hard-coded for now due to complexity
+                isFriendAdded: false, // also hard-coded for now due to complexity
               };
             })
           );

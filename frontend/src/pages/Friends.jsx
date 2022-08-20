@@ -18,7 +18,7 @@ const Friends = (props) => {
         type2={item.type2}
         mutualArtists={item.mutualArtists}
         type3={item.type3}
-        isFollowing={item.isFollowing}
+        isFriendAdded={item.isFriendAdded}
         toggleFollow={props.toggleFollow}
       />
     );
