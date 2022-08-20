@@ -45,6 +45,13 @@ export async function addUserNotification(notification){
 }
 
 export async function followUser(followId, userId){
+  /**
+   * add friend to users following list, and add user to friends followers list
+   * @param {string} followId - id of friend to be followed by user
+   * @param {string} userId - id of user sending follow
+   * @return {acknowledgedObj} - refer to recieve section of respective api 
+   * documentation
+   */
   let b = {
     followId: followId,
     userId: userId
@@ -58,6 +65,14 @@ export async function followUser(followId, userId){
 }
 
 export async function unfollowUser(followId, userId){
+  /**
+   * remove friend from users following list, and remove user to friends
+   * followers list
+   * @param {string} followId - id of friend to be unfollowed by user
+   * @param {string} userId - id of user sending unfollow
+   * @return {acknowledgedObj} - refer to recieve section of respective api 
+   * documentation
+   */
   let b = {
     followId: followId,
     userId: userId
