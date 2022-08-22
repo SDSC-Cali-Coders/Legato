@@ -50,9 +50,6 @@ const ConcertsBookmarkedScript = () => {
         .finally(() => {
           setLoading(false);
         })
-        .then(function () {
-          console.log("always executed");
-        });
     }
     if (!effectTriggeredRef.current) {
       fetchInterestedConcerts();

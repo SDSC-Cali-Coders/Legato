@@ -36,9 +36,6 @@ const SettingsScript = () => {
         .finally(() => {
           setLoading(false);
         })
-        .then(function () {
-          console.log("always executed");
-        });
     }
     if (!effectTriggeredRef.current) {
       console.log("fetch user called");

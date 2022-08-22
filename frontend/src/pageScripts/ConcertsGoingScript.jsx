@@ -47,9 +47,6 @@ const ConcertsGoingScript = () => {
         .finally(() => {
           setLoading(false);
         })
-        .then(function () {
-          console.log("always executed");
-        });
     }
     if (!effectTriggeredRef.current) {
       fetchGoingConcerts();
