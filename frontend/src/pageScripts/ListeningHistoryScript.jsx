@@ -64,8 +64,9 @@ const ListeningHistoryScript = () => {
             // When a post request is sent to the create url, we'll add a new record to the database.
             const newUser = {
                 id: profile.id,
-                name: profile.display_name,
-                img: profile.images[0].url,
+                name: profile.display_name ? profile.display_name : 'User',
+                lowercase_name:  profile.display_name ? profile.display_name.toLowerCase() : 'user',
+                img: profile.images.length > 0 ? profile.images[0].url : 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg',
                 topArtists: topArtists.items.slice(0, 5),
                 topSongs: topSongs.items.slice(0, 5),
                 topGenres: sortedGenres.slice(0, 5)
@@ -92,7 +93,8 @@ const ListeningHistoryScript = () => {
             topTenListObj.push({
                 img: topSongs.items[i].album.images[1].url,
                 name: topSongs.items[i].artists[0].name,
-                artist: topSongs.items[i].name
+                artist: topSongs.items[i].name,
+                preview_url: topSongs.items[i].preview_url
             })
         }
         tracksObject =

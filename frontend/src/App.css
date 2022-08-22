@@ -155,6 +155,23 @@
   background-color: #697184;
 }
 
+/* Color for toggle button on find friends page */
+.btn-friendAdded{
+  color: #268BD2;
+}
+
+.btn-friendNotAdded{
+  color: #3FDE77;
+}
+
+.btn-friendNotAdded:hover, .btn-friendAdded:hover {
+  opacity: 50%;
+}
+
+.btn-friendNotAdded:active, .btn-friendAdded:active {
+  color:white
+}
+
 /* Additional styling for scrollbar feature on main concerts page */
 .vertical-scroll {
   overflow-y: scroll;
@@ -173,7 +190,17 @@
   color: black;
 }
 
+.findFriendsLink {
+  text-decoration: none;
+  color: black;
+}
+
 a:not(nav-link) hover {
   background-color: #d8cfd0;
+  color: black;
+}
+
+.userProfileLink {
+  text-decoration: none;
   color: black;
 }
