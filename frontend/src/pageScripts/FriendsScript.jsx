@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Friends from "../pages/Friends";
-import defProfileIcon from "../assets/pfpIcon.svg"
-import { catchErrors } from "../utils";
 import axios from "axios";
 
 const FriendsScript = () => {
@@ -48,11 +46,7 @@ const FriendsScript = () => {
   },
   [searchQuery])
 
-  function handleSearch(query) {
-    setSearchQuery(query)
-  }
-
-  return <Friends card={searchResults} handleSearch={handleSearch}/>
+  return <Friends card={searchResults} handleSearch={setSearchQuery}/>
 };
 
 export default FriendsScript;
