@@ -53,13 +53,17 @@ const Searchbar = {
     );
   },
 
-  FindFriendsSearchbar: () => {
+  FindFriendsSearchbar: (props) => {
+    const [searchQuery, setSearchQuery] = useState('')
     return (
       <div className="input-group d-flex">
         <div className="input-group-prepend">
           <button
             className="btn bg-neutral-secondary btn-outline-bg-neutral-secondary"
             type="button"
+            onClick={
+              () => {props.handleSearch(searchQuery)
+            }}
           >
             <i className="bi bi-search text-dark"></i>
           </button>
@@ -69,6 +73,13 @@ const Searchbar = {
             type="text"
             className="form-control bg-neutral-secondary text-dark "
             placeholder="Search users..."
+            value={searchQuery}
+            onChange={ (e) => {
+              setSearchQuery(e.target.value)
+            }}
+            onKeyDown={
+              (e) => {if (e.key === 'Enter') props.handleSearch(searchQuery)
+            }}
           />
         </div>
       </div>
