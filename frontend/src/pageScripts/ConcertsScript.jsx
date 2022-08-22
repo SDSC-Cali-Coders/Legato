@@ -3,7 +3,10 @@ import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { userContext } from '../api/userContext'
 import { useContext } from 'react';
-import { getArtistDetail, getConcertsForArtistDateSorted, getConcertsForArtistLocSorted, getConcertsLocation, getGenreDetail, getConcertsLocationGenre } from '../api/ticketmaster';
+import {
+  getArtistDetail, getConcertsForArtistDateSorted, getConcertsForArtistLocSorted, getConcertsForArtist,
+  getConcertsLocation, getGenreDetail, getConcertsLocationGenre
+} from '../api/ticketmaster';
 import { catchErrors } from '../utils';
 
 import Concerts from "../pages/Concerts";
@@ -71,10 +74,10 @@ const ConcertsScript = () => {
         venueName: nearbyConcerts._embedded.events[i]._embedded.venues[0].name,
         venueLocation: nearbyConcerts._embedded.events[i]._embedded.venues[0].city.name
           + ", " + nearbyConcerts._embedded.events[i]._embedded.venues[0].state.stateCode,
-          date: date.toLocaleDateString(undefined, { dateStyle: 'long' }),
-          day: date.toLocaleDateString(undefined, { weekday: 'long' }),
-          genre: nearbyConcerts._embedded.events[i].classifications[0].genre.name,
-          time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        date: date.toLocaleDateString(undefined, { dateStyle: 'long' }),
+        day: date.toLocaleDateString(undefined, { weekday: 'long' }),
+        genre: nearbyConcerts._embedded.events[i].classifications[0].genre.name,
+        time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       })
     }
   }
@@ -116,10 +119,10 @@ const ConcertsScript = () => {
         venueName: reccConcerts._embedded.events[i]._embedded.venues[0].name,
         venueLocation: reccConcerts._embedded.events[i]._embedded.venues[0].city.name
           + ", " + reccConcerts._embedded.events[i]._embedded.venues[0].state.stateCode,
-          date: date.toLocaleDateString(undefined, { dateStyle: 'long' }),
-          day: date.toLocaleDateString(undefined, { weekday: 'long' }),
-          genre: reccConcerts._embedded.events[i].classifications[0].genre.name,
-          time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        date: date.toLocaleDateString(undefined, { dateStyle: 'long' }),
+        day: date.toLocaleDateString(undefined, { weekday: 'long' }),
+        genre: reccConcerts._embedded.events[i].classifications[0].genre.name,
+        time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       })
     }
   }
@@ -150,7 +153,7 @@ const ConcertsScript = () => {
   }, [reccCards]);
   */
 
-  
+
   // useEffect(() => {
   //   if (!search) return setSearchResults([])
   //   const fetchData = async () => {
@@ -189,8 +192,8 @@ const ConcertsScript = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const artistId= artistData._embedded.attractions[0].id;
-      const { data } = await getConcertsForArtistLocSorted(lat, lng, '50', artistId);
+      const artistId = artistData._embedded.attractions[0].id;
+      const { data } = await getConcertsForArtist('50', artistId);
       setConcerts(data);
       console.log(data);
       console.log(concerts);
@@ -203,11 +206,11 @@ const ConcertsScript = () => {
   function handleSearch(query) {
     setSearch(query);
   }
-  
+
   return (loccCards && reccCards &&
     <>
-      <Concerts search={search} concerts={concerts} handleSearch={handleSearch} 
-      recommendedCard={reccCards} nearbyCard={loccCards} />
+      <Concerts search={search} concerts={concerts} handleSearch={handleSearch}
+        recommendedCard={reccCards} nearbyCard={loccCards} />
     </>
   )
 };

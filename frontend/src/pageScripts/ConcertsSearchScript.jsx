@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { userContext } from '../api/userContext'
 import { useContext } from 'react';
-import { getArtistDetail, getConcertsForArtistDateSorted, getConcertsForArtistLocSorted, getConcertsLocation, getGenreDetail, getConcertsLocationGenre } from '../api/ticketmaster';
+import { getArtistDetail, getConcertsForArtistDateSorted, getConcertsForArtistLocSorted, getConcertsForArtist,
+    getConcertsLocation, getGenreDetail, getConcertsLocationGenre } from '../api/ticketmaster';
 import { catchErrors } from '../utils';
 import { useSearchParams } from 'react-router-dom';
 
