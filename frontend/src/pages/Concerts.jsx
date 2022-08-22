@@ -44,7 +44,7 @@ const Concerts = (props) => {
       </div>
 
       <div className="row">
-        <div className="col border border-dark bg-primary mx-4">
+        <div className="col border border-dark bg-neutral-primary mx-4">
           <div className="row fs-2">
             <div className="col">Recommended for you</div>
           </div>
@@ -53,7 +53,7 @@ const Concerts = (props) => {
           </div>
         </div>
 
-        <div className="col border border-dark bg-primary mx-4">
+        <div className="col border border-dark bg-neutral-primary mx-4">
           <div className="row align-items-center">
             <div className="col-10 fs-2"> Nearby you</div>
             <div className="col-2">

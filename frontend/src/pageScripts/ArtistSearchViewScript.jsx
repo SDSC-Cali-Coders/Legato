@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect, useRef } from "react";
 
-import ArtistSearchView from '../pages/ArtistSearchView';
+import ArtistSearchView from "../pages/ArtistSearchView";
+import LoadingSpin from "../components/LoadingSpin";
 
-import { useState, useEffect, useRef } from 'react';
-import { accessToken, searchArtists } from '../api/spotify';
-import { catchErrors } from '../utils';
+import { accessToken, searchArtists } from "../api/spotify";
+import { catchErrors } from "../utils";
 
 // Define an <ArtistResult/> component here
 // <div> - figure out how to align stuff :)
 // [img]..[Artist Name]....[Genre: genre]..........[subscribe + play btn group]
-
 
 // const ArtistResult = (props) => {
 //     return (
@@ -35,63 +34,73 @@ import { catchErrors } from '../utils';
 // }
 
 const ArtistSearchViewScript = (props) => {
-    const [token, setToken] = useState(null);
-    const [search, setSearch] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
-    const [filterToggle, setFilterToggle] = useState(true);
+  const [token, setToken] = useState(null);
+  const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [filterToggle, setFilterToggle] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [searchLoading, setSearchLoading] = useState(true);
 
-    // console.log(search)
-    // console.log(data)
-    // if (searchResults) {
-    //     console.log("There's your data")
-    // }
-    // console.log(searchResults)
-    // console.log(artistResult)
+  // console.log(search)
+  // console.log(data)
+  // if (searchResults) {
+  //     console.log("There's your data")
+  // }
+  // console.log(searchResults)
+  // console.log(artistResult)
 
-    useEffect(() => {
-        console.log(filterToggle);
-    }, [filterToggle])
+  useEffect(() => {
+    console.log(filterToggle);
+  }, [filterToggle]);
 
-    useEffect(() => {
-        setToken(accessToken);
-        if (!search) return setSearchResults([])
-        const fetchData = async () => {
-            const { data } = await searchArtists(search);
-            setSearchResults(
-                data.artists.items.map(artist => {
-                    return {
-                        img: artist.images[0].url,
-                        name: artist.name,
-                        genre: artist.genres[0]
-                    }
-                })
-            );
-            // console.log(search)
-            // console.log(data)
-            // if (searchResults) {
-            //     console.log("There's your data")
-            // }
-            // console.log(searchResults)
-            // console.log(artistResult)
-        };
-        catchErrors(fetchData());
-    }, [search]);
+  useEffect(() => {
+    setToken(accessToken);
+    // setLoading(false);
+    // console.log("hi")
+    if (!search) return setSearchResults([]), setLoading(false);
+    const fetchData = async () => {
+      const { data } = await searchArtists(search);
+      setSearchResults(
+        data.artists.items.map((artist) => {
+          return {
+            img: artist.images[0].url,
+            name: artist.name,
+            genre: artist.genres[0],
+          };
+        })
+      );
+      setSearchLoading(false);
+      // console.log(search)
+      // console.log(data)
+      // if (searchResults) {
+      //     console.log("There's your data")
+      // }
+      // console.log(searchResults)
+      // console.log(artistResult)
+    };
 
-    function handleChange(e) {
-        setSearch(e.target.value);
-    }
+    catchErrors(fetchData());
+  }, [search]);
 
-    function toggleFilter(val) {
-        setFilterToggle(val);
-    }
+  function handleChange(e) {
+    setSearch(e.target.value);
+  }
 
-    return (
+  function toggleFilter(val) {
+    setFilterToggle(val);
+  }
 
-        <>
-            <ArtistSearchView search={search} handleChange={handleChange} searchResults={searchResults} toggleFilter={toggleFilter}/>
+  if (loading) return <LoadingSpin />;
+  return (
+    <>
+      <ArtistSearchView
+        search={search}
+        handleChange={handleChange}
+        searchResults={searchResults}
+        toggleFilter={toggleFilter}
+      />
 
-
-            {/* <>
+      {/* <>
                 {search ? (
                     /* Layout of MSView will be:
                     
@@ -148,14 +157,12 @@ const ArtistSearchViewScript = (props) => {
                 )}
             </>
              */}
-        </>
-    );
-}
-
+    </>
+  );
+};
 
 // SearchView.propTypes = {
 
 // };
-
 
 export default ArtistSearchViewScript;
