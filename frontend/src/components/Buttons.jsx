@@ -100,7 +100,7 @@ const Buttons = {
   },
   Green: (props) => {
     return (
-      <button className="btn btn-colored btn-success border-dark">
+      <button className="btn btn-colored btn-success border-dark" onClick = {props.onClick}>
         {props.text}
       </button>
     );

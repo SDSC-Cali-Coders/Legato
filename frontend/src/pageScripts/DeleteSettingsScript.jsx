@@ -18,6 +18,7 @@ const DeleteSettingsScript = () => {
     console.log("my id from the context is " + id);
     let effectTriggeredRef = useRef(false);
     const [responseData, setResponseData] = useState(null);
+    let deleteView = false;
     /**
      * This use effect defines the fetchUser function and triggers it once,
      * allowing us to get data from our db about a specific user (using the
@@ -60,10 +61,15 @@ const DeleteSettingsScript = () => {
             },
         }
     }
+    const deleteAccount = () => {
+        deleteView = true;
+        console.log("true")
+        return <DeleteView />
+    }
     // Note: Using "&&" allows us to only render the following components when responseData is not null.
     return (settingsObj &&
         <>
-            <ConfirmView/>
+            {deleteView ? <DeleteView /> : <ConfirmView deleteAccount = {deleteAccount}/>}
         </>
 
     );

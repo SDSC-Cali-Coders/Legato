@@ -58,8 +58,13 @@ const EditSettingsScript = () => {
             },
         }
     }
+    const saveSettings = () => {
+        // Update Socials API Route
+        // Update visibility settings
+        console.log('settings saved')
+    }
 
-    useEffect(() => {
+    /*useEffect(() => {
         async function addUserDB() {
             // When a post request is sent to the create url, we'll add a new record to the database.
             const newUser = {
@@ -72,13 +77,14 @@ const EditSettingsScript = () => {
             addUserDB();
             effectTriggeredRef.current = true;
         }
-    }, [profile, topArtists, topSongs, sortedGenres]);
-    // Note: Using "&&" allows us to only render the following components when responseData is not null.
+    }, [profile, topArtists, topSongs, sortedGenres]);*/
+
     return (settingsObj &&
         <>
             <EditView
                 img={settingsObj.img}
                 name={settingsObj.name}
+                saveSettings = {saveSettings()}
             />
         </>
 

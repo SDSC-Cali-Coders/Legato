@@ -1,6 +1,7 @@
 import React from 'react';
 import UserProfile from '../components/settings/UserProfile';
 import { logout } from '../api/spotify';
+import { useNavigate, NavLink } from "react-router-dom";
 
 const ProfilePic = (props) => {
     let extraClassNames = 'border bg-dark p-10';
@@ -28,9 +29,9 @@ const Settings = (props) => {
             <div className="row text-center">
                 <div className="col-11"></div>
                 <div className="col-1">
-                    <a href='/settings/edit'>
+                    <NavLink to="/settings/edit">
                         <i className="bi bi-gear-fill text-primary fs-1"></i>
-                    </a>
+                    </NavLink>
                 </div>
             </div>
             <div className="row text-center">
@@ -44,8 +45,8 @@ const Settings = (props) => {
                         socialLinks={props.socialLinks}
                         topArtistsList={props.topArtistsList}
                         topSongsList={props.topSongsList}
-                        topGenreList={props.topGenreList} />
-
+                        topGenreList={props.topGenreList}
+                    />
                     <div className="row py-5">
                         <div className="col-5"></div>
                         <div className="col-2">

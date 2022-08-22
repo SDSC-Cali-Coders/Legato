@@ -11,7 +11,6 @@ const Button = (props) => {
 }
 
 const EditView = (props) => {
-    const navigate = useNavigate();
     return (
         <div className="container d-flex flex-column gap-4 p-5">
             <div className="row mx-5">
@@ -20,6 +19,7 @@ const EditView = (props) => {
                     <NavLink to="/settings">
                         <Button
                             text="Save"
+                            onClick = {props.saveSettings}
                         />
                     </NavLink>
                 </div>
@@ -80,7 +80,8 @@ const EditView = (props) => {
                                 (profile picture, listening history, linked socials)
                             </div>
                             <div className="form-check form-check-reverse">
-                                <input type="radio" className="form-check-input" name='defaultVisibility' id='publicVisibilityOn' />
+                                <input type="radio" className="form-check-input"
+                                    name='defaultVisibility' id='publicVisibilityOn' />
                                 <label htmlFor="defaultVisibility" className="form-check-label">
                                 </label>
                             </div>
@@ -92,7 +93,8 @@ const EditView = (props) => {
                                 No one can see your profile information
                             </div>
                             <div className="form-check form-check-reverse">
-                                <input type="radio" className="form-check-input" name='defaultVisibility' id='publicVisibilityOff' />
+                                <input type="radio" className="form-check-input"
+                                    name='defaultVisibility' id='publicVisibilityOff' />
                                 <label htmlFor="defaultVisibility" className="form-check-label">
                                 </label>
                             </div>

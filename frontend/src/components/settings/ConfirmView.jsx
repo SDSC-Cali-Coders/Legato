@@ -2,7 +2,7 @@ import React from 'react';
 import Buttons from '../Buttons';
 import { NavLink } from "react-router-dom";
 
-const ConfirmView = () => {
+const ConfirmView = (props) => {
     return (
         <div className="container Oswald_regular border border-dark bg-secondary">
             <div className="row fs-3 fw-bold text-center m-4">
@@ -20,8 +20,10 @@ const ConfirmView = () => {
             </div>
             <div className="row m-4">
                 <div className="col d-flex mt-5 justify-content-around">
-                    <Buttons.Green text='Yes' />
-                    <Buttons.Red text='No' />
+                    <Buttons.Green text='Yes' onClick = {props.deleteAccount} />
+                    <NavLink to="/settings/edit">
+                        <Buttons.Red text='No' />
+                    </NavLink>
                 </div>
             </div>
         </div>
