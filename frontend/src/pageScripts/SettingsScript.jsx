@@ -4,6 +4,8 @@ import Settings from '../pages/Settings';
 import { useState, useEffect, useRef } from 'react';
 import { userContext } from '../api/userContext'
 import { useContext } from 'react';
+import { catchErrors } from '../utils';
+
 
 
 const SettingsScript = () => {
@@ -15,6 +17,8 @@ const SettingsScript = () => {
     const id = useContext(userContext).id;
     console.log("my id from the context is " + id);
     let effectTriggeredRef = useRef(false);
+    let effectTriggeredRef1 = useRef(false);
+
     const [responseData, setResponseData] = useState(null);
     /**
      * This use effect defines the fetchUser function and triggers it once,
@@ -43,6 +47,29 @@ const SettingsScript = () => {
             effectTriggeredRef.current = true;
         }
     }, [id]);
+
+    /* The following is working code that updates a user's socials field 
+    useEffect(() => {
+        async function updateSocials() {
+            const newValues = {
+                _id: id,
+                // These linked Socials hsouldnt be empty but instead be set
+                // to what the user wants as their linked socials
+                linkedSocials: {
+                    facebook: '',
+                    instagram: '',
+                    twitter: '',
+                    pinterest: ''},
+            };
+            catchErrors(axios.put(`http://localhost:27017/user/socials/add`, newValues));
+        }
+        if (!effectTriggeredRef1.current) {
+            updateSocials();
+            effectTriggeredRef1.current = true;
+        }
+    }, []);
+    */
+
     let settingsObj = null;
     if (responseData) {
         settingsObj = {

@@ -6,19 +6,20 @@ const UserCard = (props) => {
     <div className="container Oswald_regular border border-dark  rounded bg-neutral-primary">
       <div className="row">
         <div className="col-4 text-center p-2">
-          <a href={`#`} className="findFriendsLink">
+          <a href={`#`} className="findFriendsLinkImg">
             <img
               src={props.img}
-              className="img-fluid rounded-circle mx-auto"
+              className="img-fluid rounded-circle p-1"
               alt="..."
+              width="150"
             />
           </a>
         </div>
         <div className="col-5 align-self-center">
           <a href={`#`} className="findFriendsLink">
-            <h5>
+            <h3>
               <b>{props.name}</b>
-            </h5>
+            </h3>
             <h6>{props.followers} Followers</h6>
             <h6>
               {props.mutualFriends} Mutual {props.type1}
