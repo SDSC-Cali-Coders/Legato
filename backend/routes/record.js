@@ -353,4 +353,23 @@ recordRoutes.route("/friends/:name").get(function (req, response) {
     });
 });
 
+
+// This section will help us add social media links to a user's profile 
+recordRoutes.route("/user/socials/add").put(function (req, response) {
+  let db_connect = dbo.getDb();
+  let newValues = {
+    $set: {
+      linkedSocials: req.body.linkedSocials,
+    }
+  };
+  let myquery = { _id: req.body._id };
+  db_connect.collection("user")
+    .updateOne(myquery, newValues, function (err, res) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      console.log("one document updated");
+    });
+});
 module.exports = recordRoutes;
