@@ -3,9 +3,9 @@ import AddFriendToggleBtn from "./AddFriendToggleBtn";
 
 const UserCard = (props) => {
   return (
-    <div className="container Oswald_regular border border-dark rounded bg-neutral-primary">
-      <div className="row align-items-center ">
-        <div className="col-4 text-center">
+    <div className="container Oswald_regular border border-dark  rounded bg-neutral-primary">
+      <div className="row">
+        <div className="col-4 text-center p-2">
           <a href={`#`} className="findFriendsLink">
             <img
               src={props.img}
@@ -14,7 +14,7 @@ const UserCard = (props) => {
             />
           </a>
         </div>
-        <div className="col-5 text-left">
+        <div className="col-5 align-self-center">
           <a href={`#`} className="findFriendsLink">
             <h5>
               <b>{props.name}</b>
@@ -32,7 +32,7 @@ const UserCard = (props) => {
           </a>
         </div>
 
-        <div className="col-3 border vstack justify-content-center">
+        <div className="col-3 border rounded vstack justify-content-center">
           {props.isFriendAdded ? (
             <AddFriendToggleBtn.FriendAdded />
           ) : (
