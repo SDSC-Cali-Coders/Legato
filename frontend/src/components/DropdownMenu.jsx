@@ -38,9 +38,20 @@ const DropdownMenu = {
       </div>
     );
   },
-  ConcertSortBy: () => {
+  ConcertSortBy: (props) => {
     return (
       <div className="dropdown">
+        <select
+          className="btn bg-neutral-body btn-secondary dropdown-toggle Oswald_less_bold text-white"
+          value={props.radius}
+          onChange={props.onChange}
+          defaultValue = ''
+        >
+          <option hidden value='' disabled>Sort By</option>
+          <option value="2">Date</option>
+          <option value="3">Distance</option>
+        </select>
+        {/*
         <button
           className="btn bg-neutral-body btn-secondary dropdown-toggle Oswald_less_bold text-white"
           data-bs-toggle="dropdown"
@@ -64,6 +75,7 @@ const DropdownMenu = {
             </a>
           </li>
         </ul>
+    */}
       </div>
     );
   },

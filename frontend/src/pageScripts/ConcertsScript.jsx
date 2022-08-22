@@ -104,7 +104,7 @@ const ConcertsScript = () => {
     const fetchData = async () => {
       const genreId = genreData._embedded.classifications[0].segment._embedded.genres[0].id;
       // note: can specify the radius below
-      const { data } = await getConcertsLocationGenre(lat, lng, '20', '40', genreId);
+      const { data } = await getConcertsLocationGenre(lat, lng, '20', '75', genreId);
       setReccConcerts(data);
     };
     if (lat && lng && genreData) {
@@ -218,7 +218,8 @@ const ConcertsScript = () => {
   return (loccCards && reccCards &&
     <>
       <Concerts search={search} concerts={concerts} handleSearch={handleSearch}
-        recommendedCard={reccCards} nearbyCard={loccCards} />
+        recommendedCard={reccCards} nearbyCard={loccCards}
+        onRadiusChange={handleRadiusChange} radius={rad} />
     </>
   )
 };
