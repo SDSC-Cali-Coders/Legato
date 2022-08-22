@@ -59,7 +59,6 @@ const ConcertsSearchScript = (props) => {
                 props.concerts._embedded.events[i]._embedded.venues[0].name :
                 props.concerts._embedded.events[i]._embedded.venues[0].address.line1;
                 const date = new Date(props.concerts._embedded.events[i].dates.start.dateTime);
-                console.log(date.toLocaleDateString(undefined, { weekday: 'long' }))
                 searchCards.push({
                     id: props.concerts._embedded.events[i].id,
                     name: props.concerts._embedded.events[i]._embedded.attractions ?
@@ -69,7 +68,9 @@ const ConcertsSearchScript = (props) => {
                         + ", " + state,
                     date: date.toLocaleDateString(undefined, { dateStyle: 'long' }),
                     day: date.toLocaleDateString(undefined, { weekday: 'long' }),
-                    genre: props.concerts._embedded.events[i].classifications[0].genre.name,
+                    genre: props.concerts._embedded.events[i].classifications[0].genre ? 
+                    props.concerts._embedded.events[i].classifications[0].genre.name : 
+                    props.concerts._embedded.events[i].classifications[0].segment.name,
                     time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                 })
             }

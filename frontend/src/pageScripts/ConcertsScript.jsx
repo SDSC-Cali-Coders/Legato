@@ -193,6 +193,7 @@ const ConcertsScript = () => {
   useEffect(() => {
     const fetchData = async () => {
       const artistId = artistData._embedded.attractions[0].id;
+      // Note: Changed call from getConcertsForArtistLocSorted to regular getConcertsForArtist
       const { data } = await getConcertsForArtist('50', artistId);
       setConcerts(data);
       console.log(data);
