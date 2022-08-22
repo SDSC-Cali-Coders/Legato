@@ -78,7 +78,7 @@
 }
 
 /* Neutral background colors */
-.bg-neutral-light {
+/* .bg-neutral-light {
   --bs-bg-opacity: 1;
   background-color: #f2f1ef;
 }
@@ -101,7 +101,35 @@
 .bg-neutral-primary {
   --bs-bg-opacity: 1;
   background-color: #b1a6a4;
+} */
+
+.bg-neutral-light {
+  --bs-bg-opacity: 1;
+  background-color: #acabbb;
 }
+
+
+
+.bg-neutral-body {
+  --bs-bg-opacity: 1;
+  background-color: #2a2747;
+}
+
+.bg-neutral-dark {
+  --bs-bg-opacity: 1;
+  background-color: #17162e;
+}
+
+.bg-neutral-secondary {
+  --bs-bg-opacity: 1;
+  background-color: #d5f979;
+}
+
+.bg-neutral-primary {
+  --bs-bg-opacity: 1;
+  background-color: #88c591;
+}
+
 
 /* Add spotify green + red colors! */
 /* Add .text-neutral colors as well */
