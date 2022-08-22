@@ -35,9 +35,9 @@ const UserCard = (props) => {
 
         <div className="col-3 border vstack justify-content-center">
           {props.isFriendAdded ? (
-            <AddFriendToggleBtn.FriendAdded />
+            <AddFriendToggleBtn.FriendAdded toggleFollow={props.toggleFollow} ind={props.ind}/>
           ) : (
-            <AddFriendToggleBtn.FriendNotAdded />
+            <AddFriendToggleBtn.FriendNotAdded toggleFollow={props.toggleFollow} ind={props.ind}/>
           )}
         </div>
       </div>

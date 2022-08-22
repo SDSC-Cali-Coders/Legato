@@ -7,7 +7,8 @@ const Friends = (props) => {
   const card = props.card.map((item, ind) => {
     return (
       <FriendCard
-        key={ind}
+        key={item.name}
+        ind={ind}
         img={item.img}
         name={item.name}
         followers={item.followers}
@@ -18,6 +19,7 @@ const Friends = (props) => {
         mutualArtists={item.mutualArtists}
         type3={item.type3}
         isFriendAdded={item.isFriendAdded}
+        toggleFollow={props.toggleFollow}
       />
     );
   });
