@@ -5,8 +5,6 @@ import notification from '../assets/notification.svg';
 import profile from '../assets/profile.svg';
 import { NavLink } from "react-router-dom";
 
-import { NavLink } from "react-router-dom";
-
 const Navbar = () => {
 
     return (
