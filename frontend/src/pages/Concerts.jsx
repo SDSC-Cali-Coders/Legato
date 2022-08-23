@@ -53,27 +53,12 @@ const Concerts = (props) => {
             <InterestButton.Going isPressed={false} />
           </div>
 
-          <div className="row">
-            <div className="col border border-dark bg-primary mx-4">
-              <div className="row fs-2">
-                <div className="col">Recommended for you</div>
-              </div>
-              <div className="vertical-scroll row row-cols-md-3 g-0">
-                {recommendedCard}
-              </div>
-            </div>
-
-            <div className="col border border-dark bg-primary mx-4">
-              <div className="row align-items-center">
-                <div className="col-10 fs-2"> Nearby you</div>
-                <div className="col-2">
-                  <div className="row float-end">
-                    <DropdownMenu.Radius radius={props.radius} onChange={props.onChange} />
-                  </div>
-                </div>
-              </div>
-              <div className="vertical-scroll row row-cols-md-3 g-0">
-                {nearbyCard}
+        <div className="col border border-dark bg-primary mx-4">
+          <div className="row align-items-center">
+            <div className="col-10 fs-2"> Nearby you</div>
+            <div className="col-2">
+              <div className="row float-end">
+                <DropdownMenu.Radius radius={props.radius} onChange={props.onRadiusChange}/>
               </div>
             </div>
           </div>

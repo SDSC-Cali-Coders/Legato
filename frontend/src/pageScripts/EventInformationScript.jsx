@@ -44,21 +44,30 @@ const EventInformationScript = (props) => {
       time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
   }
+  const [isNotBookmarked, setIsNotBookmarked] = useState(true);
+  const [isNotSaved, setIsNotSaved] = useState(true);
+
 
   // TODO: Mutual friends and others (rn its hardcoded)
   return (concertObject &&
-    <EventInformation
-      name={concertObject.name}
-      id={concertObject.id}
-      img={concertObject.img}
-      genre={concertObject.genre}
-      venueName={concertObject.venueName}
-      venueAddress={concertObject.venueAddress}
-      date={concertObject.date}
-      time={concertObject.time}
-      mutualFriends={"4"}
-      others={"10"}
-    />
+      <EventInformation
+        name={concertObject.name}
+        id={concertObject.id}
+        img={concertObject.img}
+        genre={concertObject.genre}
+        venueName={concertObject.venueName}
+        venueAddress={concertObject.venueAddress}
+        date={concertObject.date}
+        time={concertObject.time}
+        mutualFriends = {"4"}
+        others = {"10"}
+
+        isNotBookmarked={isNotBookmarked} 
+        toggleBookmarked={setIsNotBookmarked}
+
+        isNotSaved={isNotSaved}
+        toggleSaved={setIsNotSaved}
+      />
   )
 };
 

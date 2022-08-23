@@ -56,18 +56,19 @@ const Searchbar = {
   FindFriendsSearchbar: (props) => {
     const [searchQuery, setSearchQuery] = useState('')
     return (
-      <div className="input-group d-flex">
-        <div className="input-group-prepend">
+        <div className="input-group d-flex">
+        {/* <div className="input-group-prepend">
           <button
             className="btn bg-neutral-secondary btn-outline-bg-neutral-secondary"
             type="button"
-            onClick={
-              () => {props.handleSearch(searchQuery)
-            }}
+            // Dynamic searchbar won't wait on listeners
+            // onClick={
+            //   () => {props.handleSearch(searchQuery)
+            // }}
           >
             <i className="bi bi-search text-dark"></i>
           </button>
-        </div>
+        </div> */}
         <div className="searchinput flex-fill">
           <input
             type="text"
@@ -76,15 +77,20 @@ const Searchbar = {
             value={searchQuery}
             onChange={ (e) => {
               setSearchQuery(e.target.value)
+
+              // Dynamic searchbar will immediately call on handler passed through props
+              props.handleSearch(e.target.value)
             }}
-            onKeyDown={
-              (e) => {if (e.key === 'Enter') props.handleSearch(searchQuery)
-            }}
+            // Dynamic searchbar won't wait on listeners
+            // onKeyDown={
+            //   (e) => {if (e.key === 'Enter') props.handleSearch(searchQuery)
+            // }}
           />
         </div>
       </div>
     );
   },
+  
 };
 
 export default Searchbar;
