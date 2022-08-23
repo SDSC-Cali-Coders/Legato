@@ -181,7 +181,7 @@ const ConcertsScript = () => {
         <Concerts
           recommendedCard={reccCards}
           nearbyCard={loccCards}
-          onChange={handleRadiusChange}
+          onRadiusChange={handleRadiusChange}
           radius={rad}
         />
       </>

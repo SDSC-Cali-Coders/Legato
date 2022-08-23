@@ -181,11 +181,6 @@
   height: 75vh;
 }
 
-/* Additional styling to remove italics in EventInformation */
-i {
-  font-style: normal;
-}
-
 /* Additional styling for words in EventInformation */
 .eventDescription {
   text-decoration: none;
@@ -200,10 +195,14 @@ i {
 .findFriendsLink {
   text-decoration: none;
   color: black;
-
 }
 
 a:not(nav-link) hover {
   background-color: #d8cfd0;
+  color: black;
+}
+
+.userProfileLink {
+  text-decoration: none;
   color: black;
 }

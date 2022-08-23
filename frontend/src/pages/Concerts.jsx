@@ -58,7 +58,7 @@ const Concerts = (props) => {
             <div className="col-10 fs-2"> Nearby you</div>
             <div className="col-2">
               <div className="row float-end">
-                <DropdownMenu.Radius radius={props.radius} onChange={props.onChange}/>
+                <DropdownMenu.Radius radius={props.radius} onChange={props.onRadiusChange}/>
               </div>
             </div>
           </div>
