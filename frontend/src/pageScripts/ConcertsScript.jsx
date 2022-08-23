@@ -27,7 +27,9 @@ const ConcertsScript = () => {
   let effectTriggeredRef = useRef(false);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [concerts, setConcerts] = useState(null);
+  const [artistConcerts, setArtistConcerts] = useState(null);
+  const [artistConcertsLoc, setArtistConcertsLoc] = useState(null);
+  const [artistConcertsDate, setArtistConcertsDate] = useState(null);
   const [artistData, setArtistData] = useState(null);
 
   /* INFO ON CODE BLOCK: integrates the getArtistDetail + getConcertsForArtist API Call
@@ -202,9 +204,37 @@ const ConcertsScript = () => {
       const artistId = artistData._embedded.attractions[0].id;
       // Note: Changed call from getConcertsForArtistLocSorted to regular getConcertsForArtist
       const { data } = await getConcertsForArtist('50', artistId);
-      setConcerts(data);
+      setArtistConcerts(data);
       console.log(data);
-      console.log(concerts);
+      console.log(artistConcerts);
+    };
+    if (lat && lng && artistData) {
+      catchErrors(fetchData());
+    }
+  }, [lat, lng, artistData]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const artistId = artistData._embedded.attractions[0].id;
+      // Note: Changed call from getConcertsForArtistLocSorted to regular getConcertsForArtist
+      const { data } = await getConcertsForArtistLocSorted(lat, lng, '50', artistId);
+      setArtistConcertsLoc(data);
+      console.log(data);
+      console.log(artistConcertsLoc);
+    };
+    if (lat && lng && artistData) {
+      catchErrors(fetchData());
+    }
+  }, [lat, lng, artistData]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const artistId = artistData._embedded.attractions[0].id;
+      // Note: Changed call from getConcertsForArtistLocSorted to regular getConcertsForArtist
+      const { data } = await getConcertsForArtistDateSorted('50', artistId);
+      setArtistConcertsDate(data);
+      console.log(data);
+      console.log(artistConcertsDate);
     };
     if (lat && lng && artistData) {
       catchErrors(fetchData());
@@ -217,9 +247,12 @@ const ConcertsScript = () => {
 
   return (loccCards && reccCards &&
     <>
-      <Concerts search={search} concerts={concerts} handleSearch={handleSearch}
+      <Concerts search={search} artistConcerts={artistConcerts} handleSearch={handleSearch}
         recommendedCard={reccCards} nearbyCard={loccCards}
-        onChange={handleRadiusChange} radius={rad} />
+        onChange={handleRadiusChange} radius={rad}
+        artistConcertsLoc = {artistConcertsLoc}
+        artistConcertsDate = {artistConcertsDate}
+         />
     </>
   )
 };

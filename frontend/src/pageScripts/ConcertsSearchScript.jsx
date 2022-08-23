@@ -50,13 +50,19 @@ const ConcertsSearchScript = (props) => {
     // }, [lat, lng, artistData]);
 
     let searchCards = [];
-    console.log(props.concerts);
-    if (props.concerts) {
-        if (props.concerts.page.totalElements == 0) {
+    console.log(props.artistConcerts);
+    if (props.artistConcerts) {
+        if (props.artistConcerts.page.totalElements == 0) {
             emptyResults = true;
         }
         else {
-            const concerts = props.concerts;
+            let concerts = props.artistConcerts;
+            if (sort == 'distance') {
+                concerts = props.artistConcertsLoc;
+            }
+            else if (sort == 'date') {
+                concerts = props.artistConcertsDate;
+            }
             for (let i = 0; i < concerts._embedded.events.length; i++) {
                 //console.log(concerts._embedded.events[i])
                 const state = concerts._embedded.events[i]._embedded.venues[0].country.countryCode == 'US' ?

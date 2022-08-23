@@ -42,7 +42,9 @@ const Concerts = (props) => {
         />
       </div>
       {props.search ? (
-        <ConcertsSearchScript concerts={props.concerts} />
+        <ConcertsSearchScript artistConcerts={props.artistConcerts}
+          artistConcertsLoc={props.artistConcertsLoc}
+          artistConcertsDate={props.artistConcertsDate} />
       ) : (
         <div className="container mt-1 min-vw-100 Oswald_regular">
           <div className="btn-group m-2" role="group" aria-label="First group">

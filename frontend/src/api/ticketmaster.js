@@ -81,7 +81,7 @@ export const getConcertsForArtistLocSorted = (lat, lng, size, artist) => {
  * @param {*} artist This is a string, specifically a ticketmaster id
  * @returns an object consisting of an embedded field which we use
  */
- export const getConcertsForArtistDateSorted = (lat, lng, size, artist) => {
+ export const getConcertsForArtistDateSorted = (size, artist) => {
     return ticketmasterInstance.get(`events.json?attractionId=${artist}&`
     +`size=${size}&`
     +`sort=date,asc&`
