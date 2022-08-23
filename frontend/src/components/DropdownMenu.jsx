@@ -50,31 +50,6 @@ const DropdownMenu = {
           <option value="date">Date</option>
           <option value="distance">Distance</option>
         </select>
-        {/*
-        <button
-          className="btn bg-neutral-body btn-secondary dropdown-toggle Oswald_less_bold text-white"
-          data-bs-toggle="dropdown"
-          type="button"
-          aria-expanded="false"
-        >
-          Sort By
-        </button>
-        <ul className="dropdown-menu bg-neutral-primary">
-          <li>
-            <a
-              className="dropdown-item text-white Oswald_less_bold text-white"
-              href="#"
-            >
-              Date
-            </a>
-          </li>
-          <li>
-            <a className="dropdown-item Oswald_less_bold text-white" href="#">
-              Distance
-            </a>
-          </li>
-        </ul>
-    */}
       </div>
     );
   },
