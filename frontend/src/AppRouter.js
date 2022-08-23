@@ -12,7 +12,6 @@ import FollowerFollowingScript from "./pageScripts/FollowerFollowingScript";
 import ArtistSearchViewScript from './pageScripts/ArtistSearchViewScript';
 import ArtistDescriptionScript from "./pageScripts/ArtistDescriptionScript";
 import FriendsScript from "./pageScripts/FriendsScript";
-import NotificationScript from "./pageScripts/NotificationScript";
 
 /**
  * This AppRouter allows us to navigate across the application and works with our
@@ -54,9 +53,6 @@ function AppRouter() {
                 } />
                 <Route path="/artists/description" element={
                     <ArtistDescriptionScript />
-                } />
-                <Route path="/notifications" element={
-                    <NotificationScript />
                 } />
                 <Route path="/friends/" element={
                     <FriendsScript/>

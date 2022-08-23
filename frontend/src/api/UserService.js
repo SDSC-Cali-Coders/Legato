@@ -7,9 +7,13 @@ export async function getUserNotifications(id){
    * @param  {string} id - id of user who's notification you want to get
    * @return {Array notificationObj} - Array of notification objects. 
    */
-  const response = await fetch('/notification/' + id);
-  const data = await response.json();
-  return data;
+  try {
+    let call = '/notification/' + id;
+    const response = await fetch(call);
+    return await response.json();
+  }catch(error) {
+    return error;
+  }
 }
 
 export async function deleteUserNotification(objId){
@@ -24,8 +28,7 @@ export async function deleteUserNotification(objId){
   const response = await fetch(call, {
     method: 'DELETE'
   });
-  const data = await response.json();
-  return data;
+  return await response.json();
 }
 
 export async function addUserNotification(notification){
@@ -40,64 +43,5 @@ export async function addUserNotification(notification){
     method: 'PUT',
     body: JSON.stringify(notification)
   });
-  const data = await response.json();
-  return data;
-}
-
-export async function requestFollow(followId, userId){
-  /**
-   * send a follow request to the user with followId in the form of a notification
-   * @param {string} followId - id of user receiving the follow request
-   * @param {string} userId - id of the current user sending the follow request to followId
-   * @return {acknowledgedObj} - object used to determine if api call was acknowledged
-   */
-  let b = {
-    userId: userId
-  }
-  const response = await fetch('/requestFollow/' + followId, {
-    method: 'PUT',
-    body: JSON.stringify(b)
-  });
-  const data = await response.json();
-  return data;
-}
-
-export async function followUser(followId, userId){
-  /**
-   * add friend to users following list, and add user to friends followers list
-   * @param {string} followId - id of friend to be followed by user
-   * @param {string} userId - id of user sending follow
-   * @return {acknowledgedObj} - refer to recieve section of respective api 
-   * documentation
-   */
-  let b = {
-    userId: userId
-  }
-  const response = await fetch('/follow/' + followId, {
-    method: 'PUT',
-    body: JSON.stringify(b)
-  });
-  const data = await response.json();
-  return data;
-}
-
-export async function unfollowUser(followId, userId){
-  /**
-   * remove friend from users following list, and remove user to friends
-   * followers list
-   * @param {string} followId - id of friend to be unfollowed by user
-   * @param {string} userId - id of user sending unfollow
-   * @return {acknowledgedObj} - refer to recieve section of respective api 
-   * documentation
-   */
-  let b = {
-    followId: followId,
-    userId: userId
-  }
-  const response = await fetch('/unfollow', {
-    method: 'DELETE',
-    body: JSON.stringify(b)
-  });
-  const data = response.json();
-  return data;
+  return await response.json()
 }
