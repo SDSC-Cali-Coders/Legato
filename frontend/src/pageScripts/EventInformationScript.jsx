@@ -42,6 +42,9 @@ const EventInformationScript = (props) => {
       time: concertData.dates.start.localTime,
     };
   }
+  const [isNotBookmarked, setIsNotBookmarked] = useState(true);
+  const [isNotSaved, setIsNotSaved] = useState(true);
+
 
   // TODO: Mutual friends and others (rn its hardcoded)
   return (concertObject &&
@@ -56,6 +59,12 @@ const EventInformationScript = (props) => {
         time={concertObject.time}
         mutualFriends = {"4"}
         others = {"10"}
+
+        isNotBookmarked={isNotBookmarked} 
+        toggleBookmarked={setIsNotBookmarked}
+
+        isNotSaved={isNotSaved}
+        toggleSaved={setIsNotSaved}
       />
   )
 };

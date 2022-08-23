@@ -179,11 +179,6 @@
   height: 75vh;
 }
 
-/* Additional styling to remove italics in EventInformation */
-i {
-  font-style: normal;
-}
-
 /* Additional styling for words in EventInformation */
 .eventDescription {
   text-decoration: none;
