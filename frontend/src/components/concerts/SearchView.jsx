@@ -23,7 +23,7 @@ const SearchView = (props) => {
     <div className="container mt-1 min-vw-100 Oswald_regular">
       {/* <Searchbar.ConcertSearchbar /> */}
       <div className="btn-group m-2" role="group" aria-label="First group">
-        <DropdownMenu.ConcertSortBy />
+        <DropdownMenu.ConcertSortBy sort={props.sort} onChange={props.onChange}/>
       </div>
 
       <div className="row">

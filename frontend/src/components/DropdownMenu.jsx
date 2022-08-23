@@ -43,13 +43,13 @@ const DropdownMenu = {
       <div className="dropdown">
         <select
           className="btn bg-neutral-body btn-secondary dropdown-toggle Oswald_less_bold text-white"
-          value={props.radius}
+          value={props.selection}
           onChange={props.onChange}
           defaultValue = ''
         >
           <option hidden value='' disabled>Sort By</option>
-          <option value="2">Date</option>
-          <option value="3">Distance</option>
+          <option value="date">Date</option>
+          <option value="distance">Distance</option>
         </select>
         {/*
         <button

@@ -3,8 +3,10 @@ import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { userContext } from '../api/userContext'
 import { useContext } from 'react';
-import { getArtistDetail, getConcertsForArtistDateSorted, getConcertsForArtistLocSorted, getConcertsForArtist,
-    getConcertsLocation, getGenreDetail, getConcertsLocationGenre } from '../api/ticketmaster';
+import {
+    getArtistDetail, getConcertsForArtistDateSorted, getConcertsForArtistLocSorted, getConcertsForArtist,
+    getConcertsLocation, getGenreDetail, getConcertsLocationGenre
+} from '../api/ticketmaster';
 import { catchErrors } from '../utils';
 import { useSearchParams } from 'react-router-dom';
 
@@ -15,12 +17,16 @@ const ConcertsSearchScript = (props) => {
     const id = useContext(userContext).id;
     const lat = useContext(userContext).lat;
     const lng = useContext(userContext).lng;
-    const [concerts, setConcerts] = useState(null);
     const [artistData, setArtistData] = useState(null);
     const [searchParams] = useSearchParams();
     const artistName = searchParams.get("artist");
     const [searchQuery, setSearchQuery] = useState('')
+    const [sort, setSort] = useState(null);
 
+    function handleSortChange(e) {
+        setSort(e.target.value);
+        console.log(sort);
+    }
     let emptyResults = false;
     // INFO ON CODE BLOCK: integrates the getArtistDetail + getConcertsForArtist API Call
     // Note: both of these API calls should be used together
@@ -50,27 +56,28 @@ const ConcertsSearchScript = (props) => {
             emptyResults = true;
         }
         else {
-            for (let i = 0; i < props.concerts._embedded.events.length; i++) {
-                console.log(props.concerts._embedded.events[i])
-                const state = props.concerts._embedded.events[i]._embedded.venues[0].country.countryCode == 'US' ?
-                props.concerts._embedded.events[i]._embedded.venues[0].state.stateCode :
-                props.concerts._embedded.events[i]._embedded.venues[0].country.name;
-                const venueName = props.concerts._embedded.events[i]._embedded.venues[0].name ?
-                props.concerts._embedded.events[i]._embedded.venues[0].name :
-                props.concerts._embedded.events[i]._embedded.venues[0].address.line1;
-                const date = new Date(props.concerts._embedded.events[i].dates.start.dateTime);
+            const concerts = props.concerts;
+            for (let i = 0; i < concerts._embedded.events.length; i++) {
+                //console.log(concerts._embedded.events[i])
+                const state = concerts._embedded.events[i]._embedded.venues[0].country.countryCode == 'US' ?
+                    concerts._embedded.events[i]._embedded.venues[0].state.stateCode :
+                    concerts._embedded.events[i]._embedded.venues[0].country.name;
+                const venueName = concerts._embedded.events[i]._embedded.venues[0].name ?
+                    concerts._embedded.events[i]._embedded.venues[0].name :
+                    concerts._embedded.events[i]._embedded.venues[0].address.line1;
+                const date = new Date(concerts._embedded.events[i].dates.start.dateTime);
                 searchCards.push({
-                    id: props.concerts._embedded.events[i].id,
-                    name: props.concerts._embedded.events[i]._embedded.attractions ?
-                    props.concerts._embedded.events[i]._embedded.attractions[0].name : props.concerts._embedded.events[i].name,
+                    id: concerts._embedded.events[i].id,
+                    name: concerts._embedded.events[i]._embedded.attractions ?
+                        concerts._embedded.events[i]._embedded.attractions[0].name : concerts._embedded.events[i].name,
                     venueName: venueName,
-                    venueLocation: props.concerts._embedded.events[i]._embedded.venues[0].city.name
+                    venueLocation: concerts._embedded.events[i]._embedded.venues[0].city.name
                         + ", " + state,
                     date: date.toLocaleDateString(undefined, { dateStyle: 'long' }),
                     day: date.toLocaleDateString(undefined, { weekday: 'long' }),
-                    genre: props.concerts._embedded.events[i].classifications[0].genre ? 
-                    props.concerts._embedded.events[i].classifications[0].genre.name : 
-                    props.concerts._embedded.events[i].classifications[0].segment.name,
+                    genre: concerts._embedded.events[i].classifications[0].genre ?
+                        concerts._embedded.events[i].classifications[0].genre.name :
+                        concerts._embedded.events[i].classifications[0].segment.name,
                     time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                 })
             }
@@ -78,7 +85,8 @@ const ConcertsSearchScript = (props) => {
     }
     return (searchCards &&
         <>
-            {emptyResults ? <SearchEmpty/> : <SearchView searchCard={searchCards} />}
+            {emptyResults ? <SearchEmpty /> : <SearchView searchCard={searchCards}
+                onChange={handleSortChange} sort={sort} />}
         </>
     )
 };

@@ -219,7 +219,7 @@ const ConcertsScript = () => {
     <>
       <Concerts search={search} concerts={concerts} handleSearch={handleSearch}
         recommendedCard={reccCards} nearbyCard={loccCards}
-        onRadiusChange={handleRadiusChange} radius={rad} />
+        onChange={handleRadiusChange} radius={rad} />
     </>
   )
 };
