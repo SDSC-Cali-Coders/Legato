@@ -22,8 +22,6 @@ const ArtistSearchViewScript = (props) => {
     let effectTriggeredRef = useRef(false);
     const [subData, setSubData] = useState([]);
     const [artistInfo, setArtistInfo] = useState(null);
-    let backendSubData;
-    // const [isNotSubscribed, setIsNotSubscribed] = useState(true);
  
  
     useEffect(() => {
@@ -115,18 +113,9 @@ const ArtistSearchViewScript = (props) => {
     }, [search, filterToggle]);
  
  
-    /* async function addArtistSub(newData) {
-        // When a post request is sent to the create url, we'll add a new record to the database.
-        const newUser = {
-            subscribedArtists: newData
-        };
-        catchErrors(axios.put(`http://localhost:27017/user/${id}`, newUser));
-    } */
- 
     
     useEffect(() => {
         async function updateSubArtists() {
-            // When a post request is sent to the create url, we'll add a new record to the database.
             const newVals = {
                 _id: id,
                 subscribedArtists: subData,
