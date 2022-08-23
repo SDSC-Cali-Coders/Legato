@@ -23,7 +23,6 @@ const ArtistSearchViewScript = (props) => {
     const [subData, setSubData] = useState(null);
     const [artistInfo, setArtistInfo] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [searchLoading, setSearchLoading] = useState(true);
 
     useEffect(() => {
         console.log(filterToggle);
