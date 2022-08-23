@@ -27,33 +27,10 @@ const ConcertsScript = () => {
   let effectTriggeredRef = useRef(false);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [artistConcerts, setArtistConcerts] = useState(null);
   const [artistConcertsLoc, setArtistConcertsLoc] = useState(null);
   const [artistConcertsDate, setArtistConcertsDate] = useState(null);
   const [artistData, setArtistData] = useState(null);
 
-  /* INFO ON CODE BLOCK: integrates the getArtistDetail + getConcertsForArtist API Call
-  // Note: both of these API calls should be used together
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await getArtistDetail('The Weeknd');
-      setArtistData(data);
-    };
-    catchErrors(fetchData());
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const artistId = artistData._embedded.attractions[0].id;
-      const { data } = await getConcertsForArtistLocSorted(lat, lng, '50', artistId);
-      setConcerts(data);
-    };
-    if (lat && lng && artistData) {
-      console.log("within the conditional");
-      catchErrors(fetchData());
-    }
-  }, [lat, lng, artistData]);
-  */
   // INFO ON CODE BLOCK: integrates the getConcertsLocation API Call
   useEffect(() => {
     const fetchData = async () => {
@@ -162,35 +139,6 @@ const ConcertsScript = () => {
   }, [reccCards]);
   */
 
-
-  // useEffect(() => {
-  //   if (!search) return setSearchResults([])
-  //   const fetchData = async () => {
-  //     const { artistDetailData } = await getArtistDetail(search);
-  //     setArtistData(artistDetailData);
-  //     const artistId = artistDetailData._embedded.attractions[0].id;
-  //     const { data } = await getConcertsForArtistLocSorted(lat, lng, '50', artistId);
-  //     setSearchResults(
-  //       // data.artists.items.map(artist => {
-  //       //   return {
-  //       //     img: artist.images[0].url,
-  //       //     name: artist.name,
-  //       //     genre: artist.genres[0]
-  //       //   }
-  //       // })
-  //       data
-  //     );
-  //      console.log(search)
-  //      console.log(data)
-  //     // if (searchResults) {
-  //     //     console.log("There's your data")
-  //     // }
-  //     // console.log(searchResults)
-  //     // console.log(artistResult)
-  //   };
-  //   catchErrors(fetchData());
-  // }, [search]);
-
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await getArtistDetail(search);
@@ -198,20 +146,6 @@ const ConcertsScript = () => {
     };
     catchErrors(fetchData());
   }, [search]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const artistId = artistData._embedded.attractions[0].id;
-      // Note: Changed call from getConcertsForArtistLocSorted to regular getConcertsForArtist
-      const { data } = await getConcertsForArtist('50', artistId);
-      setArtistConcerts(data);
-      console.log(data);
-      console.log(artistConcerts);
-    };
-    if (lat && lng && artistData) {
-      catchErrors(fetchData());
-    }
-  }, [lat, lng, artistData]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -247,7 +181,7 @@ const ConcertsScript = () => {
 
   return (loccCards && reccCards &&
     <>
-      <Concerts search={search} artistConcerts={artistConcerts} handleSearch={handleSearch}
+      <Concerts search={search} handleSearch={handleSearch}
         recommendedCard={reccCards} nearbyCard={loccCards}
         onChange={handleRadiusChange} radius={rad}
         artistConcertsLoc = {artistConcertsLoc}

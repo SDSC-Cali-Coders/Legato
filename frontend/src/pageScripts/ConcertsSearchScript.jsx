@@ -3,10 +3,6 @@ import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { userContext } from '../api/userContext'
 import { useContext } from 'react';
-import {
-    getArtistDetail, getConcertsForArtistDateSorted, getConcertsForArtistLocSorted, getConcertsForArtist,
-    getConcertsLocation, getGenreDetail, getConcertsLocationGenre
-} from '../api/ticketmaster';
 import { catchErrors } from '../utils';
 import { useSearchParams } from 'react-router-dom';
 
@@ -14,13 +10,6 @@ import SearchView from "../components/concerts/SearchView";
 import SearchEmpty from "../components/concerts/SearchEmpty";
 
 const ConcertsSearchScript = (props) => {
-    const id = useContext(userContext).id;
-    const lat = useContext(userContext).lat;
-    const lng = useContext(userContext).lng;
-    const [artistData, setArtistData] = useState(null);
-    const [searchParams] = useSearchParams();
-    const artistName = searchParams.get("artist");
-    const [searchQuery, setSearchQuery] = useState('')
     const [sort, setSort] = useState(null);
 
     function handleSortChange(e) {
@@ -28,35 +17,15 @@ const ConcertsSearchScript = (props) => {
         console.log(sort);
     }
     let emptyResults = false;
-    // INFO ON CODE BLOCK: integrates the getArtistDetail + getConcertsForArtist API Call
-    // Note: both of these API calls should be used together
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const { data } = await getArtistDetail(artistName);
-    //         setArtistData(data);
-    //     };
-    //     catchErrors(fetchData());
-    // }, []);
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const artistId = artistData._embedded.attractions[0].id;
-    //         const { data } = await getConcertsForArtistLocSorted(lat, lng, '50', artistId);
-    //         setConcerts(data);
-    //     };
-    //     if (lat && lng && artistData) {
-    //         catchErrors(fetchData());
-    //     }
-    // }, [lat, lng, artistData]);
 
     let searchCards = [];
-    console.log(props.artistConcerts);
-    if (props.artistConcerts) {
-        if (props.artistConcerts.page.totalElements == 0) {
+    console.log(props.artistConcertsDate);
+    if (props.artistConcertsDate) {
+        if (props.artistConcertsDate.page.totalElements == 0) {
             emptyResults = true;
         }
         else {
-            let concerts = props.artistConcerts;
+            let concerts = props.artistConcertsDate;
             if (sort == 'distance') {
                 concerts = props.artistConcertsLoc;
             }

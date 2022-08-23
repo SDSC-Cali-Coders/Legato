@@ -42,8 +42,7 @@ const Concerts = (props) => {
         />
       </div>
       {props.search ? (
-        <ConcertsSearchScript artistConcerts={props.artistConcerts}
-          artistConcertsLoc={props.artistConcertsLoc}
+        <ConcertsSearchScript artistConcertsLoc={props.artistConcertsLoc}
           artistConcertsDate={props.artistConcertsDate} />
       ) : (
         <div className="container mt-1 min-vw-100 Oswald_regular">

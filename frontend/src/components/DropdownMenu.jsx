@@ -45,9 +45,8 @@ const DropdownMenu = {
           className="btn bg-neutral-body btn-secondary dropdown-toggle Oswald_less_bold text-white"
           value={props.selection}
           onChange={props.onChange}
-          defaultValue = ''
+          defaultValue = 'date'
         >
-          <option hidden value='' disabled>Sort By</option>
           <option value="date">Date</option>
           <option value="distance">Distance</option>
         </select>
