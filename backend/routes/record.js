@@ -447,4 +447,24 @@ recordRoutes.route("/user/socials/add").put(function (req, response) {
       console.log("one document updated");
     });
 });
+
+// This section will help us update a user's subscribed artists 
+recordRoutes.route("/user/subscribedArtists/update").put(function (req, response) {
+  let db_connect = dbo.getDb();
+  let newValues = {
+    $set: {
+      subscribedArtists: req.body.subscribedArtists,
+    }
+  };
+  let myquery = { _id: req.body._id };
+  db_connect.collection("user")
+    .updateOne(myquery, newValues, function (err, res) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      console.log("subscribedArtists updated");
+    });
+});
+
 module.exports = recordRoutes;

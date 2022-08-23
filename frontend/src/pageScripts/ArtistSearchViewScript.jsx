@@ -20,9 +20,8 @@ const ArtistSearchViewScript = (props) => {
     const [searchResults, setSearchResults] = useState([]);
     const [filterToggle, setFilterToggle] = useState(true);
     let effectTriggeredRef = useRef(false);
-    const [subData, setSubData] = useState(null);
+    const [subData, setSubData] = useState([]);
     const [artistInfo, setArtistInfo] = useState(null);
-    // const [isNotSubscribed, setIsNotSubscribed] = useState(true);
  
  
     useEffect(() => {
@@ -65,12 +64,11 @@ const ArtistSearchViewScript = (props) => {
             const { data } = await searchArtists(search);
  
             console.log('This is subData: ', subData)
-            if ((subData == []) && filterToggle) {
+            if ((!subData.length) && filterToggle) {
                 setSearchResults([])
             }
             
-            
-
+            //if on general artist tab
             if (!filterToggle) {
                 console.log("data.items: ", data.artists.items)
                 setSearchResults(
@@ -81,7 +79,7 @@ const ArtistSearchViewScript = (props) => {
                             img: artist.images.length > 0 ? artist.images[0].url : 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg',
                             name: artist.name,
                             genre: artist.genres.length > 0 ? artist.genres[0] : "N/A",
-                            isNotSubscribed: true,
+                            isNotSubscribed: !subData.length ? true : !subData.includes(artist.id),
                         }
                     })
                 );
@@ -89,6 +87,7 @@ const ArtistSearchViewScript = (props) => {
             }
             
             // TWO TYPES OF TABS: General Artist Tab & Sub Artist Tab
+            // if on subscribed artist tab
             if (filterToggle) {
                 let subArtists = []
                 subData.forEach(async (elem) => {
@@ -99,9 +98,9 @@ const ArtistSearchViewScript = (props) => {
                             return {
                                 ind: index,
                                 artistId: artist.id,
-                                img: artist.images[0].url,
+                                img: artist.images.length > 0 ? artist.images[0].url : 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg',
                                 name: artist.name,
-                                genre: artist.genres[0],
+                                genre: artist.genres.length > 0 ? artist.genres[0] : "N/A",
                                 isNotSubscribed: false,
                             }
                         })
@@ -114,15 +113,19 @@ const ArtistSearchViewScript = (props) => {
     }, [search, filterToggle]);
  
  
-    /* async function addArtistSub(newData) {
-        // When a post request is sent to the create url, we'll add a new record to the database.
-        const newUser = {
-            subscribedArtists: newData
-        };
-        catchErrors(axios.put(`http://localhost:27017/user/${id}`, newUser));
-    } */
- 
- 
+    
+    useEffect(() => {
+        async function updateSubArtists() {
+            const newVals = {
+                _id: id,
+                subscribedArtists: subData,
+            };
+            catchErrors(axios.put(`http://localhost:27017/user/subscribedArtists/update`, newVals));
+            console.log("sending updated subArtists api call")
+        }
+        updateSubArtists()
+    }, [subData]);
+
     function handleChange(e) {
         setSearch(e.target.value);
     }
@@ -130,7 +133,8 @@ const ArtistSearchViewScript = (props) => {
     function toggleFilter(val) {
         setFilterToggle(val);
     }
- 
+    
+    //TODO: Fix bug where clicking multiple sub/unsub buttons in succession causes api calls to not fully go through into the backend
     function toggleSubscribed(val, ind) {
         // First make a deep copy
         let newSearchResults = [...searchResults];
@@ -139,22 +143,27 @@ const ArtistSearchViewScript = (props) => {
         // val is gonna be the new isNotSubscribed value
         newSearchResults.at(ind).isNotSubscribed = val;
         
-        // tyler the creator is not subscribed (true) --> onclick --> (false)
+        // ie: tyler the creator is not subscribed (true) --> onclick --> (false)
         
         console.log("this is toggle artistId", newSearchResults.at(ind).artistId)
  
         // add artist to subscribed artists
         if (!newSearchResults.at(ind).isNotSubscribed) {
-            let newSubData = [...subData];
-            newSubData.push(newSearchResults.at(ind).artistId)
-            //addArtistSub(newSubData)
+            setSubData([...subData, newSearchResults.at(ind).artistId])
         }
- 
+
+        // remove artist from subscribed artists
+        if (newSearchResults.at(ind).isNotSubscribed) {
+            setSubData(subData.filter( subId =>
+                subId !== newSearchResults.at(ind).artistId
+            ))
+        }
+        
+        console.log("subData is now", subData)
+
         // Call set to update the searchResults array
         setSearchResults(newSearchResults);
         
- 
-        // IMPORTANT: THIS IS ONLY UI --- STILL NEED TO TRIGGER AN API CALL TO UPDATE THE BACKEND WITH THIS DATA CHANGE
     }
  
     return (
