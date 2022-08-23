@@ -44,6 +44,24 @@ export async function addUserNotification(notification){
   return data;
 }
 
+export async function requestFollow(followId, userId){
+  /**
+   * send a follow request to the user with followId in the form of a notification
+   * @param {string} followId - id of user receiving the follow request
+   * @param {string} userId - id of the current user sending the follow request to followId
+   * @return {acknowledgedObj} - object used to determine if api call was acknowledged
+   */
+  let b = {
+    userId: userId
+  }
+  const response = await fetch('/requestFollow/' + followId, {
+    method: 'PUT',
+    body: JSON.stringify(b)
+  });
+  const data = await response.json();
+  return data;
+}
+
 export async function followUser(followId, userId){
   /**
    * add friend to users following list, and add user to friends followers list
@@ -53,10 +71,9 @@ export async function followUser(followId, userId){
    * documentation
    */
   let b = {
-    followId: followId,
     userId: userId
   }
-  const response = await fetch('/follow', {
+  const response = await fetch('/follow/' + followId, {
     method: 'PUT',
     body: JSON.stringify(b)
   });
