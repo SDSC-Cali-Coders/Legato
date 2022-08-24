@@ -68,8 +68,6 @@ const ArtistSearchViewScript = (props) => {
             setSearchLoading(true);
 
             const fetchData = async () => {
-                const { data } = await searchArtists(search);
-
                 console.log("This is subData: ", subData)
                 if ((!subData.length) && subscribedFilter) {
                     setSearchResults([])
@@ -78,6 +76,8 @@ const ArtistSearchViewScript = (props) => {
                 // not filtering ==> search and display all artist ressults
                 // General Artist Tab
                 if (!subscribedFilter) {
+                    const { data } = await searchArtists(search);
+
                     console.log("data.items: ", data.artists.items)
                     setSearchResults(
                         data.artists.items.map((artist, index) => {
