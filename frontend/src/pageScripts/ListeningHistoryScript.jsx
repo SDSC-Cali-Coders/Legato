@@ -68,7 +68,7 @@ const ListeningHistoryScript = () => {
     async function addUserDB() {
       // When a post request is sent to the create url, we'll add a new record to the database.
       const newUser = {
-        id: profile.id,
+        _id: profile.id,
         name: profile.display_name ? profile.display_name : "User",
         lowercase_name: profile.display_name
           ? profile.display_name.toLowerCase()

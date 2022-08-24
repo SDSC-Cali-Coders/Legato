@@ -430,7 +430,7 @@ recordRoutes.route("/friends/:name").get(function (req, response) {
 
 
 // This section will help us add social media links to a user's profile 
-recordRoutes.route("/user/socials/add").put(function (req, response) {
+recordRoutes.route("/user/socials/:id").put(function (req, response) {
   let db_connect = dbo.getDb();
   let newValues = {
     $set: {

@@ -15,10 +15,10 @@ const EditSettingsScript = () => {
     const id = useContext(userContext).id;
     let effectTriggeredRef = useRef(false);
     const [responseData, setResponseData] = useState(null);
-    const [facebook, setFacebook] = useState('');
-    const [instagram, setInstagram] = useState('');
-    const [twitter, setTwitter] = useState('');
-    const [pinterest, setPinterest] = useState('');
+    const [facebook, setFacebook] = useState(null);
+    const [instagram, setInstagram] = useState(null);
+    const [twitter, setTwitter] = useState(null);
+    const [pinterest, setPinterest] = useState(null);
 
     /**
      * This use effect defines the fetchUser function and triggers it once,
@@ -65,6 +65,25 @@ const EditSettingsScript = () => {
         // Update Socials API Route
         // Update visibility settings
         console.log('settings saved')
+        const newInfo = {
+            _id: id,
+            linkedSocials: {
+                facebook: settingsObj.socialLinks.facebook ? settingsObj.socialLinks.facebook : facebook,
+                instagram: settingsObj.socialLinks.instagram ? settingsObj.socialLinks.instagram : instagram,
+                twitter: settingsObj.socialLinks.twitter ? settingsObj.socialLinks.twitter : twitter,
+                pinterest: settingsObj.socialLinks.pinterest ? settingsObj.socialLinks.twitter : pinterest,
+            }
+        }
+        axios.put(`http://localhost:27017/user/socials/${id}`, newInfo)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+            .then(function () {
+                console.log("always executed")
+            })
     }
 
     /*useEffect(() => {
@@ -112,10 +131,10 @@ const EditSettingsScript = () => {
                 instagramLink={settingsObj.socialLinks.instagram ? settingsObj.socialLinks.instagram : 'https://instagram.com/'}
                 pinterestLink={settingsObj.socialLinks.pinterest ? settingsObj.socialLinks.pinterest : 'https://pinterest.com/'}
                 saveSettings={saveSettings}
-                facebookChange = {handleFBChange}
-                instagramChange = {handleIGChange}
-                twitterChange = {handleTWChange}
-                pinterestChange = {handlePIChange}
+                facebookChange={handleFBChange}
+                instagramChange={handleIGChange}
+                twitterChange={handleTWChange}
+                pinterestChange={handlePIChange}
             />
         </>
 
