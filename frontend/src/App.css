@@ -103,6 +103,8 @@
   background-color: #b1a6a4;
 }
 
+
+
 /* Add spotify green + red colors! */
 /* Add .text-neutral colors as well */
 
@@ -155,6 +157,23 @@
   background-color: #697184;
 }
 
+/* Color for toggle button on find friends page */
+.btn-friendAdded{
+  color: #268BD2;
+}
+
+.btn-friendNotAdded{
+  color: #3FDE77;
+}
+
+.btn-friendNotAdded:hover, .btn-friendAdded:hover {
+  opacity: 50%;
+}
+
+.btn-friendNotAdded:active, .btn-friendAdded:active {
+  color:white
+}
+
 /* Additional styling for scrollbar feature on main concerts page */
 .vertical-scroll {
   overflow-y: scroll;
@@ -162,14 +181,8 @@
   height: 75vh;
 }
 
-/* Additional styling to remove italics in EventInformation */
-i {
-  font-style: normal;
-}
-
 /* Additional styling for words in EventInformation */
 .eventDescription {
-  padding-left: 20px;
   text-decoration: none;
   color: black;
 }
@@ -177,10 +190,19 @@ i {
 .eventDescriptionLink {
   text-decoration: none;
   color: black;
-
 }
 
-a:hover {
+.findFriendsLink {
+  text-decoration: none;
+  color: black;
+}
+
+a:not(nav-link) hover {
   background-color: #d8cfd0;
+  color: black;
+}
+
+.userProfileLink {
+  text-decoration: none;
   color: black;
 }

@@ -1,18 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import axios from 'axios';
-import { useState, useEffect, useRef } from 'react';
 import { userContext } from '../api/userContext'
-import { useContext } from 'react';
 import { getSpecificConcert } from '../api/ticketmaster';
 import { catchErrors } from '../utils';
 import { useSearchParams } from 'react-router-dom';
 
-
+import LoadingSpin from '../components/LoadingSpin';
 import EventInformation from "../components/concerts/EventInformation";
 
 const EventInformationScript = (props) => {
   const id = useContext(userContext).id;
   const [concertData, setConcertData] = useState(null);
+  const [loading, setLoading] = useState(true)
 
   const [searchParams] = useSearchParams();
   const eventId = searchParams.get("event");
@@ -20,6 +19,7 @@ const EventInformationScript = (props) => {
     const fetchData = async () => {
       const { data } = await getSpecificConcert(eventId);
       setConcertData(data);
+      setLoading(false)
     };
     if (eventId) {
       catchErrors(fetchData());
@@ -42,7 +42,10 @@ const EventInformationScript = (props) => {
       time: concertData.dates.start.localTime,
     };
   }
+  const [isNotBookmarked, setIsNotBookmarked] = useState(true);
+  const [isNotSaved, setIsNotSaved] = useState(true);
 
+  if (loading) return <LoadingSpin />
   // TODO: Mutual friends and others (rn its hardcoded)
   return (concertObject &&
       <EventInformation
@@ -56,6 +59,12 @@ const EventInformationScript = (props) => {
         time={concertObject.time}
         mutualFriends = {"4"}
         others = {"10"}
+
+        isNotBookmarked={isNotBookmarked} 
+        toggleBookmarked={setIsNotBookmarked}
+
+        isNotSaved={isNotSaved}
+        toggleSaved={setIsNotSaved}
       />
   )
 };

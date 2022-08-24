@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import TopThree from "./TopThree";
 import TopTen from "./TopTen";
 
 export default function TopCard(props) {
+  const [audioPlaying, setAudioPlaying] = useState({})
+
   let TopThreeCards = new Array(3);
   let TopTenCards = new Array(10);
 
@@ -25,20 +27,21 @@ export default function TopCard(props) {
       });
 
       props.topTenList.forEach((item, index) => {
-        TopTenCards[index] = <TopTen.Tracks img={item.img} name={item.name} artist={item.artist}/>;
+        TopTenCards[index] = <TopTen.Tracks img={item.img} name={item.name} artist={item.artist} preview_url={item.preview_url} audioPlaying={audioPlaying} setAudioPlaying={setAudioPlaying}/>;
       });
 
       break;
-    case 'Genres':
-      props.topThreeList.forEach((item, index) => {
-        TopThreeCards[index] = <TopThree.Genres rank={item.rank} icon={item.icon} genre={item.genre}/>;
-      });
+    // case 'Genres':
+    //   props.topThreeList.forEach((item, index) => {
+    //     TopThreeCards[index] = <TopThree.Genres rank={item.rank} icon={item.icon} genre={item.genre}/>;
+    //   });
 
-      props.topTenList.forEach((item, index) => {
-        TopTenCards[index] = <TopTen.Genres icon={item.icon} genre={item.genre}/>;
-      });
+    //   props.topTenList.forEach((item, index) => {
+    //     TopTenCards[index] = <TopTen.Genres icon={item.icon} genre={item.genre}/>;
+    //   });
 
-      break;
+    //   break;
+    default:
   }
 
   return (

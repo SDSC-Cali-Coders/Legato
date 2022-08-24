@@ -1,22 +1,30 @@
-import React from 'react';
-import axios from 'axios';
-import { useState, useEffect, useRef } from 'react';
-import { userContext } from '../api/userContext'
-import { useContext } from 'react';
-import { getArtistDetail, getConcertsForArtistDateSorted, getConcertsLocation, getGenreDetail, getConcertsLocationGenre } from '../api/ticketmaster';
-import { catchErrors } from '../utils';
+import React, { useState, useEffect, useRef, useContext } from "react";
+import axios from "axios";
+import { userContext } from "../api/userContext";
+import {
+  getArtistDetail,
+  getConcertsForArtistDateSorted,
+  getConcertsLocation,
+  getGenreDetail,
+  getConcertsLocationGenre,
+} from "../api/ticketmaster";
+import { catchErrors } from "../utils";
 
 import Concerts from "../pages/Concerts";
+import ScaleLoader from "react-spinners/ScaleLoader";
+import LoadingSpin from "../components/LoadingSpin";
 import EventInformation from "../components/concerts/EventInformation";
 import InterestedAttendees from "../components/concerts/InterestedAttendees";
 import SearchView from "../components/concerts/SearchView";
 import PrivateProfile from "../components/concerts/PrivateProfile";
-import MainView from '../components/artistSearch/MainView';
+import MainView from "../components/artistSearch/MainView";
 
 const ConcertsScript = () => {
   const id = useContext(userContext).id;
   const lat = useContext(userContext).lat;
   const lng = useContext(userContext).lng;
+  const [loading, setLoading] = useState(true);
+  const [rad, setRad] = useState("75");
   const [genreData, setGenreData] = useState(null);
   const [nearbyConcerts, setNearbyConcerts] = useState(null);
   const [reccConcerts, setReccConcerts] = useState(null);
@@ -69,29 +77,40 @@ const ConcertsScript = () => {
   // INFO ON CODE BLOCK: integrates the getConcertsLocation API Call
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await getConcertsLocation(lat, lng, '20', '75');
+      const { data } = await getConcertsLocation(lat, lng, "20", rad);
       setNearbyConcerts(data);
     };
-    if (lat && lng) {
+    if (lat && lng && rad) {
       catchErrors(fetchData());
     }
-  }, [lat, lng]);
+  }, [lat, lng, rad]);
+
+  // INFO ON CODE BLOCK: handle the getConcertsLocation API radius change
+  function handleRadiusChange(e) {
+    setRad(e.target.value);
+    console.log(rad);
+  }
 
   let loccCards = [];
   if (nearbyConcerts) {
-    for (let i = 0; i < nearbyConcerts.page.size; i++) {
+    console.log(nearbyConcerts);
+    for (let i = 0; i < nearbyConcerts._embedded.events.length; i++) {
       loccCards.push({
         id: nearbyConcerts._embedded.events[i].id,
         img: nearbyConcerts._embedded.events[i].images[5].url,
-        name: nearbyConcerts._embedded.events[i]._embedded.attractions ?
-          nearbyConcerts._embedded.events[i]._embedded.attractions[0].name : nearbyConcerts._embedded.events[i].name,
+        name: nearbyConcerts._embedded.events[i]._embedded.attractions
+          ? nearbyConcerts._embedded.events[i]._embedded.attractions[0].name
+          : nearbyConcerts._embedded.events[i].name,
         venueName: nearbyConcerts._embedded.events[i]._embedded.venues[0].name,
-        venueLocation: nearbyConcerts._embedded.events[i]._embedded.venues[0].city.name
-          + ", " + nearbyConcerts._embedded.events[i]._embedded.venues[0].state.stateCode,
+        venueLocation:
+          nearbyConcerts._embedded.events[i]._embedded.venues[0].city.name +
+          ", " +
+          nearbyConcerts._embedded.events[i]._embedded.venues[0].state
+            .stateCode,
         day: nearbyConcerts._embedded.events[i].dates.start.localDate,
         // NEEDS TO BE CHANGED: Filter the date and time
         date: nearbyConcerts._embedded.events[i].dates.start.localTime,
-      })
+      });
     }
   }
 
@@ -110,35 +129,43 @@ const ConcertsScript = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const genreId = genreData._embedded.classifications[0].segment._embedded.genres[0].id;
+      const genreId =
+        genreData._embedded.classifications[0].segment._embedded.genres[0].id;
       // note: can specify the radius below
-      const { data } = await getConcertsLocationGenre(lat, lng, '20', '100', genreId);
+      const { data } = await getConcertsLocationGenre(
+        lat,
+        lng,
+        "20",
+        "40",
+        genreId
+      );
       setReccConcerts(data);
+      setLoading(false)
     };
     if (lat && lng && genreData) {
       //console.log(Object.keys(genreData).length)
       catchErrors(fetchData());
     }
-
   }, [lat, lng, genreData]);
-
 
   let reccCards = [];
   if (reccConcerts) {
-    console.log(reccConcerts)
-    for (let i = 0; i < reccConcerts.page.size; i++) {
+    for (let i = 0; i < reccConcerts._embedded.events.length; i++) {
       reccCards.push({
         id: reccConcerts._embedded.events[i].id,
         img: reccConcerts._embedded.events[i].images[5].url,
-        name: reccConcerts._embedded.events[i]._embedded.attractions ?
-          reccConcerts._embedded.events[i]._embedded.attractions[0].name : reccConcerts._embedded.events[i].name,
+        name: reccConcerts._embedded.events[i]._embedded.attractions
+          ? reccConcerts._embedded.events[i]._embedded.attractions[0].name
+          : reccConcerts._embedded.events[i].name,
         venueName: reccConcerts._embedded.events[i]._embedded.venues[0].name,
-        venueLocation: reccConcerts._embedded.events[i]._embedded.venues[0].city.name
-          + ", " + reccConcerts._embedded.events[i]._embedded.venues[0].state.stateCode,
+        venueLocation:
+          reccConcerts._embedded.events[i]._embedded.venues[0].city.name +
+          ", " +
+          reccConcerts._embedded.events[i]._embedded.venues[0].state.stateCode,
         day: reccConcerts._embedded.events[i].dates.start.localDate,
         // NEEDS TO BE CHANGED: Filter the date and time
         date: reccConcerts._embedded.events[i].dates.start.localTime,
-      })
+      });
     }
   }
 
@@ -168,11 +195,22 @@ const ConcertsScript = () => {
   }, [reccCards]);
   */
 
-  return (loccCards && reccCards &&
-    <>
-      <Concerts recommendedCard={reccCards} nearbyCard={loccCards} />
-    </>
-  )
+  if (loading) return <LoadingSpin />
+
+  return (
+
+    loccCards &&
+    reccCards && (
+      <>
+        <Concerts
+          recommendedCard={reccCards}
+          nearbyCard={loccCards}
+          onRadiusChange={handleRadiusChange}
+          radius={rad}
+        />
+      </>
+    )
+  );
 };
 
 export default ConcertsScript;
