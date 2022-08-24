@@ -25,6 +25,7 @@ recordRoutes.route("/user/:id").put(function (req, response) {
     topArtists: req.body.topArtists,
     topSongs: req.body.topSongs,
     topGenres: req.body.topGenres,
+    topGenreId: req.body.topGenreId,
     linkedSocials: { facebook: {}, instagram: {}, twitter: {}, pinterest: {} },
     followers: [],
     following: [],
