@@ -65,7 +65,7 @@ export const ArtistView = (props) => {
           }}
         />
         <label htmlFor="filterOn" className="btn fw-bold">
-          Subscribed Artists
+          Subscribed List
         </label>
         <input
           type="radio"
@@ -80,7 +80,7 @@ export const ArtistView = (props) => {
           }}
         />
         <label htmlFor="filterOff" className="btn fw-bold">
-          New Artists
+          Search Results
         </label>
       </div>
     </div>
@@ -90,8 +90,18 @@ export const ArtistView = (props) => {
   const hintText = (
     <div className="row text-center pt-5">
       <p className="h2 fw-bold">
-        View your subscribed Artists <br />
-        and Explore new ones!
+        {
+          props.subscribedFilter ? (
+            <>
+              Subscribed list is empty...<br />
+              Explore new ones through the searchbar!
+            </>
+          ) : (
+            <>
+              Type an artist's name to get started
+            </>
+          )
+        }
       </p>
     </div>
   )
@@ -100,7 +110,7 @@ export const ArtistView = (props) => {
   // - subscribed artists list
   // - artistSearchResults
   //    > hintText is shown if no search results while within "New Artists" tab
-  const searchResults = (props.subscribedFilter || props.search)? (
+  const searchResults = props.searchResults.length? (
     <div className="row bg-primary mx-1">
       <ol className="list-group gx-3">
         {props.searchResults.map((artist) => (
