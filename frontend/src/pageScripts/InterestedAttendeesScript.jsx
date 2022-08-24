@@ -8,6 +8,7 @@ import { catchErrors } from "../utils";
 import { useSearchParams } from "react-router-dom";
 import defaultPfp from "../assets/pfpIcon.svg";
 import InterestedAttendees from "../components/concerts/InterestedAttendees";
+import Concerts from "../pages/Concerts";
 
 const InterestedAttendeesScript = (props) => {
   const userJaneDoe = {
@@ -69,6 +70,7 @@ const InterestedAttendeesScript = (props) => {
       axios
         .get(`http://localhost:27017/concerts/interestedattendees/${eventId}`)
         .then(function (response) {
+          console.log(response.data)
           setResponseDataConcert(response.data);
         })
         .catch(function (error) {
@@ -105,32 +107,47 @@ const InterestedAttendeesScript = (props) => {
     }
   }, []);
 
-  // if (responseDataConcert && responseDataUser) {
-  //   console.log(responseDataConcert)
-  //   const interestedUsers = responseDataConcert[0].interestedUsers;
-  //   const goingUsers = responseDataConcert[0].goingUsers;
-  //   let mutualUsers = [];
-  //   let otherUsers = [];
-  //   for (let i = 0; i < interestedUsers.length; i++) {
-  //     if (interestedUsers[i] == id) {
-  //       console.log("I'm looking at myself");
-  //       continue;
-  //     }
-  //     if (responseDataUser.following.includes(interestedUsers[i])) {
-  //       console.log(interestedUsers[i] + " is a mutual");
-  //       mutualUsers.push(interestedUsers[i]);
-  //     }
-  //     else {
-  //       console.log(interestedUsers[i] + " is NOT mutual");
-  //       otherUsers.push(interestedUsers[i]);
-  //     }
-  //   }
-  //   let mutualUserObjects = [];
-  //   let otherUserObjects = [];
-  //   for (let i = 0; i < mutualUsers.length; i++) {
+  if (responseDataConcert && responseDataUser) {
+    console.log(responseDataConcert)
 
-  //   }
-  // }
+    const interestedUsers = responseDataConcert;
+    let mutualUsers = [];
+    let otherUsers = [];
+    for (let i = 0; i < interestedUsers.length; i++) {
+      if (interestedUsers[i]._id == id) {
+        console.log("I'm looking at myself");
+        continue;
+      }
+      if (interestedUsers[i].following.includes(id)) {
+        console.log(interestedUsers[i] + " is a mutual");
+        mutualUsers.push(interestedUsers[i]);
+      }
+      else {
+        console.log(interestedUsers[i] + " is NOT mutual");
+        otherUsers.push(interestedUsers[i]);
+      }
+    }
+    let mutualUserObjects = [];
+    let otherUserObjects = [];
+    for (let i = 0; i < mutualUsers.length; i++) {
+      // compare mutuals to find mutual number and push objects with this number
+      const count = mutualUsers[i].followers.filter(i => responseDataUser.followers.includes(i)).length;
+      mutualUserObjects.push({
+        name: mutualUsers[i].name,
+        img: mutualUsers[i].img,
+        mutuals: count,
+      })
+    }
+    for (let i = 0; i < otherUsers.length; i++) {
+      // compare mutuals to find mutual number and push objects with this number
+      const count = otherUsers[i].followers.filter(i => responseDataUser.followers.includes(i)).length;
+      otherUserObjects.push({
+        name: otherUsers[i].name,
+        img: otherUsers[i].img,
+        mutuals: count,
+      })
+    }
+  }
 
   // return (
   //   <InterestedAttendees

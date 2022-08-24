@@ -382,23 +382,7 @@ recordRoutes.route("/concerts/interested/:id").get(function (req, response) {
 // This section will help us mutual friends and others going
 recordRoutes.route("/concerts/interestedattendees/:id").get(function (req, response) {
   let db_connect = dbo.getDb();
-  let myquery = { "_id": req.params.id };
-  db_connect.collection("event")
-    .find(myquery)
-    .toArray(function (err, res) {
-      if (err) {
-        console.log(err);
-        return err;
-      }
-      //all data is sent in res.data
-      response.json(res);
-    });
-});
-
-// TODO: write route that compares users
-recordRoutes.route("user/:userId/:mutualId").get(function (req, reqponse) {
-  let db_connect = dbo.getDb();
-  let myquery = { "user": req.params.id };
+  let myquery = { "interestedEvents": req.params.id };
   db_connect.collection("user")
     .find(myquery)
     .toArray(function (err, res) {
@@ -409,7 +393,7 @@ recordRoutes.route("user/:userId/:mutualId").get(function (req, reqponse) {
       //all data is sent in res.data
       response.json(res);
     });
-})
+});
 
 // This section will help us get user's by their name
 recordRoutes.route("/friends/:name").get(function (req, response) {
