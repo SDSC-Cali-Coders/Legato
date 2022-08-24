@@ -58,7 +58,7 @@ export const ArtistView = (props) => {
           name="searchFilter"
           id="filterOn"
           autoComplete="off"
-          defaultChecked
+          checked={props.subscribedFilter}
           onChange={() => {
             props.toggleFilter(true);
             console.log("Subscribed Artist changed.");
@@ -73,6 +73,7 @@ export const ArtistView = (props) => {
           name="searchFilter"
           id="filterOff"
           autoComplete="off"
+          checked={!props.subscribedFilter}
           onChange={() => {
             props.toggleFilter(false);
             console.log("New Artists changed");

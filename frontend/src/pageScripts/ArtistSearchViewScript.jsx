@@ -145,6 +145,7 @@ const ArtistSearchViewScript = (props) => {
 
     function handleChange(e) {
         setSearch(e.target.value);
+        setSubscribedFilter(false)
     }
     
     //TODO: Fix bug where clicking multiple sub/unsub buttons in succession causes api calls to not fully go through into the backend
