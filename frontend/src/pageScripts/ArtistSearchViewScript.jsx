@@ -65,7 +65,7 @@ const ArtistSearchViewScript = (props) => {
     // useEffect to handle search updates
     useEffect(() => {
         // avoid accessing undefined data with conditionals
-        if (!search) {
+        if (!(search || subscribedFilter)) {
             setSearchResults([])
         }
 
