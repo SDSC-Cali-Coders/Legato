@@ -47,6 +47,7 @@ const ArtistSearchViewScript = (props) => {
                     // startup is done
                     startupTriggeredRef.current = true;
                     setSubscribedFilter(true)
+                    setLoading(false)
                 })
                 .catch(function (error) {
                     console.log(error)
@@ -63,10 +64,9 @@ const ArtistSearchViewScript = (props) => {
  
     // useEffect to handle search updates
     useEffect(() => {
-        // avoid accessing undefiend data with conditionals
+        // avoid accessing undefined data with conditionals
         if (!search) {
             setSearchResults([])
-            setLoading(false)       // page is done loading
         }
 
         else {
