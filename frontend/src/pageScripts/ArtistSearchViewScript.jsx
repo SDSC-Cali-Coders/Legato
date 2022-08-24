@@ -138,7 +138,9 @@ const ArtistSearchViewScript = (props) => {
             catchErrors(axios.put(`http://localhost:27017/user/subscribedArtists/update`, newVals));
             console.log("sending updated subArtists api call")
         }
-        updateSubArtists()
+        if (startupTriggeredRef.current) {
+            updateSubArtists()
+        }
     }, [subData]);
 
     function handleChange(e) {
