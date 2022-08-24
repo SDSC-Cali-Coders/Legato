@@ -10,16 +10,19 @@ import {
 import { catchErrors } from '../utils';
 
 import Concerts from "../pages/Concerts";
+import ScaleLoader from "react-spinners/ScaleLoader";
+import LoadingSpin from "../components/LoadingSpin";
 import EventInformation from "../components/concerts/EventInformation";
 import InterestedAttendees from "../components/concerts/InterestedAttendees";
 import SearchView from "../components/concerts/SearchView";
 import PrivateProfile from "../components/concerts/PrivateProfile";
-import MainView from '../components/artistSearch/MainView';
+import MainView from "../components/artistSearch/MainView";
 
 const ConcertsScript = () => {
   const id = useContext(userContext).id;
   const lat = useContext(userContext).lat;
   const lng = useContext(userContext).lng;
+  const [loading, setLoading] = useState(true);
   const [rad, setRad] = useState("75");
   const [genreData, setGenreData] = useState(null);
   const [nearbyConcerts, setNearbyConcerts] = useState(null);
@@ -34,7 +37,7 @@ const ConcertsScript = () => {
   // INFO ON CODE BLOCK: integrates the getConcertsLocation API Call
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await getConcertsLocation(lat, lng, '20', rad);
+      const { data } = await getConcertsLocation(lat, lng, "20", rad);
       setNearbyConcerts(data);
     };
     if (lat && lng && rad) {
@@ -55,8 +58,9 @@ const ConcertsScript = () => {
       loccCards.push({
         id: nearbyConcerts._embedded.events[i].id,
         img: nearbyConcerts._embedded.events[i].images[5].url,
-        name: nearbyConcerts._embedded.events[i]._embedded.attractions ?
-          nearbyConcerts._embedded.events[i]._embedded.attractions[0].name : nearbyConcerts._embedded.events[i].name,
+        name: nearbyConcerts._embedded.events[i]._embedded.attractions
+          ? nearbyConcerts._embedded.events[i]._embedded.attractions[0].name
+          : nearbyConcerts._embedded.events[i].name,
         venueName: nearbyConcerts._embedded.events[i]._embedded.venues[0].name,
         venueLocation: nearbyConcerts._embedded.events[i]._embedded.venues[0].city.name
           + ", " + nearbyConcerts._embedded.events[i]._embedded.venues[0].state.stateCode,
@@ -73,7 +77,7 @@ const ConcertsScript = () => {
   useEffect(() => {
     const fetchData = async () => {
       // We would enter the user's top genre below
-      const { data } = await getGenreDetail('rap');
+      const { data } = await getGenreDetail("rap");
       setGenreData(data);
     };
     catchErrors(fetchData());
@@ -81,17 +85,23 @@ const ConcertsScript = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const genreId = genreData._embedded.classifications[0].segment._embedded.genres[0].id;
+      const genreId =
+        genreData._embedded.classifications[0].segment._embedded.genres[0].id;
       // note: can specify the radius below
-      const { data } = await getConcertsLocationGenre(lat, lng, '20', '75', genreId);
+      const { data } = await getConcertsLocationGenre(
+        lat,
+        lng,
+        "20",
+        "40",
+        genreId
+      );
       setReccConcerts(data);
+      setLoading(false)
     };
     if (lat && lng && genreData) {
       catchErrors(fetchData());
     }
-
   }, [lat, lng, genreData]);
-
 
   let reccCards = [];
   if (reccConcerts) {
@@ -100,8 +110,9 @@ const ConcertsScript = () => {
       reccCards.push({
         id: reccConcerts._embedded.events[i].id,
         img: reccConcerts._embedded.events[i].images[5].url,
-        name: reccConcerts._embedded.events[i]._embedded.attractions ?
-          reccConcerts._embedded.events[i]._embedded.attractions[0].name : reccConcerts._embedded.events[i].name,
+        name: reccConcerts._embedded.events[i]._embedded.attractions
+          ? reccConcerts._embedded.events[i]._embedded.attractions[0].name
+          : reccConcerts._embedded.events[i].name,
         venueName: reccConcerts._embedded.events[i]._embedded.venues[0].name,
         venueLocation: reccConcerts._embedded.events[i]._embedded.venues[0].city.name
           + ", " + reccConcerts._embedded.events[i]._embedded.venues[0].state.stateCode,
