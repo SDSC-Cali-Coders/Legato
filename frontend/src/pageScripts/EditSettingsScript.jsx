@@ -13,16 +13,19 @@ const EditSettingsScript = () => {
      * is the import from above and the following line of code.
      */
     const id = useContext(userContext).id;
-    console.log("my id from the context is " + id);
     let effectTriggeredRef = useRef(false);
     const [responseData, setResponseData] = useState(null);
+    const [facebook, setFacebook] = useState('');
+    const [instagram, setInstagram] = useState('');
+    const [twitter, setTwitter] = useState('');
+    const [pinterest, setPinterest] = useState('');
+
     /**
      * This use effect defines the fetchUser function and triggers it once,
      * allowing us to get data from our db about a specific user (using the
      * userContext to do so)
      */
     useEffect(() => {
-        console.log("use effect")
         async function fetchUser() {
             axios.get(`http://localhost:27017/user/${id}`)
                 .then(function (response) {
@@ -38,7 +41,6 @@ const EditSettingsScript = () => {
                 })
         }
         if (!effectTriggeredRef.current) {
-            console.log("fetch user called")
             fetchUser();
             effectTriggeredRef.current = true;
         }
@@ -57,6 +59,7 @@ const EditSettingsScript = () => {
                 pinterest: responseData.linkedSocials.pinterest
             },
         }
+        console.log(responseData.linkedSocials.facebook)
     }
     const saveSettings = () => {
         // Update Socials API Route
@@ -79,12 +82,40 @@ const EditSettingsScript = () => {
         }
     }, [profile, topArtists, topSongs, sortedGenres]);*/
 
+    const handleFBChange = event => {
+        setFacebook(event.target.value);
+
+        console.log('value is:', event.target.value);
+    };
+    const handleIGChange = event => {
+        setInstagram(event.target.value);
+
+        console.log('value is:', event.target.value);
+    };
+    const handleTWChange = event => {
+        setTwitter(event.target.value);
+
+        console.log('value is:', event.target.value);
+    };
+    const handlePIChange = event => {
+        setPinterest(event.target.value);
+
+        console.log('value is:', event.target.value);
+    };
     return (settingsObj &&
         <>
             <EditView
                 img={settingsObj.img}
                 name={settingsObj.name}
-                saveSettings = {saveSettings()}
+                facebookLink={settingsObj.socialLinks.facebook ? settingsObj.socialLinks.facebook : 'https://facebook.com/'}
+                twitterLink={settingsObj.socialLinks.twitter ? settingsObj.socialLinks.twitter : 'https://twitter.com/'}
+                instagramLink={settingsObj.socialLinks.instagram ? settingsObj.socialLinks.instagram : 'https://instagram.com/'}
+                pinterestLink={settingsObj.socialLinks.pinterest ? settingsObj.socialLinks.pinterest : 'https://pinterest.com/'}
+                saveSettings={saveSettings}
+                facebookChange = {handleFBChange}
+                instagramChange = {handleIGChange}
+                twitterChange = {handleTWChange}
+                pinterestChange = {handlePIChange}
             />
         </>
 

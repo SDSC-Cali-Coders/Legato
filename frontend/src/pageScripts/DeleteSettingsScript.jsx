@@ -18,7 +18,7 @@ const DeleteSettingsScript = () => {
     console.log("my id from the context is " + id);
     let effectTriggeredRef = useRef(false);
     const [responseData, setResponseData] = useState(null);
-    let deleteView = false;
+    const [deleteView, setDeleteView] = useState(false);
     /**
      * This use effect defines the fetchUser function and triggers it once,
      * allowing us to get data from our db about a specific user (using the
@@ -62,9 +62,18 @@ const DeleteSettingsScript = () => {
         }
     }
     const deleteAccount = () => {
-        deleteView = true;
-        console.log("true")
-        return <DeleteView />
+        setDeleteView(true);
+        axios.delete(`http://localhost:27017/user/${id}`)
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        .then(function () {
+            console.log("always executed")
+        });
+
     }
     // Note: Using "&&" allows us to only render the following components when responseData is not null.
     return (settingsObj &&

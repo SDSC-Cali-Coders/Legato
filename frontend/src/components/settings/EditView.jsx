@@ -4,7 +4,7 @@ import { useNavigate, NavLink } from "react-router-dom";
 
 const Button = (props) => {
     return (
-        <button className={`btn btn-secondary px-4 fs-${props.fs}`} type='button'>
+        <button className={`btn btn-secondary px-4 fs-${props.fs}`} type='button' onClick={props.onClick}>
             {props.text}
         </button>
     );
@@ -19,7 +19,7 @@ const EditView = (props) => {
                     <NavLink to="/settings">
                         <Button
                             text="Save"
-                            onClick = {props.saveSettings}
+                            onClick={props.saveSettings}
                         />
                     </NavLink>
                 </div>
@@ -43,28 +43,36 @@ const EditView = (props) => {
                         <div className="row my-2">
                             <div className="input-group align-items-center">
                                 <i className="bi bi-facebook fs-3"></i>
-                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://facebook.com/JohnDoe' />
+                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark"
+                                    placeholder={props.facebookLink}
+                                    onChange={props.facebookChange} />
                                 <i className="bi bi-x fs-3"></i>
                             </div>
                         </div>
                         <div className="row my-2">
                             <div className="input-group align-items-center">
                                 <i className="bi bi-twitter fs-3"></i>
-                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://twitter.com/JohnDoe' />
+                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark"
+                                    placeholder={props.twitterLink}
+                                    onChange={props.twitterChange} />
                                 <i className="bi bi-x fs-3"></i>
                             </div>
                         </div>
                         <div className="row my-2">
                             <div className="input-group align-items-center">
                                 <i className="bi bi-instagram fs-3"></i>
-                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://instagram.com/JohnDoe' />
+                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark"
+                                    placeholder={props.instagramLink}
+                                    onChange={props.instagramChange} />
                                 <i className="bi bi-x fs-3"></i>
                             </div>
                         </div>
                         <div className="row my-2">
                             <div className="input-group align-items-center">
                                 <i className="bi bi-pinterest fs-3"></i>
-                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://pinterest.com/JohnDoe' />
+                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark"
+                                    placeholder={props.pinterestLink}
+                                    onChange={props.pinterestChange} />
                                 <i className="bi bi-x fs-3"></i>
                             </div>
                         </div>
