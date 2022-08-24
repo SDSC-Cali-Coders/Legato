@@ -48,7 +48,7 @@ export const ArtistView = (props) => {
   const tabs = (
     <div className="row ps-3">
       <div
-        className="btn-group bg-light col-4 px-0"
+        className="btn-group btn-light bg-light col-4 px-0"
         role="group"
         aria-label="radio toggle button group"
       >
