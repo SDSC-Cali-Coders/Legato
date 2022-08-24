@@ -48,6 +48,7 @@ recordRoutes.route("/user/:id").put(function (req, response) {
           topArtists: req.body.topArtists,
           topSongs: req.body.topSongs,
           topGenres: req.body.topGenres,
+          topGenreId: req.body.topGenreId,
         }
       };
       db_connect.collection("user").updateOne(myquery, newvalues, function (err, res) {
@@ -136,26 +137,28 @@ recordRoutes.route("/follow/:followId").put(function (req, response) {
   db_connect.collection("user").updateOne({ "_id": req.body.userId }, {
     $push: {
       following: req.params.followId
-    }}, function (err, res) {
-      if (err) {
-        console.log(err);
-        throw err;
-      }
-      console.log("following added");
-      // TODO: find out how to include multiple responses
-      // response.json(res);
+    }
+  }, function (err, res) {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+    console.log("following added");
+    // TODO: find out how to include multiple responses
+    // response.json(res);
   });
 
-  db_connect.collection("user").updateOne({"_id": req.params.followId}, {
+  db_connect.collection("user").updateOne({ "_id": req.params.followId }, {
     $push: {
       followers: req.body.userId
-    }}, function (err, res) {
-      if (err) {
-        console.log(err);
-        throw err;
-      }
-      console.log("followed user")
-      response.json(res);
+    }
+  }, function (err, res) {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+    console.log("followed user")
+    response.json(res);
   });
 
   let follow_request = {
@@ -174,7 +177,7 @@ recordRoutes.route("/follow/:followId").put(function (req, response) {
         throw err;
       }
       response.json(res);
-  });
+    });
 });
 
 recordRoutes.route("/requestFollow/:followId").put(function (req, response) {
@@ -239,29 +242,29 @@ recordRoutes.route("/recommend-friends/:id").get((req, response) => {
   let db_connect = dbo.getDb();
   db_connect.collection("user").find({}).toArray().then((data) => {
     let userIndex;
-    for(let i = 0; i < data.length; i++){
-      if(data[i]._id == req.params.id){
+    for (let i = 0; i < data.length; i++) {
+      if (data[i]._id == req.params.id) {
         userIndex = i;
         break;
       }
     }
     let recommendedUsers = [];
     // inefficient way
-    for(let i = 0; i < data.length; i++){
-      if(i != userIndex && !data[userIndex].following.includes(data[i]._id)){
+    for (let i = 0; i < data.length; i++) {
+      if (i != userIndex && !data[userIndex].following.includes(data[i]._id)) {
         let friend = {
           id: data[i]._id,
           following: 0,
           subscribedArtists: 0,
           goingEvents: 0
         }
-        for(const feature of ["following", "subscribedArtists", "goingEvents"]){
-          for(let j = 0; j < data[userIndex][feature].length; j++)
-            if(data[i][feature].includes(data[userIndex][feature][j]))
+        for (const feature of ["following", "subscribedArtists", "goingEvents"]) {
+          for (let j = 0; j < data[userIndex][feature].length; j++)
+            if (data[i][feature].includes(data[userIndex][feature][j]))
               friend[feature]++;
         }
         friend["_tot"] = friend.following + friend.subscribedArtists + friend.goingEvents;
-        if(friend._tot != 0) recommendedUsers.push(friend);
+        if (friend._tot != 0) recommendedUsers.push(friend);
       }
     }
     recommendedUsers.sort((a, b) => b._tot - a._tot);
