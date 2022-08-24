@@ -53,7 +53,7 @@ const ArtistSearchViewScript = (props) => {
             fetchSubUser();    
             effectTriggeredRef.current = true;
         }
-    }, [id, subscribedFilter]);
+    });
  
     // useEffect to handle search updates
     useEffect(() => {
