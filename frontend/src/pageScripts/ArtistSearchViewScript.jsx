@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
- 
-import ArtistView from '../pages/ArtistSearchView';
-import axios from 'axios';
-import { useState, useEffect, useRef, useContext } from 'react';
-import { accessToken, searchArtists, getArtist } from '../api/spotify';
-import { catchErrors } from '../utils';
-import { userContext } from '../api/userContext'
-import { getUserInfo } from "../api/UserService";
- 
+import React, { Component, useState, useEffect, useContext, useRef } from "react";
+
+import ArtistSearchView from "../pages/ArtistSearchView";
+import axios from "axios";
+import LoadingSpin from "../components/LoadingSpin";
+
+import { accessToken, searchArtists, getArtist } from "../api/spotify";
+import { catchErrors } from "../utils";
+import { userContext } from "../api/userContext"
+import { getUserInfo } from "../api/UserService"
+
 // Define an <ArtistResult/> component here
 // <div> - figure out how to align stuff :)
 // [img]..[Artist Name]....[Genre: genre]..........[subscribe + play btn group]
- 
  
 const ArtistSearchViewScript = (props) => {
     const id = useContext(userContext).id;
@@ -22,13 +22,14 @@ const ArtistSearchViewScript = (props) => {
     let effectTriggeredRef = useRef(false);
     const [subData, setSubData] = useState([]);
     const [artistInfo, setArtistInfo] = useState(null);
- 
- 
+    const [loading, setLoading] = useState(true);
+    const [searchLoading, setSearchLoading] = useState(true);
+
     useEffect(() => {
         console.log(filterToggle);
     }, [filterToggle])
- 
-    
+
+
     /* Workflow for artist search page:
         * get the user's list of artist subscriptions
         * if we are on the subscribed artist tab
@@ -57,59 +58,74 @@ const ArtistSearchViewScript = (props) => {
         }
     }, [id, filterToggle]);
  
+
+    // useEffect to handle search updates
     useEffect(() => {
         setToken(accessToken);
-        if (!search) return setSearchResults([])
-        const fetchData = async () => {
-            const { data } = await searchArtists(search);
- 
-            console.log('This is subData: ', subData)
-            if ((!subData.length) && filterToggle) {
-                setSearchResults([])
-            }
-            
-            //if on general artist tab
-            if (!filterToggle) {
-                console.log("data.items: ", data.artists.items)
-                setSearchResults(
-                    data.artists.items.map((artist, index) => {
-                        return {
-                            ind: index,
-                            artistId: artist.id,
-                            img: artist.images.length > 0 ? artist.images[0].url : 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg',
-                            name: artist.name,
-                            genre: artist.genres.length > 0 ? artist.genres[0] : "N/A",
-                            isNotSubscribed: !subData.length ? true : !subData.includes(artist.id),
-                        }
-                    })
-                );
- 
-            }
-            
-            // TWO TYPES OF TABS: General Artist Tab & Sub Artist Tab
-            // if on subscribed artist tab
-            if (filterToggle) {
-                let subArtists = []
-                subData.forEach(async (elem) => {
-                    const { data } = await getArtist(elem);
-                    subArtists.push(data);
+
+        // avoid accessing undefiend data with conditionals
+        if (!search) {
+            setSearchResults([])
+            setLoading(false)       // page is done loading
+        }
+
+        else {
+            // Set loading screen each time a search happens
+            setSearchLoading(true);
+
+            const fetchData = async () => {
+                const { data } = await searchArtists(search);
+
+                console.log("This is subData: ", subData)
+                if ((!subData.length) && filterToggle) {
+                    setSearchResults([])
+                }
+
+                // not filtering ==> search and display all artist ressults
+                // General Artist Tab
+                if (!filterToggle) {
+                    console.log("data.items: ", data.artists.items)
                     setSearchResults(
-                        subArtists.map((artist, index) => {
+                        data.artists.items.map((artist, index) => {
                             return {
                                 ind: index,
                                 artistId: artist.id,
-                                img: artist.images.length > 0 ? artist.images[0].url : 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg',
+                                img: artist.images.length ? artist.images[0].url : "https://upload.wikimedia.org/wikimedia/commons/a/ac/Default_pfp.jpg",
                                 name: artist.name,
-                                genre: artist.genres.length > 0 ? artist.genres[0] : "N/A",
-                                isNotSubscribed: false,
+                                genre: artist.genres.length ? artist.genres[0] : "N/A",
+                                isNotSubscribed: subData.length ? !subData.includes(artist.id) : true
                             }
                         })
-                    )
-                })
-            }
- 
-        };
-        catchErrors(fetchData());
+                    );
+                }
+
+                // filtering only subscribed artists
+                // Subsribed Artist Tab
+                if (filterToggle) {
+                    let subArtists = []
+                    subData.forEach(async (elem) => {
+                        const { data } = await getArtist(elem)
+                        subArtists.push(data)
+                        setSearchResults(
+                            subArtists.map((artist, index) => {
+                                return {
+                                    ind: index,
+                                    artistId: artist.id,
+                                    img: artist.images.length ? artist.images[0].url : "https://upload.wikimedia.org/wikimedia/commons/a/ac/Default_pfp.jpg",
+                                    name: artist.name,
+                                    genre: artist.genres.length ? artist.genres[0] : "N/A",
+                                    isNotSubscribed: false
+                                }
+                            })
+                        )
+                    })
+                }
+
+                // Regardless of which data gets loaded, turn off spin animation after data is populated
+                setSearchLoading(false)
+            };
+            catchErrors(fetchData());
+        }
     }, [search, filterToggle]);
  
  
@@ -129,7 +145,7 @@ const ArtistSearchViewScript = (props) => {
     function handleChange(e) {
         setSearch(e.target.value);
     }
- 
+
     function toggleFilter(val) {
         setFilterToggle(val);
     }
@@ -137,16 +153,15 @@ const ArtistSearchViewScript = (props) => {
     //TODO: Fix bug where clicking multiple sub/unsub buttons in succession causes api calls to not fully go through into the backend
     function toggleSubscribed(val, ind) {
         // First make a deep copy
-        let newSearchResults = [...searchResults];
-    
-        // Use key to figure out which obj in the searchResults [] needs to be modified
+        const newSearchResults = [...searchResults]
+
+        // Use key to figure out which obj in searchResults[] needs to be modified
         // val is gonna be the new isNotSubscribed value
-        newSearchResults.at(ind).isNotSubscribed = val;
-        
+        newSearchResults.at(ind).isNotSubscribed = val
+
         // ie: tyler the creator is not subscribed (true) --> onclick --> (false)
-        
-        console.log("this is toggle artistId", newSearchResults.at(ind).artistId)
- 
+        console.log(`Toggling artistId <${newSearchResults.at(ind).artistId}>`)
+
         // add artist to subscribed artists
         if (!newSearchResults.at(ind).isNotSubscribed) {
             setSubData([...subData, newSearchResults.at(ind).artistId])
@@ -165,23 +180,21 @@ const ArtistSearchViewScript = (props) => {
         setSearchResults(newSearchResults);
         
     }
- 
+
+    if (loading) return <LoadingSpin />
+
     return (
- 
-        <>
-            <ArtistView 
-                search={search}
-                handleChange={handleChange}
-                searchResults={searchResults}
-                toggleFilter={toggleFilter}
-                toggleSubscribed={toggleSubscribed}
-            />
- 
-        </>
+      <>
+        <ArtistSearchView
+          search={search}
+          handleChange={handleChange}
+          searchResults={searchResults}
+          toggleFilter={toggleFilter}
+          toggleSubscribed={toggleSubscribed}
+        />
+      </>
     );
 }
- 
- 
- 
+
 export default ArtistSearchViewScript;
  
