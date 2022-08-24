@@ -46,7 +46,7 @@ export const ArtistResult = (props) => {
 export const ArtistView = (props) => {
   // UI for subscribed/new artist tabs
   const tabs = (
-    <div className="row text-center justify-content-start">
+    <div className="row ps-3">
       <div
         className="btn-group bg-light col-4 px-0"
         role="group"
@@ -85,19 +85,20 @@ export const ArtistView = (props) => {
     </div>
   )
 
+  // Hint Text to be displayed (conditions specified in next section)
   const hintText = (
-    <div className="container d-flex flex-column min-vh-100 Oswald_regular">
-      <div className="row flex-grow-1">
-        <div className="col text-center">
-          <p className="h3 fw-bold pt-4">
-            Search your subscribed Artists <br />
-            and Explore new ones!
-          </p>
-        </div>
-      </div>
+    <div className="row text-center pt-5">
+      <p className="h2 fw-bold">
+        View your subscribed Artists <br />
+        and Explore new ones!
+      </p>
     </div>
   )
 
+  // Main content of page is either:
+  // - subscribed artists list
+  // - artistSearchResults
+  //    > hintText is shown if no search results while within "New Artists" tab
   const searchResults = (props.subscribedFilter || props.search)? (
     <div className="row bg-primary">
       <ol className="list-group gx-3">
@@ -120,8 +121,8 @@ export const ArtistView = (props) => {
 
 
   return (
-    <>
-      <div className="row mb-3 pt-5 px-5">
+    <div className="container Oswald_regular min-vw-100 p-5">
+      <div className="row mb-3">
         <Searchbar.ArtistSearchbar
           searchValue={props.search}
           onChange={props.handleChange}
@@ -129,11 +130,9 @@ export const ArtistView = (props) => {
         />
         {/* <span className="placeholder placeholder-lg col-12"/> */}
       </div>
-      <div className="container align-items-center Oswald_regular">
-        {tabs}
-        {searchResults}
-      </div>
-    </>
+      {tabs}
+      {searchResults}
+    </div>
   );
 };
 
