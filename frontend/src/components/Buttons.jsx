@@ -81,7 +81,7 @@ const Buttons = {
       >
         See More
         <i className="bi bi-chevron-right ps-2"></i>
-      </button>
+      </a>
     );
   },
   Invite: () => {
@@ -91,12 +91,12 @@ const Buttons = {
       </button>
     );
   },
-  Close: () => {
+  Close: (props) => {
     return (
-      <button className="btn btn-secondary btn-sm rounded-circle border-dark">
-        <i className="bi bi-x"></i>
-      </button>
-    );
+        <button className="btn btn-secondary btn-sm rounded-circle border-dark" onClick={props.onClick}>
+            <i className="bi bi-x"></i>
+        </button>
+  );
   },
   Green: (props) => {
     return (

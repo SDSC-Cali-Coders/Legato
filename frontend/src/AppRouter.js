@@ -14,6 +14,7 @@ import FollowerFollowingScript from "./pageScripts/FollowerFollowingScript";
 import ArtistSearchViewScript from './pageScripts/ArtistSearchViewScript';
 import ArtistDescriptionScript from "./pageScripts/ArtistDescriptionScript";
 import FriendsScript from "./pageScripts/FriendsScript";
+import NotificationScript from "./pageScripts/NotificationScript";
 import EditSettingsScript from "./pageScripts/EditSettingsScript";
 import DeleteSettingsScript from "./pageScripts/DeleteSettingsScript";
 
@@ -63,7 +64,10 @@ function AppRouter() {
                     <Route path="/artists/description" element={
                         <ArtistDescriptionScript />
                     } />
-                    <Route path="/friends/" element={
+                    <Route path="/notifications" element={
+                    <NotificationScript />
+                } />
+                <Route path="/friends/" element={
                         <FriendsScript />
                     } />
                     <Route path="/settings/edit" element={

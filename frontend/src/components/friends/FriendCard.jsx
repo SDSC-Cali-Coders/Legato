@@ -3,22 +3,23 @@ import AddFriendToggleBtn from "./AddFriendToggleBtn";
 
 const UserCard = (props) => {
   return (
-    <div className="container Oswald_regular border border-dark rounded bg-neutral-primary">
-      <div className="row align-items-center ">
-        <div className="col-4 text-center">
-          <a href={`#`} className="findFriendsLink">
+    <div className="container Oswald_regular border border-dark  rounded bg-neutral-primary">
+      <div className="row">
+        <div className="col-4 text-center p-2">
+          <a href={`#`} className="findFriendsLinkImg">
             <img
               src={props.img}
-              className="img-fluid rounded-circle mx-auto"
+              className="img-fluid rounded-circle p-1"
               alt="..."
+              width="150"
             />
           </a>
         </div>
-        <div className="col-5 text-left">
+        <div className="col-5 align-self-center">
           <a href={`#`} className="findFriendsLink">
-            <h5>
+            <h3>
               <b>{props.name}</b>
-            </h5>
+            </h3>
             <h6>{props.followers} Followers</h6>
             <h6>
               {props.mutualFriends} Mutual {props.type1}
@@ -32,11 +33,11 @@ const UserCard = (props) => {
           </a>
         </div>
 
-        <div className="col-3 border vstack justify-content-center">
+        <div className="col-3 border rounded vstack justify-content-center">
           {props.isFriendAdded ? (
-            <AddFriendToggleBtn.FriendAdded />
+            <AddFriendToggleBtn.FriendAdded toggleFollow={props.toggleFollow} ind={props.ind}/>
           ) : (
-            <AddFriendToggleBtn.FriendNotAdded />
+            <AddFriendToggleBtn.FriendNotAdded toggleFollow={props.toggleFollow} ind={props.ind}/>
           )}
         </div>
       </div>
