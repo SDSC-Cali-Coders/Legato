@@ -55,15 +55,21 @@ const ConcertsScript = () => {
   if (nearbyConcerts) {
     for (let i = 0; i < nearbyConcerts._embedded.events.length; i++) {
       const date = new Date(nearbyConcerts._embedded.events[i].dates.start.dateTime);
+      const state = nearbyConcerts._embedded.events[i]._embedded.venues[0].country.countryCode == 'US' ?
+        nearbyConcerts._embedded.events[i]._embedded.venues[0].state.stateCode :
+        nearbyConcerts._embedded.events[i]._embedded.venues[0].country.name;
+      const venueName = nearbyConcerts._embedded.events[i]._embedded.venues[0].name ?
+        nearbyConcerts._embedded.events[i]._embedded.venues[0].name :
+        nearbyConcerts._embedded.events[i]._embedded.venues[0].address.line1;
       loccCards.push({
         id: nearbyConcerts._embedded.events[i].id,
         img: nearbyConcerts._embedded.events[i].images[5].url,
         name: nearbyConcerts._embedded.events[i]._embedded.attractions
           ? nearbyConcerts._embedded.events[i]._embedded.attractions[0].name
           : nearbyConcerts._embedded.events[i].name,
-        venueName: nearbyConcerts._embedded.events[i]._embedded.venues[0].name,
+        venueName: venueName,
         venueLocation: nearbyConcerts._embedded.events[i]._embedded.venues[0].city.name
-          + ", " + nearbyConcerts._embedded.events[i]._embedded.venues[0].state.stateCode,
+          + ", " + state,
         date: date.toLocaleDateString(undefined, { dateStyle: 'long' }),
         day: date.toLocaleDateString(undefined, { weekday: 'long' }),
         genre: nearbyConcerts._embedded.events[i].classifications[0].genre.name,
@@ -107,15 +113,21 @@ const ConcertsScript = () => {
   if (reccConcerts) {
     for (let i = 0; i < reccConcerts._embedded.events.length; i++) {
       const date = new Date(reccConcerts._embedded.events[i].dates.start.dateTime);
+      const state = reccConcerts._embedded.events[i]._embedded.venues[0].country.countryCode == 'US' ?
+        reccConcerts._embedded.events[i]._embedded.venues[0].state.stateCode :
+        reccConcerts._embedded.events[i]._embedded.venues[0].country.name;
+      const venueName = reccConcerts._embedded.events[i]._embedded.venues[0].name ?
+        reccConcerts._embedded.events[i]._embedded.venues[0].name :
+        reccConcerts._embedded.events[i]._embedded.venues[0].address.line1;
       reccCards.push({
         id: reccConcerts._embedded.events[i].id,
         img: reccConcerts._embedded.events[i].images[5].url,
         name: reccConcerts._embedded.events[i]._embedded.attractions
           ? reccConcerts._embedded.events[i]._embedded.attractions[0].name
           : reccConcerts._embedded.events[i].name,
-        venueName: reccConcerts._embedded.events[i]._embedded.venues[0].name,
+        venueName: venueName,
         venueLocation: reccConcerts._embedded.events[i]._embedded.venues[0].city.name
-          + ", " + reccConcerts._embedded.events[i]._embedded.venues[0].state.stateCode,
+          + ", " + state,
         date: date.toLocaleDateString(undefined, { dateStyle: 'long' }),
         day: date.toLocaleDateString(undefined, { weekday: 'long' }),
         genre: reccConcerts._embedded.events[i].classifications[0].genre.name,
@@ -195,9 +207,9 @@ const ConcertsScript = () => {
       <Concerts search={search} handleSearch={handleSearch}
         recommendedCard={reccCards} nearbyCard={loccCards}
         onChange={handleRadiusChange} radius={rad}
-        artistConcertsLoc = {artistConcertsLoc}
-        artistConcertsDate = {artistConcertsDate}
-         />
+        artistConcertsLoc={artistConcertsLoc}
+        artistConcertsDate={artistConcertsDate}
+      />
     </>
   )
 };

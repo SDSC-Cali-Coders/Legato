@@ -14,6 +14,7 @@ import { getUserInfo } from "../api/UserService"
 // [img]..[Artist Name]....[Genre: genre]..........[subscribe + play btn group]
  
 const ArtistSearchViewScript = (props) => {
+    const id = useContext(userContext).id;
     const [token, setToken] = useState(null);
     const [search, setSearch] = useState("");
     const [searchResults, setSearchResults] = useState([]);

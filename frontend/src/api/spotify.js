@@ -176,3 +176,12 @@ export const getTopGenres = (time_range) => {
     return spotifyInstance.get(`/me/top/artists?time_range=${time_range}&limit=100`);
 
 };
+
+/**
+* Get a Artist Info 
+* https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-artist
+* @returns {Promise}
+*/
+export const getArtist = (artistId) => {
+    return spotifyInstance.get(`/artists/${artistId}`);
+};
