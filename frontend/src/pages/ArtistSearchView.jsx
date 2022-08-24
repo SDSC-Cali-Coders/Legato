@@ -100,7 +100,7 @@ export const ArtistView = (props) => {
   // - artistSearchResults
   //    > hintText is shown if no search results while within "New Artists" tab
   const searchResults = (props.subscribedFilter || props.search)? (
-    <div className="row bg-primary">
+    <div className="row bg-primary mx-1">
       <ol className="list-group gx-3">
         {props.searchResults.map((artist) => (
           <ArtistResult
