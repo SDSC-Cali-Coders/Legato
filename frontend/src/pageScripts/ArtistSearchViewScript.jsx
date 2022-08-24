@@ -16,13 +16,15 @@ const ArtistSearchViewScript = (props) => {
     const id = useContext(userContext).id;
     const [search, setSearch] = useState("");
     const [searchResults, setSearchResults] = useState([]);
-    const [subscribedFilter, setSubscribedFilter] = useState(true);
+    const [subscribedFilter, setSubscribedFilter] = useState(false);
 
     let effectTriggeredRef = useRef(false);
+    let startupTriggeredRef = useRef(false);
     const [subData, setSubData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchLoading, setSearchLoading] = useState(true);
 
+    // Logging purposes
     useEffect(() => {
         console.log(subscribedFilter);
     }, [subscribedFilter])
@@ -38,9 +40,13 @@ const ArtistSearchViewScript = (props) => {
     // Makes an API Call to the user connection to fetch all subscribed artists
     useEffect(() => {
         async function fetchSubUser() {
-            axios.get(`http://localhost:27017/user/${id}`)
+            axios.get(`http://127.0.0.1:27017/user/${id}`)
                 .then(function (response) {
                     setSubData(response.data.subscribedArtists);
+
+                    // startup is done
+                    startupTriggeredRef.current = true;
+                    setSubscribedFilter(true)
                 })
                 .catch(function (error) {
                     console.log(error)
@@ -49,7 +55,7 @@ const ArtistSearchViewScript = (props) => {
                     console.log("always executed")
                 })
         }
-        if (!effectTriggeredRef.current) {
+        if (!effectTriggeredRef.current || !startupTriggeredRef.current) {
             fetchSubUser();    
             effectTriggeredRef.current = true;
         }
@@ -122,6 +128,7 @@ const ArtistSearchViewScript = (props) => {
         }
     }, [search, subscribedFilter]);
  
+    // Update database with newSubdata
     useEffect(() => {
         async function updateSubArtists() {
             const newVals = {
