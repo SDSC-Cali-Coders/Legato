@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Buttons from "../components/Buttons";
 import Searchbar from "../components/Searchbar";
+import NoArtist from "../assets/NoUser.svg";
 
 export const ArtistResult = (props) => {
   return (
@@ -21,7 +22,9 @@ export const ArtistResult = (props) => {
               console.log(`Subscribing to artist ${props.ind}`);
               props.toggleSubscribed(false, props.ind);
             }}
-            className="btn btn-success" type="button" >
+            className="btn btn-success"
+            type="button"
+          >
             Subscribe
             <i className="bi bi-plus-lg ps-sm-2"></i>
           </button>
@@ -31,7 +34,9 @@ export const ArtistResult = (props) => {
               console.log(`Unsubscribing from artist ${props.ind}`);
               props.toggleSubscribed(true, props.ind);
             }}
-          className="btn btn-danger" type="button">
+            className="btn btn-danger"
+            type="button"
+          >
             Subscribed
             <i className="bi bi-dash-lg ps-2"></i>
           </button>
@@ -42,8 +47,40 @@ export const ArtistResult = (props) => {
   );
 };
 
-
 export const ArtistView = (props) => {
+  const card = props.searchResults.map((artist) => {
+    return (
+      <>
+        <ArtistResult
+          ind={artist.ind}
+          artistId={artist.id}
+          img={artist.img}
+          name={artist.name}
+          genre={artist.genre}
+          isNotSubscribed={artist.isNotSubscribed}
+          toggleSubscribed={props.toggleSubscribed}
+        />
+      </>
+    );
+  });
+
+  const content = card.length ? (
+    <>{card}</>
+  ) : (
+    <>
+      <h1>
+        <div className="text-center vh-75">
+          <div className="row-auto mt-5">
+            <img src={NoArtist} alt="No User pfp"></img>
+          </div>
+          <div className="row-auto mb-5">
+            <h1>No Artists Found...</h1>
+          </div>
+        </div>
+      </h1>
+    </>
+  );
+
   return (
     <>
       <div className="row mb-3 pt-5 px-5">
@@ -51,15 +88,8 @@ export const ArtistView = (props) => {
           searchValue={props.search}
           onChange={props.handleChange}
         />
-        {/* <span className="placeholder placeholder-lg col-12"/> */}
       </div>
       {props.search ? (
-        /* Layout of MSView will be:
-                
-                            Searchbar.long
-    
-                            Hint text for user
-                */
         <div className="container align-items-center Oswald_regular">
           <div className="row text-center justify-content-end">
             <div
@@ -99,30 +129,12 @@ export const ArtistView = (props) => {
             </div>
           </div>
           <div className="row bg-primary">
-            <ol className="list-group gx-3">
-              {props.searchResults.map((artist) => (
-                <ArtistResult
-                  ind={artist.ind}
-                  artistId={artist.id}
-                  img={artist.img}
-                  name={artist.name}
-                  genre={artist.genre}
-                  isNotSubscribed={artist.isNotSubscribed}
-                  toggleSubscribed={props.toggleSubscribed}
-                />
-              ))}
-            </ol>
+            <ol className="list-group gx-3">{content}</ol>
           </div>
         </div>
       ) : (
         <div className="container d-flex flex-column min-vh-100 Oswald_regular">
           <div className="row flex-grow-1">
-            {/* Layout of MainView will be:
-            
-                        Searchbar.long
-
-                        Hint text for user
-                    */}
             <div className="col text-center">
               <p className="h3 fw-bold pt-4">
                 Search your subscribed Artists <br />

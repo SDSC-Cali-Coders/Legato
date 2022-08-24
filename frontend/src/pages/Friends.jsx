@@ -6,7 +6,7 @@ import NoUser from "../assets/NoUser.svg";
 
 const EmptyResults = () => {
   return (
-    <div className="text-center vh-75"> 
+    <div className="text-center vh-75">
       <div className="row-auto mt-5">
         <img src={NoUser} alt="No User pfp"></img>
       </div>
@@ -14,8 +14,8 @@ const EmptyResults = () => {
         <h1>No Users Found...</h1>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const Friends = (props) => {
   const card = props.card.map((item, ind) => {
@@ -47,21 +47,19 @@ const Friends = (props) => {
 
       {/* Row: Grid [2xn] */}
       <div className="vertical-scroll col">
-        <div className="row row-cols-2 m-2">
-          {card}
-        </div>
+        <div className="row row-cols-2 m-2">{card}</div>
       </div>
     </>
   ) : (
     <EmptyResults />
-  )
+  );
 
   return (
     <>
       <div className="container mt-3 min-vw-100 Oswald_regular">
         <div className="row">
           <div className="col">
-            <Searchbar.FindFriendsSearchbar handleSearch={props.handleSearch}/>
+            <Searchbar.FindFriendsSearchbar handleSearch={props.handleSearch} />
           </div>
           <div className="col-1">
             <div className="row">
@@ -76,7 +74,6 @@ const Friends = (props) => {
           {content}
         </div>
       </div>
-
     </>
   );
 };
