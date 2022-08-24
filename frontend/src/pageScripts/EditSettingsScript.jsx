@@ -19,6 +19,7 @@ const EditSettingsScript = () => {
     const [instagram, setInstagram] = useState(null);
     const [twitter, setTwitter] = useState(null);
     const [pinterest, setPinterest] = useState(null);
+    const [visibility, setVisibility] = useState('');
 
     /**
      * This use effect defines the fetchUser function and triggers it once,
@@ -62,8 +63,7 @@ const EditSettingsScript = () => {
         console.log(responseData.linkedSocials.facebook)
     }
     const saveSettings = () => {
-        // Update Socials API Route
-        // Update visibility settings
+        // Update visibility settings using visibility API
         console.log('settings saved')
         const newInfo = {
             _id: id,
@@ -121,6 +121,10 @@ const EditSettingsScript = () => {
 
         console.log('value is:', event.target.value);
     };
+    const visbilityChanged =  function (e) {
+        console.log(e.currentTarget.value)
+        setVisibility(e.currentTarget.value)
+    }
     return (settingsObj &&
         <>
             <EditView
@@ -135,6 +139,7 @@ const EditSettingsScript = () => {
                 instagramChange={handleIGChange}
                 twitterChange={handleTWChange}
                 pinterestChange={handlePIChange}
+                onVisibilityChange = {visbilityChanged}
             />
         </>
 

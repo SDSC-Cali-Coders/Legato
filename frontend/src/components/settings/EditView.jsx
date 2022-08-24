@@ -88,8 +88,14 @@ const EditView = (props) => {
                                 (profile picture, listening history, linked socials)
                             </div>
                             <div className="form-check form-check-reverse">
-                                <input type="radio" className="form-check-input"
-                                    name='defaultVisibility' id='publicVisibilityOn' />
+                                <input
+                                    type="radio"
+                                    className="form-check-input"
+                                    name='defaultVisibility'
+                                    id='publicVisibilityOn'
+                                    value='public'
+                                    onChange = {props.onVisibilityChange}
+                                />
                                 <label htmlFor="defaultVisibility" className="form-check-label">
                                 </label>
                             </div>
@@ -101,8 +107,14 @@ const EditView = (props) => {
                                 No one can see your profile information
                             </div>
                             <div className="form-check form-check-reverse">
-                                <input type="radio" className="form-check-input"
-                                    name='defaultVisibility' id='publicVisibilityOff' />
+                                <input
+                                    type="radio"
+                                    className="form-check-input"
+                                    name='defaultVisibility'
+                                    id='publicVisibilityOff'
+                                    value='private'
+                                    onChange = {props.onVisibilityChange}
+                                />
                                 <label htmlFor="defaultVisibility" className="form-check-label">
                                 </label>
                             </div>
