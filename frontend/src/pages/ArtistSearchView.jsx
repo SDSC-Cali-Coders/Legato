@@ -1,47 +1,29 @@
-import React, { Component } from "react";
-import Buttons from "../components/Buttons";
-import Searchbar from "../components/Searchbar";
+import React, { Component } from 'react';
+import Buttons from '../components/Buttons';
+import Searchbar from '../components/Searchbar';
 
-export const ArtistResult = (props) => {
-  return (
-    <div className="list-group-item d-flex align-item-center bg-primary border-end-0 border-start-0">
-      <div className="col-1 mx-3">
-        <img className="img-fluid" src={props.img} alt="ArtistResult img" />
-      </div>
-      <div className="col align-self-center fs-3 text-nowrap text-truncate p-3">
-        {props.name}
-      </div>
-      <div className="col align-self-center fs-4 text-nowrap text-truncate p-3">
-        Genre: {props.genre}
-      </div>
-      <div className="col-2 align-self-center d-flex justify-content-between align-items-center">
-        {props.isNotSubscribed ? (
-          <button
-            onClick={() => {
-              console.log(`Subscribing to artist ${props.ind}`);
-              props.toggleSubscribed(false, props.ind);
-            }}
-            className="btn btn-success" type="button" >
-            Subscribe
-            <i className="bi bi-plus-lg ps-sm-2"></i>
-          </button>
-        ) : (
-          <button
-            onClick={() => {
-              console.log(`Unsubscribing from artist ${props.ind}`);
-              props.toggleSubscribed(true, props.ind);
-            }}
-          className="btn btn-danger" type="button">
-            Subscribed
-            <i className="bi bi-dash-lg ps-2"></i>
-          </button>
-        )}
-        <Buttons.Play />
-      </div>
-    </div>
-  );
-};
-
+const ArtistResult = (props) => {
+    return (
+        <li className="list-group-item d-flex align-item-center bg-primary border-end-0 border-start-0">
+            <div className="col-1 mx-3">
+                <img className='img-fluid' src={props.img} alt="ArtistResult img" />
+            </div>
+            <div className="col align-self-center fs-3 text-nowrap text-truncate p-3">
+                {props.name}
+            </div>
+            <div className="col align-self-center fs-4 text-nowrap text-truncate p-3">
+                Genre: {props.genre}
+            </div>
+            <div className="col-2 align-self-center d-flex justify-content-between align-items-center">
+                {props.isSubscribed
+                    ? <Buttons.Unsubscribe />
+                    : <Buttons.Subscribe />
+                }
+                <Buttons.Play />
+            </div>
+        </li>
+    );
+}
 
 export const ArtistView = (props) => {
   // UI for subscribed/new artist tabs

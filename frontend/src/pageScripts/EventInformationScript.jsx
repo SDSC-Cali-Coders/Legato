@@ -125,17 +125,24 @@ const EventInformationScript = (props) => {
   let concertObject = null;
   if (concertData) {
     console.log("render")
-
+    const date = new Date(concertData.dates.start.dateTime);
+    const state = concertData._embedded.venues[0].country.countryCode == 'US' ?
+      concertData._embedded.venues[0].state.stateCode :
+      concertData._embedded.venues[0].country.name;
+    const venueName = concertData._embedded.venues[0].name ?
+      concertData._embedded.venues[0].name :
+      concertData._embedded.venues[0].address.line1;
     concertObject = {
       name: concertData.name,
       id: eventId,
       img: concertData.images[4].url,
       genre: concertData.classifications[0].genre.name,
-      venueName: concertData._embedded.venues[0].name,
-      venueAddress: concertData._embedded.venues[0].address.line1 + " " + concertData._embedded.venues[0].city.name + " " +
-        concertData._embedded.venues[0].state.stateCode,
-      date: concertData.dates.start.localDate,
-      time: concertData.dates.start.localTime,
+      venueName: venueName,
+      venueAddress: concertData._embedded.venues[0].address.line1 + " " + concertData._embedded.venues[0].city.name
+        + ", " + state,
+      date: date.toLocaleDateString(undefined, { dateStyle: 'long' }),
+      day: date.toLocaleDateString(undefined, { weekday: 'long' }),
+      time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
   }
   const [isNotBookmarked, setIsNotBookmarked] = useState(true);
@@ -143,7 +150,7 @@ const EventInformationScript = (props) => {
 
   if (loading) return <LoadingSpin />
   // TODO: Mutual friends and others (rn its hardcoded)
-  return (concertObject && mutualUserObjects && otherUserObjects &&
+  return (concertObject &&
     <EventInformation
       name={concertObject.name}
       id={concertObject.id}

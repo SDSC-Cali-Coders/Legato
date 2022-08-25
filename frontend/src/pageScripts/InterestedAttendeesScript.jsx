@@ -27,19 +27,18 @@ const InterestedAttendeesScript = (props) => {
       // when used on concerts page, we wouldnt hardcode the profile.id
       //const id = params.id.toString();
 
-      axios
-        .get(`http://localhost:27017/concerts/interestedattendees/${eventId}`)
+      axios.get(`http://localhost:27017/concerts/interestedattendees/${eventId}`)
         .then(function (response) {
           console.log(response.data)
           setResponseDataConcert(response.data);
         })
         .catch(function (error) {
-          console.log("this is not working");
-          console.log(error);
+          console.log("this is not working")
+          console.log(error)
         })
         .then(function () {
-          console.log("always executed");
-        });
+          console.log("always executed")
+        })
     }
     if (!effectTriggeredRefConcert.current) {
       fetchConcertObject();
@@ -49,17 +48,16 @@ const InterestedAttendeesScript = (props) => {
 
   useEffect(() => {
     async function fetchUser() {
-      axios
-        .get(`http://localhost:27017/user/${id}`)
+      axios.get(`http://localhost:27017/user/${id}`)
         .then(function (response) {
           setResponseDataUser(response.data);
         })
         .catch(function (error) {
-          console.log(error);
+          console.log(error)
         })
         .then(function () {
-          console.log("always executed");
-        });
+          console.log("always executed")
+        })
     }
     if (!effectTriggeredRefUser.current) {
       fetchUser();
@@ -140,6 +138,7 @@ const InterestedAttendeesScript = (props) => {
       </div>
     </div>
   );
+
 };
 
 export default InterestedAttendeesScript;
