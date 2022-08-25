@@ -11,43 +11,8 @@ import InterestedAttendees from "../components/concerts/InterestedAttendees";
 import Concerts from "../pages/Concerts";
 
 const InterestedAttendeesScript = (props) => {
-  const userJaneDoe = {
-    id: 1,
-    img: defaultPfp,
-    name: "Jane Doe",
-    mutualNumber: 2,
-    type: "Concerts",
-  };
-  const userJohnDoe = {
-    id: 1,
-    img: defaultPfp,
-    name: "John Doe",
-    mutualNumber: 2,
-    type: "Concerts",
-  };
   const [userTypeToggle, setUserTypeToggle] = useState("mutuals");
   const [otherList, setOtherList] = useState([]);
-  /*const [mutualFriendList, setMutualFriendList] = useState(
-    Array(4)
-      .fill()
-      .map((_empty, index) => {
-        let mutuals = { ...userJaneDoe };
-        mutuals.id = index;
-        return mutuals;
-      })
-  );
-  const [followingList, setFollowingList] = useState(
-    Array(19)
-      .fill()
-      .map((empty, index) => {
-        let others = { ...userJohnDoe };
-        others.id = index;
-        return others;
-      })
-  );*/
-
-
-
   const id = useContext(userContext).id;
   const [responseDataConcert, setResponseDataConcert] = useState(null);
   const [responseDataUser, setResponseDataUser] = useState(null);
@@ -101,7 +66,6 @@ const InterestedAttendeesScript = (props) => {
       effectTriggeredRefUser.current = true;
     }
   }, []);
-
   let mutualUserObjects = [];
   let otherUserObjects = [];
   if (responseDataConcert && responseDataUser) {
@@ -157,16 +121,11 @@ const InterestedAttendeesScript = (props) => {
         setOtherList(otherUserObjects);
         break;
       default:
+        console.log('default')
         setOtherList([]);
     }
-  }, [userTypeToggle]);
+  }, [userTypeToggle, responseDataUser, responseDataConcert]);
 
-  // return (
-  //   <InterestedAttendees
-  //     mutualFriends={[]}
-  //     otherUsers={[]}
-  //   />
-  // )
   console.log(otherList)
   return (
     <div className="container pt-5">
