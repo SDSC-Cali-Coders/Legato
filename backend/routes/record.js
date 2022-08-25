@@ -132,7 +132,7 @@ recordRoutes.route("/user/:id").delete(function (req, response) {
 
 // This section will help add a user follower
 // TODO: check if user is already followed?
-recordRoutes.route("/follow/:followId").put(function (req, response) {
+recordRoutes.route("/follow").put(function (req, response) {
   let db_connect = dbo.getDb();
   db_connect.collection("user").updateOne({ "_id": req.body.userId }, {
     $push: {
@@ -167,27 +167,6 @@ recordRoutes.route("/follow/:followId").put(function (req, response) {
     'type': "newFollower",
     'userId': req.body.userId,
     'associatedUsers': [req.params.followId],
-    'associatedArtists': [],
-    'associatedEvent': null
-  };
-  db_connect.collection("notification")
-    .insertOne(follow_request, function (err, res) {
-      if (err) {
-        console.log(err);
-        throw err;
-      }
-      response.json(res);
-    });
-});
-
-recordRoutes.route("/requestFollow/:followId").put(function (req, response) {
-  let db_connect = dbo.getDb();
-  let follow_request = {
-    'version': 1.3,
-    'datetime': req.body.datetime,
-    'type': "followRequest",
-    'userId': req.params.followId,
-    'associatedUsers': [req.body.userId],
     'associatedArtists': [],
     'associatedEvent': null
   };
@@ -451,24 +430,4 @@ recordRoutes.route("/user/socials/add").put(function (req, response) {
       console.log("one document updated");
     });
 });
-
-// This section will help us update a user's subscribed artists 
-recordRoutes.route("/user/subscribedArtists/update").put(function (req, response) {
-  let db_connect = dbo.getDb();
-  let newValues = {
-    $set: {
-      subscribedArtists: req.body.subscribedArtists,
-    }
-  };
-  let myquery = { _id: req.body._id };
-  db_connect.collection("user")
-    .updateOne(myquery, newValues, function (err, res) {
-      if (err) {
-        console.log(err);
-        throw err;
-      }
-      console.log("subscribedArtists updated");
-    });
-});
-
 module.exports = recordRoutes;

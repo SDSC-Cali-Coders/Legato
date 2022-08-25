@@ -71,14 +71,13 @@ const Buttons = {
   },
   SeeMore: () => {
     return (
-      <a
-        href="/" 
+      <button
         className="btn btn-align btn-secondary btn-sm border-dark rounded-pill"
         type="button"
       >
         See More
         <i className="bi bi-chevron-right ps-2"></i>
-      </a>
+      </button>
     );
   },
   Invite: () => {
@@ -88,12 +87,12 @@ const Buttons = {
       </button>
     );
   },
-  Close: (props) => {
+  Close: () => {
     return (
-        <button className="btn btn-secondary btn-sm rounded-circle border-dark" onClick={props.onClick}>
-            <i className="bi bi-x"></i>
-        </button>
-  );
+      <button className="btn btn-secondary btn-sm rounded-circle border-dark">
+        <i className="bi bi-x"></i>
+      </button>
+    );
   },
   Green: (props) => {
     return (

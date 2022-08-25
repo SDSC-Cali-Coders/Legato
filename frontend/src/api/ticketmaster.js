@@ -87,11 +87,11 @@ export const getConcertsForArtistLocSorted = (lat, lng, size, artist) => {
  * @param {*} artist This is a string, specifically a ticketmaster id
  * @returns an object consisting of an embedded field which we use
  */
-export const getConcertsForArtistDateSorted = (lat, lng, size, artist) => {
+ export const getConcertsForArtistDateSorted = (size, artist) => {
     return ticketmasterInstance.get(`events.json?attractionId=${artist}&`
-        + `size=${size}&geoPoint=${lat},${lng}&`
-        + `sort=date,asc&`
-        + `apikey=${ticketmaster_key}`);
+    +`size=${size}&`
+    +`sort=date,asc&`
+    +`apikey=${ticketmaster_key}`);
 };
 
 /**
@@ -101,4 +101,18 @@ export const getConcertsForArtistDateSorted = (lat, lng, size, artist) => {
  */
 export const getSpecificConcert = (id) => {
     return ticketmasterInstance.get(`events/${id}.json?apikey=${ticketmaster_key}`);
+};
+
+/**
+ * Call to get an artist's concerts, not ordered
+ * @param {*} lat This is the user's latitude which we get from context
+ * @param {*} lng This is the user's longitude which we get from context
+ * @param {*} size This is an integer representing how many concert listings we want returned
+ * @param {*} artist This is a string, specifically a ticketmaster id
+ * @returns an object consisting of an embedded field which we use
+ */
+ export const getConcertsForArtist = (size, artist) => {
+    return ticketmasterInstance.get(`events.json?attractionId=${artist}&`
+    +`size=${size}&`
+    +`apikey=${ticketmaster_key}`);
 };

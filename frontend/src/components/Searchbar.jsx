@@ -1,25 +1,31 @@
 import React, { useState } from "react";
 
 const Searchbar = {
-  ConcertSearchbar: () => {
+  ConcertSearchbar: (props) => {
+    const [searchQuery, setSearchQuery] = useState('')
     return (
-        <div className="input-group d-flex">
-          <div className="input-group-prepend">
-            <button
-              className="btn bg-neutral-secondary btn-outline-bg-neutral-secondary"
-              type="button"
-            >
-              <i className="bi bi-search text-dark"></i>
-            </button>
-          </div>
-          <div className="searchinput flex-fill">
-            <input
-              type="text"
-              className="form-control bg-neutral-secondary text-dark "
-              placeholder="Search concerts..."
-            />
-          </div>
+      <div className="input-group d-flex">
+        <div className="input-group-prepend">
+          <button
+            className="btn bg-neutral-secondary btn-outline-bg-neutral-secondary"
+            type="button"
+            onClick={() => props.handleSearch(searchQuery)}
+          >
+            <i className="bi bi-search text-dark"></i>
+            {/* <a href={`/concerts/searchresults?artist=${props.searchValue}`} className="stretched-link" /> */}
+          </button>
         </div>
+        <div className="searchinput flex-fill">
+          <input
+            type="text"
+            className="form-control bg-neutral-secondary text-dark "
+            value={searchQuery}
+            placeholder="Search concerts..."
+            onChange={(e) => {setSearchQuery(e.target.value)}}
+            onKeyDown={(e) => {if (e.key === 'Enter') props.handleSearch(searchQuery)}}
+          />
+        </div>
+      </div>
     );
   },
 
@@ -43,19 +49,18 @@ const Searchbar = {
   FindFriendsSearchbar: (props) => {
     const [searchQuery, setSearchQuery] = useState('')
     return (
-        <div className="input-group d-flex">
-        {/* <div className="input-group-prepend">
+      <div className="input-group d-flex">
+        <div className="input-group-prepend">
           <button
             className="btn bg-neutral-secondary btn-outline-bg-neutral-secondary"
             type="button"
-            // Dynamic searchbar won't wait on listeners
-            // onClick={
-            //   () => {props.handleSearch(searchQuery)
-            // }}
+            onClick={
+              () => {props.handleSearch(searchQuery)
+            }}
           >
             <i className="bi bi-search text-dark"></i>
           </button>
-        </div> */}
+        </div>
         <div className="searchinput flex-fill">
           <input
             type="text"
@@ -64,20 +69,15 @@ const Searchbar = {
             value={searchQuery}
             onChange={ (e) => {
               setSearchQuery(e.target.value)
-
-              // Dynamic searchbar will immediately call on handler passed through props
-              props.handleSearch(e.target.value)
             }}
-            // Dynamic searchbar won't wait on listeners
-            // onKeyDown={
-            //   (e) => {if (e.key === 'Enter') props.handleSearch(searchQuery)
-            // }}
+            onKeyDown={
+              (e) => {if (e.key === 'Enter') props.handleSearch(searchQuery)
+            }}
           />
         </div>
       </div>
     );
   },
-  
 };
 
 export default Searchbar;
