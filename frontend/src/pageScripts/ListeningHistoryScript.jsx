@@ -71,9 +71,9 @@ const ListeningHistoryScript = () => {
   let topGenreId = null
   if (artistData1 && artistData2 && artistData3) {
     let topGenreIds = [];
-    topGenreIds.push(artistData1.data._embedded.attractions[0].classifications[0].genre.id); 
-    topGenreIds.push(artistData2.data._embedded.attractions[0].classifications[0].genre.id);
-    topGenreIds.push(artistData3.data._embedded.attractions[0].classifications[0].genre.id);
+    topGenreIds.push(artistData1.data.page.totalElements > 0 ? artistData1.data._embedded.attractions[0].classifications[0].genre.id : ''); 
+    topGenreIds.push(artistData2.data.page.totalElements > 0 ? artistData2.data._embedded.attractions[0].classifications[0].genre.id : ''); 
+    topGenreIds.push(artistData3.data.page.totalElements > 0 ? artistData3.data._embedded.attractions[0].classifications[0].genre.id : ''); 
     const mostFreq = mode(topGenreIds);
     topGenreId = mostFreq;
   }
