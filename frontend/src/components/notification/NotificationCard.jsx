@@ -1,9 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Buttons from '../Buttons';
+import { deleteUserNotification } from '../../api/UserService';
 
 
 const NotificationCard = (props) => {
+
+    function onAccept() {
+        props.close();
+    }
     // FollowRequest: (props) => {
     //     return (
     //         <div className="card m-5 bg-neutral-light Oswald_regular shadow">
@@ -74,7 +79,9 @@ const NotificationCard = (props) => {
         return (
             <div className="card m-5 bg-neutral-light Oswald_regular shadow">
                 <span className="position-absolute top-0 start-100 translate-middle p-2 rounded-circle">
-                    <Buttons.Close onClick={props.onClick} />
+                    <Buttons.Close onClick={() => {
+                        props.close();
+                    }} />
                 </span>
                 <div className="row g-0 align-items-center">
                     <div className="col-sm-1 d-flex align-items-center">
@@ -95,7 +102,9 @@ const NotificationCard = (props) => {
         return (
             <div className="card m-5 bg-neutral-light Oswald_regular shadow">
                 <span class="position-absolute top-0 start-100 translate-middle p-2 rounded-circle">
-                    <Buttons.Close onClick={props.onClick}/>
+                    <Buttons.Close onClick={() => {
+                        props.close();
+                    }} />
                 </span>
                 <div className="row g-0 align-items-center">
                     <div className="col-sm-1 d-flex align-items-center">
@@ -115,7 +124,9 @@ const NotificationCard = (props) => {
         return (
             <div className="card m-5 bg-neutral-light Oswald_regular shadow">
                 <span class="position-absolute top-0 start-100 translate-middle p-2 rounded-circle">
-                    <Buttons.Close onClick={props.onClick}/>
+                    <Buttons.Close onClick={() => {
+                        props.close();
+                    }} />
                 </span>
                 <div className="row g-0 align-items-center">
                     <div className="col-sm-1 d-flex align-items-center">
@@ -129,7 +140,9 @@ const NotificationCard = (props) => {
                     </div>
                     <div className="col-sm d-flex justify-content-evenly">
                         <button type="button" className="btn btn-success rounded-circle">✓</button>
-                        <button type="button" className="btn btn-danger rounded-circle">✕</button>
+                        <button type="button" className="btn btn-danger rounded-circle" onClick={() => {
+                            props.close();
+                        }}>✕</button>
                     </div>
                 </div>
             </div>

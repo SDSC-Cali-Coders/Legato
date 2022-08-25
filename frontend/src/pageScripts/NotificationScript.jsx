@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useEffect, useState } from 'react';
-import { getUserNotifications } from "../api/UserService";
+import { deleteUserNotification, getUserNotifications } from "../api/UserService";
 import { accessToken, getCurrentUserProfile } from '../api/spotify';
 import { catchErrors } from '../utils';
 
@@ -28,6 +28,7 @@ const NotificationCardScript = () => {
 
     
     const removeNotification = (id) =>{
+        //deleteUserNotification(id);
         let newNotifications = notifications.filter((notification) => notification._id !== id)
         setNotifications(newNotifications)
     }

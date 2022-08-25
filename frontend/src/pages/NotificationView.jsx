@@ -14,7 +14,7 @@ const NotificationView = (props) => {
                     <NotificationCard type={notification.type} key={notification._id} img={"notification.img"}
                     artistName={notification.associatedArtists[0]} concertName={notification.associatedEvent}
                     yourFriendName={notification.associatedUsers[0]}
-                    friendName={notification.associateUser} onClick={() => props.onClick(notification._id)}/>
+                    friendName={notification.associateUser} close={() => props.onClick(notification._id)}/>
                 ))}
             </div>
         </>
