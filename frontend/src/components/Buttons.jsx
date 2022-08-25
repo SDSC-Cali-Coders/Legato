@@ -81,13 +81,14 @@ const Buttons = {
       </a>
     );
   },
-  Invite: () => {
-    return (
-      <button className="btn btn-align btn-secondary border-dark" type="button">
-        Invite Friends <i className="bi bi-link ps-2 bi-lg fs-4"></i>
-      </button>
-    );
-  },
+  Invite: (props) => (
+    <button className="btn btn-align btn-secondary border-dark" type="button" onClick={() => {
+      navigator.clipboard.writeText(`${window.location.host}/profile?user=${props.id}`)
+    }}>
+      Invite Friends
+      <i className="bi bi-link ps-2 bi-lg fs-4"></i>
+    </button>
+  ),
   Close: (props) => {
     return (
         <button className="btn btn-secondary btn-sm rounded-circle border-dark" onClick={props.onClick}>
