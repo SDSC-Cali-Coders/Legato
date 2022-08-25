@@ -25,6 +25,7 @@ recordRoutes.route("/user/:id").put(function (req, response) {
     topArtists: req.body.topArtists,
     topSongs: req.body.topSongs,
     topGenres: req.body.topGenres,
+    topGenreId: req.body.topGenreId,
     linkedSocials: { facebook: {}, instagram: {}, twitter: {}, pinterest: {} },
     followers: [],
     following: [],
@@ -47,6 +48,7 @@ recordRoutes.route("/user/:id").put(function (req, response) {
           topArtists: req.body.topArtists,
           topSongs: req.body.topSongs,
           topGenres: req.body.topGenres,
+          topGenreId: req.body.topGenreId,
         }
       };
       db_connect.collection("user").updateOne(myquery, newvalues, function (err, res) {
@@ -134,7 +136,7 @@ recordRoutes.route("/follow").put(function (req, response) {
   let db_connect = dbo.getDb();
   db_connect.collection("user").updateOne({ "_id": req.body.userId }, {
     $push: {
-      following: req.body.followId
+      following: req.params.followId
     }
   }, function (err, res) {
     if (err) {
@@ -146,7 +148,7 @@ recordRoutes.route("/follow").put(function (req, response) {
     // response.json(res);
   });
 
-  db_connect.collection("user").updateOne({ "_id": req.body.followId }, {
+  db_connect.collection("user").updateOne({ "_id": req.params.followId }, {
     $push: {
       followers: req.body.userId
     }
@@ -158,6 +160,24 @@ recordRoutes.route("/follow").put(function (req, response) {
     console.log("followed user")
     response.json(res);
   });
+
+  let follow_request = {
+    'version': 1.3,
+    'datetime': req.body.datetime,
+    'type': "newFollower",
+    'userId': req.body.userId,
+    'associatedUsers': [req.params.followId],
+    'associatedArtists': [],
+    'associatedEvent': null
+  };
+  db_connect.collection("notification")
+    .insertOne(follow_request, function (err, res) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      response.json(res);
+    });
 });
 
 // This section will help unfollow a user
@@ -191,6 +211,44 @@ recordRoutes.route("/unfollow").delete((req, response) => {
       console.log("1 user unfollowed");
       response.json(obj);
     });
+});
+
+recordRoutes.route("/recommend-friends/:id").get((req, response) => {
+  /**
+   * recommender v1.0
+   * uses the toal mutual friends, artists, and concerts to recommend new users
+   */
+  let db_connect = dbo.getDb();
+  db_connect.collection("user").find({}).toArray().then((data) => {
+    let userIndex;
+    for (let i = 0; i < data.length; i++) {
+      if (data[i]._id == req.params.id) {
+        userIndex = i;
+        break;
+      }
+    }
+    let recommendedUsers = [];
+    // inefficient way
+    for (let i = 0; i < data.length; i++) {
+      if (i != userIndex && !data[userIndex].following.includes(data[i]._id)) {
+        let friend = {
+          id: data[i]._id,
+          following: 0,
+          subscribedArtists: 0,
+          goingEvents: 0
+        }
+        for (const feature of ["following", "subscribedArtists", "goingEvents"]) {
+          for (let j = 0; j < data[userIndex][feature].length; j++)
+            if (data[i][feature].includes(data[userIndex][feature][j]))
+              friend[feature]++;
+        }
+        friend["_tot"] = friend.following + friend.subscribedArtists + friend.goingEvents;
+        if (friend._tot != 0) recommendedUsers.push(friend);
+      }
+    }
+    recommendedUsers.sort((a, b) => b._tot - a._tot);
+    response.json(recommendedUsers);
+  });
 });
 
 // This section will help us get notifications
