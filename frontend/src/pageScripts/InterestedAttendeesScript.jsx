@@ -167,7 +167,7 @@ const InterestedAttendeesScript = (props) => {
   //     otherUsers={[]}
   //   />
   // )
-
+  console.log(otherList)
   return (
     <div className="container pt-5">
       <div className="row text-center">
