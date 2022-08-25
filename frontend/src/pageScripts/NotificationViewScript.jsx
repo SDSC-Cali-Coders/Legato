@@ -11,7 +11,7 @@ import { useContext } from 'react';
 import NotificationView from "../pages/NotificationView";
 import NotificationCard from "../components/notification/NotificationCard";
 
-const NotificationCardScript = () => {
+const NotificationViewScript = () => {
 
     const id = useContext(userContext).id;
     const [notifications, setNotifications] = useState([]);
@@ -50,4 +50,4 @@ const NotificationCardScript = () => {
     );
 }
 
-export default NotificationCardScript;
+export default NotificationViewScript;
