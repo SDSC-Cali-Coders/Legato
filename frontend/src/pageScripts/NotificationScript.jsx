@@ -19,10 +19,9 @@ const NotificationCardScript = () => {
     useEffect(() => {
         const fetchData = async () => {
             const response = await getUserNotifications(id);
-            const data = await response.json();
-            setNotifications(data);
+            setNotifications(response);
             console.log(id);
-            console.log(data);
+            console.log(response);
         };
         catchErrors(fetchData());
     }, []);
