@@ -130,6 +130,20 @@ recordRoutes.route("/user/:id").delete(function (req, response) {
   });
 });
 
+recordRoutes.route("/visibility").patch(function (req, response) {
+  let db_connect = dbo.getDb();
+  db_connect.collection("user").updateOne({"_id": req.body.id}, {
+    isPrivateAccount: req.body.visible
+  }, function (err, res) {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+    console.log("changed visibility to" + req.body.visibilty);
+    response.json(res);
+  });
+});
+
 // This section will help add a user follower
 // TODO: check if user is already followed?
 recordRoutes.route("/follow").put(function (req, response) {
