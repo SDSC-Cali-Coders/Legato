@@ -82,8 +82,10 @@ const Buttons = {
     );
   },
   Invite: (props) => (
-    <button className="btn btn-align btn-secondary border-dark" type="button" onClick={() => {
-      navigator.clipboard.writeText(`${window.location.host}/profile?user=${props.id}`)
+    <button className="btn btn-align btn-secondary border-dark" type="button" onClick={(e) => {
+      navigator.clipboard.writeText(`${window.location.host}/profile?user=${props.id}`);
+      e.target.childNodes[0].nodeValue="Copied to Clipboard!"
+      setTimeout(() => {e.target.childNodes[0].nodeValue="Invite Friends"}, 1500)
     }}>
       Invite Friends
       <i className="bi bi-link ps-2 bi-lg fs-4"></i>
