@@ -132,14 +132,19 @@ recordRoutes.route("/user/:id").delete(function (req, response) {
 
 recordRoutes.route("/visibility").patch(function (req, response) {
   let db_connect = dbo.getDb();
-  db_connect.collection("user").updateOne({"_id": req.body.id}, {
-    isPrivateAccount: req.body.visible
-  }, function (err, res) {
+  console.log(req.body)
+  var newvalues = {
+    $set: {
+      isPrivateAccount: req.body.visible
+    }
+  };
+  console.log(newvalues)
+  db_connect.collection("user").updateOne({"_id": req.body.id}, newvalues, function (err, res) {
     if (err) {
       console.log(err);
       throw err;
     }
-    console.log("changed visibility to" + req.body.visibilty);
+    console.log("changed visibility to");
     response.json(res);
   });
 });

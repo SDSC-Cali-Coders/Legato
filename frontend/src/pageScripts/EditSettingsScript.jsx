@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from 'react';
 import { userContext } from '../api/userContext'
 import { useContext } from 'react';
 import { useNavigate, NavLink } from "react-router-dom";
+import { changeUserVisibility } from "../api/UserService";
 
 
 const EditSettingsScript = () => {
@@ -84,23 +85,14 @@ const EditSettingsScript = () => {
             })
             .then(function () {
                 console.log("always executed")
-            })
+            });
+            
+        const isPrivate = visibility == 'private' ? true : false;
+        console.log(isPrivate)
+        console.log(id)
+        const data = changeUserVisibility(isPrivate, id)
+        console.log(data)
     }
-
-    /*useEffect(() => {
-        async function addUserDB() {
-            // When a post request is sent to the create url, we'll add a new record to the database.
-            const newUser = {
-                id: profile.id,
-                linkedSocials: { facebook: {}, instagram: {}, twitter: {}, pinterest: {} },
-            };
-            catchErrors(axios.put(`http://localhost:27017/user/${profile.id}`, newUser));
-        }
-        if (!effectTriggeredRef.current && profile && topSongs && topArtists && sortedGenres) {
-            addUserDB();
-            effectTriggeredRef.current = true;
-        }
-    }, [profile, topArtists, topSongs, sortedGenres]);*/
 
     const handleFBChange = event => {
         setFacebook(event.target.value);
