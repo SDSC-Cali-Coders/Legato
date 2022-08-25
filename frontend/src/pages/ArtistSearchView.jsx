@@ -47,104 +47,115 @@ export const ArtistResult = (props) => {
   );
 };
 
-export const ArtistView = (props) => {
-  const card = props.searchResults.map((artist) => {
-    return (
-      <>
-        <ArtistResult
-          ind={artist.ind}
-          artistId={artist.id}
-          img={artist.img}
-          name={artist.name}
-          genre={artist.genre}
-          isNotSubscribed={artist.isNotSubscribed}
-          toggleSubscribed={props.toggleSubscribed}
-        />
-      </>
-    );
-  });
 
-  const content = card.length ? (
-    <>{card}</>
+export const ArtistView = (props) => {
+  // UI for subscribed/new artist tabs
+  const tabs = (
+    <div className="row ps-3">
+      <div
+        className="btn-group btn-light bg-light col-4 px-0"
+        role="group"
+        aria-label="radio toggle button group"
+      >
+        <input
+          type="radio"
+          className="btn-check px-0"
+          name="searchFilter"
+          id="filterOn"
+          autoComplete="off"
+          checked={props.subscribedFilter}
+          onChange={() => {
+            props.toggleFilter(true);
+            console.log("Subscribed Artist changed.");
+          }}
+        />
+        <label htmlFor="filterOn" className="btn fw-bold">
+          Subscribed List
+        </label>
+        <input
+          type="radio"
+          className="btn-check px-0"
+          name="searchFilter"
+          id="filterOff"
+          autoComplete="off"
+          checked={!props.subscribedFilter}
+          onChange={() => {
+            props.toggleFilter(false);
+            console.log("New Artists changed");
+          }}
+        />
+        <label htmlFor="filterOff" className="btn fw-bold">
+          Search Results
+        </label>
+      </div>
+    </div>
+  )
+
+  // Hint Text to be displayed (conditions specified in next section)
+  const hintText = (
+    <div className="row text-center pt-5">
+      <p className="h2 fw-bold">
+        {
+          props.subscribedFilter ? (
+            <>
+              Subscribed list is empty...<br />
+              Explore new ones through the searchbar!
+            </>
+          ) : (
+            <h1>
+              <div className="text-center vh-75">
+                <div className="row-auto mt-5">
+                  <img src={NoArtist} alt="No Artist pfp" />
+                </div>
+                <div className="row-auto mb-5">
+                  <h1>No Artists Found...</h1>
+                </div>
+              </div>
+            </h1>
+          )
+        }
+      </p>
+    </div>
+  )
+
+  // Main content of page is either:
+  // - subscribed artists list
+  // - artistSearchResults
+  //    > hintText is shown if no search results while within "New Artists" tab
+  const searchResults = props.searchResults.length ? (
+    <div className="row bg-primary mx-1">
+      <ol className="list-group gx-3">
+        {props.searchResults.map((artist) => (
+          <ArtistResult
+            ind={artist.ind}
+            artistId={artist.id}
+            img={artist.img}
+            name={artist.name}
+            genre={artist.genre}
+            isNotSubscribed={artist.isNotSubscribed}
+            toggleSubscribed={props.toggleSubscribed}
+          />
+        ))}
+      </ol>
+    </div>
   ) : (
-    <>
-      <h1>
-        <div className="text-center vh-75">
-          <div className="row-auto mt-5">
-            <img src={NoArtist} alt="No User pfp"></img>
-          </div>
-          <div className="row-auto mb-5">
-            <h1>No Artists Found...</h1>
-          </div>
-        </div>
-      </h1>
-    </>
-  );
+    hintText
+  )
+
 
   return (
-    <>
-      <div className="row mb-3 pt-5 px-5">
+    <div className="container Oswald_regular min-vw-100 p-5">
+      <div className="row mb-3">
         <Searchbar.ArtistSearchbar
           searchValue={props.search}
           onChange={props.handleChange}
+          onClick={() => {props.toggleFilter(false)}}
         />
+        {/* <span className="placeholder placeholder-lg col-12"/> */}
       </div>
-      {props.search ? (
-        <div className="container align-items-center Oswald_regular">
-          <div className="row text-center justify-content-end">
-            <div
-              className="btn-group bg-light col-4 px-0"
-              role="group"
-              aria-label="radio toggle button group"
-            >
-              <input
-                type="radio"
-                className="btn-check px-0"
-                name="searchFilter"
-                id="filterOn"
-                autoComplete="off"
-                defaultChecked
-                onChange={() => {
-                  props.toggleFilter(true);
-                  console.log("Subscribed Artist changed.");
-                }}
-              />
-              <label htmlFor="filterOn" className="btn fw-bold">
-                Subscribed Artists
-              </label>
-              <input
-                type="radio"
-                className="btn-check px-0"
-                name="searchFilter"
-                id="filterOff"
-                autoComplete="off"
-                onChange={() => {
-                  props.toggleFilter(false);
-                  console.log("New Artists changed");
-                }}
-              />
-              <label htmlFor="filterOff" className="btn fw-bold">
-                New Artists
-              </label>
-            </div>
-          </div>
-          <div className="row bg-primary">
-            <ol className="list-group gx-3">{content}</ol>
-          </div>
-        </div>
-      ) : (
-        <div className="container d-flex flex-column min-vh-100 Oswald_regular">
-          <div className="row flex-grow-1">
-            <div className="col text-center">
-              <p className="h3 fw-bold pt-4">
-                Search your subscribed Artists <br />
-                and Explore new ones!
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
+      {tabs}
+      {searchResults}
+    </div>
   );
 };
 
