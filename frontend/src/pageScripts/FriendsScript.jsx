@@ -27,6 +27,7 @@ const FriendsScript = () => {
           setSearchResults(
             response.data.map((userData) => {
               return {
+                id: userData._id,
                 img: userData.img,
                 name: userData.name,
                 followers: userData.followers,

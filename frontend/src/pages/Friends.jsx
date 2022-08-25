@@ -22,6 +22,7 @@ const Friends = (props) => {
     return (
       <FriendCard
         key={item.name}
+        id={item.id}
         ind={ind}
         img={item.img}
         name={item.name}
