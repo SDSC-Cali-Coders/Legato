@@ -7,6 +7,7 @@ import {
   getConcertsLocation,
   getGenreDetail,
   getConcertsLocationGenre,
+  getTopGenreArtists
 } from "../api/ticketmaster";
 import { catchErrors } from "../utils";
 
@@ -26,32 +27,37 @@ const ConcertsScript = () => {
   const [loading, setLoading] = useState(true);
   const [rad, setRad] = useState("75");
   const [genreData, setGenreData] = useState(null);
+
   const [nearbyConcerts, setNearbyConcerts] = useState(null);
   const [reccConcerts, setReccConcerts] = useState(null);
   let effectTriggeredRef = useRef(false);
-
-  /* INFO ON CODE BLOCK: integrates the getArtistDetail + getConcertsForArtist API Call
-  // Note: both of these API calls should be used together
+  const [responseData, setResponseData] = useState(null);
+  /**
+   * This use effect defines the fetchUser function and triggers it once,
+   * allowing us to get data from our db about a specific user (using the
+   * userContext to do so)
+   */
   useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await getArtistDetail('The Weeknd');
-      setArtistData(data);
-    };
-    catchErrors(fetchData());
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const artistId = artistData._embedded.attractions[0].id;
-      const { data } = await getConcertsForArtistDateSorted(lat, lng, '20', artistId);
-      setConcerts(data);
-    };
-    if (lat && lng && artistData) {
-      catchErrors(fetchData());
+    console.log("use effect");
+    async function fetchUser() {
+      axios
+        .get(`http://localhost:27017/user/${id}`)
+        .then(function (response) {
+          setResponseData(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        })
     }
-
-  }, [lat, lng, artistData]);
-  */
+    if (!effectTriggeredRef.current) {
+      console.log("fetch user called");
+      fetchUser();
+      effectTriggeredRef.current = true;
+    }
+  }, [id]);
 
   // INFO ON CODE BLOCK: integrates the getConcertsLocation API Call
   useEffect(() => {
@@ -62,7 +68,7 @@ const ConcertsScript = () => {
     if (lat && lng && rad) {
       catchErrors(fetchData());
     }
-  }, [lat, lng, rad]);
+  }, [rad]);
 
   // INFO ON CODE BLOCK: handle the getConcertsLocation API radius change
   function handleRadiusChange(e) {
@@ -72,7 +78,6 @@ const ConcertsScript = () => {
 
   let loccCards = [];
   if (nearbyConcerts) {
-    console.log(nearbyConcerts);
     for (let i = 0; i < nearbyConcerts._embedded.events.length; i++) {
       loccCards.push({
         id: nearbyConcerts._embedded.events[i].id,
@@ -93,21 +98,11 @@ const ConcertsScript = () => {
     }
   }
 
-  // INFO ON CODE BLOCK: integrates getConcertsLocationGenre and getGenreDeatil API Call
-  // Note: both of these API calls should be used together
-  useEffect(() => {
-    const fetchData = async () => {
-      // We would enter the user's top genre below
-      const { data } = await getGenreDetail("rap");
-      setGenreData(data);
-    };
-    catchErrors(fetchData());
-  }, []);
 
+  // INFO ON CODE BLOCK: integrates getConcertsLocationGenre
   useEffect(() => {
     const fetchData = async () => {
-      const genreId =
-        genreData._embedded.classifications[0].segment._embedded.genres[0].id;
+      const genreId = responseData.topGenreId
       // note: can specify the radius below
       const { data } = await getConcertsLocationGenre(
         lat,
@@ -116,13 +111,15 @@ const ConcertsScript = () => {
         "40",
         genreId
       );
+      console.log('genre concert request')
       setReccConcerts(data);
       setLoading(false)
     };
-    if (lat && lng && genreData) {
+    if (lat && lng && responseData) {
+      //console.log(Object.keys(genreData).length)
       catchErrors(fetchData());
     }
-  }, [lat, lng, genreData]);
+  }, [responseData]);
 
   let reccCards = [];
   if (reccConcerts) {
