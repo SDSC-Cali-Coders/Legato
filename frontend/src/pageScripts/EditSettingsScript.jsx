@@ -4,6 +4,7 @@ import EditView from '../components/settings/EditView';
 import { useState, useEffect, useRef } from 'react';
 import { userContext } from '../api/userContext'
 import { useContext } from 'react';
+import { useNavigate, NavLink } from "react-router-dom";
 
 
 const EditSettingsScript = () => {
@@ -68,10 +69,10 @@ const EditSettingsScript = () => {
         const newInfo = {
             _id: id,
             linkedSocials: {
-                facebook: settingsObj.socialLinks.facebook ? settingsObj.socialLinks.facebook : facebook,
-                instagram: settingsObj.socialLinks.instagram ? settingsObj.socialLinks.instagram : instagram,
-                twitter: settingsObj.socialLinks.twitter ? settingsObj.socialLinks.twitter : twitter,
-                pinterest: settingsObj.socialLinks.pinterest ? settingsObj.socialLinks.twitter : pinterest,
+                facebook: settingsObj.socialLinks.facebook && facebook == null ? settingsObj.socialLinks.facebook : facebook,
+                instagram: settingsObj.socialLinks.instagram && instagram == null ? settingsObj.socialLinks.instagram : instagram,
+                twitter: settingsObj.socialLinks.twitter && twitter == null ? settingsObj.socialLinks.twitter : twitter,
+                pinterest: settingsObj.socialLinks.pinterest && pinterest == null ? settingsObj.socialLinks.pinterest : pinterest,
             }
         }
         axios.put(`http://localhost:27017/user/socials/${id}`, newInfo)
@@ -121,7 +122,7 @@ const EditSettingsScript = () => {
 
         console.log('value is:', event.target.value);
     };
-    const visbilityChanged =  function (e) {
+    const visbilityChanged = function (e) {
         console.log(e.currentTarget.value)
         setVisibility(e.currentTarget.value)
     }
@@ -139,7 +140,7 @@ const EditSettingsScript = () => {
                 instagramChange={handleIGChange}
                 twitterChange={handleTWChange}
                 pinterestChange={handlePIChange}
-                onVisibilityChange = {visbilityChanged}
+                onVisibilityChange={visbilityChanged}
             />
         </>
 

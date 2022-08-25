@@ -18,7 +18,7 @@ const ObjectId = require("mongodb").ObjectId;
 recordRoutes.route("/user/:id").put(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
-    _id: req.body.id,
+    _id: req.body._id,
     name: req.body.name,
     lowercase_name: req.body.lowercase_name,
     img: req.body.img,
