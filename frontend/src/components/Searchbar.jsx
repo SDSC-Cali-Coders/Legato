@@ -31,24 +31,17 @@ const Searchbar = {
 
   ArtistSearchbar: (props) => {
     return (
-      <div className="input-group d-flex">
-        <div className="input-group-prepend">
-          <button
-            className="btn bg-neutral-secondary btn-outline-bg-neutral-secondary"
-            type="button"
-          >
-            <i className="bi bi-search text-dark"></i>
-          </button>
-        </div>
-        <div className="searchinput flex-fill">
+        <div className="input-group">
+          <span className="input-group-text bg-neutral-secondary">
+            <i className="bi bi-search text-dark"/>
+          </span>
           <input
             type="text"
             className="form-control bg-neutral-secondary text-dark "
             value={props.searchValue}
-            placeholder="Search artists..."
+            placeholder={ "Search artists..." }
             onChange={props.onChange}
           />
-        </div>
       </div>
     );
   },
