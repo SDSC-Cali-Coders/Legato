@@ -1,3 +1,4 @@
+import axios from 'axios';
 
 export async function getUserNotifications(id){
   /**
@@ -7,7 +8,30 @@ export async function getUserNotifications(id){
    * @param  {string} id - id of user who's notification you want to get
    * @return {Array notificationObj} - Array of notification objects. 
    */
-  const response = await fetch('/notification/' + id);
+  try {
+    let call = '/notification/' + id;
+    const response = await fetch(call);
+    return await response.json();
+  }catch(error) {
+    return error;
+  }
+}
+
+export async function changeUserVisibility(visibility, userId){
+  /**
+   * change the visibility of a given user
+   * @param {string} userId - id of whose visibility will be changed
+   * @param {bool} visibility - whether the account with the associated user id is private or not
+   * @return {acknowledgedObj} - object used to determine if api call was acknowledged
+   */
+  let b = {
+    id: userId,
+    visible: visibility
+  }
+  const response = await fetch('/visibility', {
+    method: 'PATCH',
+    body: JSON.stringify(b)
+  })
   const data = await response.json();
   return data;
 }
@@ -24,8 +48,7 @@ export async function deleteUserNotification(objId){
   const response = await fetch(call, {
     method: 'DELETE'
   });
-  const data = await response.json();
-  return data;
+  return await response.json();
 }
 
 export async function addUserNotification(notification){

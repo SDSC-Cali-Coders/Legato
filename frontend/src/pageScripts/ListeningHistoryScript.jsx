@@ -6,7 +6,10 @@ import {
   getTopArtists,
   getTopGenres,
 } from "../api/spotify";
-import { catchErrors } from "../utils";
+import {
+  getArtistDetail
+} from "../api/ticketmaster";
+import { catchErrors, mode } from "../utils";
 import genreIcon from "../assets/genre-country.svg";
 import ListeningHistory from "../pages/ListeningHistory";
 import LoadingSpin from "../components/LoadingSpin";
@@ -24,8 +27,12 @@ const ListeningHistoryScript = () => {
   const [topGenres, setTopGenres] = useState(null);
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true)
+  const [artistData1, setArtistData1] = useState(null);
+  const [artistData2, setArtistData2] = useState(null);
+  const [artistData3, setArtistData3] = useState(null);
 
   let effectTriggeredRef = useRef(false);
+  let concertTrigger = useRef(false);
 
   useEffect(() => {
     setToken(accessToken);
@@ -45,6 +52,35 @@ const ListeningHistoryScript = () => {
     catchErrors(fetchData());
   }, []);
 
+  // NOTE: Codeblock uses ticketmaster api
+  useEffect(() => {
+    const fetchData = async (artist) => {
+      // using ticketmaster api
+      const artistRes1 = await getArtistDetail(artist[0]);
+      const artistRes2 = await getArtistDetail(artist[1]);
+      const artistRes3 = await getArtistDetail(artist[2]);
+      setArtistData1(artistRes1);
+      setArtistData2(artistRes2);
+      setArtistData3(artistRes3);
+    };
+    if (topArtists && !concertTrigger.current) {
+      catchErrors(fetchData(topArtists.items.map(artist => artist.name)));
+      concertTrigger.current = true;
+    }
+  }, [topArtists]);
+  let topGenreId = null
+  if (artistData1 && artistData2 && artistData3) {
+    let topGenreIds = [];
+    artistData1.data.page.totalElements > 0 ? topGenreIds.push(artistData1.data._embedded.attractions[0].classifications[0].genre.id) : console.log("top artist1 doesnt exist in ticketmaster api")
+    artistData2.data.page.totalElements > 0 ? topGenreIds.push(artistData2.data._embedded.attractions[0].classifications[0].genre.id) : console.log("top artist2 doesnt exist in ticketmaster api")
+    artistData3.data.page.totalElements > 0 ? topGenreIds.push(artistData3.data._embedded.attractions[0].classifications[0].genre.id) : console.log("top artist3 doesnt exist in ticketmaster api")
+
+    const mostFreq = mode(topGenreIds);
+    // if undefined - set to pop
+    topGenreId = mostFreq ? mostFreq : 'KnvZfZ7vAev';
+  }
+  // END of code block
+  
   useEffect(() => {
     setToken(accessToken);
     const fetchData = async () => {
@@ -80,6 +116,7 @@ const ListeningHistoryScript = () => {
         topArtists: topArtists.items.slice(0, 5),
         topSongs: topSongs.items.slice(0, 5),
         topGenres: sortedGenres.slice(0, 5),
+        topGenreId: topGenreId
       };
       catchErrors(
         axios.put(`http://localhost:27017/user/${profile.id}`, newUser)
@@ -90,7 +127,8 @@ const ListeningHistoryScript = () => {
       profile &&
       topSongs &&
       topArtists &&
-      sortedGenres
+      sortedGenres &&
+      topGenreId
     ) {
       addUserDB();
       effectTriggeredRef.current = true;

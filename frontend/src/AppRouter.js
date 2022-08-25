@@ -14,7 +14,7 @@ import FollowerFollowingScript from "./pageScripts/FollowerFollowingScript";
 import ArtistSearchViewScript from './pageScripts/ArtistSearchViewScript';
 import ArtistDescriptionScript from "./pageScripts/ArtistDescriptionScript";
 import FriendsScript from "./pageScripts/FriendsScript";
-import NotificationScript from "./pageScripts/NotificationScript";
+import NotificationViewScript from "./pageScripts/NotificationViewScript";
 import EditSettingsScript from "./pageScripts/EditSettingsScript";
 import DeleteSettingsScript from "./pageScripts/DeleteSettingsScript";
 
@@ -36,7 +36,7 @@ function AppRouter() {
             <Wrapper>
                 <Navbar />
                 <Routes>
-                    <Route path="/" element={ <ListeningHistoryScript />} />
+                    <Route path="/" element={<ListeningHistoryScript />} />
                     <Route path="/concerts/" element={
                         <ConcertsScript />
                     } />
@@ -65,9 +65,9 @@ function AppRouter() {
                         <ArtistDescriptionScript />
                     } />
                     <Route path="/notifications" element={
-                    <NotificationScript />
-                } />
-                <Route path="/friends/" element={
+                        <NotificationViewScript />
+                    } />
+                    <Route path="/friends/" element={
                         <FriendsScript />
                     } />
                     <Route path="/settings/edit" element={

@@ -4,7 +4,7 @@ import Searchbar from "../Searchbar";
 export default function SearchEmpty(props) {
   return (
     <div className="container mt-3 min-vw-100 Oswald_regular">
-      <Searchbar.ConcertSearchbar />
+      {/* <Searchbar.ConcertSearchbar /> */}
 
       <div className="row my-5 text-center">
         <div className="col-4 offset-4">

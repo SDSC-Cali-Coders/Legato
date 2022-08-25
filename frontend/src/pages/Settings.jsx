@@ -4,22 +4,20 @@ import { logout } from '../api/spotify';
 import { useNavigate, NavLink } from "react-router-dom";
 
 const ProfilePic = (props) => {
-  let extraClassNames = "border bg-dark p-10";
-  let placeHolder = <></>;
-  if (typeof props.img != "undefined") {
-    extraClassNames = "p-4 w-25";
-    placeHolder = (
-      <img className="img-fluid rounded-circle" src={props.img} alt="" />
-    );
-  }
+    let extraClassNames = 'border bg-dark p-10';
+    let placeHolder = (<></>);
+    if (typeof props.img != 'undefined') {
+        extraClassNames = 'p-4 w-25';
+        placeHolder = <img className='img-fluid rounded-circle' src={props.img} alt="" />
+    }
 
-  return (
-    <div
-      className={`badge position-absolute top-0 start-10 translate-middle rounded-circle ${extraClassNames}`}
-    >
-      <span>{placeHolder}</span>
-    </div>
-  );
+    return (
+        <div className={`badge position-absolute top-0 start-10 translate-middle rounded-circle ${extraClassNames}`}>
+            <span>
+                {placeHolder}
+            </span>
+        </div>
+    );
 };
 
 const Settings = (props) => {
