@@ -131,7 +131,7 @@ recordRoutes.route("/user/:id").delete(function (req, response) {
 recordRoutes.route("/visibility").patch(function (req, response) {
   let db_connect = dbo.getDb();
   db_connect.collection("user").updateOne({"_id": req.body.id}, {
-    isPrivateAccount: req.body.visibility
+    isPrivateAccount: req.body.visible
   }, function (err, res) {
     if (err) {
       console.log(err);

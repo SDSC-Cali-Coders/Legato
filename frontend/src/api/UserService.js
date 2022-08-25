@@ -12,6 +12,25 @@ export async function getUserNotifications(id){
   return data;
 }
 
+export async function changeUserVisibility(visibility, userId){
+  /**
+   * change the visibility of a given user
+   * @param {string} userId - id of whose visibility will be changed
+   * @param {bool} visibility - whether the account with the associated user id is private or not
+   * @return {acknowledgedObj} - object used to determine if api call was acknowledged
+   */
+  let b = {
+    id: userId,
+    visible: visibility
+  }
+  const response = await fetch('/visibility', {
+    method: 'PATCH',
+    body: JSON.stringify(b)
+  })
+  const data = await response.json();
+  return data;
+}
+
 export async function deleteUserNotification(objId){
   /**
    * delete a notification on the database using the notifications object id
