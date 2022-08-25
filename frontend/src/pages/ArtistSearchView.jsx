@@ -129,4 +129,4 @@ export const ArtistView = (props) => {
   );
 };
 
-export default ArtistSearchView;
+export default ArtistView;

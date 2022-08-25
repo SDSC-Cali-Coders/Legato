@@ -25,6 +25,7 @@ const ConcertsScript = () => {
   const [loading, setLoading] = useState(true);
   const [rad, setRad] = useState("75");
   const [genreData, setGenreData] = useState(null);
+  const [responseData, setResponseData] = useState(null);
 
   const [nearbyConcerts, setNearbyConcerts] = useState(null);
   const [reccConcerts, setReccConcerts] = useState(null);
@@ -34,6 +35,29 @@ const ConcertsScript = () => {
   const [artistConcertsLoc, setArtistConcertsLoc] = useState(null);
   const [artistConcertsDate, setArtistConcertsDate] = useState(null);
   const [artistData, setArtistData] = useState(null);
+
+  useEffect(() => {
+    console.log("use effect");
+    async function fetchUser() {
+      axios
+        .get(`http://localhost:27017/user/${id}`)
+        .then(function (response) {
+          setResponseData(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        })
+    }
+    if (!effectTriggeredRef.current) {
+      console.log("fetch user called");
+      fetchUser();
+      effectTriggeredRef.current = true;
+    }
+  }, [id]);
+
 
   // INFO ON CODE BLOCK: integrates the getConcertsLocation API Call
   useEffect(() => {
