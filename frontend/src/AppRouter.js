@@ -13,6 +13,7 @@ import ArtistSearchViewScript from './pageScripts/ArtistSearchViewScript';
 import ArtistDescriptionScript from "./pageScripts/ArtistDescriptionScript";
 import FriendsScript from "./pageScripts/FriendsScript";
 import NotificationScript from "./pageScripts/NotificationScript";
+import UserDescriptionScript from "./pageScripts/UserProfileScript";
 
 
 /**
@@ -61,6 +62,9 @@ function AppRouter() {
                 } />
                 <Route path="/friends/" element={
                     <FriendsScript/>
+                } />
+                <Route path="/profile/" element={
+                    <UserDescriptionScript/>
                 } />
             </Routes>
         </BrowserRouter>
