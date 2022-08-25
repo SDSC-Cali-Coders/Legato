@@ -18,10 +18,16 @@ const InterestedAttendeesScript = (props) => {
     mutualNumber: 2,
     type: "Concerts",
   };
-
+  const userJohnDoe = {
+    id: 1,
+    img: defaultPfp,
+    name: "John Doe",
+    mutualNumber: 2,
+    type: "Concerts",
+  };
   const [userTypeToggle, setUserTypeToggle] = useState("mutuals");
   const [otherList, setOtherList] = useState([]);
-  const [mutualFriendList, setMutualFriendList] = useState(
+  /*const [mutualFriendList, setMutualFriendList] = useState(
     Array(4)
       .fill()
       .map((_empty, index) => {
@@ -34,24 +40,13 @@ const InterestedAttendeesScript = (props) => {
     Array(19)
       .fill()
       .map((empty, index) => {
-        let others = { ...userJaneDoe };
+        let others = { ...userJohnDoe };
         others.id = index;
         return others;
       })
-  );
+  );*/
 
-  useEffect(() => {
-    switch (userTypeToggle) {
-      case "mutuals":
-        setOtherList(mutualFriendList);
-        break;
-      case "others":
-        setOtherList(followingList);
-        break;
-      default:
-        setOtherList([]);
-    }
-  }, [userTypeToggle, mutualFriendList, followingList]);
+
 
   const id = useContext(userContext).id;
   const [responseDataConcert, setResponseDataConcert] = useState(null);
@@ -107,6 +102,8 @@ const InterestedAttendeesScript = (props) => {
     }
   }, []);
 
+  let mutualUserObjects = [];
+  let otherUserObjects = [];
   if (responseDataConcert && responseDataUser) {
     console.log(responseDataConcert)
 
@@ -127,27 +124,42 @@ const InterestedAttendeesScript = (props) => {
         otherUsers.push(interestedUsers[i]);
       }
     }
-    let mutualUserObjects = [];
-    let otherUserObjects = [];
     for (let i = 0; i < mutualUsers.length; i++) {
       // compare mutuals to find mutual number and push objects with this number
-      const count = mutualUsers[i].followers.filter(i => responseDataUser.followers.includes(i)).length;
+      const count = mutualUsers[i].interestedEvents.filter(i => responseDataUser.interestedEvents.includes(i)).length;
       mutualUserObjects.push({
         name: mutualUsers[i].name,
+        id: mutualUsers[i]._id,
         img: mutualUsers[i].img,
-        mutuals: count,
+        mutualNumber: count,
+        type: 'Concerts'
       })
     }
     for (let i = 0; i < otherUsers.length; i++) {
       // compare mutuals to find mutual number and push objects with this number
-      const count = otherUsers[i].followers.filter(i => responseDataUser.followers.includes(i)).length;
+      const count = otherUsers[i].interestedEvents.filter(i => responseDataUser.interestedEvents.includes(i)).length;
       otherUserObjects.push({
         name: otherUsers[i].name,
+        id: otherUsers[i]._id,
         img: otherUsers[i].img,
-        mutuals: count,
+        mutualNumber: count,
+        type: 'Concerts'
       })
     }
   }
+
+  useEffect(() => {
+    switch (userTypeToggle) {
+      case "mutuals":
+        setOtherList(mutualUserObjects);
+        break;
+      case "others":
+        setOtherList(otherUserObjects);
+        break;
+      default:
+        setOtherList([]);
+    }
+  }, [userTypeToggle]);
 
   // return (
   //   <InterestedAttendees
