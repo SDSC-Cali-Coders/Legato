@@ -90,7 +90,9 @@ const UserProfile = (props) => {
             </div>
           </div>
           <div className="row">
-            <Buttons.Follow />
+            {
+              followButton
+            }
           </div>
         </div>
       </div>

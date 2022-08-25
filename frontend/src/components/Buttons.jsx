@@ -118,14 +118,14 @@ const Buttons = {
   },
   Following: () => {
     return (
-      <button className="btn btn-follow btn-light border-dark text-light fw-semibold">
+      <button className="btn btn-light border border-dark text-dark fw-semibold">
         Following
       </button>
     );
   },
   Follow: () => {
     return (
-      <button className="btn btn-follow-short bg-neutral-body py-0 px-4 border-dark text-light fw-semibold">
+      <button className="btn btn-secondary border border-dark text-light fw-semibold">
         Follow
       </button>
     );
