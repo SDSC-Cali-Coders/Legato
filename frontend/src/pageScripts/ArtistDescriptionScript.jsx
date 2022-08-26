@@ -38,11 +38,13 @@ const ArtistDescriptionScript = () => {
 
     useEffect(() => {
         const fetchArtistInfo = async () => {
-            setLoading(true);
             const { data } = await getArtist(artistId);
-            setArtistInfo(data);
-            setLoading(false);
-            
+            setArtistInfo({
+                img: data.images.length ? data.images[0].url : "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg",
+                name: data.name,
+                genre: data.genres.length ? data.genres[0] : "N/A",
+                followers: data.followers.total,
+            });
         }
         if (!effectTriggeredRef.current) {
             catchErrors(fetchArtistInfo());
@@ -53,10 +55,8 @@ const ArtistDescriptionScript = () => {
 
     useEffect(() => {
         const fetchArtistTopSongs = async () => {
-            setLoading(true);
             const { data } = await getArtistTopSongs(artistId);
-            setArtistSongs(data['tracks'])
-            setLoading(false);
+            setArtistSongs(data['tracks'].map(song => {return song.name}))
         }
         if (!effectRef2.current) {
             catchErrors(fetchArtistTopSongs());
@@ -66,10 +66,8 @@ const ArtistDescriptionScript = () => {
 
     useEffect(() => {
         const fetchArtistConcertID = async () => {
-            setLoading(true);
             const { data } = await getArtistDetail(artistId);
             setArtistConcertID(data)
-            setLoading(false);
         }
         if (!effectRef3.current) {
             catchErrors(fetchArtistConcertID());
@@ -80,19 +78,24 @@ const ArtistDescriptionScript = () => {
     // Makes an API Call to the user connection to fetch all subscribed artists
     useEffect(() => {
         async function fetchSubUsers() {
-            setLoading(true);
             const subUserId = {
                 _id: id,
                 artistId: artistId,
             }
             axios.put(`http://localhost:27017/user/artistSubscribedUsers/${id}`, subUserId)
                 .then(function (response) {
-                    setSubUsers(response.data);
+                    setSubUsers(response.data.map((user) => {
+                        return {
+                            pfp: user.img,
+                            name: user.name,
+                            mutualNumber: 5,
+                            type: 'Friends'
+                        }
+                    }))
 
                     // startup is done
                     //startupTriggeredRef.current = true;
                     //setSubscribedFilter(true)
-                    setLoading(false)
                 })
                 .catch(function (error) {
                     console.log(error)
@@ -110,7 +113,6 @@ const ArtistDescriptionScript = () => {
     // Makes an API Call to the user connection to fetch all subscribed artists of user
     useEffect(() => {
         async function fetchSub() {
-            setLoading(true);
             axios.get(`http://127.0.0.1:27017/user/${id}`)
                 .then(function (response) {
                     setSubData(response.data.subscribedArtists);
@@ -118,7 +120,6 @@ const ArtistDescriptionScript = () => {
                     // startup is done
                     //startupTriggeredRef.current = true;
                     //setSubscribedFilter(true)
-                    setLoading(false)
                 })
                 .catch(function (error) {
                     console.log(error)
@@ -180,27 +181,8 @@ const ArtistDescriptionScript = () => {
         setIsNotSubscribed(false);
     } */
     
-    let ArtistData = {
-        img: artistInfo.images.length ? artistInfo.images[0].url : "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg",
-        name: artistInfo.name,
-        genre: artistInfo.genres.length ? artistInfo.genres[0] : "N/A",
-        followers: artistInfo.followers.total,
-    }
-
-    let topSongs = artistSongs.map((song) => {
-        return song.name
-    })
-
     console.log("this is concertid info", artistConcertID)
     console.log("new subUsers", subUsers)
-    let userData = subUsers.map((user) => {
-        return {
-            pfp: user.img,
-            name: user.name,
-            mutualNumber: 5,
-            type: 'Friends'
-        }
-    })
 
     let ConcertData = <ConcertsSearchScript artistConcertsLoc={artistConcertsLoc}
     artistConcertsDate={artistConcertsDate} />
@@ -208,7 +190,7 @@ const ArtistDescriptionScript = () => {
     console.log("this is artistTickData", artistTickData)
 
     return (
-        <ArtistDescription artist={ArtistData} topSongs={topSongs} users={userData} concerts={[]} isNotSubscribed={isNotSubscribed} toggleSubscribed={setIsNotSubscribed}/>
+        <ArtistDescription artist={artistInfo} topSongs={artistSongs} users={subUsers} concerts={[]} isNotSubscribed={isNotSubscribed} toggleSubscribed={setIsNotSubscribed}/>
     );
 }
 
