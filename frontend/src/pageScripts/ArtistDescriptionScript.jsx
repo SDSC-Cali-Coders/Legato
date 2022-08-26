@@ -140,7 +140,7 @@ const ArtistDescriptionScript = () => {
         };
         if (!effectTriggeredRef2.current) {
             catchErrors(fetchData());
-            effectTriggeredRef.current = true;
+            effectTriggeredRef2.current = true;
         }
       }, [artistId]
     );
