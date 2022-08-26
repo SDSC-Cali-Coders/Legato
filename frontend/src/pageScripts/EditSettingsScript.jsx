@@ -22,7 +22,6 @@ const EditSettingsScript = () => {
     const [twitter, setTwitter] = useState(null);
     const [pinterest, setPinterest] = useState(null);
     const [visibility, setVisibility] = useState('');
-    const [isPrivate, setIsPrivate] = useState(null)
     /**
      * This use effect defines the fetchUser function and triggers it once,
      * allowing us to get data from our db about a specific user (using the
@@ -104,25 +103,10 @@ const EditSettingsScript = () => {
                 console.log("always executed")
 
             });
-            
+
         // attempt using fetch (set is private first)
-        setIsPrivate(visibility == 'private' ? true : false);
-        console.log(isPrivate)
         console.log(id)
     }
-    // attempt using fetch - then call change uservisibility in an async within a useEffect
-    useEffect(() => {
-        const updateVisibility = async () => {
-            const data = await changeUserVisibility(isPrivate, id)
-            console.log(data)
-        }
-
-        if (isPrivate != null) {
-            console.log("here")
-            updateVisibility();
-        }
-
-    }, [isPrivate])
 
     const handleFBChange = event => {
         setFacebook(event.target.value);
