@@ -33,6 +33,7 @@ const UserDescriptionScript = () => {
           setProfileData({
             img: response.data.img,
             name: response.data.name,
+            following: response.data.following,
             followersCount: response.data.followers.length,
             followingCount: response.data.following.length,
             socialLinks: {
@@ -103,6 +104,7 @@ const UserDescriptionScript = () => {
       effectTriggeredRef.current = true
     }
   }, [id, profileId]);
+  console.log(profileData)
 
   return (
     <div className="container pt-5">
@@ -119,7 +121,7 @@ const UserDescriptionScript = () => {
                 topArtistsList={profileData.topArtistsList}
                 topSongsList={profileData.topSongsList}
                 topGenreList={profileData.topGenreList}
-                isFollowing={userData.following.includes(profileId)}
+                isFollowing={profileData.following.includes(profileId)}
               />
             ) : (
               <LoadingSpin />
