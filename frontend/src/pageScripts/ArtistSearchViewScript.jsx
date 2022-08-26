@@ -196,4 +196,3 @@ const ArtistSearchViewScript = (props) => {
 }
 
 export default ArtistSearchViewScript;
- 

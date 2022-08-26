@@ -177,7 +177,6 @@ export const getTopGenres = (time_range) => {
 
 };
 
-
 /**
 * Get a Artist Info 
 * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-artist

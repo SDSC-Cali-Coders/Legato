@@ -4,13 +4,11 @@ import Buttons from "../Buttons";
 const ArtistCard = (props) => {
   return (
     <div className="card bg-light border border-dark rounded-3 p-1 d-flex">
-      <div className="ratio ratio-1x1">
-        <img
-          src={props.artistImg}
-          alt=""
-          className="rounded-circle img-fluid"
-        />
-      </div>
+      <img
+        src={props.artistImg}
+        alt=""
+        className="rounded-circle card-img-top flex-fill img-fluid ratio ratio-1x1"
+      />
       <div className="card-title fs-4 align-text-bottom">{props.artistName}</div>
     </div>
   );

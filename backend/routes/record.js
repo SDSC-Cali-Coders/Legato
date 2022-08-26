@@ -25,6 +25,7 @@ recordRoutes.route("/user/:id").put(function (req, response) {
     topArtists: req.body.topArtists,
     topSongs: req.body.topSongs,
     topGenres: req.body.topGenres,
+    topGenreId: req.body.topGenreId,
     linkedSocials: { facebook: {}, instagram: {}, twitter: {}, pinterest: {} },
     followers: [],
     following: [],
@@ -47,6 +48,7 @@ recordRoutes.route("/user/:id").put(function (req, response) {
           topArtists: req.body.topArtists,
           topSongs: req.body.topSongs,
           topGenres: req.body.topGenres,
+          topGenreId: req.body.topGenreId,
         }
       };
       db_connect.collection("user").updateOne(myquery, newvalues, function (err, res) {
@@ -128,33 +130,49 @@ recordRoutes.route("/user/:id").delete(function (req, response) {
   });
 });
 
+recordRoutes.route("/visibility").patch(function (req, response) {
+  let db_connect = dbo.getDb();
+  db_connect.collection("user").updateOne({"_id": req.body.id}, {
+    isPrivateAccount: req.body.visible
+  }, function (err, res) {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+    console.log("changed visibility to" + req.body.visibilty);
+    response.json(res);
+  });
+});
+
 // This section will help add a user follower
 // TODO: check if user is already followed?
-recordRoutes.route("/follow/:followId").put(function (req, response) {
+recordRoutes.route("/follow").put(function (req, response) {
   let db_connect = dbo.getDb();
   db_connect.collection("user").updateOne({ "_id": req.body.userId }, {
     $push: {
       following: req.params.followId
-    }}, function (err, res) {
-      if (err) {
-        console.log(err);
-        throw err;
-      }
-      console.log("following added");
-      // TODO: find out how to include multiple responses
-      // response.json(res);
+    }
+  }, function (err, res) {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+    console.log("following added");
+    // TODO: find out how to include multiple responses
+    // response.json(res);
   });
 
-  db_connect.collection("user").updateOne({"_id": req.params.followId}, {
+  db_connect.collection("user").updateOne({ "_id": req.params.followId }, {
     $push: {
       followers: req.body.userId
-    }}, function (err, res) {
-      if (err) {
-        console.log(err);
-        throw err;
-      }
-      console.log("followed user")
-      response.json(res);
+    }
+  }, function (err, res) {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+    console.log("followed user")
+    response.json(res);
   });
 
   let follow_request = {
@@ -163,27 +181,6 @@ recordRoutes.route("/follow/:followId").put(function (req, response) {
     'type': "newFollower",
     'userId': req.body.userId,
     'associatedUsers': [req.params.followId],
-    'associatedArtists': [],
-    'associatedEvent': null
-  };
-  db_connect.collection("notification")
-    .insertOne(follow_request, function (err, res) {
-      if (err) {
-        console.log(err);
-        throw err;
-      }
-      response.json(res);
-  });
-});
-
-recordRoutes.route("/requestFollow/:followId").put(function (req, response) {
-  let db_connect = dbo.getDb();
-  let follow_request = {
-    'version': 1.3,
-    'datetime': req.body.datetime,
-    'type': "followRequest",
-    'userId': req.params.followId,
-    'associatedUsers': [req.body.userId],
     'associatedArtists': [],
     'associatedEvent': null
   };
@@ -238,29 +235,29 @@ recordRoutes.route("/recommend-friends/:id").get((req, response) => {
   let db_connect = dbo.getDb();
   db_connect.collection("user").find({}).toArray().then((data) => {
     let userIndex;
-    for(let i = 0; i < data.length; i++){
-      if(data[i]._id == req.params.id){
+    for (let i = 0; i < data.length; i++) {
+      if (data[i]._id == req.params.id) {
         userIndex = i;
         break;
       }
     }
     let recommendedUsers = [];
     // inefficient way
-    for(let i = 0; i < data.length; i++){
-      if(i != userIndex && !data[userIndex].following.includes(data[i]._id)){
+    for (let i = 0; i < data.length; i++) {
+      if (i != userIndex && !data[userIndex].following.includes(data[i]._id)) {
         let friend = {
           id: data[i]._id,
           following: 0,
           subscribedArtists: 0,
           goingEvents: 0
         }
-        for(const feature of ["following", "subscribedArtists", "goingEvents"]){
-          for(let j = 0; j < data[userIndex][feature].length; j++)
-            if(data[i][feature].includes(data[userIndex][feature][j]))
+        for (const feature of ["following", "subscribedArtists", "goingEvents"]) {
+          for (let j = 0; j < data[userIndex][feature].length; j++)
+            if (data[i][feature].includes(data[userIndex][feature][j]))
               friend[feature]++;
         }
         friend["_tot"] = friend.following + friend.subscribedArtists + friend.goingEvents;
-        if(friend._tot != 0) recommendedUsers.push(friend);
+        if (friend._tot != 0) recommendedUsers.push(friend);
       }
     }
     recommendedUsers.sort((a, b) => b._tot - a._tot);
@@ -447,24 +444,4 @@ recordRoutes.route("/user/socials/add").put(function (req, response) {
       console.log("one document updated");
     });
 });
-
-// This section will help us update a user's subscribed artists 
-recordRoutes.route("/user/subscribedArtists/update").put(function (req, response) {
-  let db_connect = dbo.getDb();
-  let newValues = {
-    $set: {
-      subscribedArtists: req.body.subscribedArtists,
-    }
-  };
-  let myquery = { _id: req.body._id };
-  db_connect.collection("user")
-    .updateOne(myquery, newValues, function (err, res) {
-      if (err) {
-        console.log(err);
-        throw err;
-      }
-      console.log("subscribedArtists updated");
-    });
-});
-
 module.exports = recordRoutes;

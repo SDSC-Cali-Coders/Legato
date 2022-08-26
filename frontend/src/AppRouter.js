@@ -12,7 +12,7 @@ import FollowerFollowingScript from "./pageScripts/FollowerFollowingScript";
 import ArtistSearchViewScript from './pageScripts/ArtistSearchViewScript';
 import ArtistDescriptionScript from "./pageScripts/ArtistDescriptionScript";
 import FriendsScript from "./pageScripts/FriendsScript";
-import NotificationScript from "./pageScripts/NotificationScript";
+import NotificationViewScript from "./pageScripts/NotificationViewScript";
 
 
 /**
@@ -57,7 +57,7 @@ function AppRouter() {
                     <ArtistDescriptionScript />
                 } />
                 <Route path="/notifications" element={
-                    <NotificationScript />
+                    <NotificationViewScript />
                 } />
                 <Route path="/friends/" element={
                     <FriendsScript/>

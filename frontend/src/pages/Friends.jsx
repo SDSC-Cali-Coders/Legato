@@ -58,13 +58,11 @@ const Friends = (props) => {
     <>
       <div className="container mt-3 min-vw-100 Oswald_regular">
         <div className="row">
-          <div className="col">
+          <div className="col-11">
             <Searchbar.FindFriendsSearchbar handleSearch={props.handleSearch} />
           </div>
           <div className="col-1">
-            <div className="row">
-              <DropdownMenu.FindFriendsSortBy />
-            </div>
+            <DropdownMenu.FindFriendsSortBy />
           </div>
         </div>
       </div>

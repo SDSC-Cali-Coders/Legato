@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useEffect, useState } from 'react';
-import { getUserNotifications } from "../api/UserService";
+import { deleteUserNotification, getUserNotifications } from "../api/UserService";
 import { accessToken, getCurrentUserProfile } from '../api/spotify';
 import { catchErrors } from '../utils';
 
@@ -11,7 +11,7 @@ import { useContext } from 'react';
 import NotificationView from "../pages/NotificationView";
 import NotificationCard from "../components/notification/NotificationCard";
 
-const NotificationCardScript = () => {
+const NotificationViewScript = () => {
 
     const id = useContext(userContext).id;
     const [notifications, setNotifications] = useState([]);
@@ -28,6 +28,7 @@ const NotificationCardScript = () => {
 
     
     const removeNotification = (id) =>{
+        //deleteUserNotification(id);
         let newNotifications = notifications.filter((notification) => notification._id !== id)
         setNotifications(newNotifications)
     }
@@ -49,4 +50,4 @@ const NotificationCardScript = () => {
     );
 }
 
-export default NotificationCardScript;
+export default NotificationViewScript;
