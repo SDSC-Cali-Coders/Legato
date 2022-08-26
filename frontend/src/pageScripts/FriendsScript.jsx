@@ -30,7 +30,7 @@ const FriendsScript = () => {
                 id: userData._id,
                 img: userData.img,
                 name: userData.name,
-                followers: userData.followers,
+                followers: userData.followers.length,
                 mutualFriends: 5, // hard-coded for now due to
                 mutualConcerts: 2, // complexity of determing "mutual" data
                 mutualArtists: 8,
