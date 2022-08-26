@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { userContext } from "../../api/userContext";
 import Buttons from "../Buttons";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -36,13 +37,15 @@ const GenreCard = (props) => {
 };
 
 const UserProfile = (props) => {
+  const id = useContext(userContext).id;
+
   return (
     <div className="container mt-4 px-4 d-grid gap-3 Oswald_regular">
       {/* Row: Invite button */}
       <div className="row">
         <div className="col-3 offset-9">
           <div className="row">
-            <Buttons.Invite />
+            <Buttons.Invite id={id}/>
           </div>
         </div>
       </div>

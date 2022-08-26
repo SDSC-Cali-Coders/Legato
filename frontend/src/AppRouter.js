@@ -17,6 +17,8 @@ import FriendsScript from "./pageScripts/FriendsScript";
 import NotificationViewScript from "./pageScripts/NotificationViewScript";
 import EditSettingsScript from "./pageScripts/EditSettingsScript";
 import DeleteSettingsScript from "./pageScripts/DeleteSettingsScript";
+import UserDescriptionScript from "./pageScripts/UserProfileScript";
+
 
 /**
  * This AppRouter allows us to navigate across the application and works with our
@@ -76,7 +78,10 @@ function AppRouter() {
                     <Route path="/settings/delete" element={
                         <DeleteSettingsScript />
                     } />
-                </Routes>
+                    <Route path="/profile/" element={
+                    <UserDescriptionScript/>
+                } />
+            </Routes>
             </Wrapper>
         </BrowserRouter>
     )

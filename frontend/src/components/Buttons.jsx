@@ -84,17 +84,30 @@ const Buttons = {
       </button>
     );
   },
-  Invite: () => {
-    return (
-      <button className="btn btn-align btn-secondary border-dark" type="button">
-        Invite Friends <i className="bi bi-link ps-2 bi-lg fs-4"></i>
-      </button>
-    );
-  },
+  Invite: (props) => (
+    <button
+      className="btn btn-align btn-secondary border-dark"
+      type="button"
+      onClick={(e) => {
+        navigator.clipboard.writeText(
+          `${window.location.host}/profile?user=${props.id}`
+        );
+        e.target.childNodes[0].nodeValue = "Invite link copied to clipboard!";
+        setTimeout(() => {
+          e.target.childNodes[0].nodeValue = "Invite Friends";
+        }, 1500);
+      }}
+    >
+      Invite Friends
+      <i className="bi bi-link ps-2 bi-lg fs-4"></i>
+    </button>
+  ),
   Close: (props) => {
     return (
-      <button className="btn btn-secondary btn-sm rounded-circle border-dark"
-      onClick={props.onClick}>
+      <button
+        className="btn btn-secondary btn-sm rounded-circle border-dark"
+        onClick={props.onClick}
+      >
         <i className="bi bi-x"></i>
       </button>
     );
@@ -122,14 +135,14 @@ const Buttons = {
   },
   Following: () => {
     return (
-      <button className="btn btn-follow btn-light border-dark text-light fw-semibold">
+      <button className="btn btn-light border border-dark text-dark fw-semibold">
         Following
       </button>
     );
   },
   Follow: () => {
     return (
-      <button className="btn btn-follow-short bg-neutral-body py-0 px-4 border-dark text-light fw-semibold">
+      <button className="btn btn-secondary border border-dark text-light fw-semibold">
         Follow
       </button>
     );

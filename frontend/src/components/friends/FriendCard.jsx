@@ -6,7 +6,7 @@ const UserCard = (props) => {
     <div className="container Oswald_regular border border-dark  rounded bg-neutral-primary">
       <div className="row">
         <div className="col-4 text-center p-2">
-          <a href={`#`} className="findFriendsLinkImg">
+          <a href={`/profile?user=${props.id}`} className="findFriendsLinkImg">
             <img
               src={props.img}
               className="img-fluid rounded-circle p-1"
@@ -16,7 +16,7 @@ const UserCard = (props) => {
           </a>
         </div>
         <div className="col-5 align-self-center">
-          <a href={`#`} className="findFriendsLink">
+          <a href={`/profile?user=${props.id}`} className="findFriendsLink">
             <h3>
               <b>{props.name}</b>
             </h3>
