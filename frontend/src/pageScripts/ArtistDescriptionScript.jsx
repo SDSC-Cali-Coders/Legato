@@ -1,48 +1,204 @@
-import React, { Component, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import ArtistDescription from '../components/artistSearch/ArtistDescription';
-import demoImg from '../assets/ThePolice.jpg'
-import defPfp from '../assets/profile.svg'
+import { useSearchParams } from 'react-router-dom';
+import { userContext } from '../api/userContext'
+import { getArtistDetail, getConcertsForArtistDateSorted, getConcertsForArtistLocSorted } from '../api/ticketmaster';
+import LoadingSpin from '../components/LoadingSpin';
+import { getArtist, getArtistTopSongs } from "../api/spotify";
+import axios from "axios";
+import { catchErrors } from "../utils";
+import ConcertsSearchScript from "../pageScripts/ConcertsSearchScript";
 
-const demoArtistData = {
-    img: demoImg,
-    name: 'The Police',
-    genre: 'Rock',
-    followers: 200102,
-}
+const ArtistDescriptionScript = () => {
+    const id = useContext(userContext).id;
+    const lat = useContext(userContext).lat;
+    const lng = useContext(userContext).lng;
+    const [searchParams] = useSearchParams();
+    const artistId = searchParams.get("artist");
+    const [subdata, setSubData] = useState([]);
+    const [isNotSubscribed, setIsNotSubscribed] = useState(searchParams.get("subscribed"));
+    const [artistInfo, setArtistInfo] = useState(null);
+    const [artistSongs, setArtistSongs] = useState(null);
+    const [artistConcertID, setArtistConcertID] = useState(null);
+    const [loading, setLoading] = useState(true)
+    const [artistTickData, setArtistTickData] = useState(null);
+    const [subUsers, setSubUsers] = useState([]);
+    const [artistConcertsDate, setArtistConcertsDate] = useState(null);
+    const [artistConcertsLoc, setArtistConcertsLoc] = useState(null);
 
-const demoTopSongs = [
-    'Every Breath You Take',
-    'Roxanne',
-    'Message In A Bottle',
-    'Every Little Thing She Does Is Magic',
-    "Don't Stand So Close To Me",
-    'Walking On The Moon',
-    'So Lonely',
-    'De Do Do Do, De Da Da Da',
-    'King Of Pain',
-    'Wrapped Around Your Finger'
-]
+    let effectTriggeredRef = useRef(false);
+    let effectTriggeredRef2 = useRef(false);
+    let effectTriggeredRef3 = useRef(false);
+    let effectRef2 = useRef(false);
+    let effectRef3 = useRef(false);
+    let effectRef4 = useRef(false);
+    let effectRef5 = useRef(false);
 
-const userJaneDoe = {
-    pfp: defPfp,
-    name: 'Jane Doe',
-    mutualNumber: 5,
-    type: 'Friends'
-}
 
-// const demoUsersData = Array(Math.min(demoArtistData.followers, 20)).fill(userJaneDoe)
-const demoUsersData = Array(20).fill(userJaneDoe)
+    //setIsNotSubscribed(searchParams.get("subscribed"))
 
-const demoConcertData = Array(20).fill({
-    date: (new Date()),
-    venue: 'The Forum - Inglewood, CA'
-})
+    useEffect(() => {
+        const fetchArtistInfo = async () => {
+            const { data } = await getArtist(artistId);
+            setArtistInfo({
+                img: data.images.length ? data.images[0].url : "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg",
+                name: data.name,
+                genre: data.genres.length ? data.genres[0] : "N/A",
+                followers: data.followers.total,
+            });
+        }
+        if (!effectTriggeredRef.current) {
+            catchErrors(fetchArtistInfo());
+            effectTriggeredRef.current = true;
+        }
+    });
 
-const ArtistDescriptionScript = (props) => {
-    const [isNotSubscribed, setIsNotSubscribed] = useState(true);
+
+    useEffect(() => {
+        const fetchArtistTopSongs = async () => {
+            const { data } = await getArtistTopSongs(artistId);
+            setArtistSongs(data['tracks'].map(song => {return song.name}))
+        }
+        if (!effectRef2.current) {
+            catchErrors(fetchArtistTopSongs());
+            effectRef2.current = true;
+        }
+    });
+
+    useEffect(() => {
+        const fetchArtistConcertID = async () => {
+            const { data } = await getArtistDetail(artistId);
+            setArtistConcertID(data)
+        }
+        if (!effectRef3.current) {
+            catchErrors(fetchArtistConcertID());
+            effectRef3.current = true;
+        }
+    });
+
+    // Makes an API Call to the user connection to fetch all subscribed artists
+    useEffect(() => {
+        async function fetchSubUsers() {
+            const subUserId = {
+                _id: id,
+                artistId: artistId,
+            }
+            axios.put(`http://localhost:27017/user/artistSubscribedUsers/${id}`, subUserId)
+                .then(function (response) {
+                    setSubUsers(response.data.map((user) => {
+                        return {
+                            pfp: user.img,
+                            name: user.name,
+                            mutualNumber: 5,
+                            type: 'Friends'
+                        }
+                    }))
+
+                    // startup is done
+                    //startupTriggeredRef.current = true;
+                    //setSubscribedFilter(true)
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+                .then(function () {
+                    console.log("always executed")
+                })
+        }
+        if (!effectRef4.current) {
+            fetchSubUsers();    
+            effectRef4.current = true;
+        }
+    });
+
+    // Makes an API Call to the user connection to fetch all subscribed artists of user
+    useEffect(() => {
+        async function fetchSub() {
+            axios.get(`http://127.0.0.1:27017/user/${id}`)
+                .then(function (response) {
+                    setSubData(response.data.subscribedArtists);
+
+                    // startup is done
+                    //startupTriggeredRef.current = true;
+                    //setSubscribedFilter(true)
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+                .then(function () {
+                    console.log("always executed")
+                })
+        }
+        if (!effectRef5.current) {
+            fetchSub();    
+            effectRef5.current = true;
+        }
+    });
+
+    useEffect(() => {
+        const fetchData = async () => {
+          const { data } = await getArtistDetail(artistId);
+          setArtistTickData(data);
+        };
+        if (!effectTriggeredRef2.current) {
+            catchErrors(fetchData());
+            effectTriggeredRef2.current = true;
+        }
+      }, [artistId]
+    );
+
+    useEffect(() => {
+        const fetchData = async () => {
+          const artistTicketId = artistTickData._embedded.attractions[0].id;
+          // Note: Changed call from getConcertsForArtistLocSorted to regular getConcertsForArtist
+          const { data } = await getConcertsForArtistLocSorted(lat, lng, '50', artistTicketId);
+          setArtistConcertsLoc(data);
+          console.log(data);
+          console.log(artistConcertsLoc);
+        };
+        if (lat && lng && artistTickData && !effectTriggeredRef3.current) {
+          catchErrors(fetchData());
+          effectTriggeredRef3.current = true;
+        }
+    }, [lat, lng, artistTickData]);
+
+    /* useEffect(() => {
+        const fetchData = async () => {
+          const artistTicketId = artistTickData._embedded.attractions[0].id;
+          // Note: Changed call from getConcertsForArtistLocSorted to regular getConcertsForArtist
+          const { data } = await getConcertsForArtistDateSorted('50', artistTicketId);
+          setArtistConcertsDate(data);
+          console.log(data);
+          console.log(artistConcertsDate);
+        };
+        if (lat && lng && artistTickData) {
+          catchErrors(fetchData());
+        }
+      [lat, lng, artistTickData]
+    ); */
+
+    //this should be set to false to stop loading im
+    // if any of them didn't trigger --> !(false) = loadingspin
+    // if they all triggered --> !(true) = render content
+
+    // if (!(effectTriggeredRef && effectTriggeredRef2 && effectTriggeredRef3 && effectRef2 && effectRef3 && effectRef4 && effectRef5)) return <LoadingSpin />
+    /* if (subdata.includes(artistId)) {
+        setIsNotSubscribed(false);
+    } */
     
+    // console.log("this is concertid info", artistConcertID)
+    // console.log("new subUsers", subUsers)
+
+    // let ConcertData = <ConcertsSearchScript artistConcertsLoc={artistConcertsLoc} artistConcertsDate={artistConcertsDate} />
+
+    // console.log("this is artistTickData", artistTickData)
+
     return (
-        <ArtistDescription artist={demoArtistData} topSongs={demoTopSongs} users={demoUsersData} concerts={demoConcertData} isNotSubscribed={isNotSubscribed} toggleSubscribed={setIsNotSubscribed}/>
+        (artistInfo && artistSongs && subUsers && isNotSubscribed) ? (
+            <ArtistDescription artist={artistInfo} topSongs={artistSongs} users={subUsers} concerts={[]} isNotSubscribed={isNotSubscribed} toggleSubscribed={setIsNotSubscribed}/>
+        ) : (
+            <LoadingSpin />
+        )
     );
 }
 

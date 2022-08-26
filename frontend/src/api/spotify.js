@@ -185,3 +185,12 @@ export const getTopGenres = (time_range) => {
 export const getArtist = (artistId) => {
     return spotifyInstance.get(`/artists/${artistId}`);
 };
+
+/**
+* Get a Artist Top Songs 
+* https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-artist
+* @returns {Promise}
+*/
+export const getArtistTopSongs = (artistId) => {
+    return spotifyInstance.get(`/artists/${artistId}/top-tracks?market=US`);
+};

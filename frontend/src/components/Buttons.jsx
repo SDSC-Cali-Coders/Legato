@@ -147,6 +147,19 @@ const Buttons = {
       </button>
     );
   },
+  Next: (props) => {
+    return (
+      <>
+        <a
+          className="bi bi-caret-right-fill btn-play"
+          type="button"
+          href={props.link}
+        >
+          {" "}
+        </a>
+      </>
+    );
+  },
 };
 
 export default Buttons;

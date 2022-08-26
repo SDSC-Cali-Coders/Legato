@@ -472,4 +472,20 @@ recordRoutes.route("/user/subscribedArtists/update").put(function (req, response
     });
 });
 
+// This section will help us get an artist's subscribed users for the artist description page
+recordRoutes.route("/user/artistSubscribedUsers/:id").put(function (req, response) {
+  let db_connect = dbo.getDb();
+  let myquery = { subscribedArtists: req.body.artistId };
+  db_connect.collection("user")
+    .find(myquery)
+    .toArray(function (err, res) {
+      if (err) {
+        console.log(err);
+        return err;
+      }
+      //all data is sent in res.data
+      response.json(res);
+    });
+});
+
 module.exports = recordRoutes;

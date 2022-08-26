@@ -34,13 +34,39 @@ const ArtistDescription = (props) => {
         )
     })
 
-    const uncomingConcerts = props.concerts.map(concertData => {
-        return <UpcomingConcertCard date={concertData.date} venue={concertData.venue} artist={props.artist.name} genre={props.artist.genre}/>
-    })
+    const uncomingConcerts = props.concerts.length ? (
+        <div className="overflow-auto">
+            {
+                props.concerts.map(concertData => {
+                    return <UpcomingConcertCard date={concertData.date} venue={concertData.venue} artist={props.artist.name} genre={props.artist.genre}/>
+                })
+            }
+        </div>
+    ) : (
+        <div className="row text-end fs-3">
+            <div className="col text-center">
+                No Concerts
+            </div>
+        </div>
+    )
 
-    const subscribedUsers = props.users.map(user => {
-        return <UserCard img={user.pfp} name={user.name} mutualNumber={user.mutualNumber} type={user.type} />
-    })
+
+    const subscribedUsers = props.users.length ? (
+        <div className="overflow-auto">
+            {
+                props.users.map(user => {
+                    return <UserCard img={user.pfp} name={user.name} mutualNumber={user.mutualNumber} type={user.type} />
+                })
+            }
+        </div>
+    ) : (
+        <div className="row text-end fs-3">
+            <div className="col text-center">
+                No Subscribed Users
+            </div>
+        </div>
+    )
+
 
     return (
         <div className="container bg-light mt-5 p-5 Oswald_regular border border-dark">
@@ -123,9 +149,7 @@ const ArtistDescription = (props) => {
                             <h2 className="fw-bold m-3 text-center">
                                 Subscribed Users
                             </h2>
-                            <div className="overflow-auto">
-                                {subscribedUsers}
-                            </div>
+                            {subscribedUsers}
                         </div>
                     </div>
                 </div>
@@ -139,9 +163,7 @@ const ArtistDescription = (props) => {
                     <h2 className="fw-bold m-3 text-center">
                         Upcoming Concerts
                     </h2>
-                    <div className="overflow-auto">
-                        {uncomingConcerts}
-                    </div>
+                    {uncomingConcerts}
                 </div>
             </div>
 
