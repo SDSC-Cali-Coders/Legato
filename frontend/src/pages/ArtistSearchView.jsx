@@ -35,7 +35,7 @@ export const ArtistResult = (props) => {
             <i className="bi bi-dash-lg ps-2"></i>
           </button>
         )}
-        <Buttons.Play />
+        <Buttons.Next link={`/artists/description?artist=${props.artistId}&subscribed=${props.isNotSubscribed}`} />
       </div>
     </div>
   );
@@ -115,7 +115,7 @@ export const ArtistView = (props) => {
         {props.searchResults.map((artist) => (
           <ArtistResult
             ind={artist.ind}
-            artistId={artist.id}
+            artistId={artist.artistId}
             img={artist.img}
             name={artist.name}
             genre={artist.genre}
