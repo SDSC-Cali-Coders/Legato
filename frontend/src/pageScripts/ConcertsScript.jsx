@@ -178,9 +178,12 @@ const ConcertsScript = () => {
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await getArtistDetail(search);
+      console.log('searching for an artist with searchbar while search = ' + search)
       setArtistData(data);
     };
-    catchErrors(fetchData());
+    if (search) {
+      catchErrors(fetchData());
+    }
   }, [search]);
 
   useEffect(() => {
