@@ -28,6 +28,7 @@ const ArtistDescriptionScript = () => {
 
     let effectTriggeredRef = useRef(false);
     let effectTriggeredRef2 = useRef(false);
+    let effectTriggeredRef3 = useRef(false);
     let effectRef2 = useRef(false);
     let effectRef3 = useRef(false);
     let effectRef4 = useRef(false);
@@ -155,12 +156,13 @@ const ArtistDescriptionScript = () => {
           console.log(data);
           console.log(artistConcertsLoc);
         };
-        if (lat && lng && artistTickData) {
+        if (lat && lng && artistTickData && !effectTriggeredRef3.current) {
           catchErrors(fetchData());
+          effectTriggeredRef3.current = true;
         }
     }, [lat, lng, artistTickData]);
 
-    useEffect(() => {
+    /* useEffect(() => {
         const fetchData = async () => {
           const artistTicketId = artistTickData._embedded.attractions[0].id;
           // Note: Changed call from getConcertsForArtistLocSorted to regular getConcertsForArtist
@@ -172,25 +174,31 @@ const ArtistDescriptionScript = () => {
         if (lat && lng && artistTickData) {
           catchErrors(fetchData());
         }
-      }, [lat, lng, artistTickData]
-    );
+      [lat, lng, artistTickData]
+    ); */
 
-    if (loading) return <LoadingSpin />
-    
+    //this should be set to false to stop loading im
+    // if any of them didn't trigger --> !(false) = loadingspin
+    // if they all triggered --> !(true) = render content
+
+    // if (!(effectTriggeredRef && effectTriggeredRef2 && effectTriggeredRef3 && effectRef2 && effectRef3 && effectRef4 && effectRef5)) return <LoadingSpin />
     /* if (subdata.includes(artistId)) {
         setIsNotSubscribed(false);
     } */
     
-    console.log("this is concertid info", artistConcertID)
-    console.log("new subUsers", subUsers)
+    // console.log("this is concertid info", artistConcertID)
+    // console.log("new subUsers", subUsers)
 
-    let ConcertData = <ConcertsSearchScript artistConcertsLoc={artistConcertsLoc}
-    artistConcertsDate={artistConcertsDate} />
+    // let ConcertData = <ConcertsSearchScript artistConcertsLoc={artistConcertsLoc} artistConcertsDate={artistConcertsDate} />
 
-    console.log("this is artistTickData", artistTickData)
+    // console.log("this is artistTickData", artistTickData)
 
     return (
-        <ArtistDescription artist={artistInfo} topSongs={artistSongs} users={subUsers} concerts={[]} isNotSubscribed={isNotSubscribed} toggleSubscribed={setIsNotSubscribed}/>
+        (artistInfo && artistSongs && subUsers && isNotSubscribed) ? (
+            <ArtistDescription artist={artistInfo} topSongs={artistSongs} users={subUsers} concerts={[]} isNotSubscribed={isNotSubscribed} toggleSubscribed={setIsNotSubscribed}/>
+        ) : (
+            <LoadingSpin />
+        )
     );
 }
 
