@@ -71,16 +71,19 @@ const ListeningHistoryScript = () => {
   let topGenreId = null
   if (artistData1 && artistData2 && artistData3) {
     let topGenreIds = [];
-    artistData1.data.page.totalElements > 0 ? topGenreIds.push(artistData1.data._embedded.attractions[0].classifications[0].genre.id) : console.log("top artist1 doesnt exist in ticketmaster api")
-    artistData2.data.page.totalElements > 0 ? topGenreIds.push(artistData2.data._embedded.attractions[0].classifications[0].genre.id) : console.log("top artist2 doesnt exist in ticketmaster api")
-    artistData3.data.page.totalElements > 0 ? topGenreIds.push(artistData3.data._embedded.attractions[0].classifications[0].genre.id) : console.log("top artist3 doesnt exist in ticketmaster api")
+    artistData1.data.page.totalElements > 0 ? topGenreIds.push(artistData1.data._embedded.attractions[0].classifications[0].genre.id)
+      : console.log("top artist1 doesnt exist in ticketmaster api")
+    artistData2.data.page.totalElements > 0 ? topGenreIds.push(artistData2.data._embedded.attractions[0].classifications[0].genre.id)
+      : console.log("top artist2 doesnt exist in ticketmaster api")
+    artistData3.data.page.totalElements > 0 ? topGenreIds.push(artistData3.data._embedded.attractions[0].classifications[0].genre.id)
+      : console.log("top artist3 doesnt exist in ticketmaster api")
 
     const mostFreq = mode(topGenreIds);
     // if undefined - set to pop
     topGenreId = mostFreq ? mostFreq : 'KnvZfZ7vAev';
   }
   // END of code block
-  
+
   useEffect(() => {
     setToken(accessToken);
     const fetchData = async () => {
