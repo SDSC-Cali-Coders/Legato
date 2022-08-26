@@ -4,11 +4,12 @@ import demoImg from '../assets/ThePolice.jpg'
 import defPfp from '../assets/profile.svg'
 import { useSearchParams } from 'react-router-dom';
 import { userContext } from '../api/userContext'
-import { getArtistDetail } from '../api/ticketmaster';
+import { getArtistDetail, getConcertsForArtistDateSorted, getConcertsForArtistLocSorted } from '../api/ticketmaster';
 import LoadingSpin from '../components/LoadingSpin';
 import { getArtist, getArtistTopSongs } from "../api/spotify";
 import axios from "axios";
 import { catchErrors } from "../utils";
+import ConcertsSearchScript from "../pageScripts/ConcertsSearchScript";
 
 const demoArtistData = {
     img: demoImg,
@@ -47,6 +48,8 @@ const demoConcertData = Array(20).fill({
 
 const ArtistDescriptionScript = (props) => {
     const id = useContext(userContext).id;
+    const lat = useContext(userContext).lat;
+    const lng = useContext(userContext).lng;
     const [searchParams] = useSearchParams();
     const artistId = searchParams.get("artist");
     const [subdata, setSubData] = useState([]);
@@ -55,13 +58,17 @@ const ArtistDescriptionScript = (props) => {
     const [artistSongs, setArtistSongs] = useState(null);
     const [artistConcertID, setArtistConcertID] = useState(null);
     const [loading, setLoading] = useState(true)
-
+    const [artistTickData, setArtistTickData] = useState(null);
     const [subUsers, setSubUsers] = useState([]);
+    const [artistConcertsDate, setArtistConcertsDate] = useState(null);
+    const [artistConcertsLoc, setArtistConcertsLoc] = useState(null);
+
     let effectTriggeredRef = useRef(false);
     let effectRef2 = useRef(false);
     let effectRef3 = useRef(false);
     let effectRef4 = useRef(false);
     let effectRef5 = useRef(false);
+
 
     //setIsNotSubscribed(searchParams.get("subscribed"))
 
@@ -162,6 +169,45 @@ const ArtistDescriptionScript = (props) => {
         }
     });
 
+    useEffect(() => {
+        const fetchData = async () => {
+          const artistTicketId = artistTickData._embedded.attractions[0].id;
+          // Note: Changed call from getConcertsForArtistLocSorted to regular getConcertsForArtist
+          const { data } = await getConcertsForArtistLocSorted(lat, lng, '50', artistTicketId);
+          setArtistConcertsLoc(data);
+          console.log(data);
+          console.log(artistConcertsLoc);
+        };
+        if (lat && lng && artistTickData) {
+          catchErrors(fetchData());
+        }
+      }, [lat, lng, artistTickData]);
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+          const artistTicketId = artistTickData._embedded.attractions[0].id;
+          // Note: Changed call from getConcertsForArtistLocSorted to regular getConcertsForArtist
+          const { data } = await getConcertsForArtistDateSorted('50', artistTicketId);
+          setArtistConcertsDate(data);
+          console.log(data);
+          console.log(artistConcertsDate);
+        };
+        if (lat && lng && artistTickData) {
+          catchErrors(fetchData());
+        }
+      }, [lat, lng, artistTickData]
+    );
+
+    useEffect(() => {
+        const fetchData = async () => {
+          const { data } = await getArtistDetail(artistId);
+          setArtistTickData(data);
+        };
+        catchErrors(fetchData());
+      }, [artistId]
+    );
+
     if (loading) return <LoadingSpin />
     
     /* if (subdata.includes(artistId)) {
@@ -189,6 +235,11 @@ const ArtistDescriptionScript = (props) => {
             type: 'Friends'
         }
     })
+
+    let ConcertData = <ConcertsSearchScript artistConcertsLoc={artistConcertsLoc}
+    artistConcertsDate={artistConcertsDate} />
+
+    console.log("this is artistTickData", artistTickData)
 
     return (
         <ArtistDescription artist={ArtistData} topSongs={topSongs} users={userData} concerts={[]} isNotSubscribed={isNotSubscribed} toggleSubscribed={setIsNotSubscribed}/>
