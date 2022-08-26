@@ -71,13 +71,14 @@ const Buttons = {
   },
   SeeMore: () => {
     return (
-      <button
+      <a
+        href="/" 
         className="btn btn-align btn-secondary btn-sm border-dark rounded-pill"
         type="button"
       >
         See More
         <i className="bi bi-chevron-right ps-2"></i>
-      </button>
+      </a>
     );
   },
   Invite: () => {
