@@ -9,6 +9,7 @@ const InterestedAttendees = (props) => {
           img={item.img}
           name={item.name}
           mutualNumber={item.mutualNumber}
+          id={props.id}
           type={item.type}
         />
       </div>

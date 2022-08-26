@@ -1,13 +1,12 @@
-import React, { Component, useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 
 import ArtistSearchView from "../pages/ArtistSearchView";
 import axios from "axios";
 import LoadingSpin from "../components/LoadingSpin";
 
-import { accessToken, searchArtists, getArtist } from "../api/spotify";
+import { searchArtists, getArtist } from "../api/spotify";
 import { catchErrors } from "../utils";
 import { userContext } from "../api/userContext"
-import { getUserInfo } from "../api/UserService"
 
 // Define an <ArtistResult/> component here
 // <div> - figure out how to align stuff :)
@@ -15,20 +14,20 @@ import { getUserInfo } from "../api/UserService"
  
 const ArtistSearchViewScript = (props) => {
     const id = useContext(userContext).id;
-    const [token, setToken] = useState(null);
     const [search, setSearch] = useState("");
     const [searchResults, setSearchResults] = useState([]);
-    const [filterToggle, setFilterToggle] = useState(true);
+    const [subscribedFilter, setSubscribedFilter] = useState(false);
+
     let effectTriggeredRef = useRef(false);
+    let startupTriggeredRef = useRef(false);
     const [subData, setSubData] = useState([]);
-    const [artistInfo, setArtistInfo] = useState(null);
     const [loading, setLoading] = useState(true);
     const [searchLoading, setSearchLoading] = useState(true);
 
+    // Logging purposes
     useEffect(() => {
-        console.log(filterToggle);
-    }, [filterToggle])
-
+        console.log(subscribedFilter);
+    }, [subscribedFilter])
 
     /* Workflow for artist search page:
         * get the user's list of artist subscriptions
@@ -41,9 +40,14 @@ const ArtistSearchViewScript = (props) => {
     // Makes an API Call to the user connection to fetch all subscribed artists
     useEffect(() => {
         async function fetchSubUser() {
-            axios.get(`http://localhost:27017/user/${id}`)
+            axios.get(`http://127.0.0.1:27017/user/${id}`)
                 .then(function (response) {
                     setSubData(response.data.subscribedArtists);
+
+                    // startup is done
+                    startupTriggeredRef.current = true;
+                    setSubscribedFilter(true)
+                    setLoading(false)
                 })
                 .catch(function (error) {
                     console.log(error)
@@ -52,21 +56,17 @@ const ArtistSearchViewScript = (props) => {
                     console.log("always executed")
                 })
         }
-        if (!effectTriggeredRef.current) {
+        if (!effectTriggeredRef.current || !startupTriggeredRef.current) {
             fetchSubUser();    
             effectTriggeredRef.current = true;
         }
-    }, [id, filterToggle]);
+    });
  
-
     // useEffect to handle search updates
     useEffect(() => {
-        setToken(accessToken);
-
-        // avoid accessing undefiend data with conditionals
-        if (!search) {
+        // avoid accessing undefined data with conditionals
+        if (!(search || subscribedFilter)) {
             setSearchResults([])
-            setLoading(false)       // page is done loading
         }
 
         else {
@@ -74,16 +74,16 @@ const ArtistSearchViewScript = (props) => {
             setSearchLoading(true);
 
             const fetchData = async () => {
-                const { data } = await searchArtists(search);
-
                 console.log("This is subData: ", subData)
-                if ((!subData.length) && filterToggle) {
+                if ((!subData.length) && subscribedFilter) {
                     setSearchResults([])
                 }
 
                 // not filtering ==> search and display all artist ressults
                 // General Artist Tab
-                if (!filterToggle) {
+                if (!subscribedFilter) {
+                    const { data } = await searchArtists(search);
+
                     console.log("data.items: ", data.artists.items)
                     setSearchResults(
                         data.artists.items.map((artist, index) => {
@@ -101,7 +101,7 @@ const ArtistSearchViewScript = (props) => {
 
                 // filtering only subscribed artists
                 // Subsribed Artist Tab
-                if (filterToggle) {
+                if (subscribedFilter) {
                     let subArtists = []
                     subData.forEach(async (elem) => {
                         const { data } = await getArtist(elem)
@@ -126,10 +126,9 @@ const ArtistSearchViewScript = (props) => {
             };
             catchErrors(fetchData());
         }
-    }, [search, filterToggle]);
+    }, [search, subscribedFilter]);
  
- 
-    
+    // Update database with newSubdata
     useEffect(() => {
         async function updateSubArtists() {
             const newVals = {
@@ -139,15 +138,14 @@ const ArtistSearchViewScript = (props) => {
             catchErrors(axios.put(`http://localhost:27017/user/subscribedArtists/update`, newVals));
             console.log("sending updated subArtists api call")
         }
-        updateSubArtists()
+        if (startupTriggeredRef.current) {
+            updateSubArtists()
+        }
     }, [subData]);
 
     function handleChange(e) {
         setSearch(e.target.value);
-    }
-
-    function toggleFilter(val) {
-        setFilterToggle(val);
+        setSubscribedFilter(false)
     }
     
     //TODO: Fix bug where clicking multiple sub/unsub buttons in succession causes api calls to not fully go through into the backend
@@ -178,7 +176,6 @@ const ArtistSearchViewScript = (props) => {
 
         // Call set to update the searchResults array
         setSearchResults(newSearchResults);
-        
     }
 
     if (loading) return <LoadingSpin />
@@ -187,9 +184,11 @@ const ArtistSearchViewScript = (props) => {
       <>
         <ArtistSearchView
           search={search}
-          handleChange={handleChange}
+          searchLoading={searchLoading}
           searchResults={searchResults}
-          toggleFilter={toggleFilter}
+          subscribedFilter={subscribedFilter}
+          handleChange={handleChange}
+          toggleFilter={setSubscribedFilter}
           toggleSubscribed={toggleSubscribed}
         />
       </>
@@ -197,4 +196,3 @@ const ArtistSearchViewScript = (props) => {
 }
 
 export default ArtistSearchViewScript;
- 

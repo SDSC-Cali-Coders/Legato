@@ -1,5 +1,7 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
+
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from './components/Navbar';
 import ConcertsScript from './pageScripts/ConcertsScript';
 import ConcertsGoingScript from './pageScripts/ConcertsGoingScript';
@@ -12,7 +14,9 @@ import FollowerFollowingScript from "./pageScripts/FollowerFollowingScript";
 import ArtistSearchViewScript from './pageScripts/ArtistSearchViewScript';
 import ArtistDescriptionScript from "./pageScripts/ArtistDescriptionScript";
 import FriendsScript from "./pageScripts/FriendsScript";
-import NotificationScript from "./pageScripts/NotificationScript";
+import NotificationViewScript from "./pageScripts/NotificationViewScript";
+import EditSettingsScript from "./pageScripts/EditSettingsScript";
+import DeleteSettingsScript from "./pageScripts/DeleteSettingsScript";
 import UserDescriptionScript from "./pageScripts/UserProfileScript";
 
 
@@ -22,51 +26,63 @@ import UserDescriptionScript from "./pageScripts/UserProfileScript";
  * @returns Router components that defines the different paths in our application
  */
 function AppRouter() {
-
+    const Wrapper = ({ children }) => {
+        const location = useLocation();
+        useLayoutEffect(() => {
+            document.documentElement.scrollTo(0, 0);
+        }, [location.pathname]);
+        return children
+    }
     return (
         <BrowserRouter>
-            <Navbar />
-            <Routes>
-                <Route path="/" element={
-                    <ListeningHistoryScript />
-                } />
-                <Route path="/concerts/" element={
-                    <ConcertsScript />
-                } />
-                <Route path="/settings" element={
-                    <SettingsScript />
-                } />
-                <Route path="/Artists/" element={
-                    <ArtistSearchViewScript />
-                } />
-                <Route path="/concerts/going" element={
-                    <ConcertsGoingScript />
-                } />
-                <Route path="/concerts/bookmarked" element={
-                    <ConcertsBookmarkedScript />
-                } />
-                <Route path={`/concerts/eventinformation`} element={
-                    <EventInformationScript />
-                } />
-                <Route path={`/concerts/interestedattendees`} element={
-                    <InterestedAttendeesScript />
-                } />
-                <Route path="/settings/FollowersFollowing/" element={
-                    <FollowerFollowingScript />
-                } />
-                <Route path="/artists/description" element={
-                    <ArtistDescriptionScript />
-                } />
-                <Route path="/notifications" element={
-                    <NotificationScript />
-                } />
-                <Route path="/friends/" element={
-                    <FriendsScript/>
-                } />
-                <Route path="/profile/" element={
+            <Wrapper>
+                <Navbar />
+                <Routes>
+                    <Route path="/" element={<ListeningHistoryScript />} />
+                    <Route path="/concerts/" element={
+                        <ConcertsScript />
+                    } />
+                    <Route path="/settings" element={
+                        <SettingsScript />
+                    } />
+                    <Route path="/Artists/" element={
+                        <ArtistSearchViewScript />
+                    } />
+                    <Route path="/concerts/going" element={
+                        <ConcertsGoingScript />
+                    } />
+                    <Route path="/concerts/bookmarked" element={
+                        <ConcertsBookmarkedScript />
+                    } />
+                    <Route path={`/concerts/eventinformation`} element={
+                        <EventInformationScript />
+                    } />
+                    <Route path={`/concerts/interestedattendees`} element={
+                        <InterestedAttendeesScript />
+                    } />
+                    <Route path="/settings/FollowersFollowing/" element={
+                        <FollowerFollowingScript />
+                    } />
+                    <Route path="/artists/description" element={
+                        <ArtistDescriptionScript />
+                    } />
+                    <Route path="/notifications" element={
+                        <NotificationViewScript />
+                    } />
+                    <Route path="/friends/" element={
+                        <FriendsScript />
+                    } />
+                    <Route path="/settings/edit" element={
+                        <EditSettingsScript />
+                    } />
+                    <Route path="/settings/delete" element={
+                        <DeleteSettingsScript />
+                    } />
+                    <Route path="/profile/" element={
                     <UserDescriptionScript/>
                 } />
             </Routes>
+            </Wrapper>
         </BrowserRouter>
     )
 }

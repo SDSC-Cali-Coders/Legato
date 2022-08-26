@@ -8,50 +8,11 @@ import { catchErrors } from "../utils";
 import { useSearchParams } from "react-router-dom";
 import defaultPfp from "../assets/pfpIcon.svg";
 import InterestedAttendees from "../components/concerts/InterestedAttendees";
+import Concerts from "../pages/Concerts";
 
 const InterestedAttendeesScript = (props) => {
-  const userJaneDoe = {
-    id: 1,
-    img: defaultPfp,
-    name: "Jane Doe",
-    mutualNumber: 2,
-    type: "Concerts",
-  };
-
   const [userTypeToggle, setUserTypeToggle] = useState("mutuals");
   const [otherList, setOtherList] = useState([]);
-  const [mutualFriendList, setMutualFriendList] = useState(
-    Array(4)
-      .fill()
-      .map((_empty, index) => {
-        let mutuals = { ...userJaneDoe };
-        mutuals.id = index;
-        return mutuals;
-      })
-  );
-  const [followingList, setFollowingList] = useState(
-    Array(19)
-      .fill()
-      .map((empty, index) => {
-        let others = { ...userJaneDoe };
-        others.id = index;
-        return others;
-      })
-  );
-
-  useEffect(() => {
-    switch (userTypeToggle) {
-      case "mutuals":
-        setOtherList(mutualFriendList);
-        break;
-      case "others":
-        setOtherList(followingList);
-        break;
-      default:
-        setOtherList([]);
-    }
-  }, [userTypeToggle, mutualFriendList, followingList]);
-
   const id = useContext(userContext).id;
   const [responseDataConcert, setResponseDataConcert] = useState(null);
   const [responseDataUser, setResponseDataUser] = useState(null);
@@ -66,18 +27,18 @@ const InterestedAttendeesScript = (props) => {
       // when used on concerts page, we wouldnt hardcode the profile.id
       //const id = params.id.toString();
 
-      axios
-        .get(`http://localhost:27017/concerts/interestedattendees/${eventId}`)
+      axios.get(`http://localhost:27017/concerts/interestedattendees/${eventId}`)
         .then(function (response) {
+          console.log(response.data)
           setResponseDataConcert(response.data);
         })
         .catch(function (error) {
-          console.log("this is not working");
-          console.log(error);
+          console.log("this is not working")
+          console.log(error)
         })
         .then(function () {
-          console.log("always executed");
-        });
+          console.log("always executed")
+        })
     }
     if (!effectTriggeredRefConcert.current) {
       fetchConcertObject();
@@ -87,58 +48,83 @@ const InterestedAttendeesScript = (props) => {
 
   useEffect(() => {
     async function fetchUser() {
-      axios
-        .get(`http://localhost:27017/user/${id}`)
+      axios.get(`http://localhost:27017/user/${id}`)
         .then(function (response) {
           setResponseDataUser(response.data);
         })
         .catch(function (error) {
-          console.log(error);
+          console.log(error)
         })
         .then(function () {
-          console.log("always executed");
-        });
+          console.log("always executed")
+        })
     }
     if (!effectTriggeredRefUser.current) {
       fetchUser();
       effectTriggeredRefUser.current = true;
     }
   }, []);
+  let mutualUserObjects = [];
+  let otherUserObjects = [];
+  if (responseDataConcert && responseDataUser) {
+    console.log(responseDataConcert)
 
-  // if (responseDataConcert && responseDataUser) {
-  //   console.log(responseDataConcert)
-  //   const interestedUsers = responseDataConcert[0].interestedUsers;
-  //   const goingUsers = responseDataConcert[0].goingUsers;
-  //   let mutualUsers = [];
-  //   let otherUsers = [];
-  //   for (let i = 0; i < interestedUsers.length; i++) {
-  //     if (interestedUsers[i] == id) {
-  //       console.log("I'm looking at myself");
-  //       continue;
-  //     }
-  //     if (responseDataUser.following.includes(interestedUsers[i])) {
-  //       console.log(interestedUsers[i] + " is a mutual");
-  //       mutualUsers.push(interestedUsers[i]);
-  //     }
-  //     else {
-  //       console.log(interestedUsers[i] + " is NOT mutual");
-  //       otherUsers.push(interestedUsers[i]);
-  //     }
-  //   }
-  //   let mutualUserObjects = [];
-  //   let otherUserObjects = [];
-  //   for (let i = 0; i < mutualUsers.length; i++) {
+    const interestedUsers = responseDataConcert;
+    let mutualUsers = [];
+    let otherUsers = [];
+    for (let i = 0; i < interestedUsers.length; i++) {
+      if (interestedUsers[i]._id == id) {
+        console.log("I'm looking at myself");
+        continue;
+      }
+      if (interestedUsers[i].following.includes(id)) {
+        console.log(interestedUsers[i] + " is a mutual");
+        mutualUsers.push(interestedUsers[i]);
+      }
+      else {
+        console.log(interestedUsers[i] + " is NOT mutual");
+        otherUsers.push(interestedUsers[i]);
+      }
+    }
+    for (let i = 0; i < mutualUsers.length; i++) {
+      // compare mutuals to find mutual number and push objects with this number
+      const count = mutualUsers[i].interestedEvents.filter(i => responseDataUser.interestedEvents.includes(i)).length;
+      mutualUserObjects.push({
+        name: mutualUsers[i].name,
+        id: mutualUsers[i]._id,
+        img: mutualUsers[i].img,
+        mutualNumber: count,
+        type: 'Concerts'
+      })
+    }
+    for (let i = 0; i < otherUsers.length; i++) {
+      // compare mutuals to find mutual number and push objects with this number
+      const count = otherUsers[i].interestedEvents.filter(i => responseDataUser.interestedEvents.includes(i)).length;
+      otherUserObjects.push({
+        name: otherUsers[i].name,
+        id: otherUsers[i]._id,
+        img: otherUsers[i].img,
+        mutualNumber: count,
+        type: 'Concerts'
+      })
+    }
+  }
 
-  //   }
-  // }
+  useEffect(() => {
+    switch (userTypeToggle) {
+      case "mutuals":
+        setOtherList(mutualUserObjects);
+        break;
+      case "others":
+        setOtherList(otherUserObjects);
+        break;
+      default:
+        console.log('default')
+        setOtherList([]);
+    }
+  }, [userTypeToggle, responseDataUser, responseDataConcert]);
 
-  // return (
-  //   <InterestedAttendees
-  //     mutualFriends={[]}
-  //     otherUsers={[]}
-  //   />
-  // )
-
+  console.log(otherList)
   return (
     <div className="container pt-5">
       <div className="row text-center">
@@ -152,6 +138,7 @@ const InterestedAttendeesScript = (props) => {
       </div>
     </div>
   );
+
 };
 
 export default InterestedAttendeesScript;

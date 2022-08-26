@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { userContext } from "../../api/userContext";
 import Buttons from "../Buttons";
+import { useNavigate, Link } from "react-router-dom";
+
 
 const ArtistCard = (props) => {
   return (
@@ -69,17 +71,19 @@ const UserProfile = (props) => {
             </div>
           </div>
         </div>
-        <div className="col hstack ms-4">
-          <div className="text-center fs-3">
-            {props.followersCount}
-            <p className="fs-5">Followers</p>
+
+          <div className="col hstack ms-4">
+            <div className="text-center fs-3">
+              {props.followersCount}
+              <p className="fs-5">Followers</p>
+            </div>
+            <div className="vr my-3 mx-3"></div>
+            <div className="text-center fs-3">
+              {props.followingCount}
+              <p className="fs-5">Following</p>
+            </div>
           </div>
-          <div className="vr my-3 mx-3"></div>
-          <div className="text-center fs-3">
-            {props.followingCount}
-            <p className="fs-5">Following</p>
-          </div>
-        </div>
+
       </div>
 
       {/* Row: My Top Artists title */}

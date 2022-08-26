@@ -1,20 +1,17 @@
-import React from "react";
-
-import NotificationCard from "../components/notification/NotificationCard";
+import React from 'react';
+//import NotificationCardScript from "../pageScripts/NotificationCardScript";
+import NotificationCard from "../components/notification/NotificationCard"
 
 const NotificationView = (props) => {
     return (
         <>
             <div className="container align-items-center Oswald_regular">
                 {props.notifications.map(notification => (
-                    // <NotificationCard.ArtistsEvent key={notification._id} img={"notification.img"} 
-                    // artistName={notification.associatedArtists[0]} 
-                    // friendName={notification.associatedUsers[0]} onClick={() => props.onClick(notification._id)}
-                    // />
-                    <NotificationCard type={notification.type} key={notification._id} img={"notification.img"}
-                    artistName={notification.associatedArtists[0]} concertName={notification.associatedEvent}
-                    yourFriendName={notification.associatedUsers[0]}
-                    friendName={notification.associateUser} onClick={() => props.onClick(notification._id)}/>
+                    <NotificationCard eventId={notification.associatedEvent} type={notification.type} key={notification._id} 
+                    notificationId={notification._id}
+                    yourFriendName={notification.associatedUsers[0].name}
+                    yourFriendId={notification.associatedUsers[0].id}
+                    close={() => props.onClick(notification._id)}/>
                 ))}
             </div>
         </>

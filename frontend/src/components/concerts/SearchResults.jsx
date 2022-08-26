@@ -50,7 +50,7 @@ const SearchResults = {
             {props.venueName} - {props.venueLocation}
           </div>
         </div>
-        <a href="/concerts/eventinformation/" className="stretched-link" />
+        <a href= {`/concerts/eventinformation?event=${props.id}`} className="stretched-link" />
       </li>
     );
   },

@@ -18,14 +18,15 @@ const ObjectId = require("mongodb").ObjectId;
 recordRoutes.route("/user/:id").put(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
-    _id: req.body.id,
+    _id: req.body._id,
     name: req.body.name,
     lowercase_name: req.body.lowercase_name,
     img: req.body.img,
     topArtists: req.body.topArtists,
     topSongs: req.body.topSongs,
     topGenres: req.body.topGenres,
-    linkedSocials: { facebook: {}, instagram: {}, twitter: {}, pinterest: {} },
+    topGenreId: req.body.topGenreId,
+    linkedSocials: { facebook: null , instagram: null, twitter: null, pinterest: null },
     followers: [],
     following: [],
     interestedEvents: [],
@@ -47,6 +48,7 @@ recordRoutes.route("/user/:id").put(function (req, response) {
           topArtists: req.body.topArtists,
           topSongs: req.body.topSongs,
           topGenres: req.body.topGenres,
+          topGenreId: req.body.topGenreId,
         }
       };
       db_connect.collection("user").updateOne(myquery, newvalues, function (err, res) {
@@ -124,6 +126,25 @@ recordRoutes.route("/user/:id").delete(function (req, response) {
       console.log(err);
       throw err;
     }
+    response.json(res);
+  });
+});
+
+recordRoutes.route("/visibility").patch(function (req, response) {
+  let db_connect = dbo.getDb();
+  console.log(req.body)
+  var newvalues = {
+    $set: {
+      isPrivateAccount: req.body.visible
+    }
+  };
+  console.log(newvalues)
+  db_connect.collection("user").updateOne({"_id": req.body.id}, newvalues, function (err, res) {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+    console.log("changed visibility to");
     response.json(res);
   });
 });
@@ -382,23 +403,7 @@ recordRoutes.route("/concerts/interested/:id").get(function (req, response) {
 // This section will help us mutual friends and others going
 recordRoutes.route("/concerts/interestedattendees/:id").get(function (req, response) {
   let db_connect = dbo.getDb();
-  let myquery = { "_id": req.params.id };
-  db_connect.collection("event")
-    .find(myquery)
-    .toArray(function (err, res) {
-      if (err) {
-        console.log(err);
-        return err;
-      }
-      //all data is sent in res.data
-      response.json(res);
-    });
-});
-
-// TODO: write route that compares users
-recordRoutes.route("user/:userId/:mutualId").get(function (req, reqponse) {
-  let db_connect = dbo.getDb();
-  let myquery = { "user": req.params.id };
+  let myquery = { "interestedEvents": req.params.id };
   db_connect.collection("user")
     .find(myquery)
     .toArray(function (err, res) {
@@ -409,7 +414,7 @@ recordRoutes.route("user/:userId/:mutualId").get(function (req, reqponse) {
       //all data is sent in res.data
       response.json(res);
     });
-})
+});
 
 // This section will help us get user's by their name
 recordRoutes.route("/friends/:name").get(function (req, response) {
@@ -430,7 +435,7 @@ recordRoutes.route("/friends/:name").get(function (req, response) {
 
 
 // This section will help us add social media links to a user's profile 
-recordRoutes.route("/user/socials/add").put(function (req, response) {
+recordRoutes.route("/user/socials/:id").put(function (req, response) {
   let db_connect = dbo.getDb();
   let newValues = {
     $set: {

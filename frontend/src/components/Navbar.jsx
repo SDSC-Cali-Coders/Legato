@@ -33,8 +33,8 @@ const Navbar = () => {
                             <NavLink className="nav-link" to="/Friends">Friends</NavLink>
                         </li>
                     </ul>
-                    <NavLink className="nav-link" to="/notifications">
-                        <button className="btn" ><img src={notification} alt="" width="auto" /></button>
+                    <NavLink to="/notifications">
+                    <button className="btn" ><img src={notification} alt="" width="auto" /></button>
                     </NavLink>
                     <NavLink to="/settings">
                         <button className="btn" ><img src={profile} alt="" width="auto" /></button>
