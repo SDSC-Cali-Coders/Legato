@@ -6,11 +6,13 @@ import { useNavigate, Link } from "react-router-dom";
 const ArtistCard = (props) => {
   return (
     <div className="card bg-light border border-dark rounded-3 p-1 d-flex">
-      <img
-        src={props.artistImg}
-        alt=""
-        className="rounded-circle card-img-top flex-fill img-fluid ratio ratio-1x1"
-      />
+      <div className="ratio ratio-1x1">
+        <img
+          src={props.artistImg}
+          alt=""
+          className="rounded-circle img-fluid"
+        />
+      </div>
       <div className="card-title fs-4 align-text-bottom">{props.artistName}</div>
     </div>
   );
