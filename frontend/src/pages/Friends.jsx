@@ -47,19 +47,21 @@ const Friends = (props) => {
 
       {/* Row: Grid [2xn] */}
       <div className="vertical-scroll col">
-        <div className="row row-cols-2 m-2">{card}</div>
+        <div className="row row-cols-2 m-2">
+          {card}
+        </div>
       </div>
     </>
   ) : (
     <EmptyResults />
-  );
+  )
 
   return (
     <>
       <div className="container mt-3 min-vw-100 Oswald_regular">
         <div className="row">
-          <div className="col-11">
-            <Searchbar.FindFriendsSearchbar handleSearch={props.handleSearch} />
+          <div className="col">
+            <Searchbar.FindFriendsSearchbar handleSearch={props.handleSearch}/>
           </div>
           <div className="col-1">
             <DropdownMenu.FindFriendsSortBy />

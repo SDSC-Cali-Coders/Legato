@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Buttons from "../components/Buttons";
 import Searchbar from "../components/Searchbar";
 import NoArtist from "../assets/NoUser.svg";
