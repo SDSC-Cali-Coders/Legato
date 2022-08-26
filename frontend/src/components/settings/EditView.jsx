@@ -1,8 +1,10 @@
 import React from 'react';
+import { useNavigate, NavLink } from "react-router-dom";
+
 
 const Button = (props) => {
     return (
-        <button className={`btn btn-secondary px-4 fs-${props.fs}`} type='button'>
+        <button className={`btn btn-secondary px-4 fs-${props.fs}`} type='button' onClick={props.onClick}>
             {props.text}
         </button>
     );
@@ -14,7 +16,12 @@ const EditView = (props) => {
             <div className="row mx-5">
                 <div className="col-10"></div>
                 <div className="col-2 text-center">
-                    <Button text="Save"/>
+                    <NavLink to="/settings">
+                        <Button
+                            text="Save"
+                            onClick={props.saveSettings}
+                        />
+                    </NavLink>
                 </div>
             </div>
             <div className="row flex-grow-1 mx-5">
@@ -26,7 +33,6 @@ const EditView = (props) => {
                                 <img src={props.img} alt="pfp Image missing" className="img-fluid rounded-circle" />
                             </div>
                             <div className="col d-flex fs-3 align-items-end">
-                                John Doe
                                 {props.name}
                             </div>
                         </div>
@@ -37,28 +43,36 @@ const EditView = (props) => {
                         <div className="row my-2">
                             <div className="input-group align-items-center">
                                 <i className="bi bi-facebook fs-3"></i>
-                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://facebook.com/JohnDoe'/>
+                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark"
+                                    placeholder={props.facebookLink}
+                                    onChange={props.facebookChange} />
                                 <i className="bi bi-x fs-3"></i>
                             </div>
                         </div>
                         <div className="row my-2">
                             <div className="input-group align-items-center">
                                 <i className="bi bi-twitter fs-3"></i>
-                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://twitter.com/JohnDoe'/>
+                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark"
+                                    placeholder={props.twitterLink}
+                                    onChange={props.twitterChange} />
                                 <i className="bi bi-x fs-3"></i>
                             </div>
                         </div>
                         <div className="row my-2">
                             <div className="input-group align-items-center">
                                 <i className="bi bi-instagram fs-3"></i>
-                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://instagram.com/JohnDoe'/>
+                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark"
+                                    placeholder={props.instagramLink}
+                                    onChange={props.instagramChange} />
                                 <i className="bi bi-x fs-3"></i>
                             </div>
                         </div>
                         <div className="row my-2">
                             <div className="input-group align-items-center">
                                 <i className="bi bi-pinterest fs-3"></i>
-                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark" placeholder='https://pinterest.com/JohnDoe'/>
+                                <input type="text" className="form-control ms-4 me-2 rounded-1 border border-dark"
+                                    placeholder={props.pinterestLink}
+                                    onChange={props.pinterestChange} />
                                 <i className="bi bi-x fs-3"></i>
                             </div>
                         </div>
@@ -70,11 +84,18 @@ const EditView = (props) => {
                             <i className="bi bi-eye-fill fs-4"></i>
                             <div className="flex-grow-1 ps-3">
                                 <div className='fs-4'>Public</div>
-                                Everyone can see your profile information <br/>
+                                Everyone can see your profile information <br />
                                 (profile picture, listening history, linked socials)
                             </div>
                             <div className="form-check form-check-reverse">
-                                <input type="radio" className="form-check-input" name='defaultVisibility' id='publicVisibilityOn'/>
+                                <input
+                                    type="radio"
+                                    className="form-check-input"
+                                    name='defaultVisibility'
+                                    id='publicVisibilityOn'
+                                    value='public'
+                                    onChange = {props.onVisibilityChange}
+                                />
                                 <label htmlFor="defaultVisibility" className="form-check-label">
                                 </label>
                             </div>
@@ -86,7 +107,14 @@ const EditView = (props) => {
                                 No one can see your profile information
                             </div>
                             <div className="form-check form-check-reverse">
-                                <input type="radio" className="form-check-input" name='defaultVisibility' id='publicVisibilityOff'/>
+                                <input
+                                    type="radio"
+                                    className="form-check-input"
+                                    name='defaultVisibility'
+                                    id='publicVisibilityOff'
+                                    value='private'
+                                    onChange = {props.onVisibilityChange}
+                                />
                                 <label htmlFor="defaultVisibility" className="form-check-label">
                                 </label>
                             </div>
@@ -97,7 +125,12 @@ const EditView = (props) => {
                             <div className="col-2"></div>
                             <div className="col-8">
                                 <div className="row">
-                                    <Button text="Delete Account" fs={4}/>
+                                    <NavLink to="/settings/delete">
+                                        <Button
+                                            text="Delete Account"
+                                            fs={4}
+                                        />
+                                    </NavLink>
                                 </div>
                             </div>
                             <div className="col-2"></div>

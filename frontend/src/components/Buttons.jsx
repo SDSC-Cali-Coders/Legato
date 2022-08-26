@@ -1,4 +1,6 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 
 const Buttons = {
   Subscribe: () => {
@@ -26,41 +28,41 @@ const Buttons = {
           onClick={
             props.preview_url
               ? // Conditional onClick audio handling if preview_url provided
-                (e) => {
-                  const audioPlayer = e.target.nextElementSibling;
+              (e) => {
+                const audioPlayer = e.target.nextElementSibling;
 
-                  // preview_url keeps track of state
-                  // For no state change, just toggle play/pause
-                  if (audioPlayer.src === props.audioPlaying.src) {
-                    if (audioPlayer.paused) {
-                      audioPlayer.play();
-                      e.target.classList.remove("bi-caret-right-fill");
-                      e.target.classList.add("bi-pause-fill");
-                    } else {
-                      audioPlayer.pause();
-                      e.target.classList.remove("bi-pause-fill");
-                      e.target.classList.add("bi-caret-right-fill");
-                    }
-
-                    // early termination to isolate the following state change logic
-                    return;
+                // preview_url keeps track of state
+                // For no state change, just toggle play/pause
+                if (audioPlayer.src === props.audioPlaying.src) {
+                  if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    e.target.classList.remove("bi-caret-right-fill");
+                    e.target.classList.add("bi-pause-fill");
+                  } else {
+                    audioPlayer.pause();
+                    e.target.classList.remove("bi-pause-fill");
+                    e.target.classList.add("bi-caret-right-fill");
                   }
 
-                  // For state change, reset current audio then set to and play new
-                  if (Object.keys(props.audioPlaying).length) {
-                    props.audioPlaying.load();
-                    const playingButton =
-                      props.audioPlaying.previousElementSibling;
-                    playingButton.classList.remove("bi-pause-fill");
-                    playingButton.classList.add("bi-caret-right-fill");
-                  }
-                  audioPlayer.play();
-                  e.target.classList.remove("bi-caret-right-fill");
-                  e.target.classList.add("bi-pause-fill");
-                  props.setAudioPlaying(audioPlayer);
+                  // early termination to isolate the following state change logic
+                  return;
                 }
+
+                // For state change, reset current audio then set to and play new
+                if (Object.keys(props.audioPlaying).length) {
+                  props.audioPlaying.load();
+                  const playingButton =
+                    props.audioPlaying.previousElementSibling;
+                  playingButton.classList.remove("bi-pause-fill");
+                  playingButton.classList.add("bi-caret-right-fill");
+                }
+                audioPlayer.play();
+                e.target.classList.remove("bi-caret-right-fill");
+                e.target.classList.add("bi-pause-fill");
+                props.setAudioPlaying(audioPlayer);
+              }
               : // Otherwise, empty callback / no action (prevent errors for "decorational" button use)
-                () => {}
+              () => { }
           }
         >
           {" "}
@@ -70,15 +72,16 @@ const Buttons = {
     );
   },
   SeeMore: () => {
+    const navigate = useNavigate();
     return (
-      <a
-        href="/" 
+      <button
+        onClick={() => navigate('/')}
         className="btn btn-align btn-secondary btn-sm border-dark rounded-pill"
         type="button"
       >
         See More
         <i className="bi bi-chevron-right ps-2"></i>
-      </a>
+      </button>
     );
   },
   Invite: () => {
@@ -98,7 +101,7 @@ const Buttons = {
   },
   Green: (props) => {
     return (
-      <button className="btn btn-colored btn-success border-dark">
+      <button className="btn btn-colored btn-success border-dark" onClick={props.onClick}>
         {props.text}
       </button>
     );

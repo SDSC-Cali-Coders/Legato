@@ -28,6 +28,7 @@ export async function changeUserVisibility(visibility, userId){
     id: userId,
     visible: visibility
   }
+  //console.log(b.visible)
   const response = await fetch('/visibility', {
     method: 'PATCH',
     body: JSON.stringify(b)
