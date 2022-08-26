@@ -27,6 +27,7 @@ const ArtistDescriptionScript = () => {
     const [artistConcertsLoc, setArtistConcertsLoc] = useState(null);
 
     let effectTriggeredRef = useRef(false);
+    let effectTriggeredRef2 = useRef(false);
     let effectRef2 = useRef(false);
     let effectRef3 = useRef(false);
     let effectRef4 = useRef(false);
@@ -134,6 +135,18 @@ const ArtistDescriptionScript = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+          const { data } = await getArtistDetail(artistId);
+          setArtistTickData(data);
+        };
+        if (!effectTriggeredRef2.current) {
+            catchErrors(fetchData());
+            effectTriggeredRef.current = true;
+        }
+      }, [artistId]
+    );
+
+    useEffect(() => {
+        const fetchData = async () => {
           const artistTicketId = artistTickData._embedded.attractions[0].id;
           // Note: Changed call from getConcertsForArtistLocSorted to regular getConcertsForArtist
           const { data } = await getConcertsForArtistLocSorted(lat, lng, '50', artistTicketId);
@@ -144,8 +157,7 @@ const ArtistDescriptionScript = () => {
         if (lat && lng && artistTickData) {
           catchErrors(fetchData());
         }
-      }, [lat, lng, artistTickData]);
-
+    }, [lat, lng, artistTickData]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -160,15 +172,6 @@ const ArtistDescriptionScript = () => {
           catchErrors(fetchData());
         }
       }, [lat, lng, artistTickData]
-    );
-
-    useEffect(() => {
-        const fetchData = async () => {
-          const { data } = await getArtistDetail(artistId);
-          setArtistTickData(data);
-        };
-        catchErrors(fetchData());
-      }, [artistId]
     );
 
     if (loading) return <LoadingSpin />
