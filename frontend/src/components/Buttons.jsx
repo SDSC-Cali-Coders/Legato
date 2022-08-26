@@ -87,9 +87,10 @@ const Buttons = {
       </button>
     );
   },
-  Close: () => {
+  Close: (props) => {
     return (
-      <button className="btn btn-secondary btn-sm rounded-circle border-dark">
+      <button className="btn btn-secondary btn-sm rounded-circle border-dark"
+      onClick={props.onClick}>
         <i className="bi bi-x"></i>
       </button>
     );

@@ -137,7 +137,6 @@ const NotificationCard = (props) => {
                             onDecline();
                         }}>✕</button>
                     </div>
->>>>>>> 27e43dbb55d0e0e6030f7f4456e20301c2242cd6
                 </div>
             </div>
         );
