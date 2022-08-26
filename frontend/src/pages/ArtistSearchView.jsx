@@ -1,5 +1,7 @@
+import React from "react";
 import Buttons from "../components/Buttons";
 import Searchbar from "../components/Searchbar";
+import NoArtist from "../assets/NoUser.svg";
 
 export const ArtistResult = (props) => {
   return (
@@ -20,7 +22,9 @@ export const ArtistResult = (props) => {
               console.log(`Subscribing to artist ${props.ind}`);
               props.toggleSubscribed(false, props.ind);
             }}
-            className="btn btn-success" type="button" >
+            className="btn btn-success"
+            type="button"
+          >
             Subscribe
             <i className="bi bi-plus-lg ps-sm-2"></i>
           </button>
@@ -30,7 +34,9 @@ export const ArtistResult = (props) => {
               console.log(`Unsubscribing from artist ${props.ind}`);
               props.toggleSubscribed(true, props.ind);
             }}
-          className="btn btn-danger" type="button">
+            className="btn btn-danger"
+            type="button"
+          >
             Subscribed
             <i className="bi bi-dash-lg ps-2"></i>
           </button>
@@ -96,9 +102,16 @@ export const ArtistView = (props) => {
               Explore new ones through the searchbar!
             </>
           ) : (
-            <>
-              Type an artist's name to get started
-            </>
+            <h1>
+              <div className="text-center vh-75">
+                <div className="row-auto mt-5">
+                  <img src={NoArtist} alt="No Artist pfp" />
+                </div>
+                <div className="row-auto mb-5">
+                  <h1>No Artists Found...</h1>
+                </div>
+              </div>
+            </h1>
           )
         }
       </p>
@@ -109,7 +122,7 @@ export const ArtistView = (props) => {
   // - subscribed artists list
   // - artistSearchResults
   //    > hintText is shown if no search results while within "New Artists" tab
-  const searchResults = props.searchResults.length? (
+  const searchResults = props.searchResults.length ? (
     <div className="row bg-primary mx-1">
       <ol className="list-group gx-3">
         {props.searchResults.map((artist) => (

@@ -6,7 +6,7 @@ import NoUser from "../assets/NoUser.svg";
 
 const EmptyResults = () => {
   return (
-    <div className="text-center vh-75"> 
+    <div className="text-center vh-75">
       <div className="row-auto mt-5">
         <img src={NoUser} alt="No User pfp"></img>
       </div>
@@ -14,8 +14,8 @@ const EmptyResults = () => {
         <h1>No Users Found...</h1>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const Friends = (props) => {
   const card = props.card.map((item, ind) => {
@@ -64,9 +64,7 @@ const Friends = (props) => {
             <Searchbar.FindFriendsSearchbar handleSearch={props.handleSearch}/>
           </div>
           <div className="col-1">
-            <div className="row">
-              <DropdownMenu.FindFriendsSortBy />
-            </div>
+            <DropdownMenu.FindFriendsSortBy />
           </div>
         </div>
       </div>
@@ -76,7 +74,6 @@ const Friends = (props) => {
           {content}
         </div>
       </div>
-
     </>
   );
 };
