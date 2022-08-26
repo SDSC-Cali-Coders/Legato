@@ -68,7 +68,7 @@ const ConcertsScript = () => {
     if (lat && lng && rad) {
       catchErrors(fetchData());
     }
-  }, [rad]);
+  }, [lat, lng, rad]);
 
   // INFO ON CODE BLOCK: handle the getConcertsLocation API radius change
   function handleRadiusChange(e) {
@@ -78,28 +78,24 @@ const ConcertsScript = () => {
 
   let loccCards = [];
   if (nearbyConcerts) {
+    console.log(nearbyConcerts);
     for (let i = 0; i < nearbyConcerts._embedded.events.length; i++) {
-      const date = new Date(nearbyConcerts._embedded.events[i].dates.start.dateTime);
-      const state = nearbyConcerts._embedded.events[i]._embedded.venues[0].country.countryCode == 'US' ?
-        nearbyConcerts._embedded.events[i]._embedded.venues[0].state.stateCode :
-        nearbyConcerts._embedded.events[i]._embedded.venues[0].country.name;
-      const venueName = nearbyConcerts._embedded.events[i]._embedded.venues[0].name ?
-        nearbyConcerts._embedded.events[i]._embedded.venues[0].name :
-        nearbyConcerts._embedded.events[i]._embedded.venues[0].address.line1;
       loccCards.push({
         id: nearbyConcerts._embedded.events[i].id,
         img: nearbyConcerts._embedded.events[i].images[5].url,
         name: nearbyConcerts._embedded.events[i]._embedded.attractions
           ? nearbyConcerts._embedded.events[i]._embedded.attractions[0].name
           : nearbyConcerts._embedded.events[i].name,
-        venueName: venueName,
-        venueLocation: nearbyConcerts._embedded.events[i]._embedded.venues[0].city.name
-          + ", " + state,
-        date: date.toLocaleDateString(undefined, { dateStyle: 'long' }),
-        day: date.toLocaleDateString(undefined, { weekday: 'long' }),
-        genre: nearbyConcerts._embedded.events[i].classifications[0].genre.name,
-        time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      })
+        venueName: nearbyConcerts._embedded.events[i]._embedded.venues[0].name,
+        venueLocation:
+          nearbyConcerts._embedded.events[i]._embedded.venues[0].city.name +
+          ", " +
+          nearbyConcerts._embedded.events[i]._embedded.venues[0].state
+            .stateCode,
+        day: nearbyConcerts._embedded.events[i].dates.start.localDate,
+        // NEEDS TO BE CHANGED: Filter the date and time
+        date: nearbyConcerts._embedded.events[i].dates.start.localTime,
+      });
     }
   }
 
