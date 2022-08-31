@@ -15,7 +15,7 @@ const UpcomingConcertCard = (props) => {
                 </div>
                 <div className="col">
                     <p> {props.artist}, {props.genre} </p>
-                    <p> {props.venue} </p>
+                    <p> {props.venue} - {props.venueLocation}</p>
                 </div>
                 {/* <div className="col-2 bg-dark">
                     <Buttons.Play />
@@ -38,7 +38,7 @@ const ArtistDescription = (props) => {
         <div className="overflow-auto">
             {
                 props.concerts.map(concertData => {
-                    return <UpcomingConcertCard date={concertData.date} venue={concertData.venue} artist={props.artist.name} genre={props.artist.genre}/>
+                    return <UpcomingConcertCard date={concertData.date} venue={concertData.venue} venueLocation={concertData.venueLocation} artist={props.artist.name} genre={props.artist.genre}/>
                 })
             }
         </div>

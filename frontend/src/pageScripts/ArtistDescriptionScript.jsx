@@ -177,6 +177,7 @@ const ArtistDescriptionScript = () => {
     // console.log("this is artistConcertsDate", artistConcertsDate)
     if (artistConcertsDate != null) {
         if (artistConcertsDate.page.totalElements != 0) {
+            console.log("this is artistConcertsDate", artistConcertsDate)
             for (let i = 0; i < artistConcertsDate._embedded.events.length; i++) {
                 const state = artistConcertsDate._embedded.events[i]._embedded.venues[0].country.countryCode == 'US' ?
                     artistConcertsDate._embedded.events[i]._embedded.venues[0].state.stateCode :
@@ -190,6 +191,7 @@ const ArtistDescriptionScript = () => {
                 concertData.push({
                     venue: venueName,
                     date: date,
+                    venueLocation: artistConcertsDate._embedded.events[i]._embedded.venues[0].city.name + ", " + state,
                 })
             }
         }
