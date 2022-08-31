@@ -58,22 +58,11 @@ const ArtistDescriptionScript = () => {
     useEffect(() => {
         const fetchArtistTopSongs = async () => {
             const { data } = await getArtistTopSongs(artistId);
-            setArtistSongs(data['tracks'].map(song => {return song.name}))
+            setArtistSongs(data['tracks'].map(song => { return song.name }))
         }
         if (!effectRef2.current) {
             catchErrors(fetchArtistTopSongs());
             effectRef2.current = true;
-        }
-    });
-
-    useEffect(() => {
-        const fetchArtistConcertID = async () => {
-            const { data } = await getArtistDetail(artistId);
-            setArtistConcertID(data)
-        }
-        if (!effectRef3.current) {
-            catchErrors(fetchArtistConcertID());
-            effectRef3.current = true;
         }
     });
 
@@ -107,7 +96,7 @@ const ArtistDescriptionScript = () => {
                 })
         }
         if (!effectRef4.current) {
-            fetchSubUsers();    
+            fetchSubUsers();
             effectRef4.current = true;
         }
     });
@@ -131,7 +120,7 @@ const ArtistDescriptionScript = () => {
                 })
         }
         if (!effectRef5.current) {
-            fetchSub();    
+            fetchSub();
             effectRef5.current = true;
         }
     });
@@ -139,29 +128,30 @@ const ArtistDescriptionScript = () => {
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await getArtistDetail(artistInfo.name);
+            console.log('get artist info called');
             setArtistTickData(data);
         };
         if (!effectTriggeredRef2.current && artistInfo) {
             catchErrors(fetchData());
             effectTriggeredRef2.current = true;
         }
-      }, [artistId, artistTickData, artistInfo]
+    }, [artistId, artistTickData, artistInfo]
     );
 
-/*     useEffect(() => {
-        const fetchData = async () => {
-          const artistTicketId = artistTickData._embedded.attractions[0].id;
-          // Note: Changed call from getConcertsForArtistLocSorted to regular getConcertsForArtist
-          const { data } = await getConcertsForArtistLocSorted(lat, lng, '50', artistTicketId);
-          setArtistConcertsLoc(data);
-          console.log(data);
-          console.log(artistConcertsLoc);
-        };
-        if (lat && lng && artistTickData && !effectTriggeredRef3.current) {
-          catchErrors(fetchData());
-          effectTriggeredRef3.current = true;
-        }
-    }, [lat, lng, artistTickData]); */
+    /*     useEffect(() => {
+            const fetchData = async () => {
+              const artistTicketId = artistTickData._embedded.attractions[0].id;
+              // Note: Changed call from getConcertsForArtistLocSorted to regular getConcertsForArtist
+              const { data } = await getConcertsForArtistLocSorted(lat, lng, '50', artistTicketId);
+              setArtistConcertsLoc(data);
+              console.log(data);
+              console.log(artistConcertsLoc);
+            };
+            if (lat && lng && artistTickData && !effectTriggeredRef3.current) {
+              catchErrors(fetchData());
+              effectTriggeredRef3.current = true;
+            }
+        }, [lat, lng, artistTickData]); */
 
 
     //console.log("artistTickData", artistTickData)
@@ -171,19 +161,20 @@ const ArtistDescriptionScript = () => {
             const artistTicketId = artistTickData._embedded.attractions[0].id;
             // Note: Changed call from getConcertsForArtistLocSorted to regular getConcertsForArtist
             const { data } = await getConcertsForArtistDateSorted('50', artistTicketId);
+            console.log('get artist for date sorted called');
             setArtistConcertsDate(data);
         };
         if (lat && lng && artistTickData && !effectTriggeredRef4.current) {
             catchErrors(fetchData());
             effectTriggeredRef4.current = true;
-        }  
+        }
     }, [lat, lng, artistTickData, artistConcertsDate]);
 
-    
+
     //let ConcertData = <ConcertsSearchScript artistConcertsLoc={artistConcertsLoc} artistConcertsDate={artistConcertsDate} />
 
     let concertData = [];
-    console.log("this is artistConcertsDate", artistConcertsDate)
+    // console.log("this is artistConcertsDate", artistConcertsDate)
     if (artistConcertsDate != null) {
         if (artistConcertsDate.page.totalElements != 0) {
             for (let i = 0; i < artistConcertsDate._embedded.events.length; i++) {
@@ -193,7 +184,9 @@ const ArtistDescriptionScript = () => {
                 const venueName = artistConcertsDate._embedded.events[i]._embedded.venues[0].name ?
                     artistConcertsDate._embedded.events[i]._embedded.venues[0].name :
                     artistConcertsDate._embedded.events[i]._embedded.venues[0].address.line1;
-                const date = new Date(artistConcertsDate._embedded.events[i].dates.start.dateTime);
+                const date = new Date(artistConcertsDate._embedded.events[i].dates.start.dateTime ?
+                    artistConcertsDate._embedded.events[i].dates.start.dateTime :
+                    artistConcertsDate._embedded.events[i].dates.start.localDate);
                 concertData.push({
                     venue: venueName,
                     date: date,
@@ -202,10 +195,10 @@ const ArtistDescriptionScript = () => {
         }
     }
 
-    
+
     return (
         (artistInfo && artistSongs && subUsers && isNotSubscribed && concertData) ? (
-            <ArtistDescription artist={artistInfo} topSongs={artistSongs} users={subUsers} concerts={concertData} isNotSubscribed={isNotSubscribed} toggleSubscribed={setIsNotSubscribed}/>
+            <ArtistDescription artist={artistInfo} topSongs={artistSongs} users={subUsers} concerts={concertData} isNotSubscribed={isNotSubscribed} toggleSubscribed={setIsNotSubscribed} />
         ) : (
             <LoadingSpin />
         )
