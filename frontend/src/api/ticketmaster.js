@@ -1,6 +1,6 @@
 import axios from 'axios';
-const ticketmaster_secret = 'beoDbYQg7H3qqiHA'
-const ticketmaster_key = '065DddxMs83cZnYn9ididUp7IT4jZBxm'
+const ticketmaster_secret = 'secret goes here'
+const ticketmaster_key = 'api key goes here'
 const ticketmasterInstance = axios.create({
     baseURL: `https://app.ticketmaster.com/discovery/v2/`,
     headers: {
