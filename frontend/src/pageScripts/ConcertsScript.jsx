@@ -37,7 +37,6 @@ const ConcertsScript = () => {
   const [artistData, setArtistData] = useState(null);
 
   useEffect(() => {
-    console.log("use effect");
     async function fetchUser() {
       axios
         .get(`http://localhost:27017/user/${id}`)
@@ -64,21 +63,21 @@ const ConcertsScript = () => {
     const fetchData = async () => {
       const { data } = await getConcertsLocation(lat, lng, "20", rad);
       setNearbyConcerts(data);
+      console.log('get concerts location : ' + nearbyConcerts);
     };
-    if (lat && lng && rad) {
+    if (responseData) {
       catchErrors(fetchData());
     }
-  }, [lat, lng, rad]);
+  }, [rad, responseData]);
 
   // INFO ON CODE BLOCK: handle the getConcertsLocation API radius change
   function handleRadiusChange(e) {
     setRad(e.target.value);
-    console.log(rad);
+    console.log('radius changed to ' + rad);
   }
 
   let loccCards = [];
   if (nearbyConcerts) {
-    console.log(nearbyConcerts);
     for (let i = 0; i < nearbyConcerts._embedded.events.length; i++) {
       loccCards.push({
         id: nearbyConcerts._embedded.events[i].id,
@@ -112,12 +111,11 @@ const ConcertsScript = () => {
         "40",
         genreId
       );
-      console.log('genre concert request')
+      console.log('get concerts locationGenre : ' + reccConcerts);
       setReccConcerts(data);
       setLoading(false)
     };
     if (lat && lng && responseData) {
-      //console.log(Object.keys(genreData).length)
       catchErrors(fetchData());
     }
   }, [responseData]);
@@ -192,13 +190,12 @@ const ConcertsScript = () => {
       // Note: Changed call from getConcertsForArtistLocSorted to regular getConcertsForArtist
       const { data } = await getConcertsForArtistLocSorted(lat, lng, '50', artistId);
       setArtistConcertsLoc(data);
-      console.log(data);
-      console.log(artistConcertsLoc);
+      console.log('searched concerts location sorted: ' + artistConcertsLoc);
     };
-    if (lat && lng && artistData) {
+    if (artistData) {
       catchErrors(fetchData());
     }
-  }, [lat, lng, artistData]);
+  }, [artistData]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -207,12 +204,12 @@ const ConcertsScript = () => {
       const { data } = await getConcertsForArtistDateSorted('50', artistId);
       setArtistConcertsDate(data);
       console.log(data);
-      console.log(artistConcertsDate);
+      console.log('searched concerts date sorted: ' + artistConcertsDate);
     };
-    if (lat && lng && artistData) {
+    if (artistData) {
       catchErrors(fetchData());
     }
-  }, [lat, lng, artistData]);
+  }, [artistData]);
 
   function handleSearch(query) {
     setSearch(query);
