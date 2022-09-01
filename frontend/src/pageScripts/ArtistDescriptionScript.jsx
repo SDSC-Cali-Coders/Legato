@@ -29,6 +29,7 @@ const ArtistDescriptionScript = () => {
     let effectTriggeredRef = useRef(false);
     let effectTriggeredRef2 = useRef(false);
     let effectTriggeredRef3 = useRef(false);
+    let effectTriggeredRef4 = useRef(false);
     let effectRef2 = useRef(false);
     let effectRef3 = useRef(false);
     let effectRef4 = useRef(false);
@@ -51,28 +52,17 @@ const ArtistDescriptionScript = () => {
             catchErrors(fetchArtistInfo());
             effectTriggeredRef.current = true;
         }
-    });
+    }, [artistInfo]);
 
 
     useEffect(() => {
         const fetchArtistTopSongs = async () => {
             const { data } = await getArtistTopSongs(artistId);
-            setArtistSongs(data['tracks'].map(song => {return song.name}))
+            setArtistSongs(data['tracks'].map(song => { return song.name }))
         }
         if (!effectRef2.current) {
             catchErrors(fetchArtistTopSongs());
             effectRef2.current = true;
-        }
-    });
-
-    useEffect(() => {
-        const fetchArtistConcertID = async () => {
-            const { data } = await getArtistDetail(artistId);
-            setArtistConcertID(data)
-        }
-        if (!effectRef3.current) {
-            catchErrors(fetchArtistConcertID());
-            effectRef3.current = true;
         }
     });
 
@@ -106,7 +96,7 @@ const ArtistDescriptionScript = () => {
                 })
         }
         if (!effectRef4.current) {
-            fetchSubUsers();    
+            fetchSubUsers();
             effectRef4.current = true;
         }
     });
@@ -130,72 +120,87 @@ const ArtistDescriptionScript = () => {
                 })
         }
         if (!effectRef5.current) {
-            fetchSub();    
+            fetchSub();
             effectRef5.current = true;
         }
     });
 
     useEffect(() => {
         const fetchData = async () => {
-          const { data } = await getArtistDetail(artistId);
-          setArtistTickData(data);
+            const { data } = await getArtistDetail(artistInfo.name);
+            console.log('get artist info called');
+            setArtistTickData(data);
         };
-        if (!effectTriggeredRef2.current) {
+        if (!effectTriggeredRef2.current && artistInfo) {
             catchErrors(fetchData());
             effectTriggeredRef2.current = true;
         }
-      }, [artistId]
+    }, [artistId, artistTickData, artistInfo]
     );
+
+    /*     useEffect(() => {
+            const fetchData = async () => {
+              const artistTicketId = artistTickData._embedded.attractions[0].id;
+              // Note: Changed call from getConcertsForArtistLocSorted to regular getConcertsForArtist
+              const { data } = await getConcertsForArtistLocSorted(lat, lng, '50', artistTicketId);
+              setArtistConcertsLoc(data);
+              console.log(data);
+              console.log(artistConcertsLoc);
+            };
+            if (lat && lng && artistTickData && !effectTriggeredRef3.current) {
+              catchErrors(fetchData());
+              effectTriggeredRef3.current = true;
+            }
+        }, [lat, lng, artistTickData]); */
+
+
+    //console.log("artistTickData", artistTickData)
 
     useEffect(() => {
         const fetchData = async () => {
-          const artistTicketId = artistTickData._embedded.attractions[0].id;
-          // Note: Changed call from getConcertsForArtistLocSorted to regular getConcertsForArtist
-          const { data } = await getConcertsForArtistLocSorted(lat, lng, '50', artistTicketId);
-          setArtistConcertsLoc(data);
-          console.log(data);
-          console.log(artistConcertsLoc);
+            const artistTicketId = artistTickData._embedded.attractions[0].id;
+            // Note: Changed call from getConcertsForArtistLocSorted to regular getConcertsForArtist
+            const { data } = await getConcertsForArtistDateSorted('50', artistTicketId);
+            console.log('get artist for date sorted called');
+            setArtistConcertsDate(data);
         };
-        if (lat && lng && artistTickData && !effectTriggeredRef3.current) {
-          catchErrors(fetchData());
-          effectTriggeredRef3.current = true;
+        if (lat && lng && artistTickData && !effectTriggeredRef4.current) {
+            catchErrors(fetchData());
+            effectTriggeredRef4.current = true;
         }
-    }, [lat, lng, artistTickData]);
+    }, [lat, lng, artistTickData, artistConcertsDate]);
 
-    /* useEffect(() => {
-        const fetchData = async () => {
-          const artistTicketId = artistTickData._embedded.attractions[0].id;
-          // Note: Changed call from getConcertsForArtistLocSorted to regular getConcertsForArtist
-          const { data } = await getConcertsForArtistDateSorted('50', artistTicketId);
-          setArtistConcertsDate(data);
-          console.log(data);
-          console.log(artistConcertsDate);
-        };
-        if (lat && lng && artistTickData) {
-          catchErrors(fetchData());
+
+    //let ConcertData = <ConcertsSearchScript artistConcertsLoc={artistConcertsLoc} artistConcertsDate={artistConcertsDate} />
+
+    let concertData = [];
+    // console.log("this is artistConcertsDate", artistConcertsDate)
+    if (artistConcertsDate != null) {
+        if (artistConcertsDate.page.totalElements != 0) {
+            console.log("this is artistConcertsDate", artistConcertsDate)
+            for (let i = 0; i < artistConcertsDate._embedded.events.length; i++) {
+                const state = artistConcertsDate._embedded.events[i]._embedded.venues[0].country.countryCode == 'US' ?
+                    artistConcertsDate._embedded.events[i]._embedded.venues[0].state.stateCode :
+                    artistConcertsDate._embedded.events[i]._embedded.venues[0].country.name;
+                const venueName = artistConcertsDate._embedded.events[i]._embedded.venues[0].name ?
+                    artistConcertsDate._embedded.events[i]._embedded.venues[0].name :
+                    artistConcertsDate._embedded.events[i]._embedded.venues[0].address.line1;
+                const date = new Date(artistConcertsDate._embedded.events[i].dates.start.dateTime ?
+                    artistConcertsDate._embedded.events[i].dates.start.dateTime :
+                    artistConcertsDate._embedded.events[i].dates.start.localDate);
+                concertData.push({
+                    venue: venueName,
+                    date: date,
+                    venueLocation: artistConcertsDate._embedded.events[i]._embedded.venues[0].city.name + ", " + state,
+                })
+            }
         }
-      [lat, lng, artistTickData]
-    ); */
+    }
 
-    //this should be set to false to stop loading im
-    // if any of them didn't trigger --> !(false) = loadingspin
-    // if they all triggered --> !(true) = render content
-
-    // if (!(effectTriggeredRef && effectTriggeredRef2 && effectTriggeredRef3 && effectRef2 && effectRef3 && effectRef4 && effectRef5)) return <LoadingSpin />
-    /* if (subdata.includes(artistId)) {
-        setIsNotSubscribed(false);
-    } */
-    
-    // console.log("this is concertid info", artistConcertID)
-    // console.log("new subUsers", subUsers)
-
-    // let ConcertData = <ConcertsSearchScript artistConcertsLoc={artistConcertsLoc} artistConcertsDate={artistConcertsDate} />
-
-    // console.log("this is artistTickData", artistTickData)
 
     return (
-        (artistInfo && artistSongs && subUsers && isNotSubscribed) ? (
-            <ArtistDescription artist={artistInfo} topSongs={artistSongs} users={subUsers} concerts={[]} isNotSubscribed={isNotSubscribed} toggleSubscribed={setIsNotSubscribed}/>
+        (artistInfo && artistSongs && subUsers && isNotSubscribed && concertData) ? (
+            <ArtistDescription artist={artistInfo} topSongs={artistSongs} users={subUsers} concerts={concertData} isNotSubscribed={isNotSubscribed} toggleSubscribed={setIsNotSubscribed} />
         ) : (
             <LoadingSpin />
         )
